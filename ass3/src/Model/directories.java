@@ -7,11 +7,15 @@ public class directories extends AbstractModel{
 	
 	/**files in user directories*/
 	private ArrayList<file> filesInDirectory;
+	/**directory name*/
+	private String DirectoryName;
 	
 	/**@param filesInDirectory*/
-	public directories(ArrayList<file> filesInDir)
+	/**@pram name*/
+	public directories(ArrayList<file> filesInDir,String name)
 	{
 		this.filesInDirectory=filesInDir;
+		this.DirectoryName=name;
 	}
 	
 	
@@ -26,6 +30,16 @@ public class directories extends AbstractModel{
 	public void setfiles(ArrayList<file> files)
 	{
 		this.filesInDirectory=files;
+	}
+	
+	public String getDirectoryName()
+	{
+		return this.DirectoryName;
+	}
+	
+	public void setDirectoryName(String name)
+	{
+		this.DirectoryName=name;
 	}
 	
 

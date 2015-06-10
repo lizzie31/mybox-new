@@ -88,8 +88,6 @@ public class logInCon extends AbstractTransfer
  *
  */
 	class LoginListener implements ActionListener {
-		
-		
            public void actionPerformed(ActionEvent ev){
         	  
         		  String pass = loginG.getTextPassword();

@@ -108,6 +108,7 @@ public class userMainMenuGUI extends JFrame {
 	private ArrayList<file> userfiles=null;
 	private int arraysize;
 	private String[] values;
+	private DefaultMutableTreeNode node=null;
 	JList list=null;
 	User user;
 
@@ -130,7 +131,7 @@ public class userMainMenuGUI extends JFrame {
 		this.setTitle("main menu");;
 		this.setContentPane(getMainMenu());
 		
-		userfiles=user.getFilesInDB();
+		/*userfiles=user.getFilesInDB();
         arraysize=user.getFilesInDB().size();
         values = new String[arraysize];
         
@@ -138,7 +139,7 @@ public class userMainMenuGUI extends JFrame {
 		{
 			values[i]=userfiles.get(i).getFileName();
 		}
-		
+		*/
         desktop= Desktop.getDesktop();
 		
         btnCreateNewFile = new JButton("create new file");
@@ -196,11 +197,19 @@ public class userMainMenuGUI extends JFrame {
 		
 		JTree tree = new JTree();
 		tree.setModel(new DefaultTreeModel(
-			new DefaultMutableTreeNode("JTree") {
+			new DefaultMutableTreeNode(""+user.getUserName()+"files") {
 				{
-					DefaultMutableTreeNode node_1;
-					add(new DefaultMutableTreeNode("photos"));
-					node_1 = new DefaultMutableTreeNode("sports");
+					for(int i=0;i<user.getuserDirectories().size();i++)
+					{
+						node=new DefaultMutableTreeNode(""+user.getuserDirectories().get(i).getDirectoryName());
+						for(int j=0;j<user.getuserDirectories().get(i).getfiles().size();j++)
+						{
+							node.add(new DefaultMutableTreeNode(""+user.getuserDirectories().get(j).getfiles().get(j).getFileName()));
+				
+						}
+						add(node);
+					}
+					/*node_1 = new DefaultMutableTreeNode("sports");
 						node_1.add(new DefaultMutableTreeNode("basketball"));
 						node_1.add(new DefaultMutableTreeNode("soccer"));
 						node_1.add(new DefaultMutableTreeNode("football"));
@@ -212,6 +221,7 @@ public class userMainMenuGUI extends JFrame {
 						node_1.add(new DefaultMutableTreeNode("ravioli"));
 						node_1.add(new DefaultMutableTreeNode("bananas"));
 					add(node_1);
+					*/
 				}
 			}
 		));

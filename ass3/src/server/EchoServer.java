@@ -42,6 +42,7 @@ public class EchoServer extends AbstractServer
 
     ResultSet rs;
     ResultSet rs1;
+    ResultSet rs2;
     int flag = 0;
     int insertFlag = 0;
     int whereFlag = 0;
@@ -108,19 +109,19 @@ public class EchoServer extends AbstractServer
 			    pass=rs.getString(2);
 			    mail=rs.getString(3);
 			    status=rs.getInt(4);
-			    String re2 = "SELECT * FROM userdirectories WHERE userdirectories.username= '"+(showfiles.getUserName()+"'");
-				rs = stmt.executeQuery(re2);
-				while(rs.next()==true)
+			    re = "SELECT directory FROM userdirectories WHERE userdirectories.username= '"+(showfiles.getUserName()+"'");
+				rs1 = stmt.executeQuery(re);
+				while(rs1.next()==true)
 				 {
-					 String dirname=rs.getString(2);
+					 String dirname=rs1.getString(1);
 					 re=("SELECT * FROM userdirectories WHERE userdirectories.directory= '"+dirname+"' AND userdirectories.username= '"+username+"'");
-					 rs1=stmt.executeQuery(re);
-					 while(rs1.next())
+					 rs2=stmt.executeQuery(re);
+					 while(rs2.next()==true)
 					 {
-						 f=new file(rs1.getString(3),rs1.getString(4),rs1.getInt(5),rs1.getString(6));
+						 f=new file(rs2.getString(3),rs2.getString(4),rs2.getInt(5),rs2.getString(6));
 						 files.add(f);
 					 }
-					 directory=new directories(files);
+					 directory=new directories(files,dirname);
 					 userDirectories.add(directory);
 				 }
 	       	 user = new User(username,pass,mail,status,userDirectories);
@@ -202,12 +203,9 @@ public class EchoServer extends AbstractServer
     {
  
     	String str1=(String)msg;
-<<<<<<< HEAD
     	/*if(str1.equals("search files")){
     	file f= null;
-=======
     	file f;
->>>>>>> refs/heads/pmerge
     	String temp;
     	ArrayList<file> files=new ArrayList<>();
     	String re="SELECT filename FROM test.files";
@@ -224,7 +222,6 @@ public class EchoServer extends AbstractServer
     	 en=new Envelope(files,"search files");
  		 client.sendToClient(en);
     	}
-<<<<<<< HEAD
     	if(str1.equals("show all interest groups"))
     	{
     		interestGroups s= null;
@@ -240,13 +237,8 @@ public class EchoServer extends AbstractServer
           	 client.sendToClient(en);
     	}
     	*/
-=======
->>>>>>> refs/heads/pmerge
-    	 
-<<<<<<< HEAD
+
     }
-=======
->>>>>>> refs/heads/pmerge
     
   }
 	   
