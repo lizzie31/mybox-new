@@ -92,7 +92,7 @@ private void buttonCreateGroup() {
 	
 	}
 
-public void handleDBResult(Object message) {
+public void handleDBResult2(Object message) {
 	
 	if(message instanceof ArrayList<?>)
 	{
