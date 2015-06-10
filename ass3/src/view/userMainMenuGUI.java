@@ -101,15 +101,11 @@ public class userMainMenuGUI extends JFrame {
 	private JButton btnAddleaveAGroup=null;
 	private JButton btnSearch=null;
 	private PopupMenu p = new PopupMenu();
-	private JButton open=null;
 	private JButton btnLogOut=null;	//private ArrayList<String> files=new ArrayList<String>();
 	private String filePath = "d:/jimmie.jpg";
-	private Desktop desktop;
-	private ArrayList<file> userfiles=null;
-	private int arraysize;
-	private String[] values;
+	
 	private DefaultMutableTreeNode node=null;
-	JList list=null;
+
 	User user;
 
 	
@@ -130,17 +126,8 @@ public class userMainMenuGUI extends JFrame {
 		this.setSize(500,400);
 		this.setTitle("main menu");;
 		this.setContentPane(getMainMenu());
-		
-		/*userfiles=user.getFilesInDB();
-        arraysize=user.getFilesInDB().size();
-        values = new String[arraysize];
-        
-        for(int i=0;i<userfiles.size();i++)
-		{
-			values[i]=userfiles.get(i).getFileName();
-		}
-		*/
-        desktop= Desktop.getDesktop();
+	
+       
 		
         btnCreateNewFile = new JButton("create new file");
 		btnCreateNewFile.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -209,19 +196,6 @@ public class userMainMenuGUI extends JFrame {
 						}
 						add(node);
 					}
-					/*node_1 = new DefaultMutableTreeNode("sports");
-						node_1.add(new DefaultMutableTreeNode("basketball"));
-						node_1.add(new DefaultMutableTreeNode("soccer"));
-						node_1.add(new DefaultMutableTreeNode("football"));
-						node_1.add(new DefaultMutableTreeNode("hockey"));
-					add(node_1);
-					node_1 = new DefaultMutableTreeNode("food");
-						node_1.add(new DefaultMutableTreeNode("hot dogs"));
-						node_1.add(new DefaultMutableTreeNode("pizza"));
-						node_1.add(new DefaultMutableTreeNode("ravioli"));
-						node_1.add(new DefaultMutableTreeNode("bananas"));
-					add(node_1);
-					*/
 				}
 			}
 		));
@@ -255,9 +229,6 @@ public class userMainMenuGUI extends JFrame {
 		btnLogOut.addActionListener(l);	
 	}
 
-	public void addlistClickedListener(ListSelectionListener l) {
-		list.addListSelectionListener(l);	
-	}
 
 	public void close() {
 		this.setVisible(false);
@@ -281,10 +252,7 @@ public class userMainMenuGUI extends JFrame {
 		return search.getText();
 	}
 
-	public JList getlist()
-	{
-		return this.list;
-	}
+
 }
 
 	

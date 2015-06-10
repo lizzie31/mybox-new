@@ -23,11 +23,11 @@ import java.awt.Font;
 public class createNewFileGUI extends JFrame{
 
 	private JFrame frame;
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField filename;
+	private JTextField description;
 	private JPanel createpanel;
 	private JButton btnCancel =null; 
-	private JTextField textField2 = null;
+	private JTextField filepath = null;
 	private createNewFileGUI currGUI;
 	
 	public createNewFileGUI() {
@@ -46,10 +46,10 @@ public class createNewFileGUI extends JFrame{
 		this.setSize(500,500);
 		this.setContentPane(getCreatePanel());
 		
-		textField = new JTextField();
-		textField.setBounds(216, 38, 115, 20);
-		textField.setColumns(10);
-		createpanel.add(textField);
+		filename = new JTextField();
+		filename.setBounds(216, 38, 115, 20);
+		filename.setColumns(10);
+		createpanel.add(filename);
 		
 		JLabel lblFileName = new JLabel("File name:");
 		lblFileName.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -57,10 +57,10 @@ public class createNewFileGUI extends JFrame{
 		lblFileName.setBounds(66, 39, 93, 17);
 		createpanel.add(lblFileName);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(216, 84, 115, 46);
-		textField_1.setColumns(10);
-		createpanel.add(textField_1);
+		description = new JTextField();
+		description.setBounds(216, 84, 115, 46);
+		description.setColumns(10);
+		createpanel.add(description);
 		
 		JLabel lblDescription = new JLabel("Description:");
 		lblDescription.setHorizontalAlignment(SwingConstants.LEFT);
@@ -111,11 +111,11 @@ public class createNewFileGUI extends JFrame{
 			lblSetPermmision.setBounds(66, 149, 132, 14);
 			createpanel.add(lblSetPermmision);
 			
-			textField2 = new JTextField();
-			textField2.setHorizontalAlignment(SwingConstants.LEFT);
-			textField2.setBounds(216, 191, 242, 46);
-			createpanel.add(textField2);
-			textField2.setColumns(10);
+			filepath = new JTextField();
+			filepath.setHorizontalAlignment(SwingConstants.LEFT);
+			filepath.setBounds(216, 191, 242, 46);
+			createpanel.add(filepath);
+			filepath.setColumns(10);
 			
 			JButton btnChooseTheFolder = new JButton("Choose the folder");
 			btnChooseTheFolder.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -133,11 +133,11 @@ public class createNewFileGUI extends JFrame{
 	}
 
 	public JTextField getTextField2() {
-		return textField2;
+		return filepath;
 	}
 
 	public void setTextField2(String textField2) {
-		this.textField2.setText(textField2);
+		this.filepath.setText(textField2);
 	}
 
 	public createNewFileGUI getCurrGUI() {
