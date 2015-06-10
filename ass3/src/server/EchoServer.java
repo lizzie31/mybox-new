@@ -203,7 +203,23 @@ public class EchoServer extends AbstractServer
 	}
   }
    
-    
+   if(en.getTask().equals("add new group to DB"))
+   {
+   	Statement stmt1 = this.getConn().createStatement();
+   	interestGroups s= (interestGroups)en.getObject();
+
+   	 rs = stmt1.executeQuery("SELECT groupname FROM test.interestgroups WHERE interestgroups.groupname= '"+(s.getGroupName()+"'"));
+   	if (rs.next()==true) 
+   	   {
+   		client.sendToClient("this name is allready exist");
+   	   }
+   	else 
+   		{
+   		stmt1.executeUpdate("INSERT INTO test.interestgroups VALUES('"+s.getGroupName()+"');");
+   	
+   		client.sendToClient("the group was added sucssesfuly");
+   		}
+   }
     
     if(en.getTask().equals("search files"))
     {
