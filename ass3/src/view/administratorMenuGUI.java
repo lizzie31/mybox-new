@@ -4,7 +4,6 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JTree;
-import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import java.awt.BorderLayout;
@@ -115,7 +114,7 @@ public class administratorMenuGUI extends JFrame {
 	private JPanel getMainMenu(){
 		if(MainMenu==null)
 		{MainMenu=new JPanel();
-MainMenu.setBackground(new Color(152, 251, 152));
+MainMenu.setBackground(new Color(102, 205, 170));
 		MainMenu.setLayout(null);
 
 		list = new JList();
