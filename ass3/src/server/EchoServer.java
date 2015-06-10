@@ -218,43 +218,25 @@ public class EchoServer extends AbstractServer
     if(en.getTask().equals("search files"))
     {
  
-    	String str1=(String)msg;
-    	/*if(str1.equals("search files")){
-    	file f= null;
+    	Envelope e;
     	file f;
-    	String temp;
-    	ArrayList<file> files=new ArrayList<>();
-    	String re="SELECT filename FROM test.files";
+    	 String textField=(String)en.getObject();
+    	 ArrayList<file> FinalFiles=new ArrayList<>();
+    	String re="SELECT * FROM test.files";
     	 rs = stmt.executeQuery(re);
+    	
     	 while(rs.next()==true)
     	 {
 
-    		f=new file(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4));
-    		files.add(f);
+    		f=new file(rs.getString(1),rs.getString(2),rs.getInt(3),rs.getString(4));
+    		if(f.getFileName().contains(textField))
+    		//if(f.getFileName().indexOf(textField)!=-1)	
+    			FinalFiles.add(f);
     	
     	 }
-    	 
-    
-    	 en=new Envelope(files,"search files");
- 		 client.sendToClient(en);
+    	 e=new Envelope(FinalFiles,"search file");
+ 		 client.sendToClient(e);
     	}
-    	if(str1.equals("show all interest groups"))
-    	{
-    		interestGroups s= null;
-        	ArrayList<interestGroups> allGroups=new ArrayList<>();
-        	String re="SELECT * FROM test.interestgroups";
-          	 rs = stmt.executeQuery(re);
-          	 while(rs.next()==true)
-        	 {
-        		 s=new interestGroups(rs.getString(1));
-        		 allGroups.add(s);
-        	 }
-          	en=new Envelope(allGroups,"show all interest groups");
-          	 client.sendToClient(en);
-    	}
-    	*/
-
-    }
     
   }
 	   

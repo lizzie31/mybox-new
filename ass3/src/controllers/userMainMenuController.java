@@ -204,7 +204,8 @@ public userMainMenuController getCon(){
 	public void handleDBResultFile(Object message) {
 		if(message instanceof ArrayList<?>)
 		{
-			if(((ArrayList<?>) message).get(1) instanceof file)
+			ArrayList a= (ArrayList<?>) message;
+			if(a.get(0) instanceof file)
 				filesarr= (ArrayList<file>)message;
 		}
 		

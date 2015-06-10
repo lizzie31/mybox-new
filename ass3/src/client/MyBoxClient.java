@@ -85,7 +85,7 @@ public synchronized void handleMessageFromServer(Object message)
 	    	((userMainMenuController)(currController)).handleDBAllGroupsResult((ArrayList<interestGroups>)E.getObject());
 	    if(E.getTask().equals("show user interest groups"))
 	    	((userMainMenuController)(currController)).handleDBResult((User)E.getObject());    
-	    if(E.getTask().equals("search files"))
+	    if(E.getTask().endsWith("search file"))    
 	    	((userMainMenuController)(currController)).handleDBResultFile((ArrayList<file>)E.getObject());
 	         
 	        
