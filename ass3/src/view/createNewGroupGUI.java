@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -17,7 +18,10 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 
+import Model.User;
 import controllers.logInCon;
+
+import javax.swing.JCheckBox;
 
 public class createNewGroupGUI extends JFrame{
 
@@ -28,13 +32,18 @@ public class createNewGroupGUI extends JFrame{
 	private JTextField groupname;
 	private JButton btnAdd;
 	private JButton btnCancel;
-	private JComboBox comboBox;
 	private JPanel panel;
 	private JLabel lblwarningMessage = null;
 	private logInCon l=null;
 	private warningGui wor=null;
+	private JCheckBox chckbxNewCheckBox;
+	/**
+	 * @param users the array of all users in DB.
+	 */
+	private ArrayList<User> users=new ArrayList<>();
 
-	public createNewGroupGUI() {
+	public createNewGroupGUI(ArrayList<User> usersarr) {
+		this.users=usersarr;
 		initialize();
 	}
 
@@ -51,25 +60,17 @@ public class createNewGroupGUI extends JFrame{
 		lblGroupName.setBounds(25, 43, 104, 16);
 		panel.add(lblGroupName);
 		
-		JLabel lblGroupMembers = new JLabel("group members:");
-		lblGroupMembers.setBounds(25, 115, 104, 16);
-		panel.add(lblGroupMembers);
-		
 		groupname = new JTextField();
 		groupname.setBounds(160, 40, 116, 22);
 		panel.add(groupname);
 		groupname.setColumns(10);
 		
-		comboBox = new JComboBox();
-		comboBox.setBounds(160, 112, 116, 22);
-		panel.add(comboBox);
-		
 		btnCancel = new JButton("cancel");
-		btnCancel.setBounds(32, 217, 97, 25);
+		btnCancel.setBounds(66, 386, 97, 25);
 		panel.add(btnCancel);
 		
 		btnAdd = new JButton("ADD");
-		btnAdd.setBounds(281, 217, 97, 25);
+		btnAdd.setBounds(302, 386, 97, 25);
 		panel.add(btnAdd);
 		
 		lblwarningMessage = new JLabel();
@@ -86,6 +87,11 @@ public class createNewGroupGUI extends JFrame{
 		{
 			panel=new JPanel();
 			panel.setLayout(null);
+		
+			for(int i=1;i>users.size();i++)
+			chckbxNewCheckBox = new JCheckBox(""+users.get(i).getUserName());
+			chckbxNewCheckBox.setBounds(66, 172, 97, 23);
+			panel.add(chckbxNewCheckBox);
 			this.setTitle("create new group");
 		}
 		return panel;

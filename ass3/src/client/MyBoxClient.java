@@ -87,7 +87,8 @@ public synchronized void handleMessageFromServer(Object message)
 	    	((userMainMenuController)(currController)).handleDBResult((User)E.getObject());    
 	    if(E.getTask().endsWith("search file"))    
 	    	((userMainMenuController)(currController)).handleDBResultFile((ArrayList<file>)E.getObject());
-	         
+	    if(E.getTask().equals("all users"))    
+	    	((administratorMenuController)(currController)).handleDBResult((ArrayList<User>)E.getObject());    
 	        
 	}
 	if(message instanceof String ) //user name and password not found

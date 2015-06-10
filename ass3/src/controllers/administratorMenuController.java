@@ -9,14 +9,17 @@ import view.*;
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
+import client.myboxapp;
 import controllers.userMainMenuController.LogOutListener;
-
 import Model.User;
+import Model.file;
 
 public class administratorMenuController extends userMainMenuController {
 	
 	private administratorMenuGUI currgui2;
+	private ArrayList<User> usersarr;
 	public administratorMenuController (userMainMenuGUI menu,logInCon lastCon,User user,administratorMenuGUI menu2){
 		
 	super(menu,lastCon,user);
@@ -84,12 +87,24 @@ private void buttonCreatefolder() {
 	}
 private void buttonCreateGroup() {
 		CurrGui.close();
-		
-		createNewGroupGUI R= new createNewGroupGUI();
-		new createNewGroupController(R,this);
-		R.setVisible(true);
+		sendToServer("ShowAllUsers");
+		myboxapp.clien.setCurrObj(this);
+	
 	}
 
+public void handleDBResult(Object message) {
+	
+	if(message instanceof ArrayList<?>)
+	{
+		if(((ArrayList<?>) message).get(0) instanceof file)
+			usersarr= (ArrayList<User>)message;
+	}
+	CurrGui.close();
+	
+	createNewGroupGUI R= new createNewGroupGUI(usersarr);
+	new createNewGroupController(R,this);
+	R.setVisible(true);
+	}
 	
 
 private class ButtoncreatenewfileListener implements ActionListener {

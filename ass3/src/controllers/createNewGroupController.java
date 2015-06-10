@@ -45,6 +45,7 @@ public class createNewGroupController extends AbstractTransfer {
 		//adm.getAdminCon().setVisible(true);
 	
 	}
+	
 	private class ButtonCancelListener implements ActionListener {
 
 		@Override

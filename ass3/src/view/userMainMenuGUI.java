@@ -262,9 +262,6 @@ public class userMainMenuGUI extends JFrame {
 		btnLogOut.addActionListener(l);	
 	}
 
-	public void addlistClickedListener(ListSelectionListener l) {
-		list.addListSelectionListener(l);	
-	}
 	
 	public void addtreeSelectionListener(TreeSelectionListener TreeSelection)
 	{
@@ -293,10 +290,6 @@ public class userMainMenuGUI extends JFrame {
 		return search.getText();
 	}
 
-	public JList getlist()
-	{
-		return this.list;
-	}
 
 	public JTree gettree() {
 		return this.tree;
