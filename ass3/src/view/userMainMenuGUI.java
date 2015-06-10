@@ -165,22 +165,6 @@ public class userMainMenuGUI extends JFrame {
 		btnCreateNewFolder.setBounds(307, 180, 138, 25);
 		MainMenu.add(btnCreateNewFolder);
 
-		open = new JButton("open");
-		open.setBounds(115, 283, 138, 25);
-		MainMenu.add(open);
-
-		open.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Object source = e.getSource();
-				if (source==open)
-					try {
-						desktop.open(new File(filePath));
-					} catch (IOException e1) {
-                        e1.printStackTrace();
-					}
-			}
-		});
-
 		btnAddleaveAGroup = new JButton("add/leave a group");
 		btnAddleaveAGroup.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnAddleaveAGroup.setBackground(UIManager.getColor("SplitPane.background"));
@@ -209,20 +193,30 @@ public class userMainMenuGUI extends JFrame {
 		{MainMenu=new JPanel();
         MainMenu.setBackground(new Color(135, 206, 235));
 		MainMenu.setLayout(null);
-
-		list = new JList();
-		list.setModel(new AbstractListModel() {
-			public int getSize() {
-				return values.length;
+		
+		JTree tree = new JTree();
+		tree.setModel(new DefaultTreeModel(
+			new DefaultMutableTreeNode("JTree") {
+				{
+					DefaultMutableTreeNode node_1;
+					add(new DefaultMutableTreeNode("photos"));
+					node_1 = new DefaultMutableTreeNode("sports");
+						node_1.add(new DefaultMutableTreeNode("basketball"));
+						node_1.add(new DefaultMutableTreeNode("soccer"));
+						node_1.add(new DefaultMutableTreeNode("football"));
+						node_1.add(new DefaultMutableTreeNode("hockey"));
+					add(node_1);
+					node_1 = new DefaultMutableTreeNode("food");
+						node_1.add(new DefaultMutableTreeNode("hot dogs"));
+						node_1.add(new DefaultMutableTreeNode("pizza"));
+						node_1.add(new DefaultMutableTreeNode("ravioli"));
+						node_1.add(new DefaultMutableTreeNode("bananas"));
+					add(node_1);
+				}
 			}
-			public Object getElementAt(int index) {
-				return values[index];
-			}
-		});
-
-		list.setBounds(54, 140, 168, 132);
-
-		MainMenu.add(list);
+		));
+		tree.setBounds(29, 113, 190, 194);
+		MainMenu.add(tree);
 		}
 		return MainMenu;	
 	}

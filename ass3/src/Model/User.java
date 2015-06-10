@@ -8,7 +8,7 @@ import Model.AbstractModel;
 
 /**
  * this class is User Model  which saves the user Model fields data ,which extends AbstractModel
- * @author jacob
+ * @author lizzie
  *
  */
 public class User extends AbstractModel {
@@ -18,8 +18,10 @@ public class User extends AbstractModel {
 	private String upassword;
 	/**status */
 	private int status;
-	private  ArrayList<file> filesInDB=null;
+	/**interest groups in user DB*/
 	private  ArrayList<interestGroups> interestGroupInDB=null;
+	/** user directories*/
+	private ArrayList<directories> userDirectories;
 	private String email = null;
 
 /**
@@ -30,13 +32,13 @@ public class User extends AbstractModel {
  * @param Position
  * @param status*
  */
-	public User(String usreName, String upassword,String email,int status,ArrayList<file> files)
+	public User(String usreName, String upassword,String email,int status,ArrayList<directories> dir)
 	{
 		this.userName = usreName;
     	this.upassword =upassword;
     	this.status = status;
 		this.email = email;
-		this.filesInDB=files;
+		this.userDirectories=dir;
 	}
 	
 	public User(String usreName, String upassword,String email,int status)
@@ -47,9 +49,6 @@ public class User extends AbstractModel {
 		this.email = email;
 	}
 
-public ArrayList<file> getFilesInDB() {
-	return filesInDB;
-}
 
 public ArrayList<interestGroups> getInterestGroupInDB() {
 	return interestGroupInDB;
@@ -59,8 +58,13 @@ public void setInterestGroupInDB(ArrayList<interestGroups> interestGroupInDB) {
 	this.interestGroupInDB = interestGroupInDB;
 }
 
-public void setFilesInDB(ArrayList<file> filesInDB) {
-	this.filesInDB = filesInDB;
+
+public void setuserDirectories(ArrayList<directories> dir) {
+	this.userDirectories = dir;
+}
+
+public ArrayList<directories> getuserDirectories() {
+	return userDirectories;
 }
 
 /**

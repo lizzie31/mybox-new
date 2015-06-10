@@ -3,14 +3,14 @@ package Model;
 public class file extends AbstractModel{
 	private String fileName;
 	private String Direction;
-	private String FileType;
+	private int Permission;
 	private String FileOwner;
 	
-	public file(String name,String Dir, String type, String fileOwner)
+	public file(String name,String Dir, int perm, String fileOwner)
 	{
 		fileName=name;
 		Direction=Dir;
-		FileType=type;
+		this.Permission=perm;
 		this.FileOwner=fileOwner;
 	}
 	
@@ -34,14 +34,14 @@ public class file extends AbstractModel{
 	this.Direction=dir;
     }
 	
-	public String getFileType()
+	public int getFilepermission()
 	{
-	return FileType;
+	return Permission;
     }
 	
-	public void setFileType(String type)
+	public void setFilePermission(int perm)
 	{
-	this.FileType=type;
+	this.Permission=perm;
     }
 	
 	public String getFileOwner()
@@ -51,7 +51,7 @@ public class file extends AbstractModel{
 	
 	public void setFileOwner(String Owner)
 	{
-	this.FileType=Owner;
+	this.FileOwner=Owner;
     }
     
 }

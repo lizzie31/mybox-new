@@ -202,8 +202,5 @@ public class logInCon extends AbstractTransfer
 		return username;
 	}
 
-	public void setTheFiles(Object message) {
-		user.setFilesInDB((ArrayList<file>)message);
-		
-	}
+	
 	}
