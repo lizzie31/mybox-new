@@ -166,7 +166,9 @@ public class EchoServer extends AbstractServer
     	interestGroups s= null;
     	user=(User)en.getObject();
     	ArrayList<interestGroups> interestGroup=new ArrayList<>();
+
     	String re="SELECT * FROM test.userinterestgroups WHERE userinterestgroups.username= '"+user.getUserName() +"'";
+
     	 rs = stmt.executeQuery(re);
     	 while(rs.next()==true)
     	 {
@@ -196,12 +198,16 @@ public class EchoServer extends AbstractServer
    
     
     
-    if(msg instanceof String)
+    if(en.getTask().equals("search files"))
     {
  
     	String str1=(String)msg;
+<<<<<<< HEAD
     	/*if(str1.equals("search files")){
     	file f= null;
+=======
+    	file f;
+>>>>>>> refs/heads/pmerge
     	String temp;
     	ArrayList<file> files=new ArrayList<>();
     	String re="SELECT filename FROM test.files";
@@ -218,6 +224,7 @@ public class EchoServer extends AbstractServer
     	 en=new Envelope(files,"search files");
  		 client.sendToClient(en);
     	}
+<<<<<<< HEAD
     	if(str1.equals("show all interest groups"))
     	{
     		interestGroups s= null;
@@ -233,8 +240,13 @@ public class EchoServer extends AbstractServer
           	 client.sendToClient(en);
     	}
     	*/
+=======
+>>>>>>> refs/heads/pmerge
     	 
+<<<<<<< HEAD
     }
+=======
+>>>>>>> refs/heads/pmerge
     
   }
 	   
