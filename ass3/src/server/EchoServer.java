@@ -97,7 +97,7 @@ public class EchoServer extends AbstractServer
 		  String mail;
 		  int status;
 		  ArrayList<directories> userDirectories=new ArrayList<>();
-		  ArrayList<file> files=new ArrayList<>();
+		  ArrayList<file> files;
 		  directories directory;
 		  String re = "SELECT * FROM users WHERE users.username= '"+(showfiles.getUserName()+"' AND users.password='"+showfiles.getPassword()+"'");
 		  rs = stmt.executeQuery(re);
@@ -118,8 +118,9 @@ public class EchoServer extends AbstractServer
 				
 				for(int i=0;i<dirname.size();i++)
 				{
-					re=("SELECT * FROM userdirectories WHERE userdirectories.directory= '"+dirname+"' AND userdirectories.username='"+username+"'");
+					re=("SELECT * FROM userdirectories WHERE userdirectories.directory= '"+dirname.get(i)+"' AND userdirectories.username='"+username+"'");
 					rs1=stmt.executeQuery(re);
+					files=new ArrayList<>();
 					if(rs1.next()==true)
 					 {
 						 f=new file(rs1.getString(3),rs1.getString(4),rs1.getInt(5),rs1.getString(6));
