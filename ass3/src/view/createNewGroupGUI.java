@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.EventQueue;
 
@@ -16,6 +17,8 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 
+import controllers.logInCon;
+
 public class createNewGroupGUI extends JFrame{
 
 	private JFrame frame;
@@ -27,6 +30,9 @@ public class createNewGroupGUI extends JFrame{
 	private JButton btnCancel;
 	private JComboBox comboBox;
 	private JPanel panel;
+	private JLabel lblwarningMessage = null;
+	private logInCon l=null;
+	private warningGui wor=null;
 
 	public createNewGroupGUI() {
 		initialize();
@@ -66,7 +72,13 @@ public class createNewGroupGUI extends JFrame{
 		btnAdd.setBounds(281, 217, 97, 25);
 		panel.add(btnAdd);
 		
+		lblwarningMessage = new JLabel();
+		lblwarningMessage.setForeground(new Color(255, 0, 0));
+		lblwarningMessage.setBounds(32, 300, 434, 50);
+		panel.add(lblwarningMessage);
+		lblwarningMessage.setVisible(false);
 	}
+		
 	private JPanel getCreatePanel(){
 		
 		
@@ -93,13 +105,25 @@ public class createNewGroupGUI extends JFrame{
 		return groupname;
 	}
 
-	public void setWarningMessageVisibleTrue(String string) {
-		// TODO Auto-generated method stub
+	public void setWarningMessageVisibleTrue() {
+		lblwarningMessage.setVisible(true);	
+	}
+	
+	public void setWarningMessageVisibleTrue(String st) {
+		lblwarningMessage.setText(st);
+		lblwarningMessage.setForeground(Color.RED);
+		
+		lblwarningMessage.setVisible(true);	
 		
 	}
-
-
-
-
 	
+ 	public void undisplayWarningMessage() {
+		lblwarningMessage.setVisible(false);
+
+ 	}
+ 	public void showsuceedmessege()
+ 	{
+ 		Component frame=null;
+ 	JOptionPane.showMessageDialog(frame, "the group was added sucssefuly to DB :)");
+ 	}
 }
