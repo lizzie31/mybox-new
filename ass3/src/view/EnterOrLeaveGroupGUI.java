@@ -91,7 +91,7 @@ public class EnterOrLeaveGroupGUI extends JFrame {
 			values=new String[groups.size()];
 			for(int i=0;i<groups.size();i++){
 		
-			values[i]=groups.get(i).getGroupNumber();
+			values[i]=groups.get(i).getGroupName();
 			}
 			
 			for(int i = 0; i < values.length; i++)

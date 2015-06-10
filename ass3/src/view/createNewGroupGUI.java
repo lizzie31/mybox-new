@@ -19,8 +19,11 @@ import javax.swing.JButton;
 public class createNewGroupGUI extends JFrame{
 
 	private JFrame frame;
+	/**
+	 * the new group name.
+	 */
 	private JTextField groupname;
-	private JButton btnOk;
+	private JButton btnAdd;
 	private JButton btnCancel;
 	private JComboBox comboBox;
 	private JPanel panel;
@@ -59,11 +62,11 @@ public class createNewGroupGUI extends JFrame{
 		btnCancel.setBounds(32, 217, 97, 25);
 		panel.add(btnCancel);
 		
-		btnOk = new JButton("ok");
-		btnOk.setBounds(281, 217, 97, 25);
-		panel.add(btnOk);
+		btnAdd = new JButton("ok");
+		btnAdd.setBounds(281, 217, 97, 25);
+		panel.add(btnAdd);
 		
-		btnOk.addActionListener(new ActionListener() {
+		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Component frame = null;
 				JOptionPane.showMessageDialog(frame, "the group add sucssfuly");
@@ -85,11 +88,18 @@ public class createNewGroupGUI extends JFrame{
 	public void addcancel(ActionListener l) {
 		btnCancel.addActionListener(l);
 	}
-	public void addok(ActionListener l) {
-		btnOk.addActionListener(l);
+	public void addAdd(ActionListener l) {
+		btnAdd.addActionListener(l);
 	}
 	public void close() {
 		this.setVisible(false);
 		dispose();
 	}
+
+	public JTextField getGroupname() {
+		return groupname;
+	}
+
+
+	
 }
