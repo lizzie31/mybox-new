@@ -86,7 +86,8 @@ public class userMainMenuController extends AbstractTransfer{
 			//CurrGui.close();
 			//fileSearchGui CNFG=new fileSearchGui (f);
 			//new fileSearchController(CNFG,this);
-			sendToServer("search files");
+			Envelope en =new Envelope (CurrGui.getTextField(),"search files");
+			sendToServer(en);
 			myboxapp.clien.setCurrObj(this);
 		}
 			

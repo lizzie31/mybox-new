@@ -94,7 +94,7 @@ import java.awt.SystemColor;
 
 public class userMainMenuGUI extends JFrame {
 	private JPanel MainMenu;
-	private JTextField textField;
+	private JTextField search;
 	private JButton btnCreateNewFile=null;
 	private JButton btnShowgroups=null;
 	private JButton btnCreateNewFolder=null;
@@ -187,10 +187,10 @@ public class userMainMenuGUI extends JFrame {
 		btnAddleaveAGroup.setBounds(307, 250, 146, 23);
 		MainMenu.add(btnAddleaveAGroup);
 
-		textField = new JTextField();
-		textField.setBounds(198, 46, 146, 20);
-		MainMenu.add(textField);
-		textField.setColumns(10);	
+		search = new JTextField();
+		search.setBounds(198, 46, 146, 20);
+		MainMenu.add(search);
+		search.setColumns(10);	
 
 		JLabel lblSearch = new JLabel("search");
 		lblSearch.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -274,7 +274,7 @@ public class userMainMenuGUI extends JFrame {
 	
 	public String getTextField()
 	{
-		return textField.getText();
+		return search.getText();
 	}
 
 	public JList getlist()
