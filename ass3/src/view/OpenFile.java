@@ -28,8 +28,6 @@ public final class OpenFile {
 		if(fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
 		{
 			java.io.File file = fileChooser.getSelectedFile();
-			file f = new file(null,file.getPath(),null,null); //filename, dir, filetype, fileOuner
-			setF(f);
 			Scanner input = new Scanner(file);
 			
 			while(input.hasNext()) {
@@ -39,7 +37,7 @@ public final class OpenFile {
 			}
 			
 			
-			currGUI.setTextField2(f.getDirection());
+			currGUI.setTextField2(file.getPath());
 			input.close();
 		}
 		else
