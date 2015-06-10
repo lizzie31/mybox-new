@@ -83,6 +83,7 @@ public class EchoServer extends AbstractServer
  public void handleMessageFromClient (Object msg, ConnectionToClient client)     
   {  
 	  Envelope en=(Envelope)msg;
+	  String str=(String)msg;
 	  User user=null;
 	  int write=0;
    try{
@@ -195,8 +196,7 @@ public class EchoServer extends AbstractServer
       	en=new Envelope(allGroups,"show all interest groups");
       	 client.sendToClient(en);
 	}
-  }
-   
+ 
    if(en.getTask().equals("add new group to DB"))
    {
    	Statement stmt1 = this.getConn().createStatement();
@@ -239,8 +239,27 @@ public class EchoServer extends AbstractServer
     	}
     
   }
-	   
-	       
+   if(msg instanceof String)
+   {
+	   Envelope e;
+   	   User user1;
+	   if(str.equals("ShowAllUsers"))
+	 {
+		 ArrayList<User> AllUsers=new ArrayList<>();
+	     String re="SELECT * FROM test.users";
+	     rs = stmt.executeQuery(re);
+	     while(rs.next()==true)
+    	 {
+
+    		user1=new User(rs.getString(1),rs.getString(2),rs.getString(3),rs.getInt(4));	
+    		AllUsers.add(user1);
+    	
+    	 }
+		 e=new Envelope(AllUsers,"all users");
+ 		 client.sendToClient(e);
+     }
+   }
+   }	       
       catch (SQLException e) {
         	e.printStackTrace();
       } 
