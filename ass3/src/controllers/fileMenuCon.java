@@ -42,8 +42,6 @@ public class fileMenuCon {
 	
 	class readListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-			if(ChoosenFile.getFileType().equals("Image"))
-			{
 				desktop= Desktop.getDesktop();
 				Object source = e.getSource();
 				if (source==CurrGui.getbtnRead())
@@ -53,7 +51,7 @@ public class fileMenuCon {
                         e1.printStackTrace();
 					}
 			}
-			}
+			
 			
 			
 		}
