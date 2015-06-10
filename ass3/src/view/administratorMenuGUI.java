@@ -115,7 +115,7 @@ public class administratorMenuGUI extends JFrame {
 	private JPanel getMainMenu(){
 		if(MainMenu==null)
 		{MainMenu=new JPanel();
-MainMenu.setBackground(new Color(152, 251, 152));
+MainMenu.setBackground(new Color(102, 205, 170));
 		MainMenu.setLayout(null);
 
 		list = new JList();
