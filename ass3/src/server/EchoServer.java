@@ -171,7 +171,7 @@ public class EchoServer extends AbstractServer
     {
     	interestGroups s= null;
     	ArrayList<interestGroups> allGroups=new ArrayList<>();
-    	String re="select * from test.interestgroups";
+    	String re="SELECT * FROM test.interestgroups";
       	 rs = stmt.executeQuery(re);
       	 while(rs.next()==true)
     	 {
@@ -193,7 +193,7 @@ public class EchoServer extends AbstractServer
     	file f= null;
     	String temp;
     	ArrayList<file> files=new ArrayList<>();
-    	String re="select filename from test.files";
+    	String re="SELECT filename FROM test.files";
     	 rs = stmt.executeQuery(re);
     	 while(rs.next()==true)
     	 {
@@ -210,7 +210,7 @@ public class EchoServer extends AbstractServer
     	{
     		interestGroups s= null;
         	ArrayList<interestGroups> allGroups=new ArrayList<>();
-        	String re="select * from test.interestgroups";
+        	String re="SELECT * FROM test.interestgroups";
           	 rs = stmt.executeQuery(re);
           	 while(rs.next()==true)
         	 {
