@@ -42,7 +42,6 @@ public class EchoServer extends AbstractServer
 
     ResultSet rs;
     ResultSet rs1;
-    ResultSet rs2;
     int flag = 0;
     int insertFlag = 0;
     int whereFlag = 0;
@@ -99,7 +98,7 @@ public class EchoServer extends AbstractServer
 		  String mail;
 		  int status;
 		  ArrayList<directories> userDirectories=new ArrayList<>();
-		  ArrayList<file> files=new ArrayList<>();
+		  ArrayList<file> files;
 		  directories directory;
 		  String re = "SELECT * FROM users WHERE users.username= '"+(showfiles.getUserName()+"' AND users.password='"+showfiles.getPassword()+"'");
 		  rs = stmt.executeQuery(re);
@@ -110,21 +109,29 @@ public class EchoServer extends AbstractServer
 			    pass=rs.getString(2);
 			    mail=rs.getString(3);
 			    status=rs.getInt(4);
-			    re = "SELECT directory FROM userdirectories WHERE userdirectories.username= '"+(showfiles.getUserName()+"'");
+			    ArrayList<String> dirname=new ArrayList<>();
+			    re = "SELECT directory FROM test.userdirectories WHERE userdirectories.username='"+(showfiles.getUserName()+"'");
 				rs1 = stmt.executeQuery(re);
-				while(rs1.next()==true)
+				while(rs1.next())
 				 {
-					 String dirname=rs1.getString(1);
-					 re=("SELECT * FROM userdirectories WHERE userdirectories.directory= '"+dirname+"' AND userdirectories.username= '"+username+"'");
-					 rs2=stmt.executeQuery(re);
-					 while(rs2.next()==true)
+					dirname.add(rs1.getString(1));
+				 }
+				
+				for(int i=0;i<dirname.size();i++)
+				{
+					re=("SELECT * FROM userdirectories WHERE userdirectories.directory= '"+dirname.get(i)+"' AND userdirectories.username='"+username+"'");
+					rs1=stmt.executeQuery(re);
+					files=new ArrayList<>();
+					if(rs1.next()==true)
 					 {
-						 f=new file(rs2.getString(3),rs2.getString(4),rs2.getInt(5),rs2.getString(6));
+						 f=new file(rs1.getString(3),rs1.getString(4),rs1.getInt(5),rs1.getString(6));
 						 files.add(f);
 					 }
-					 directory=new directories(files,dirname);
+					 
+					 directory=new directories(files,dirname.get(i));
 					 userDirectories.add(directory);
-				 }
+				}
+				
 	       	 user = new User(username,pass,mail,status,userDirectories);
 	    	 en=new Envelope(user,"log in handle");
 	    	 client.sendToClient(en);

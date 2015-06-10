@@ -19,6 +19,8 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
 
 import client.myboxapp;
 import Model.Envelope;
@@ -52,7 +54,7 @@ public class userMainMenuController extends AbstractTransfer{
 		CurrGui.addleaveEntergruop(new ButtonAddleaveAGrouprListener());
 		CurrGui.addshowgruops(new ButtonshowgrouprListener());
 		CurrGui.addLogOut(new LogOutListener());
-		//CurrGui.addlistClickedListener(new ListSelectionListener());
+		CurrGui.addtreeSelectionListener(new TreeSelection());
 		CurrGui.addsearchfiles(new addsearchfilesListener());
 	}
 
@@ -61,6 +63,24 @@ public class userMainMenuController extends AbstractTransfer{
 			buttonshowgroupPressed();
 		}	
 	}
+	
+	public class TreeSelection implements TreeSelectionListener{
+		public void valueChanged(TreeSelectionEvent e) {
+			 String choosenFile=(String)CurrGui.gettree().getSelectionPath();
+			 file file = null;
+			 for(int i=0;i<userDetails.getuserDirectories().size();i++)
+				{
+				 for(int j=0;j<userDetails.getuserDirectories().get(i).getfiles().size();j++)
+					if(userDetails.getuserDirectories().get(i).getfiles().get(j).getFileName().equals(choosenFile))
+						file=userDetails.getuserDirectories().get(i).getfiles().get(j);
+				}
+			 CurrGui.close();			
+			 fileMenu=new fileMenuGui(userDetails,choosenFile);
+			 fileCon=new fileMenuCon(fileMenu,getCon(),userDetails,file);
+		   }
+		}
+		
+	
 
 	protected void buttonshowgroupPressed() {	
 		en=new Envelope(userDetails,"show user interest groups");
@@ -69,7 +89,7 @@ public class userMainMenuController extends AbstractTransfer{
 	}
 	
 	protected class addsearchfilesListener implements ActionListener {
-		public void actionPerformed(ActionEvent arg0) {
+		public void actionPerformed(ActionEvent e) {
 			buttonsearchfilesPressed();
 		}	
 	}
@@ -83,11 +103,6 @@ public class userMainMenuController extends AbstractTransfer{
 			
 		else
 		{
-			
-			//f = new Files(str);
-			//CurrGui.close();
-			//fileSearchGui CNFG=new fileSearchGui (f);
-			//new fileSearchController(CNFG,this);
 			Envelope en =new Envelope (CurrGui.getTextField(),"search files");
 			sendToServer(en);
 			myboxapp.clien.setCurrObj(this);
