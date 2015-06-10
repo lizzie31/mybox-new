@@ -11,11 +11,11 @@ package Model;
 		}
 
 
-		public String getGroupNumber() {
+		public String getGroupName() {
 			return groupName;
 		}
 
-		public void setGroupNumber(String groupNumber) {
+		public void setGroupName(String groupNumber) {
 			this.groupName = groupNumber;
 		}
 		

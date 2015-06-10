@@ -54,7 +54,7 @@ public class groupListGUI extends JFrame {
 		values=new String[user.getInterestGroupInDB().size()];
 		for(int i=0;i<user.getInterestGroupInDB().size();i++){
 	
-		values[i]=user.getInterestGroupInDB().get(i).getGroupNumber();
+		values[i]=user.getInterestGroupInDB().get(i).getGroupName();
 		}
 	}
 	private JPanel getCreatePanel(){
