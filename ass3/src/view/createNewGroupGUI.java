@@ -62,17 +62,10 @@ public class createNewGroupGUI extends JFrame{
 		btnCancel.setBounds(32, 217, 97, 25);
 		panel.add(btnCancel);
 		
-		btnAdd = new JButton("ok");
+		btnAdd = new JButton("ADD");
 		btnAdd.setBounds(281, 217, 97, 25);
 		panel.add(btnAdd);
 		
-		btnAdd.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Component frame = null;
-				JOptionPane.showMessageDialog(frame, "the group add sucssfuly");
-			}
-		});
-	
 	}
 	private JPanel getCreatePanel(){
 		
@@ -99,6 +92,13 @@ public class createNewGroupGUI extends JFrame{
 	public JTextField getGroupname() {
 		return groupname;
 	}
+
+	public void setWarningMessageVisibleTrue(String string) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 
 
 	

@@ -52,7 +52,7 @@ public class userMainMenuController extends AbstractTransfer{
 		CurrGui.addleaveEntergruop(new ButtonAddleaveAGrouprListener());
 		CurrGui.addshowgruops(new ButtonshowgrouprListener());
 		CurrGui.addLogOut(new LogOutListener());
-		CurrGui.addlistClickedListener(new ListSelectionListener());
+		//CurrGui.addlistClickedListener(new ListSelectionListener());
 		CurrGui.addsearchfiles(new addsearchfilesListener());
 	}
 
@@ -104,7 +104,7 @@ public class userMainMenuController extends AbstractTransfer{
 			}
 	 } 
 
-	 class ListSelectionListener implements javax.swing.event.ListSelectionListener{
+	/* class ListSelectionListener implements javax.swing.event.ListSelectionListener{
 			public void valueChanged(ListSelectionEvent e) {
 				 String choosenFile=(String)CurrGui.getlist().getSelectedValue();
 				 file file = null;
@@ -118,6 +118,7 @@ public class userMainMenuController extends AbstractTransfer{
 				 fileCon=new fileMenuCon(fileMenu,getCon(),userDetails,file);
 			}
 		 }
+		 */
 	 
 	private class ButtoncreatenewfileListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {

@@ -16,6 +16,7 @@ import controllers.forgetPassCon;
 import controllers.logInCon;
 import Model.Envelope;
 import Model.User;
+import Model.directories;
 import Model.file;
 import Model.interestGroups;
 import Model.logInMod;
@@ -41,6 +42,7 @@ public class EchoServer extends AbstractServer
 
     ResultSet rs;
     ResultSet rs1;
+    ResultSet rs2;
     int flag = 0;
     int insertFlag = 0;
     int whereFlag = 0;
@@ -95,7 +97,9 @@ public class EchoServer extends AbstractServer
 		  String pass;
 		  String mail;
 		  int status;
+		  ArrayList<directories> userDirectories=new ArrayList<>();
 		  ArrayList<file> files=new ArrayList<>();
+		  directories directory;
 		  String re = "SELECT * FROM users WHERE users.username= '"+(showfiles.getUserName()+"' AND users.password='"+showfiles.getPassword()+"'");
 		  rs = stmt.executeQuery(re);
 		  
@@ -105,14 +109,22 @@ public class EchoServer extends AbstractServer
 			    pass=rs.getString(2);
 			    mail=rs.getString(3);
 			    status=rs.getInt(4);
-			    String re2 = "SELECT * FROM userfiles WHERE userfiles.username= '"+(showfiles.getUserName()+"'");
-				rs1 = stmt.executeQuery(re2);
+			    re = "SELECT directory FROM userdirectories WHERE userdirectories.username= '"+(showfiles.getUserName()+"'");
+				rs1 = stmt.executeQuery(re);
 				while(rs1.next()==true)
 				 {
-					 f=new file(rs1.getString(2),rs1.getString(3),rs1.getString(4),rs1.getString(5));
-					 files.add(f);
+					 String dirname=rs1.getString(1);
+					 re=("SELECT * FROM userdirectories WHERE userdirectories.directory= '"+dirname+"' AND userdirectories.username= '"+username+"'");
+					 rs2=stmt.executeQuery(re);
+					 while(rs2.next()==true)
+					 {
+						 f=new file(rs2.getString(3),rs2.getString(4),rs2.getInt(5),rs2.getString(6));
+						 files.add(f);
+					 }
+					 directory=new directories(files,dirname);
+					 userDirectories.add(directory);
 				 }
-	    	 user = new User(username,pass,mail,status,files);
+	       	 user = new User(username,pass,mail,status,userDirectories);
 	    	 en=new Envelope(user,"log in handle");
 	    	 client.sendToClient(en);
 		  }
@@ -191,6 +203,8 @@ public class EchoServer extends AbstractServer
     {
  
     	String str1=(String)msg;
+    	/*if(str1.equals("search files")){
+    	file f= null;
     	file f;
     	String temp;
     	ArrayList<file> files=new ArrayList<>();
@@ -203,11 +217,28 @@ public class EchoServer extends AbstractServer
     		files.add(f);
     	
     	 }
+    	 
     
     	 en=new Envelope(files,"search files");
  		 client.sendToClient(en);
     	}
-    	 
+    	if(str1.equals("show all interest groups"))
+    	{
+    		interestGroups s= null;
+        	ArrayList<interestGroups> allGroups=new ArrayList<>();
+        	String re="SELECT * FROM test.interestgroups";
+          	 rs = stmt.executeQuery(re);
+          	 while(rs.next()==true)
+        	 {
+        		 s=new interestGroups(rs.getString(1));
+        		 allGroups.add(s);
+        	 }
+          	en=new Envelope(allGroups,"show all interest groups");
+          	 client.sendToClient(en);
+    	}
+    	*/
+
+    }
     
   }
 	   

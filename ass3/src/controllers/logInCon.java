@@ -88,8 +88,6 @@ public class logInCon extends AbstractTransfer
  *
  */
 	class LoginListener implements ActionListener {
-		
-		
            public void actionPerformed(ActionEvent ev){
         	  
         		  String pass = loginG.getTextPassword();
@@ -202,8 +200,5 @@ public class logInCon extends AbstractTransfer
 		return username;
 	}
 
-	public void setTheFiles(Object message) {
-		user.setFilesInDB((ArrayList<file>)message);
-		
-	}
+	
 	}
