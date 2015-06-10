@@ -103,6 +103,14 @@ public synchronized void handleMessageFromServer(Object message)
 		{
 			((forgetPassCon)currController).getforPassGui().setWarningMessageVisibleTrue("check your email to see your password");
 		}
+		if(str.equals("this name is allready exist"))
+		{
+			((createNewGroupController)currController).getGroup().setWarningMessageVisibleTrue("There is already interest group with this name please try again");
+		}
+		if(str.equals("the group was added sucssesfuly"))
+		{
+			((createNewGroupController)currController).getGroup().showsuceedmessege();
+		}
 		
 	}//if
 	/*if(message instanceof ArrayList<?>)
