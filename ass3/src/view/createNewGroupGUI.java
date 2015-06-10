@@ -19,7 +19,7 @@ import javax.swing.JButton;
 public class createNewGroupGUI extends JFrame{
 
 	private JFrame frame;
-	private JTextField textField;
+	private JTextField groupname;
 	private JButton btnOk;
 	private JButton btnCancel;
 	private JComboBox comboBox;
@@ -46,10 +46,10 @@ public class createNewGroupGUI extends JFrame{
 		lblGroupMembers.setBounds(25, 115, 104, 16);
 		panel.add(lblGroupMembers);
 		
-		textField = new JTextField();
-		textField.setBounds(160, 40, 116, 22);
-		panel.add(textField);
-		textField.setColumns(10);
+		groupname = new JTextField();
+		groupname.setBounds(160, 40, 116, 22);
+		panel.add(groupname);
+		groupname.setColumns(10);
 		
 		comboBox = new JComboBox();
 		comboBox.setBounds(160, 112, 116, 22);
