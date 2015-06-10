@@ -35,16 +35,16 @@ public class createNewGroupGUI extends JFrame{
 	private JPanel panel;
 	private JLabel lblwarningMessage = null;
 	private logInCon l=null;
-	private warningGui wor=null;
 	private JCheckBox chckbxNewCheckBox;
 	/**
 	 * @param users the array of all users in DB.
 	 */
-	private ArrayList<User> users=new ArrayList<>();
+	private ArrayList<User> users;
 
-	public createNewGroupGUI(ArrayList<User> usersarr) {
+	public createNewGroupGUI(ArrayList usersarr) {
 		this.users=usersarr;
 		initialize();
+		this.setVisible(true);
 	}
 
 	/**
