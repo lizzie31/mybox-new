@@ -155,7 +155,7 @@ public class EchoServer extends AbstractServer
     	interestGroups s= null;
     	user=(User)en.getObject();
     	ArrayList<interestGroups> interestGroup=new ArrayList<>();
-    	String re="select * from test.userinterstgroups where interstgroups.username= '"+user.getUserName() +"'";
+    	String re="select * from test.userinterestgroups where user.interestgroups.username= '"+user.getUserName() +"'";
     	 rs = stmt.executeQuery(re);
     	 while(rs.next()==true)
     	 {
