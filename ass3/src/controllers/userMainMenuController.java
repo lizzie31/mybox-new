@@ -8,6 +8,8 @@ import java.awt.Container;
 
 
 
+import java.awt.EventQueue;
+
 import view.*;
 
 import java.awt.CardLayout;
@@ -125,9 +127,16 @@ public class userMainMenuController extends AbstractTransfer{
 
 	private void buttoncreatenewfilePressed() {
 		CurrGui.close();
-		createNewFileGUI CNFG=new createNewFileGUI ();
-		new createNewFileController(CNFG,this);
-		CNFG.setVisible(true);
+		userMainMenuController lastCon = this;
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					createNewFileGUI CNFG=new createNewFileGUI ();
+					new createNewFileController(CNFG,lastCon);
+					CNFG.setVisible(true);
+				} catch (Exception e){e.printStackTrace();}
+			}
+		});
 	}
 
 	private class ButtoncreatenewfolderListener implements ActionListener {
