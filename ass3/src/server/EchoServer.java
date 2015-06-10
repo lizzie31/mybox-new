@@ -16,6 +16,7 @@ import controllers.forgetPassCon;
 import controllers.logInCon;
 import Model.Envelope;
 import Model.User;
+import Model.directories;
 import Model.file;
 import Model.interestGroups;
 import Model.logInMod;
@@ -95,7 +96,9 @@ public class EchoServer extends AbstractServer
 		  String pass;
 		  String mail;
 		  int status;
+		  ArrayList<directories> userDirectories=new ArrayList<>();
 		  ArrayList<file> files=new ArrayList<>();
+		  directories directory;
 		  String re = "SELECT * FROM users WHERE users.username= '"+(showfiles.getUserName()+"' AND users.password='"+showfiles.getPassword()+"'");
 		  rs = stmt.executeQuery(re);
 		  
@@ -105,14 +108,22 @@ public class EchoServer extends AbstractServer
 			    pass=rs.getString(2);
 			    mail=rs.getString(3);
 			    status=rs.getInt(4);
-			    String re2 = "SELECT * FROM userfiles WHERE userfiles.username= '"+(showfiles.getUserName()+"'");
-				rs1 = stmt.executeQuery(re2);
-				while(rs1.next()==true)
+			    String re2 = "SELECT * FROM userdirectories WHERE userdirectories.username= '"+(showfiles.getUserName()+"'");
+				rs = stmt.executeQuery(re2);
+				while(rs.next()==true)
 				 {
-					 f=new file(rs1.getString(2),rs1.getString(3),rs1.getString(4),rs1.getString(5));
-					 files.add(f);
+					 String dirname=rs.getString(2);
+					 re=("SELECT * FROM userdirectories WHERE userdirectories.directory= '"+dirname+"' AND userdirectories.username= '"+username+"'");
+					 rs1=stmt.executeQuery(re);
+					 while(rs1.next())
+					 {
+						 f=new file(rs1.getString(3),rs1.getString(4),rs1.getInt(5),rs1.getString(6));
+						 files.add(f);
+					 }
+					 directory=new directories(files);
+					 userDirectories.add(directory);
 				 }
-	    	 user = new User(username,pass,mail,status,files);
+	       	 user = new User(username,pass,mail,status,userDirectories);
 	    	 en=new Envelope(user,"log in handle");
 	    	 client.sendToClient(en);
 		  }
@@ -189,7 +200,7 @@ public class EchoServer extends AbstractServer
     {
  
     	String str1=(String)msg;
-    	if(str1.equals("search files")){
+    	/*if(str1.equals("search files")){
     	file f= null;
     	String temp;
     	ArrayList<file> files=new ArrayList<>();
@@ -202,6 +213,7 @@ public class EchoServer extends AbstractServer
     		files.add(f);
     	
     	 }
+    	 
     
     	 en=new Envelope(files,"search files");
  		 client.sendToClient(en);
@@ -220,8 +232,10 @@ public class EchoServer extends AbstractServer
           	en=new Envelope(allGroups,"show all interest groups");
           	 client.sendToClient(en);
     	}
+    	*/
     	 
     }
+    
   }
 	   
 	       
