@@ -42,10 +42,10 @@ public class createNewGroupController extends AbstractTransfer {
 		en=new Envelope(newgroup,"add new group to DB");
 		sendToServer(en);
 		myboxapp.clien.setCurrObj(this);
-		group.close();
-		adm.getAdminCon().setVisible(true);
+		//adm.getAdminCon().setVisible(true);
 	
 	}
+	
 	private class ButtonCancelListener implements ActionListener {
 
 		@Override

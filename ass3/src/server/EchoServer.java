@@ -42,7 +42,6 @@ public class EchoServer extends AbstractServer
 
     ResultSet rs;
     ResultSet rs1;
-    ResultSet rs2;
     int flag = 0;
     int insertFlag = 0;
     int whereFlag = 0;
@@ -82,13 +81,13 @@ public class EchoServer extends AbstractServer
 //This method handles any messages received from the client. 
  public void handleMessageFromClient (Object msg, ConnectionToClient client)     
   {  
-	  Envelope en=(Envelope)msg;
 	  User user=null;
 	  int write=0;
    try{
 	  Statement stmt = conn.createStatement();
    if(msg instanceof Envelope)
    {
+	   Envelope en=(Envelope)msg;
 	 if((en.getTask()).equals("login"))  //search Login
 	  {
 		  logInMod showfiles=(logInMod)en.getObject();
@@ -98,7 +97,7 @@ public class EchoServer extends AbstractServer
 		  String mail;
 		  int status;
 		  ArrayList<directories> userDirectories=new ArrayList<>();
-		  ArrayList<file> files=new ArrayList<>();
+		  ArrayList<file> files;
 		  directories directory;
 		  String re = "SELECT * FROM users WHERE users.username= '"+(showfiles.getUserName()+"' AND users.password='"+showfiles.getPassword()+"'");
 		  rs = stmt.executeQuery(re);
@@ -109,21 +108,29 @@ public class EchoServer extends AbstractServer
 			    pass=rs.getString(2);
 			    mail=rs.getString(3);
 			    status=rs.getInt(4);
-			    re = "SELECT directory FROM userdirectories WHERE userdirectories.username= '"+(showfiles.getUserName()+"'");
+			    ArrayList<String> dirname=new ArrayList<>();
+			    re = "SELECT directory FROM test.userdirectories WHERE userdirectories.username='"+(showfiles.getUserName()+"'");
 				rs1 = stmt.executeQuery(re);
-				while(rs1.next()==true)
+				while(rs1.next())
 				 {
-					 String dirname=rs1.getString(1);
-					 re=("SELECT * FROM userdirectories WHERE userdirectories.directory= '"+dirname+"' AND userdirectories.username= '"+username+"'");
-					 rs2=stmt.executeQuery(re);
-					 while(rs2.next()==true)
+					dirname.add(rs1.getString(1));
+				 }
+				
+				for(int i=0;i<dirname.size();i++)
+				{
+					re=("SELECT * FROM userdirectories WHERE userdirectories.directory= '"+dirname.get(i)+"' AND userdirectories.username='"+username+"'");
+					rs1=stmt.executeQuery(re);
+					files=new ArrayList<>();
+					if(rs1.next()==true)
 					 {
-						 f=new file(rs2.getString(3),rs2.getString(4),rs2.getInt(5),rs2.getString(6));
+						 f=new file(rs1.getString(3),rs1.getString(4),rs1.getInt(5),rs1.getString(6));
 						 files.add(f);
 					 }
-					 directory=new directories(files,dirname);
+					 
+					 directory=new directories(files,dirname.get(i));
 					 userDirectories.add(directory);
-				 }
+				}
+				
 	       	 user = new User(username,pass,mail,status,userDirectories);
 	    	 en=new Envelope(user,"log in handle");
 	    	 client.sendToClient(en);
@@ -195,54 +202,71 @@ public class EchoServer extends AbstractServer
       	en=new Envelope(allGroups,"show all interest groups");
       	 client.sendToClient(en);
 	}
-  }
-   
-    
+ 
+   if(en.getTask().equals("add new group to DB"))
+   {
+   	Statement stmt1 = this.getConn().createStatement();
+   	interestGroups s= (interestGroups)en.getObject();
+
+   	 rs = stmt1.executeQuery("SELECT groupname FROM test.interestgroups WHERE interestgroups.groupname= '"+(s.getGroupName()+"'"));
+   	if (rs.next()==true) 
+   	   {
+   		client.sendToClient("this name is allready exist");
+   	   }
+   	else 
+   		{
+   		stmt1.executeUpdate("INSERT INTO test.interestgroups VALUES('"+s.getGroupName()+"');");
+   	
+   		client.sendToClient("the group was added sucssesfuly");
+   		}
+   }
     
     if(en.getTask().equals("search files"))
     {
  
-    	String str1=(String)msg;
-    	/*if(str1.equals("search files")){
-    	file f= null;
+    	Envelope e;
     	file f;
-    	String temp;
-    	ArrayList<file> files=new ArrayList<>();
-    	String re="SELECT filename FROM test.files";
+    	 String textField=(String)en.getObject();
+    	 ArrayList<file> FinalFiles=new ArrayList<>();
+    	String re="SELECT * FROM test.files";
     	 rs = stmt.executeQuery(re);
+    	
     	 while(rs.next()==true)
     	 {
 
-    		f=new file(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4));
-    		files.add(f);
+    		f=new file(rs.getString(1),rs.getString(2),rs.getInt(3),rs.getString(4));
+    		if(f.getFileName().contains(textField))
+    		//if(f.getFileName().indexOf(textField)!=-1)	
+    			FinalFiles.add(f);
     	
     	 }
-    	 
-    
-    	 en=new Envelope(files,"search files");
- 		 client.sendToClient(en);
+    	 e=new Envelope(FinalFiles,"search file");
+ 		 client.sendToClient(e);
     	}
-    	if(str1.equals("show all interest groups"))
-    	{
-    		interestGroups s= null;
-        	ArrayList<interestGroups> allGroups=new ArrayList<>();
-        	String re="SELECT * FROM test.interestgroups";
-          	 rs = stmt.executeQuery(re);
-          	 while(rs.next()==true)
-        	 {
-        		 s=new interestGroups(rs.getString(1));
-        		 allGroups.add(s);
-        	 }
-          	en=new Envelope(allGroups,"show all interest groups");
-          	 client.sendToClient(en);
-    	}
-    	*/
-
-    }
     
   }
-	   
-	       
+   if(msg instanceof String)
+   {
+	   String str=(String)msg;
+	   Envelope e;
+   	   User user1;
+	   if(str.equals("ShowAllUsers"))
+	 {
+		 ArrayList<User> AllUsers=new ArrayList<>();
+	     String re="SELECT * FROM test.users";
+	     rs = stmt.executeQuery(re);
+	     while(rs.next()==true)
+    	 {
+
+    		user1=new User(rs.getString(1),rs.getString(2),rs.getString(3),rs.getInt(4));	
+    		AllUsers.add(user1);
+    	
+    	 }
+		 e=new Envelope(AllUsers,"all users");
+ 		 client.sendToClient(e);
+     }
+   }
+   }	       
       catch (SQLException e) {
         	e.printStackTrace();
       } 

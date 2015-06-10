@@ -85,9 +85,10 @@ public synchronized void handleMessageFromServer(Object message)
 	    	((userMainMenuController)(currController)).handleDBAllGroupsResult((ArrayList<interestGroups>)E.getObject());
 	    if(E.getTask().equals("show user interest groups"))
 	    	((userMainMenuController)(currController)).handleDBResult((User)E.getObject());    
-	    if(E.getTask().equals("search files"))
+	    if(E.getTask().endsWith("search file"))    
 	    	((userMainMenuController)(currController)).handleDBResultFile((ArrayList<file>)E.getObject());
-	         
+	    if(E.getTask().equals("all users"))    
+	    	((administratorMenuController)(currController)).handleDBResult((ArrayList<User>)E.getObject());    
 	        
 	}
 	if(message instanceof String ) //user name and password not found
@@ -102,6 +103,14 @@ public synchronized void handleMessageFromServer(Object message)
 		if(str.equals("we found the mail!"))
 		{
 			((forgetPassCon)currController).getforPassGui().setWarningMessageVisibleTrue("check your email to see your password");
+		}
+		if(str.equals("this name is allready exist"))
+		{
+			((createNewGroupController)currController).getGroup().setWarningMessageVisibleTrue("There is already interest group with this name please try again");
+		}
+		if(str.equals("the group was added sucssesfuly"))
+		{
+			((createNewGroupController)currController).getGroup().showsuceedmessege();
 		}
 		
 	}//if

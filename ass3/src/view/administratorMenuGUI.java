@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 
 import java.awt.BorderLayout;
 
@@ -54,7 +55,7 @@ public class administratorMenuGUI extends JFrame {
 	private int arraysize;
 	private String[] values;
 	private JButton deleteGroupButton=null;
-	JList list=null;
+	private DefaultMutableTreeNode node=null;
 	
 	public administratorMenuGUI(User user) {
 		this.setSize(500, 500);
@@ -118,17 +119,25 @@ public class administratorMenuGUI extends JFrame {
 MainMenu.setBackground(new Color(102, 205, 170));
 		MainMenu.setLayout(null);
 
-		list = new JList();
-		list.setModel(new AbstractListModel() {
-			public int getSize() {
-				return values.length;
+		JTree tree = new JTree();
+		tree.setModel(new DefaultTreeModel(
+			new DefaultMutableTreeNode(""+user.getUserName()+"files") {
+				{
+					for(int i=0;i<user.getuserDirectories().size();i++)
+					{
+						node=new DefaultMutableTreeNode(""+user.getuserDirectories().get(i).getDirectoryName());
+						for(int j=0;j<user.getuserDirectories().get(i).getfiles().size();j++)
+						{
+							node.add(new DefaultMutableTreeNode(""+user.getuserDirectories().get(i).getfiles().get(j).getFileName()));
+				
+						}
+						add(node);
+					}
+				}
 			}
-			public Object getElementAt(int index) {
-				return values[index];
-			}
-		});
-		list.setBounds(54, 140, 168, 132);
-		MainMenu.add(list);
+		));
+		tree.setBounds(29, 113, 190, 194);
+		MainMenu.add(tree);
 		
 		JLabel lblHelloSystemAdministrtor = new JLabel("hello system administrtor");
 		lblHelloSystemAdministrtor.setFont(new Font("Tahoma", Font.BOLD, 14));

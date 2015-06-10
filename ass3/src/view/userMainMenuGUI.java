@@ -91,6 +91,8 @@ import javax.swing.JCheckBox;
 import javax.swing.AbstractListModel;
 
 import java.awt.SystemColor;
+import javax.swing.event.TreeSelectionListener;
+import javax.swing.event.TreeSelectionEvent;
 
 public class userMainMenuGUI extends JFrame {
 	private JPanel MainMenu;
@@ -108,6 +110,7 @@ public class userMainMenuGUI extends JFrame {
 	private ArrayList<file> userfiles=null;
 	private int arraysize;
 	private String[] values;
+	private JTree tree=null;
 	private DefaultMutableTreeNode node=null;
 	JList list=null;
 	User user;
@@ -195,16 +198,20 @@ public class userMainMenuGUI extends JFrame {
         MainMenu.setBackground(new Color(135, 206, 235));
 		MainMenu.setLayout(null);
 		
-		JTree tree = new JTree();
+		tree = new JTree();
+		//tree.addTreeSelectionListener(new TreeSelectionListener() {
+			//public void valueChanged(TreeSelectionEvent arg0) {
+		//	}
+		//});
 		tree.setModel(new DefaultTreeModel(
-			new DefaultMutableTreeNode(""+user.getUserName()+"files") {
+			new DefaultMutableTreeNode(""+user.getUserName()+" files") {
 				{
 					for(int i=0;i<user.getuserDirectories().size();i++)
 					{
 						node=new DefaultMutableTreeNode(""+user.getuserDirectories().get(i).getDirectoryName());
 						for(int j=0;j<user.getuserDirectories().get(i).getfiles().size();j++)
 						{
-							node.add(new DefaultMutableTreeNode(""+user.getuserDirectories().get(j).getfiles().get(j).getFileName()));
+							node.add(new DefaultMutableTreeNode(""+user.getuserDirectories().get(i).getfiles().get(j).getFileName()));
 				
 						}
 						add(node);
@@ -255,8 +262,10 @@ public class userMainMenuGUI extends JFrame {
 		btnLogOut.addActionListener(l);	
 	}
 
-	public void addlistClickedListener(ListSelectionListener l) {
-		list.addListSelectionListener(l);	
+	
+	public void addtreeSelectionListener(TreeSelectionListener TreeSelection)
+	{
+		tree.addTreeSelectionListener(TreeSelection);
 	}
 
 	public void close() {
@@ -281,9 +290,9 @@ public class userMainMenuGUI extends JFrame {
 		return search.getText();
 	}
 
-	public JList getlist()
-	{
-		return this.list;
+
+	public JTree gettree() {
+		return this.tree;
 	}
 }
 
