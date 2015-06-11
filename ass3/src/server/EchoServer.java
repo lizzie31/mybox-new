@@ -48,6 +48,7 @@ public class EchoServer extends AbstractServer
     int flag = 0;
     int insertFlag = 0;
     int whereFlag = 0;
+    private Desktop desktop=null;
     String fileName = null;
     String fileDir = null;
     ConnectionToClient ct;
@@ -114,12 +115,12 @@ public class EchoServer extends AbstractServer
 				
 				for(int i=0;i<dirname.size();i++)
 				{
-					re=("SELECT * FROM userdirectories WHERE userdirectories.directory= '"+dirname.get(i)+"' AND userdirectories.username='"+username+"'");
+					re=("SELECT f.filename,f.direction,f.permission,f.fileowner FROM userdirectories as u,files as f WHERE f.filename=u.filename AND u.directory= '"+dirname.get(i)+"' AND u.username='"+username+"'");
 					rs1=stmt.executeQuery(re);
 					files=new ArrayList<>();
 					if(rs1.next()==true)
 					 {
-						 f=new file(rs1.getString(3),rs1.getString(4),rs1.getInt(5),rs1.getString(6));
+						 f=new file(rs1.getString(1),rs1.getString(2),rs1.getInt(3),rs1.getString(4));
 						 files.add(f);
 					 }
 					 
@@ -182,9 +183,9 @@ public class EchoServer extends AbstractServer
     }
     if(en.getTask().equals("open file"))
     {
+    	Desktop desktop=null;
     	String path=(String)en.getObject();
-    	Desktop desktop;
-    	desktop= Desktop.getDesktop();
+    	desktop=Desktop.getDesktop();
 			try {
 				desktop.open(new File(path));
 			} catch (IOException e1) {

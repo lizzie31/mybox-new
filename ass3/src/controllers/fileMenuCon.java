@@ -42,6 +42,7 @@ public class fileMenuCon extends AbstractTransfer{
 	
 	class readListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
+			
 			    Envelope en=new Envelope(ChoosenFile.getDirection(),"open file");
 			    sendToServer(en);
 			}
