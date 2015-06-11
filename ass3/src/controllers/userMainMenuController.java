@@ -67,12 +67,17 @@ public class userMainMenuController extends AbstractTransfer{
 	
 	public class TreeSelection implements TreeSelectionListener{
 		public void valueChanged(TreeSelectionEvent e) {
+<<<<<<< HEAD
 			file file=null;
 				    /**Returns the last path element of the selection.
 				    This method is useful only when the selection model allows a single selection.*/
 				    DefaultMutableTreeNode node = (DefaultMutableTreeNode) CurrGui.gettree().getLastSelectedPathComponent();
 				    Object nodeInfo = node.getUserObject();
 				        String str = (String) nodeInfo;
+=======
+			/* String choosenFile=(String)CurrGui.gettree().getSelectionPath();
+			 file file = null;
+>>>>>>> branch 'master' of https://github.com/lizzie31/mybox-new.git
 			 for(int i=0;i<userDetails.getuserDirectories().size();i++)
 				{
 				 for(int j=0;j<userDetails.getuserDirectories().get(i).getfiles().size();j++)
@@ -84,7 +89,14 @@ public class userMainMenuController extends AbstractTransfer{
 				        fileCon=new fileMenuCon(fileMenu,getCon(),userDetails,file);
 					}
 				}
+<<<<<<< HEAD
 			 
+=======
+			 CurrGui.close();			
+			 fileMenu=new fileMenuGui(userDetails,choosenFile);
+			 fileCon=new fileMenuCon(fileMenu,getCon(),userDetails,file);
+			 */
+>>>>>>> branch 'master' of https://github.com/lizzie31/mybox-new.git
 		   }
 		   
 		}
