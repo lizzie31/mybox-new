@@ -59,10 +59,8 @@ public class MyBoxClient extends ObservableClient
     throws IOException 
   {
     super(host, port); //Call the superclass constructor
-    //this.clientUI = clientUI;
     Ar = new ArrayList<>();
     openConnection();
-  //  sendToServer("hello");
   }
 
   //Instance methods ************************************************
@@ -80,7 +78,9 @@ public synchronized void handleMessageFromServer(Object message)
 	{
 		 Envelope E =(Envelope) message;
 	    if(E.getTask().equals("log in handle"))
-		((logInCon)(currController)).handleDBResult((User)E.getObject());
+		   ((logInCon)(currController)).handleDBResult((User)E.getObject());
+	    if(E.getTask().equals("show interest group"))
+	    	((GroupsListController)(currController)).handleDBresult((interestGroups)E.getObject());
 	    if(E.getTask().equals("show all interest groups"))
 	    	((userMainMenuController)(currController)).handleDBAllGroupsResult((ArrayList<interestGroups>)E.getObject());
 	    if(E.getTask().endsWith("search file"))    

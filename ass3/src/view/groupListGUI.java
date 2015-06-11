@@ -17,13 +17,15 @@ import javax.swing.JButton;
 import javax.swing.AbstractListModel;
 
 import Model.User;
+
 import java.awt.Color;
+
 import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
+import javax.swing.event.ListSelectionListener;
 
 public class groupListGUI extends JFrame {
 
-	private JFrame frame;
 	private JPanel panel=null;
 	private JButton btnCancel=null;
 	private String[] values = null;
@@ -41,15 +43,15 @@ public class groupListGUI extends JFrame {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		this.setBounds(100, 100, 345, 300);
+		this.setBounds(500, 200, 345, 300);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(500,500);
+		this.setSize(300,500);
 		this.setContentPane(getCreatePanel());
 		
 		JLabel lblYourInterestGroup = new JLabel("Your interest groups:");
 		lblYourInterestGroup.setHorizontalAlignment(SwingConstants.CENTER);
-		lblYourInterestGroup.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblYourInterestGroup.setBounds(81, 28, 186, 23);
+		lblYourInterestGroup.setFont(new Font("Arial Black", Font.PLAIN, 14));
+		lblYourInterestGroup.setBounds(45, 23, 186, 23);
 		panel.add(lblYourInterestGroup);
 		values=new String[user.getInterestGroupInDB().size()];
 		for(int i=0;i<user.getInterestGroupInDB().size();i++){
@@ -68,12 +70,13 @@ public class groupListGUI extends JFrame {
 			
 			btnCancel = new JButton("Back to main menu");
 			btnCancel.setFont(new Font("Tahoma", Font.BOLD, 13));
-			btnCancel.setBounds(51, 368, 186, 37);
+			btnCancel.setBounds(45, 360, 186, 37);
 			panel.add(btnCancel);
 			
 			list_1 = new JList();
+			list_1.setFont(new Font("Arial Black", Font.PLAIN, 13));
 			list_1.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-			list_1.setBackground(new Color(135, 206, 235));
+			list_1.setBackground(new Color(0, 191, 255));
 			list_1.setModel(new AbstractListModel() {
 				
 				public int getSize() {
@@ -83,13 +86,22 @@ public class groupListGUI extends JFrame {
 					return values[index];
 				}
 			});
-			list_1.setBounds(51, 81, 186, 234);
+			list_1.setBounds(45, 73, 186, 234);
 			panel.add(list_1);
 		}
 		return panel;
 	}
 	public void addcancel(ActionListener l) {
 		btnCancel.addActionListener(l);
+	}
+	
+	public void addListActionListener(ListSelectionListener e)
+	{
+		list_1.addListSelectionListener(e);
+	}
+	
+	public JList GetList(){
+		return this.list_1;
 	}
 	public void close() {
 		this.setVisible(false);

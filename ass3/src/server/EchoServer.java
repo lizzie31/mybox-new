@@ -181,6 +181,33 @@ public class EchoServer extends AbstractServer
     	  String re="INSERT INTO test.requests VALUES('"+request.getGroupName()+"','"+request.getUserName()+"','"+request.getRequestType()+"');";
     	  stmt.executeUpdate(re);
     }
+    
+    if(en.getTask().equals("show interest group to user"))
+    {
+    	interestGroups IG=(interestGroups)en.getObject();
+    	file f=null;
+    	Envelope e=null;
+    	ArrayList<file> readfiles=new ArrayList<>();
+    	ArrayList<file> updatefiles=new ArrayList<>();
+    	String re="SELECT f.filename,f.direction,f.permission,f.fileowner From file_read_groups as fr,files as f WHERE f.filename=fr.file_name AND fr.interest_group='"+IG.getGroupName()+"'";
+    	rs=stmt.executeQuery(re);
+    	while(rs.next())
+    	{
+    		f=new file(rs.getString(1),rs.getString(2),rs.getInt(3),rs.getString(4));
+    		readfiles.add(f);
+    	}
+    	re="SELECT f.filename,f.direction,f.permission,f.fileowner From file_update_groups as fu,files as f WHERE f.filename=fu.file_name AND fu.interest_group='"+IG.getGroupName()+"'";
+    	rs1=stmt.executeQuery(re);
+    	while(rs1.next())
+    	{
+    		f=new file(rs1.getString(1),rs1.getString(2),rs1.getInt(3),rs1.getString(4));
+    		updatefiles.add(f);
+    	}
+    	IG.setFilesForRead(readfiles);
+    	IG.setFilesForUpdate(updatefiles);
+    	e=new Envelope(IG,"show interest group");
+    	client.sendToClient(e);
+    }
     if(en.getTask().equals("open file"))
     {
     	Desktop desktop=null;

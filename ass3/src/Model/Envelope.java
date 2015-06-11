@@ -13,7 +13,7 @@ public class Envelope  extends AbstractModel{
 		private Object obj;
 		/**the task that need to do in server*/
 		private String task;
-		/** the message that return from server*/
+		/** for 2 parameters*/
 		private String mess;
 
 /**

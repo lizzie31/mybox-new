@@ -65,6 +65,14 @@ public class userMainMenuController extends AbstractTransfer{
 		}	
 	}
 	
+	protected void buttonshowgroupPressed() {	
+		CurrGui.close();
+		this.setUserDetails(userDetails);
+		groupListGUI SG=new groupListGUI (userDetails);
+		new GroupsListController(SG,this,userDetails);
+		SG.setVisible(true);	
+	}
+	
 	public class TreeSelection implements TreeSelectionListener{
 		public void valueChanged(TreeSelectionEvent e) {
 			file file=null;
@@ -89,15 +97,6 @@ public class userMainMenuController extends AbstractTransfer{
 		   
 		}
 		
-	
-
-	protected void buttonshowgroupPressed() {	
-		CurrGui.close();
-		this.setUserDetails(userDetails);
-		groupListGUI SG=new groupListGUI (userDetails);
-		new GroupsListController(SG,this);
-		SG.setVisible(true);	
-	}
 	
 	protected class addsearchfilesListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
