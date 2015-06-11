@@ -43,7 +43,8 @@ public class fileSearchGui extends JFrame {
 	private ArrayList<file> filesByName=null;
 	private JList list_1;
 	
-
+/** file search gui constructor*/
+/**@param f- all the files with the selected string*/
 	public fileSearchGui(ArrayList f) {
 		setTitle("Searched files by name");
 		setForeground(SystemColor.inactiveCaption);

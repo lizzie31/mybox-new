@@ -83,8 +83,6 @@ public synchronized void handleMessageFromServer(Object message)
 		((logInCon)(currController)).handleDBResult((User)E.getObject());
 	    if(E.getTask().equals("show all interest groups"))
 	    	((userMainMenuController)(currController)).handleDBAllGroupsResult((ArrayList<interestGroups>)E.getObject());
-	    if(E.getTask().equals("show user interest groups"))
-	    	((userMainMenuController)(currController)).handleDBResult((User)E.getObject());    
 	    if(E.getTask().endsWith("search file"))    
 	    	((userMainMenuController)(currController)).handleDBResultFile((ArrayList<file>)E.getObject());
 	    if(E.getTask().equals("all users"))    

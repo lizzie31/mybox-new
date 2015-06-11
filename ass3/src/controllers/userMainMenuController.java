@@ -42,7 +42,6 @@ public class userMainMenuController extends AbstractTransfer{
 	protected fileMenuGui fileMenu;
     protected fileMenuCon fileCon;
 	private Envelope en;
-
 	private file f;
 	private ArrayList<file> filesarr;
 
@@ -53,7 +52,7 @@ public class userMainMenuController extends AbstractTransfer{
 		userDetails=user;
 		CurrGui.addcreatenewfile(new ButtoncreatenewfileListener());
 		CurrGui.addcreatenewfolder(new ButtoncreatenewfolderListener());
-		CurrGui.addleaveEntergruop(new ButtonAddleaveAGrouprListener());
+		CurrGui.addjoingruop(new ButtonAddAGroupListener());
 		CurrGui.addshowgruops(new ButtonshowgrouprListener());
 		CurrGui.addLogOut(new LogOutListener());
 		CurrGui.addtreeSelectionListener(new TreeSelection());
@@ -69,8 +68,8 @@ public class userMainMenuController extends AbstractTransfer{
 	public class TreeSelection implements TreeSelectionListener{
 		public void valueChanged(TreeSelectionEvent e) {
 			file file=null;
-				    //Returns the last path element of the selection.
-				    //This method is useful only when the selection model allows a single selection.
+				    /**Returns the last path element of the selection.
+				    This method is useful only when the selection model allows a single selection.*/
 				    DefaultMutableTreeNode node = (DefaultMutableTreeNode) CurrGui.gettree().getLastSelectedPathComponent();
 				    Object nodeInfo = node.getUserObject();
 				        String str = (String) nodeInfo;
@@ -93,9 +92,11 @@ public class userMainMenuController extends AbstractTransfer{
 	
 
 	protected void buttonshowgroupPressed() {	
-		en=new Envelope(userDetails,"show user interest groups");
-		sendToServer(en);
-		myboxapp.clien.setCurrObj(this);	
+		CurrGui.close();
+		this.setUserDetails(userDetails);
+		groupListGUI SG=new groupListGUI (userDetails);
+		new GroupsListController(SG,this);
+		SG.setVisible(true);	
 	}
 	
 	protected class addsearchfilesListener implements ActionListener {
@@ -127,23 +128,7 @@ public class userMainMenuController extends AbstractTransfer{
 				prevController.getLoginG().ClearText();
 				prevController.getLoginG().setVisible(true);
 			}
-	 } 
-
-	/* class ListSelectionListener implements javax.swing.event.ListSelectionListener{
-			public void valueChanged(ListSelectionEvent e) {
-				 file choosenFile=(String)CurrGui.getlist().getSelectedValue();
-				 file file = null;
-				 for(int i=0;i<userDetails.getFilesInDB().size();i++)
-					{
-						if(userDetails.getFilesInDB().get(i).getFileName().equals(choosenFile))
-							file=userDetails.getFilesInDB().get(i);
-					}
-				 CurrGui.close();			
-				 fileMenu=new fileMenuGui(userDetails,choosenFile);
-				 fileCon=new fileMenuCon(fileMenu,getCon(),userDetails,file);
-			}
-		 }
-		 */
+	 } 	
 	 
 	private class ButtoncreatenewfileListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
@@ -182,7 +167,7 @@ public class userMainMenuController extends AbstractTransfer{
 	public userMainMenuGUI getusermainmenu() {
 		return CurrGui;
 	}
-	private class ButtonAddleaveAGrouprListener implements ActionListener {
+	private class ButtonAddAGroupListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent arg0) {
 			Envelope en=new Envelope(userDetails,"show all interest groups");
@@ -191,12 +176,6 @@ public class userMainMenuController extends AbstractTransfer{
 		}
 	}
 
-/*	private void buttonAddleaveAGroupPressed() {
-		CurrGui.close();
-		EnterOrLeaveGroupGUI ALG=new EnterOrLeaveGroupGUI (userDetails);
-		new EnterOrLeaveGroupController(ALG,this);
-		ALG.setVisible(true);
-	}*/
 
 	public void UpdateDB(){
 
@@ -217,14 +196,6 @@ public userMainMenuController getCon(){
 		return this;
 	}
 	
-	public void handleDBResult(Object message) {
-	userDetails = (User)message;
-	CurrGui.close();
-	this.setUserDetails((User)userDetails);
-	groupListGUI SG=new groupListGUI (userDetails);
-	new GroupsListController(SG,this);
-	SG.setVisible(true);
-	}
 	
 	public void handleDBResultFile(Object message) {
 		if(message instanceof ArrayList<?>)
@@ -246,10 +217,9 @@ public logInCon getPrevController() {
 	}
 
 public void handleDBAllGroupsResult(ArrayList<interestGroups> message) {
-	CurrGui.close();
-	ArrayList<interestGroups> l=message;
-	EnterOrLeaveGroupGUI ALG=new EnterOrLeaveGroupGUI (userDetails,l);
-	new EnterOrLeaveGroupController(ALG,this);
+	ArrayList<interestGroups> groups=(ArrayList<interestGroups>)message;
+	joinGroupGui ALG=new joinGroupGui (userDetails,groups);
+	new JoinGroupCon(ALG,this,userDetails);
 	ALG.setVisible(true);
 }
 }

@@ -29,16 +29,20 @@ public class User extends AbstractModel {
  * @param email
  * @param usreName
  * @param upassword
+ * @param interestGroup 
  * @param Position
- * @param status*
+ * @param status
+ * @param dir
+ * 
  */
-	public User(String usreName, String upassword,String email,int status,ArrayList<directories> dir)
+	public User(String usreName, String upassword,String email,int status,ArrayList<directories> dir, ArrayList<interestGroups> interestGroup)
 	{
 		this.userName = usreName;
     	this.upassword =upassword;
     	this.status = status;
 		this.email = email;
 		this.userDirectories=dir;
+		this.interestGroupInDB=interestGroup;
 	}
 	
 	public User(String usreName, String upassword,String email,int status)

@@ -104,7 +104,7 @@ public class userMainMenuGUI extends JFrame {
 	private JButton btnCreateNewFile=null;
 	private JButton btnShowgroups=null;
 	private JButton btnCreateNewFolder=null;
-	private JButton btnAddleaveAGroup=null;
+	private JButton btnJionGroup=null;
 	private JButton btnSearch=null;
 	private JButton open=null;
 	private JButton btnLogOut=null;	
@@ -119,7 +119,6 @@ public class userMainMenuGUI extends JFrame {
 	/*@param user*/
 	public userMainMenuGUI(User user) {
 		this.user=user;
-		this.setSize(500, 500);
 		initialize();
 
 		if (user.getUserName().compareTo("nofar")!=0)
@@ -159,15 +158,15 @@ public class userMainMenuGUI extends JFrame {
 		btnCreateNewFolder.setBounds(307, 158, 138, 25);
 		MainMenu.add(btnCreateNewFolder);
 
-		btnAddleaveAGroup = new JButton("join new group");
-		btnAddleaveAGroup.addActionListener(new ActionListener() {
+		btnJionGroup = new JButton("join new group");
+		btnJionGroup.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		btnAddleaveAGroup.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnAddleaveAGroup.setBackground(UIManager.getColor("SplitPane.background"));
-		btnAddleaveAGroup.setBounds(307, 228, 138, 23);
-		MainMenu.add(btnAddleaveAGroup);
+		btnJionGroup.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnJionGroup.setBackground(UIManager.getColor("SplitPane.background"));
+		btnJionGroup.setBounds(307, 228, 138, 23);
+		MainMenu.add(btnJionGroup);
 
 		search = new JTextField();
 		search.setBounds(162, 65, 166, 20);
@@ -225,8 +224,8 @@ public class userMainMenuGUI extends JFrame {
 		btnCreateNewFolder.addActionListener(l);
 	}
 
-	public void addleaveEntergruop(ActionListener l) {
-		btnAddleaveAGroup.addActionListener(l);
+	public void addjoingruop(ActionListener l) {
+		btnJionGroup.addActionListener(l);
 	}
 
 	public void addshowgruops(ActionListener l) {

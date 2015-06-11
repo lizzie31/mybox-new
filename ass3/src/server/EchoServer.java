@@ -3,6 +3,8 @@ package server;
 // "Object Oriented Software Engineering" and is issued under the open-source
 // license found at www.lloseng.com 
 
+import java.awt.Desktop;
+import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -15,6 +17,7 @@ import java.util.ArrayList;
 import controllers.forgetPassCon;
 import controllers.logInCon;
 import Model.Envelope;
+import Model.GroupsRequests;
 import Model.User;
 import Model.directories;
 import Model.file;
@@ -63,13 +66,6 @@ public class EchoServer extends AbstractServer
 
     public void createTableUser(){
         Statement stmt;
-        try {
-            stmt = this.getConn().createStatement();
-            ///////////////*********remember to retrieve*************/////////////
-            //stmt.executeUpdate("create table user(username VARCHAR(40),email VARCHAR(40), password int);");
-            //stmt.executeUpdate("INSERT INTO user VALUES('A','pit@gmail.com',12344);");
-            //stmt.executeUpdate("INSERT INTO user VALUES('CC','pit234@gmail.com',3231);");
-        } catch (SQLException e) {    e.printStackTrace();}
     }
   public EchoServer(int port) 
   {
@@ -85,25 +81,25 @@ public class EchoServer extends AbstractServer
 	  int write=0;
    try{
 	  Statement stmt = conn.createStatement();
-   if(msg instanceof Envelope)
-   {
-	   Envelope en=(Envelope)msg;
-	 if((en.getTask()).equals("login"))  //search Login
-	  {
-		  logInMod showfiles=(logInMod)en.getObject();
-		  file f;
-		  String username;
-		  String pass;
-		  String mail;
-		  int status;
-		  ArrayList<directories> userDirectories=new ArrayList<>();
-		  ArrayList<file> files;
-		  directories directory;
-		  String re = "SELECT * FROM users WHERE users.username= '"+(showfiles.getUserName()+"' AND users.password='"+showfiles.getPassword()+"'");
-		  rs = stmt.executeQuery(re);
+      if(msg instanceof Envelope)
+      {
+	     Envelope en=(Envelope)msg;
+	   if((en.getTask()).equals("login"))  //search Login
+	     {
+		    logInMod showfiles=(logInMod)en.getObject();
+		    file f;
+		    String username;
+		    String pass;
+		    String mail;
+		    int status;
+		    ArrayList<directories> userDirectories=new ArrayList<>();
+		    ArrayList<file> files;
+		    directories directory;
+		    String re = "SELECT * FROM users WHERE users.username= '"+(showfiles.getUserName()+"' AND users.password='"+showfiles.getPassword()+"'");
+		    rs = stmt.executeQuery(re);
 		  
-		  if(rs.next()==true)
-		  {  
+		    if(rs.next()==true)
+		    {  
 			    username=rs.getString(1);
 			    pass=rs.getString(2);
 			    mail=rs.getString(3);
@@ -130,8 +126,17 @@ public class EchoServer extends AbstractServer
 					 directory=new directories(files,dirname.get(i));
 					 userDirectories.add(directory);
 				}
+				interestGroups s= null;
+		    	ArrayList<interestGroups> interestGroup=new ArrayList<>();
+		    	re="SELECT * FROM test.userinterestgroups WHERE userinterestgroups.username= '"+username +"'";
+		    	rs = stmt.executeQuery(re);
+		    	while(rs.next()==true)
+		    	{
+		    	  s=new interestGroups(rs.getString(2));
+		    	  interestGroup.add(s);
+		    	}
 				
-	       	 user = new User(username,pass,mail,status,userDirectories);
+	       	 user = new User(username,pass,mail,status,userDirectories,interestGroup);
 	    	 en=new Envelope(user,"log in handle");
 	    	 client.sendToClient(en);
 		  }
@@ -169,27 +174,26 @@ public class EchoServer extends AbstractServer
 	   stmt.executeUpdate(upd);
 	   controller.SetLog(userloged,"logout");  //update the logout serverLogGui
     }
-    if(en.getTask().equals("show user interest groups"))
+    if(en.getTask().equals("send request to system administrator"))
     {
-    	interestGroups s= null;
-    	user=(User)en.getObject();
-    	ArrayList<interestGroups> interestGroup=new ArrayList<>();
-
-    	String re="SELECT * FROM test.userinterestgroups WHERE userinterestgroups.username= '"+user.getUserName() +"'";
-
-    	 rs = stmt.executeQuery(re);
-    	 while(rs.next()==true)
-    	 {
-    		s=new interestGroups(rs.getString(2));
-    		interestGroup.add(s);
-    	
-    	 }
-    	 user.setInterestGroupInDB(interestGroup);
- 
- 		 client.sendToClient(en);	 
+    	  GroupsRequests request=(GroupsRequests)en.getObject();
+    	  String re="INSERT INTO test.requests VALUES('"+request.getGroupName()+"','"+request.getUserName()+"','"+request.getRequestType()+"');";
+    	  stmt.executeUpdate(re);
+    }
+    if(en.getTask().equals("open file"))
+    {
+    	String path=(String)en.getObject();
+    	Desktop desktop;
+    	desktop= Desktop.getDesktop();
+			try {
+				desktop.open(new File(path));
+			} catch (IOException e1) {
+                e1.printStackTrace();
+			}
     }
     if(en.getTask().equals("show all interest groups"))
     {
+    	User user1=(User)en.getObject();
     	interestGroups s= null;
     	ArrayList<interestGroups> allGroups=new ArrayList<>();
     	String re="SELECT * FROM test.interestgroups";
@@ -199,6 +203,17 @@ public class EchoServer extends AbstractServer
     		 s=new interestGroups(rs.getString(1));
     		 allGroups.add(s);
     	 }
+      	 for(int i=0;i<allGroups.size();i++)
+      	 {
+      		 for(int j=0;j<user1.getInterestGroupInDB().size();j++)
+      		 {
+      			 String groupname=user1.getInterestGroupInDB().get(j).getGroupName();
+      			 if((allGroups.get(i).getGroupName()).equals(groupname))
+      			 {
+      				 allGroups.remove(i);
+      			 }
+      		 }
+      	 }
       	en=new Envelope(allGroups,"show all interest groups");
       	 client.sendToClient(en);
 	}
@@ -207,7 +222,6 @@ public class EchoServer extends AbstractServer
    {
    	Statement stmt1 = this.getConn().createStatement();
    	interestGroups s= (interestGroups)en.getObject();
-
    	 rs = stmt1.executeQuery("SELECT groupname FROM test.interestgroups WHERE interestgroups.groupname= '"+(s.getGroupName()+"'"));
    	if (rs.next()==true) 
    	   {

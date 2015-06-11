@@ -9,18 +9,18 @@ import java.io.IOException;
 
 import view.fileMenuGui;
 import view.userMainMenuGUI;
+import Model.Envelope;
 import Model.User;
 import Model.file;
 
 
 
-public class fileMenuCon {
+public class fileMenuCon extends AbstractTransfer{
 
 	private User user;
 	private fileMenuGui CurrGui;
 	private userMainMenuController prevCon;
 	private file ChoosenFile=null;
-	private Desktop desktop;
 	private userMainMenuGUI menu;
 	
 	public fileMenuCon(fileMenuGui menu,userMainMenuController  lastCon,User user, file file) {
@@ -42,14 +42,8 @@ public class fileMenuCon {
 	
 	class readListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-				desktop= Desktop.getDesktop();
-				Object source = e.getSource();
-				if (source==CurrGui.getbtnRead())
-					try {
-						desktop.open(new File(ChoosenFile.getDirection()));
-					} catch (IOException e1) {
-                        e1.printStackTrace();
-					}
+			    Envelope en=new Envelope(ChoosenFile.getDirection(),"open file");
+			    sendToServer(en);
 			}
 			
 			
