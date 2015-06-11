@@ -21,6 +21,8 @@ import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreePath;
 
 import client.myboxapp;
 import Model.Envelope;
@@ -66,18 +68,24 @@ public class userMainMenuController extends AbstractTransfer{
 	
 	public class TreeSelection implements TreeSelectionListener{
 		public void valueChanged(TreeSelectionEvent e) {
-			/* String choosenFile=(String)CurrGui.gettree().getSelectionPath();
-			 file file = null;
+			file file=null;
+				    //Returns the last path element of the selection.
+				    //This method is useful only when the selection model allows a single selection.
+				    DefaultMutableTreeNode node = (DefaultMutableTreeNode) CurrGui.gettree().getLastSelectedPathComponent();
+				    Object nodeInfo = node.getUserObject();
+				        String str = (String) nodeInfo;
 			 for(int i=0;i<userDetails.getuserDirectories().size();i++)
 				{
 				 for(int j=0;j<userDetails.getuserDirectories().get(i).getfiles().size();j++)
-					if(userDetails.getuserDirectories().get(i).getfiles().get(j).getFileName().equals(choosenFile))
+					if(userDetails.getuserDirectories().get(i).getfiles().get(j).getFileName().equals(str))
+					{
 						file=userDetails.getuserDirectories().get(i).getfiles().get(j);
+				        CurrGui.close();			
+				        fileMenu=new fileMenuGui(userDetails,str);
+				        fileCon=new fileMenuCon(fileMenu,getCon(),userDetails,file);
+					}
 				}
-			 CurrGui.close();			
-			// fileMenu=new fileMenuGui(userDetails,choosenFile);
-			 fileCon=new fileMenuCon(fileMenu,getCon(),userDetails,file);
-			 */
+			 
 		   }
 		   
 		}
@@ -123,7 +131,7 @@ public class userMainMenuController extends AbstractTransfer{
 
 	/* class ListSelectionListener implements javax.swing.event.ListSelectionListener{
 			public void valueChanged(ListSelectionEvent e) {
-				 String choosenFile=(String)CurrGui.getlist().getSelectedValue();
+				 file choosenFile=(String)CurrGui.getlist().getSelectedValue();
 				 file file = null;
 				 for(int i=0;i<userDetails.getFilesInDB().size();i++)
 					{

@@ -75,7 +75,7 @@ public class fileSearchGui extends JFrame {
 		JLabel lblYourInterestGroup = new JLabel("Files in database:");
 		lblYourInterestGroup.setHorizontalAlignment(SwingConstants.CENTER);
 		lblYourInterestGroup.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblYourInterestGroup.setBounds(81, 28, 186, 23);
+		lblYourInterestGroup.setBounds(43, 32, 186, 23);
 		panel.add(lblYourInterestGroup);
 		
 	}

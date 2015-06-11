@@ -94,35 +94,36 @@ import java.awt.SystemColor;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.event.TreeSelectionEvent;
 
+/**this class is the user main menu window*/
 public class userMainMenuGUI extends JFrame {
+	/**main menu*/
 	private JPanel MainMenu;
+	/**search text field*/
 	private JTextField search;
+	/**window buttons*/
 	private JButton btnCreateNewFile=null;
 	private JButton btnShowgroups=null;
 	private JButton btnCreateNewFolder=null;
 	private JButton btnAddleaveAGroup=null;
 	private JButton btnSearch=null;
-	private PopupMenu p = new PopupMenu();
 	private JButton open=null;
-	private JButton btnLogOut=null;	//private ArrayList<String> files=new ArrayList<String>();
-	private String filePath = "d:/jimmie.jpg";
-	private Desktop desktop;
-	private ArrayList<file> userfiles=null;
-	private int arraysize;
-	private String[] values;
+	private JButton btnLogOut=null;	
+	/**files JTree*/
 	private JTree tree=null;
+	/** nodes in JTree*/
 	private DefaultMutableTreeNode node=null;
-	JList list=null;
-	User user;
+	/**current user information*/
+	private User user;
 
-	
+	/**constructor*/
+	/*@param user*/
 	public userMainMenuGUI(User user) {
 		this.user=user;
 		this.setSize(500, 500);
 		initialize();
 
 		if (user.getUserName().compareTo("nofar")!=0)
-	   this.setVisible(true);
+	    this.setVisible(true);
 
 	}
 
@@ -134,61 +135,54 @@ public class userMainMenuGUI extends JFrame {
 		this.setTitle("main menu");;
 		this.setContentPane(getMainMenu());
 		
-		/*userfiles=user.getFilesInDB();
-        arraysize=user.getFilesInDB().size();
-        values = new String[arraysize];
-        
-        for(int i=0;i<userfiles.size();i++)
-		{
-			values[i]=userfiles.get(i).getFileName();
-		}
-		*/
-        desktop= Desktop.getDesktop();
-		
         btnCreateNewFile = new JButton("create new file");
 		btnCreateNewFile.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnCreateNewFile.setBounds(307, 216, 132, 23);    
+		btnCreateNewFile.setBounds(307, 194, 138, 23);    
 		btnCreateNewFile.setBackground(UIManager.getColor("SplitPane.background"));
 		MainMenu.add(btnCreateNewFile);		
 
 		btnLogOut = new JButton("log out");
 		btnLogOut.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnLogOut.setBackground(UIManager.getColor("SplitPane.background"));
-		btnLogOut.setBounds(307, 284, 89, 23);
+		btnLogOut.setBounds(385, 327, 89, 23);
 		MainMenu.add(btnLogOut);
 		
 		btnShowgroups = new JButton("show Groups");
 		btnShowgroups.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnShowgroups.setBackground(UIManager.getColor("SplitPane.background"));
-		btnShowgroups.setBounds(307, 143, 138, 25);
+		btnShowgroups.setBounds(307, 122, 138, 25);
 		MainMenu.add(btnShowgroups);		
 
 		btnCreateNewFolder = new JButton("create new folder");
 		btnCreateNewFolder.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnCreateNewFolder.setBackground(UIManager.getColor("SplitPane.background"));
-		btnCreateNewFolder.setBounds(307, 180, 138, 25);
+		btnCreateNewFolder.setBounds(307, 158, 138, 25);
 		MainMenu.add(btnCreateNewFolder);
 
-		btnAddleaveAGroup = new JButton("add/leave a group");
+		btnAddleaveAGroup = new JButton("join new group");
+		btnAddleaveAGroup.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		btnAddleaveAGroup.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnAddleaveAGroup.setBackground(UIManager.getColor("SplitPane.background"));
-		btnAddleaveAGroup.setBounds(307, 250, 146, 23);
+		btnAddleaveAGroup.setBounds(307, 228, 138, 23);
 		MainMenu.add(btnAddleaveAGroup);
 
 		search = new JTextField();
-		search.setBounds(198, 46, 146, 20);
+		search.setBounds(162, 65, 166, 20);
 		MainMenu.add(search);
 		search.setColumns(10);	
 
-		JLabel lblSearch = new JLabel("search");
-		lblSearch.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblSearch.setBounds(105, 46, 104, 17);
+		JLabel lblSearch = new JLabel("type the file name:");
+		lblSearch.setFont(new Font("Arial Black", Font.PLAIN, 12));
+		lblSearch.setBounds(23, 62, 139, 24);
 		MainMenu.add(lblSearch);
 		
 		btnSearch = new JButton("Search");
 		btnSearch.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnSearch.setBackground(SystemColor.menu);
-		btnSearch.setBounds(301, 89, 138, 25);
+		btnSearch.setBounds(336, 63, 138, 25);
 		MainMenu.add(btnSearch);
 	}
 
@@ -199,41 +193,22 @@ public class userMainMenuGUI extends JFrame {
 		MainMenu.setLayout(null);
 		
 		tree = new JTree();
-		//tree.addTreeSelectionListener(new TreeSelectionListener() {
-			//public void valueChanged(TreeSelectionEvent arg0) {
-		//	}
-		//});
-		tree.setModel(new DefaultTreeModel(
-			new DefaultMutableTreeNode(""+user.getUserName()+" files") {
-				{
-					for(int i=0;i<user.getuserDirectories().size();i++)
-					{
-						node=new DefaultMutableTreeNode(""+user.getuserDirectories().get(i).getDirectoryName());
-						for(int j=0;j<user.getuserDirectories().get(i).getfiles().size();j++)
-						{
-							node.add(new DefaultMutableTreeNode(""+user.getuserDirectories().get(i).getfiles().get(j).getFileName()));
-				
-						}
-						add(node);
-					}
-					/*node_1 = new DefaultMutableTreeNode("sports");
-						node_1.add(new DefaultMutableTreeNode("basketball"));
-						node_1.add(new DefaultMutableTreeNode("soccer"));
-						node_1.add(new DefaultMutableTreeNode("football"));
-						node_1.add(new DefaultMutableTreeNode("hockey"));
-					add(node_1);
-					node_1 = new DefaultMutableTreeNode("food");
-						node_1.add(new DefaultMutableTreeNode("hot dogs"));
-						node_1.add(new DefaultMutableTreeNode("pizza"));
-						node_1.add(new DefaultMutableTreeNode("ravioli"));
-						node_1.add(new DefaultMutableTreeNode("bananas"));
-					add(node_1);
-					*/
-				}
-			}
-		));
-		tree.setBounds(29, 113, 190, 194);
+		tree.setBackground(new Color(0, 191, 255));
+		tree.setFont(new Font("Arial Black", Font.PLAIN, 14));
+		setJtree();
+		tree.setBounds(35, 124, 240, 194);
 		MainMenu.add(tree);
+		
+		JButton btnNewButton = new JButton("leave group");
+		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnNewButton.setBounds(307, 262, 138, 23);
+		MainMenu.add(btnNewButton);
+		
+		JLabel lblWelcomBack = new JLabel("welcom back "+user.getUserName()+"!!");
+		lblWelcomBack.setForeground(new Color(0, 0, 255));
+		lblWelcomBack.setFont(new Font("Arial Black", Font.PLAIN, 16));
+		lblWelcomBack.setBounds(134, 21, 240, 23);
+		MainMenu.add(lblWelcomBack);
 		}
 		return MainMenu;	
 	}
@@ -273,23 +248,31 @@ public class userMainMenuGUI extends JFrame {
 		dispose();
 	}
 
-	public void menu(){
-
-		enableEvents(AWTEvent.MOUSE_EVENT_MASK);
-		p.add(new MenuItem("read"));
-		p.add(new MenuItem("rename"));
-		p.add(new MenuItem("update"));
-		p.add(new MenuItem("set prmmission"));
-		p.add(new MenuItem("add to DB"));
-		MainMenu.add(p);
-
-	}
 	
 	public String getTextField()
 	{
 		return search.getText();
 	}
 
+	public void setJtree()
+	{
+		tree.setModel(new DefaultTreeModel(
+				new DefaultMutableTreeNode(""+user.getUserName()+"'s files") {
+					{
+						for(int i=0;i<user.getuserDirectories().size();i++)
+						{
+							node=new DefaultMutableTreeNode(""+user.getuserDirectories().get(i).getDirectoryName());
+							for(int j=0;j<user.getuserDirectories().get(i).getfiles().size();j++)
+							{
+								node.add(new DefaultMutableTreeNode(user.getuserDirectories().get(i).getfiles().get(j).getFileName()));
+					
+							}
+							add(node);
+						}
+					}
+				}
+			));
+	}
 
 	public JTree gettree() {
 		return this.tree;
