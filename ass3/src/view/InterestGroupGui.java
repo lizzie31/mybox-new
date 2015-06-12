@@ -21,8 +21,11 @@ import Model.interestGroups;
 public class InterestGroupGui extends AbstractGui{
 	private JPanel panel=null;
 	private JButton btnCancel=null;
+	/**@param values is an array that saves all groups names*/
 	private String[] values = null;
+	/**@param groupInformation is the interest groups information*/
 	private interestGroups groupInformation=null;
+	/**@param list_1 is a list of all the interest groups*/
 	private JList list_1;
 	
 	public InterestGroupGui(interestGroups iGR) {

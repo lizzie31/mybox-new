@@ -9,7 +9,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 public class warningGui extends JFrame {
-
+/**
+ * @param contentPane is the panel of warning message
+ */
 	private JPanel contentPane;
 	private JButton btnOk = new JButton("ok");
 
@@ -23,6 +25,7 @@ public class warningGui extends JFrame {
 
 	/**
 	 * Initialize the contents of the frame.
+	 * @param lblErrorPleaseTry is a label that tells the user there was error and to try again
 	 */
 	private void initialize() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

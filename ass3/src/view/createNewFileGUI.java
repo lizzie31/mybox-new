@@ -33,15 +33,19 @@ import java.util.Scanner;
 public class createNewFileGUI extends JFrame{
 
 	private JFrame frame;
-	private JTextField textField;
-	private JTextField textField_1;
+	/**@param fileNameField is the file name text field*/
+	private JTextField fileNameField;
+	/**@param descriptionField is the description text field*/
+	private JTextField descriptionField;
 	private JPanel createpanel;
 	private JButton btnCancel =null; 
 	private JTextField textField2 = null;
+	/**@param currGUI is the create new file gui*/
 	private createNewFileGUI currGUI;
 	
 	static private final String newline = "\n";
 	private JButton btnOpen;
+	/**@param btnChooseTheFolder is a button in order to choose the folder*/
 	private JButton btnChooseTheFolder;
 	private JTextArea textArea;
     JFileChooser fileChooser = new JFileChooser();
@@ -69,7 +73,7 @@ public class createNewFileGUI extends JFrame{
 	    this.setContentPane(getCreatePanel());   
 
 	}
-	
+	/**buttonOpenOrSavePressed() saves or opens the file as requested*/
 	private class buttonOpenOrSavePressed implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
@@ -152,10 +156,10 @@ public class createNewFileGUI extends JFrame{
 
 			
 		    
-			textField = new JTextField();
-			textField.setBounds(216, 38, 115, 20);
-			textField.setColumns(10);
-			createpanel.add(textField);
+			fileNameField = new JTextField();
+			fileNameField.setBounds(216, 38, 115, 20);
+			fileNameField.setColumns(10);
+			createpanel.add(fileNameField);
 			
 			JLabel lblFileName = new JLabel("File name:");
 			lblFileName.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -163,10 +167,10 @@ public class createNewFileGUI extends JFrame{
 			lblFileName.setBounds(66, 39, 93, 17);
 			createpanel.add(lblFileName);
 			
-			textField_1 = new JTextField();
-			textField_1.setBounds(216, 84, 115, 46);
-			textField_1.setColumns(10);
-			createpanel.add(textField_1);
+			descriptionField = new JTextField();
+			descriptionField.setBounds(216, 84, 115, 46);
+			descriptionField.setColumns(10);
+			createpanel.add(descriptionField);
 			
 			JLabel lblDescription = new JLabel("Description:");
 			lblDescription.setHorizontalAlignment(SwingConstants.LEFT);

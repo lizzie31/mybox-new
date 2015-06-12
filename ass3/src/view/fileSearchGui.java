@@ -31,16 +31,18 @@ import javax.swing.ListSelectionModel;
 
 public class fileSearchGui extends JFrame {
 
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	private JFrame frame;
 	private JPanel panel=null;
 	private JButton btnCancel=null;
+	/**@param values is an array that saves all files names*/
 	private String[] values = null;
+	/**@param file is an array list of all the files*/
 	private ArrayList<file> file;
+	/**@param filesByName is array list all the files names*/
 	private ArrayList<file> filesByName=null;
+	/**@param list_1 is a list of all the files*/
 	private JList list_1;
 	
 /** file search gui constructor*/
@@ -111,7 +113,7 @@ public class fileSearchGui extends JFrame {
 	public void addcancel(ActionListener l) {
 		btnCancel.addActionListener(l);
 	}
-	
+	/**close() closes the current window*/
 	public void close() {
 		this.setVisible(false);
 		dispose();

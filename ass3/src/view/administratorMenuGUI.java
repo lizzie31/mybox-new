@@ -41,7 +41,8 @@ import javax.swing.UIManager;
 public class administratorMenuGUI extends JFrame {
 
 	private JPanel MainMenu;
-	private JTextField textField;
+	/**@param searchField is the search text field*/
+	private JTextField searchField;
 	private JButton btnCreateNewFile=null;
 	private JButton btnShowgroups=null;
 	private JButton btnCreateNewFolder=null;
@@ -50,9 +51,11 @@ public class administratorMenuGUI extends JFrame {
 	private JButton btnLogOut=null;
 	private User user;
 	private JButton btnrequests = null;
+	/**@param userfiles is array list of all the user files*/
 	private ArrayList<file> userfiles=null;
 	private JButton btnNewButton_2;
 	private int arraysize;
+	/**@param values is an array that saves all groups names*/
 	private String[] values;
 	private JButton deleteGroupButton=null;
 	private DefaultMutableTreeNode node=null;
@@ -100,10 +103,10 @@ public class administratorMenuGUI extends JFrame {
 		btnCreateNewFolder.setBounds(307, 214, 138, 25);
 		MainMenu.add(btnCreateNewFolder);
 		
-		textField = new JTextField();
-		textField.setBounds(198, 46, 146, 20);
-		MainMenu.add(textField);
-		textField.setColumns(10);
+		searchField = new JTextField();
+		searchField.setBounds(198, 46, 146, 20);
+		MainMenu.add(searchField);
+		searchField.setColumns(10);
 		
 		JLabel lblSearch = new JLabel("search");
 		lblSearch.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -189,6 +192,7 @@ MainMenu.setBackground(new Color(102, 205, 170));
 	public void addlogout(ActionListener l) {
 		btnLogOut.addActionListener(l);
 	}
+	/**close() closes the current window*/
 	public void close() {
 		this.setVisible(false);
 		dispose();

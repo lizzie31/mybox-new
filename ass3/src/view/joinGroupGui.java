@@ -29,21 +29,27 @@ import java.util.ArrayList;
 
 public class joinGroupGui extends JFrame {
 
-	private JFrame frmEnterLeaveGroup;
 	private JButton btnCancel;
+	/**@param btnSendToSystem is a button that is pressed in order to send the request to the system administrator*/
 	private JButton btnSendToSystem;
+	/**@param panel is the current jpanel*/
 	private JPanel panel=null;
+	/**@param lblwarningMessage is a lable of a warning message*/
 	private JLabel lblwarningMessage=null;
+	/**@param values is an array of all the groups names*/
 	private String[] values;
+	/**@param user is the current user requesting to join a group*/
 	private User user;
+	/**@param groups is arrayList of all the groups in the DB*/
 	private ArrayList<interestGroups> groups=null;
+	/**@param comboBox is a comboBox of all the groups*/
 	private JComboBox<String> comboBox;
  
 	public joinGroupGui(User u, ArrayList<interestGroups> message) {
 		setBackground(new Color(0, 191, 255));
 		setForeground(SystemColor.activeCaption);
 		setResizable(false);
-		setTitle("Join or leave the group");
+		setTitle("Join a group");
 		this.user=u;
 		this.groups=message;
 		initialize();
@@ -67,7 +73,7 @@ public class joinGroupGui extends JFrame {
 		
 			values[i]=groups.get(i).getGroupName();
 			}
-			
+			comboBox.addItem("");
 			for(int i = 0; i < values.length; i++)
 				comboBox.addItem(values[i]);
 		}
@@ -125,12 +131,12 @@ public class joinGroupGui extends JFrame {
 		btnSendToSystem.addActionListener(e);
 	}
 	
-	
+	/**getComboBox() reutrns the comboBox*/
 	public JComboBox getComboBox() {
 		return this.comboBox;
 		
 	}
-	
+	/**getLblwarningMessage() returns the warning message*/
 	public JLabel getLblwarningMessage() {
 		if(lblwarningMessage == null){
 			lblwarningMessage = new JLabel("");
@@ -141,7 +147,7 @@ public class joinGroupGui extends JFrame {
 		}
 		return lblwarningMessage;
 	}
-	
+	/**setWarningMessageVisibleTrue(String st) sets the warning message st visible*/
 	public void setWarningMessageVisibleTrue(String st) {
 		lblwarningMessage.setText(st);
 		lblwarningMessage.setForeground(Color.RED);
@@ -150,12 +156,12 @@ public class joinGroupGui extends JFrame {
 		lblwarningMessage.setVisible(true);	
 		
 	}
-	
+	/**undisplayWarningMessage() sets the warning message not visible*/
  	public void undisplayWarningMessage() {
 		lblwarningMessage.setVisible(false);
 		
 	}
-	
+	/**close() closes the current window*/
 	public void close() {
 		setVisible(false);
 		dispose();

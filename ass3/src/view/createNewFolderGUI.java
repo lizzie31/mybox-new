@@ -17,10 +17,11 @@ import javax.swing.JButton;
 
 public class createNewFolderGUI extends JFrame {
 
-	private JFrame frame;
-	private JTextField textField;
+	
+	/**@param folderNameField is the folder name text filed*/
+	private JTextField folderNameField;
 	private JPanel panel;
-	JButton btnCancel=null;
+	private JButton btnCancel=null;
 
 
 	public createNewFolderGUI() {
@@ -38,10 +39,10 @@ public class createNewFolderGUI extends JFrame {
 		this.setContentPane(getCreatePanel());
 	
 		
-		textField = new JTextField();
-		textField.setBounds(227, 79, 86, 20);
-		panel.add(textField);
-		textField.setColumns(10);
+		folderNameField = new JTextField();
+		folderNameField.setBounds(227, 79, 86, 20);
+		panel.add(folderNameField);
+		folderNameField.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("folder name");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -69,6 +70,7 @@ public class createNewFolderGUI extends JFrame {
 	public void addcancel(ActionListener l) {
 		btnCancel.addActionListener(l);
 	}
+	/**close() closes the current window*/
 	public void close() {
 		this.setVisible(false);
 		dispose();

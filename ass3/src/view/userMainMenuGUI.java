@@ -96,27 +96,31 @@ import javax.swing.event.TreeSelectionEvent;
 
 /**this class is the user main menu window*/
 public class userMainMenuGUI extends JFrame {
-	/**main menu*/
+	/**@param MainMenu is the pannel that shows user main menu*/
 	private JPanel MainMenu;
-	/**search text field*/
+	/**@param search is text field that user can enter letters or words in order to find a file*/
 	private JTextField search;
-	/**window buttons*/
+	/**@param btnCreateNewFile is a button that is pressed if a user wants to create a new file*/
 	private JButton btnCreateNewFile=null;
+	/**@param btnShowgroups is a button the user can press in order to see the groups he is in */
 	private JButton btnShowgroups=null;
+	/**@param btnCreateNewFolder is a button in order to create new folder*/
 	private JButton btnCreateNewFolder=null;
+	/**@param btnJionGroup is a button in oreder to join a group*/
 	private JButton btnJionGroup=null;
+	/**@param btnSearch is a button in order to search the file the user entered*/
 	private JButton btnSearch=null;
 	private JButton open=null;
 	private JButton btnLogOut=null;	
-	/**files JTree*/
+	/**@param tree is files JTree*/
 	private JTree tree=null;
-	/** nodes in JTree*/
+	/**@param node is nodes in JTree*/
 	private DefaultMutableTreeNode node=null;
-	/**current user information*/
+	/**@param user is current user information*/
 	private User user;
 
 	/**constructor*/
-	/*@param user*/
+	/**@param user is the current user information*/
 	public userMainMenuGUI(User user) {
 		this.user=user;
 		initialize();
@@ -241,18 +245,18 @@ public class userMainMenuGUI extends JFrame {
 	{
 		tree.addTreeSelectionListener(TreeSelection);
 	}
-
+/**close() closes the current gui window*/
 	public void close() {
 		this.setVisible(false);
 		dispose();
 	}
 
-	
+/** getTextField() returns the textFeild the user entered*/	
 	public String getTextField()
 	{
 		return search.getText();
 	}
-
+/**setJtree() sets the files and folders of the user*/
 	public void setJtree()
 	{
 		tree.setModel(new DefaultTreeModel(

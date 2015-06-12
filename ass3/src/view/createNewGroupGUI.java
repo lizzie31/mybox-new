@@ -25,17 +25,20 @@ import javax.swing.JCheckBox;
 
 public class createNewGroupGUI extends JFrame{
 
-	private JFrame frame;
+	
 	/**
-	 * the new group name.
+	 * @param groupname is the new group name.
 	 */
 	private JTextField groupname;
 	private JButton btnAdd;
 	private JButton btnCancel;
 	private JPanel panel;
 	private JLabel lblwarningMessage = null;
+	/**@param l is the log in controller*/
 	private logInCon l=null;
+	/**@param wor is the warning gui window*/
 	private warningGui wor=null;
+	/**@param chckbxNewCheckBox is a comboBox of all userNames*/
 	private JCheckBox chckbxNewCheckBox;
 	/**
 	 * @param users the array of all users in DB.
@@ -102,6 +105,7 @@ public class createNewGroupGUI extends JFrame{
 	public void addAdd(ActionListener l) {
 		btnAdd.addActionListener(l);
 	}
+	/**close() closes the current window*/
 	public void close() {
 		this.setVisible(false);
 		dispose();
@@ -110,11 +114,11 @@ public class createNewGroupGUI extends JFrame{
 	public JTextField getGroupname() {
 		return groupname;
 	}
-
+/**setWarningMessageVisibleTrue() sets the warning message visible*/
 	public void setWarningMessageVisibleTrue() {
 		lblwarningMessage.setVisible(true);	
 	}
-	
+	/**setWarningMessageVisibleTrue(String st) sets st warning message visible*/
 	public void setWarningMessageVisibleTrue(String st) {
 		lblwarningMessage.setText(st);
 		lblwarningMessage.setForeground(Color.RED);
@@ -122,11 +126,12 @@ public class createNewGroupGUI extends JFrame{
 		lblwarningMessage.setVisible(true);	
 		
 	}
-	
+	/**undisplayWarningMessage() sets warning message not visible*/
  	public void undisplayWarningMessage() {
 		lblwarningMessage.setVisible(false);
 
  	}
+ 	/**showsuceedmessege() shows a message that the group was added sucssesfuly to the DB*/
  	public void showsuceedmessege()
  	{
  		Component frame=null;

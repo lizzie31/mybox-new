@@ -17,7 +17,8 @@ public class forgget_password extends JFrame{
 
 	private JFrame frame;
 	private JPanel FirstPanel=null;
-	private JTextField textField;
+	/**@param emailField is the email text field*/
+	private JTextField emailField;
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JButton btnOk=null;
@@ -71,14 +72,14 @@ public class forgget_password extends JFrame{
 		textField_2.setColumns(10);
 		return textField_2;
 	}
-
+/**gettextfield() returns the email text field*/
 	public JTextField gettextfield()
 	{
-	    textField = new JTextField();
-	    textField.setBounds(249, 77, 86, 20);
-	    textField.setColumns(10);
+		emailField = new JTextField();
+		emailField.setBounds(249, 77, 86, 20);
+		emailField.setColumns(10);
 	
-	return textField;
+	return emailField;
 	}
 	
 	public JTextField gettextfield1(){
@@ -90,6 +91,7 @@ public class forgget_password extends JFrame{
 		return textField_1;
 		
 	}
+	/**getbtnOk() returns ok button*/
 	public JButton getbtnOk(){	
 		
 	   btnOk = new JButton("ok");
@@ -97,7 +99,7 @@ public class forgget_password extends JFrame{
 	
 	   return btnOk;
 	}
-	
+	/**getbtncancel() returns cancel button*/
 	public JButton getbtncancel()
 	{	
 	   btnCancel = new JButton("cancel");
@@ -105,7 +107,7 @@ public class forgget_password extends JFrame{
 	
 	   return btnCancel;
 	}
-	
+	/**getlblEmailAdress() returns email address*/
 	public JLabel getlblEmailAdress()
 	{
 	   JLabel lblEmailAdress = new JLabel("Email Adress");
@@ -114,7 +116,7 @@ public class forgget_password extends JFrame{
 	
 	   return lblEmailAdress;
 	}
-	
+	/**getlblUserName() returns user name lable*/
 	public JLabel getlblUserName()
 	{
 	lblUserName = new JLabel("User Name");
@@ -122,6 +124,7 @@ public class forgget_password extends JFrame{
 
     return lblUserName;
 	}
+	/**getlblForgettPassword() returns the forget password lable*/
 	public JLabel getlblForgettPassword()
 	{
 	   lblForggetPassword = new JLabel("please enter your email adsress:");
@@ -130,9 +133,9 @@ public class forgget_password extends JFrame{
 	
 	   return lblForggetPassword;
 	}
-	
+	/**getTextUserMail() returns the email text field*/
 	 public String getTextUserMail() {
-			return textField.getText();
+			return emailField.getText();
 		}
 	 
 	 public void addOkActionListener(ActionListener listener){
@@ -143,7 +146,7 @@ public class forgget_password extends JFrame{
 	 public void addCancelActionListener(ActionListener listener){
 	 		btnCancel.addActionListener(listener);
 	 	}
-	 
+	 /**getLblwarningMessage() returns the lable of warning message*/
 	 public JLabel getLblwarningMessage() {
 			if(lblwarningMessage == null){
 				lblwarningMessage = new JLabel("");
@@ -153,10 +156,11 @@ public class forgget_password extends JFrame{
 			}
 			return lblwarningMessage;
 		}
+	 /**setWarningMessageVisibleTrue() sets the lable of warning message visible*/
 		public void setWarningMessageVisibleTrue() {
 			lblwarningMessage.setVisible(true);	
 		}
-		
+		/**setWarningMessageVisibleTrue(String st) sets st warning message visible*/
 		public void setWarningMessageVisibleTrue(String st) {
 			lblwarningMessage.setText(st);
 			lblwarningMessage.setForeground(Color.RED);
@@ -164,7 +168,7 @@ public class forgget_password extends JFrame{
 			lblwarningMessage.setVisible(true);	
 			
 		}
-		
+		/**undisplayWarningMessage() sets the warning message not visible*/
 	 	public void undisplayWarningMessage() {
 			lblwarningMessage.setVisible(false);
 			

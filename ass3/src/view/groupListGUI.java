@@ -28,8 +28,10 @@ public class groupListGUI extends JFrame {
 
 	private JPanel panel=null;
 	private JButton btnCancel=null;
+	/**@param values is an array that saves all groups names*/
 	private String[] values = null;
 	private User user;
+	/**@param list_1 is a list of all the interest groups*/
 	private JList list_1;
 	
 
@@ -99,10 +101,11 @@ public class groupListGUI extends JFrame {
 	{
 		list_1.addListSelectionListener(e);
 	}
-	
+	/**GetList() returns the list of goups*/
 	public JList GetList(){
 		return this.list_1;
 	}
+	/**close() closes the current window*/
 	public void close() {
 		this.setVisible(false);
 		dispose();

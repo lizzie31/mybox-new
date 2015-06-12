@@ -14,8 +14,9 @@ import javax.swing.JButton;
 
 public class deleteGroupGUI extends JFrame{
 
-	private JFrame frame;
+	
 	private JButton btnOk;
+	/**@param comboBox is a comboBox of all the groups*/
 	private JComboBox comboBox;
 	private JLabel lblChooseAGroup;
 	private JButton btnCancel;
@@ -66,6 +67,7 @@ public class deleteGroupGUI extends JFrame{
 	public void addcancel(ActionListener l) {
 		btnCancel.addActionListener(l);
 	}
+	/**close() closes the current window*/
 	public void close() {
 		this.setVisible(false);
 		dispose();

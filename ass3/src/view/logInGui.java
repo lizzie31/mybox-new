@@ -27,14 +27,19 @@ public class logInGui extends JFrame{
 
 	private JFrame frame;
 	private JPanel FirstPanel=null;
-	private JTextField textField=null;
-	private JTextField textField_1=null;
+/**@param userNameField is the text field of user name*/
+	JTextField userNameField=null;
+	/**@param passwordField is the text field of password*/
+	private JTextField passwordField=null;
 	public JButton btnLogin=null;
+	/**@param btnfrgtPass is the forget password button */
 	public JButton btnfrgtPass;
 	private JLabel lblName=null;
 	private JLabel lblPassword=null;
 	private JLabel lblwarningMessage = null;
+	/**@param l is the logInController*/
 	private logInCon l=null;
+	/**@param wor is the warningGui*/
 	private warningGui wor=null;
 
 	/**
@@ -55,17 +60,17 @@ public class logInGui extends JFrame{
 		this.setTitle("myBox/login");
 		this.setVisible(true);
 		}
-		
+	/**getTextUserName() returns user name text field*/	
 	 public String getTextUserName() {
-		return textField.getText();
+		return userNameField.getText();
 	}
 	 
-	
+	/**getTextPassword() returns the password text field*/
       public String getTextPassword() {
-		String str = new String(textField_1.getText());
+		String str = new String(passwordField.getText());
 		return str;
 	 }
-      
+    /**getlblname() returns the user name lable*/  
      public JLabel getlblname(){
         lblName = new JLabel("user name");
         lblName.setFont(new Font("Arial Black", Font.PLAIN, 11));
@@ -73,7 +78,7 @@ public class logInGui extends JFrame{
 		
 		return lblName;
      }
-     
+     /**getlblpassword() returns the password lable*/
      public JLabel getlblpassword(){
         lblPassword = new JLabel("password");
         lblPassword.setFont(new Font("Arial Black", Font.PLAIN, 11));
@@ -81,22 +86,24 @@ public class logInGui extends JFrame{
 		
 		return lblPassword;
      }
+     /**gettextfield() returns the user name text field*/
      public  JTextField gettextfield(){
- 	   textField = new JTextField();
-	   textField.setBounds(246, 20, 86, 20);
-   	   textField.setColumns(10);
+    	 userNameField = new JTextField();
+    	 userNameField.setBounds(246, 20, 86, 20);
+    	 userNameField.setColumns(10);
    	   
-	   return textField;
+	   return userNameField;
     } 
+     /**gettextfield_1() reurns the password text field*/
      public  JTextField gettextfield_1(){  
-        textField_1 = new JTextField();
-		textField_1.setBounds(246, 57, 86, 20);
+    	 passwordField = new JTextField();
+    	 passwordField.setBounds(246, 57, 86, 20);
 
-		textField_1.setColumns(10);
+    	 passwordField.setColumns(10);
 		
-		return textField_1;
+		return passwordField;
      }
-     
+     /**getbtnLogin() returns log in button*/
      public JButton getbtnLogin(){
 		btnLogin = new JButton("LogIn");
 		btnLogin.setBackground(SystemColor.menu);
@@ -108,7 +115,7 @@ public class logInGui extends JFrame{
 		
 		return btnLogin;
      }
-     
+     /**getbtnfrgtPass() returns the forget password button*/
      public JButton getbtnfrgtPass(){
 		btnfrgtPass = new JButton("forgot Password");
 		btnfrgtPass.setBackground(SystemColor.menu);
@@ -147,6 +154,7 @@ public class logInGui extends JFrame{
 		return FirstPanel; 
 		
 	}
+ 	/**getLblwarningMessage() returns a label with a warning message that user name of password is in correct*/
 	public JLabel getLblwarningMessage() {
 		if(lblwarningMessage == null){
 			lblwarningMessage = new JLabel("user name or password is wrong");
@@ -156,10 +164,11 @@ public class logInGui extends JFrame{
 		}
 		return lblwarningMessage;
 	}
+	/**setWarningMessageVisibleTrue() sets the warning message visible*/
 	public void setWarningMessageVisibleTrue() {
 		lblwarningMessage.setVisible(true);	
 	}
-	
+	/** setWarningMessageVisibleTrue(String st) sets a warning message of the string st*/
 	public void setWarningMessageVisibleTrue(String st) {
 		lblwarningMessage.setText(st);
 		lblwarningMessage.setForeground(Color.RED);
@@ -167,16 +176,17 @@ public class logInGui extends JFrame{
 		lblwarningMessage.setVisible(true);	
 		
 	}
-	
+	/**undisplayWarningMessage() sets the warning message not visible*/
  	public void undisplayWarningMessage() {
 		lblwarningMessage.setVisible(false);
 		
 	}
- 	
+ 	/**ClearText() clears the text fields of user name and password*/
  	public void ClearText(){
-		textField.setText("");
-		textField_1.setText("");
+ 		userNameField.setText("");
+ 		passwordField.setText("");
 	}
+ 	/**close() closes the current window*/
  	public void close(){
  		this.setVisible(false);
  		dispose();

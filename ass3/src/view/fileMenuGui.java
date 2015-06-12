@@ -41,14 +41,13 @@ import java.awt.SystemColor;
 
 public class fileMenuGui extends JFrame {
 
-	private JFrame frame;
 
 	private JPanel panel=null;
 
 	private JButton btnCancel=null;
-
+	/**@param values is an array that saves all file names*/
 	private String[] values = null;
-
+	/**@param user is the current user*/
 	private User user;
 	
 	private String FileName;
@@ -74,30 +73,18 @@ public class fileMenuGui extends JFrame {
 	 */
 
 	private void initialize() {
-
 		this.setBounds(400,200,300,200);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(500,300);
 		this.setContentPane(getCreatePanel());
-
-		
-
 	}
 
 	private JPanel getCreatePanel(){
-
-		
-
-		
-
 		if(panel==null)
-
 		{
-
 			panel=new JPanel();
 			panel.setBackground(SystemColor.inactiveCaption);
 			panel.setLayout(null);
-	
 
 			btnRead = new JButton("open");
 			btnRead.setBounds(26, 56, 137, 23);
@@ -116,8 +103,6 @@ public class fileMenuGui extends JFrame {
 
 			btnNewButton.setBounds(184, 56, 137, 23);
 			panel.add(btnNewButton);
-
-			
 
 			JLabel lblWhatIsThe = new JLabel("what is the action you want to do with the file:"+FileName);
 			lblWhatIsThe.setFont(new Font("Arial Black", Font.PLAIN, 12));
@@ -145,7 +130,7 @@ public class fileMenuGui extends JFrame {
 	public void addcancel(ActionListener l) {
 		btnCancel_1.addActionListener(l);
 	}
-
+/**close() closes the current window*/
 	public void close() {
 		this.setVisible(false);
 		dispose();
