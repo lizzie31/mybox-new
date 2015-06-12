@@ -66,7 +66,7 @@ public class userMainMenuController extends AbstractTransfer{
 	
 	public class TreeSelection implements TreeSelectionListener{
 		public void valueChanged(TreeSelectionEvent e) {
-			 String choosenFile=(String)CurrGui.gettree().getSelectionPath();
+			/* String choosenFile=(String)CurrGui.gettree().getSelectionPath();
 			 file file = null;
 			 for(int i=0;i<userDetails.getuserDirectories().size();i++)
 				{
@@ -77,7 +77,7 @@ public class userMainMenuController extends AbstractTransfer{
 			 CurrGui.close();			
 			 fileMenu=new fileMenuGui(userDetails,choosenFile);
 			 fileCon=new fileMenuCon(fileMenu,getCon(),userDetails,file);
-		   }
+		 */  }
 		}
 		
 	

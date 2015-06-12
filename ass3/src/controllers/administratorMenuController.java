@@ -92,18 +92,17 @@ private void buttonCreateGroup() {
 	
 	}
 
-public void handleDBResult(Object message) {
+public void handleDBResult2(Object message) {
 	
 	if(message instanceof ArrayList<?>)
 	{
-		if(((ArrayList<?>) message).get(0) instanceof file)
+		if(((ArrayList<?>) message).get(0) instanceof User)
 			usersarr= (ArrayList<User>)message;
 	}
 	CurrGui.close();
-	
 	createNewGroupGUI R= new createNewGroupGUI(usersarr);
 	new createNewGroupController(R,this);
-	R.setVisible(true);
+	
 	}
 	
 

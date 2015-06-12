@@ -81,14 +81,15 @@ public class EchoServer extends AbstractServer
 //This method handles any messages received from the client. 
  public void handleMessageFromClient (Object msg, ConnectionToClient client)     
   {  
-	  Envelope en=(Envelope)msg;
-	  String str=(String)msg;
+	
+	 
 	  User user=null;
 	  int write=0;
    try{
 	  Statement stmt = conn.createStatement();
    if(msg instanceof Envelope)
    {
+	  Envelope en=(Envelope)msg;
 	 if((en.getTask()).equals("login"))  //search Login
 	  {
 		  logInMod showfiles=(logInMod)en.getObject();
@@ -248,6 +249,7 @@ public class EchoServer extends AbstractServer
   }
    if(msg instanceof String)
    {
+	   String str=(String)msg;
 	   Envelope e;
    	   User user1;
 	   if(str.equals("ShowAllUsers"))
