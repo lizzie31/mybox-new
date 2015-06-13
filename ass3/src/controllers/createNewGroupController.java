@@ -20,6 +20,8 @@ public class createNewGroupController extends AbstractTransfer {
 	 * contain the details about the new group to send the server.
 	 */
 	Envelope en;
+	
+	/**constructor*/
 	public createNewGroupController(createNewGroupGUI group, administratorMenuController lastCon)
 	{
 		this.group=group;
@@ -27,6 +29,8 @@ public class createNewGroupController extends AbstractTransfer {
 		group.addcancel(new ButtonCancelListener());
 		group.addAdd(new ButtonaddlListener());
 	}
+	
+	/**ButtoncancelListener is a class that implements action listener and adds a new group*/
 	private class ButtonaddlListener implements ActionListener {
 
 		@Override
@@ -45,7 +49,7 @@ public class createNewGroupController extends AbstractTransfer {
 		//adm.getAdminCon().setVisible(true);
 	
 	}
-	
+	/**ButtonCancelListener is a class that implements action listener and goes back to administrator menu window*/
 	private class ButtonCancelListener implements ActionListener {
 
 		@Override

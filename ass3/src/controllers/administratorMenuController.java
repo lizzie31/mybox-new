@@ -17,9 +17,12 @@ import Model.User;
 import Model.file;
 
 public class administratorMenuController extends userMainMenuController {
+	/**currgui 2 is administrator menu gui window
+	 usersarr is array list of all the users */
 	
 	private administratorMenuGUI currgui2;
 	private ArrayList<User> usersarr;
+	/***constractor***/
 	public administratorMenuController (userMainMenuGUI menu,logInCon lastCon,User user,administratorMenuGUI menu2){
 		
 	super(menu,lastCon,user);
@@ -32,7 +35,7 @@ public class administratorMenuController extends userMainMenuController {
 
 	currgui2.addcreatenewfolder(new ButtoncreatenewfolderListener());
 	}
-	
+	/**ButtondeleteGroupListener is a class that implements action listener and opens delete group window*/
 	private class ButtondeleteGroupListener implements ActionListener {
 
 
@@ -49,7 +52,7 @@ public class administratorMenuController extends userMainMenuController {
 		new deleteGroupController(R,this);
 		//R.setVisible(true);
 	}
-	
+	/**ButtoncreatenewfolderListener is a class that implements action listener and opens create new folder window*/
 	private class ButtoncreatenewfolderListener implements ActionListener {
 
 
@@ -66,7 +69,7 @@ private void buttonCreatefolder() {
 		new createNewFolderController(R,this);
 		R.setVisible(true);
 	}
-	
+	/**LogOutListener is a class that implements action listener and logs out the user*/
 	 class LogOutListener implements ActionListener{
 
 			public void actionPerformed(ActionEvent e) {
@@ -77,6 +80,7 @@ private void buttonCreatefolder() {
 			;
 			}
 	 }
+	 /**ButtonCreateGroupListener is a class that implements action listener and opens create new group window*/
 	private class ButtonCreateGroupListener implements ActionListener {
 
 		@Override
@@ -91,7 +95,7 @@ private void buttonCreateGroup() {
 		myboxapp.clien.setCurrObj(this);
 	
 	}
-
+/**handleDBResult2(Object message) handles data that comes from the data base*/
 public void handleDBResult2(Object message) {
 	
 	if(message instanceof ArrayList<?>)
@@ -106,7 +110,7 @@ public void handleDBResult2(Object message) {
 	R.setVisible(true);
 	}
 	
-
+/**ButtoncreatenewfileListener is a class that implements action listener and opens create new file window*/
 private class ButtoncreatenewfileListener implements ActionListener {
 @Override
 	public void actionPerformed(ActionEvent arg0) {
@@ -120,7 +124,7 @@ private void buttoncreatenewfilePressed() {
 	CNFG.setVisible(true);
 
 }
-	
+	/**ButtonrequestsListener is a class that implements action listener and opens the requests window*/
 	private class ButtonrequestsListener implements ActionListener {
 
 		@Override
@@ -135,10 +139,12 @@ private void buttoncreatenewfilePressed() {
 		requestsGUI R= new requestsGUI();
 		new requestController(R,this);
 	}
+	/**getAdminCon() returns the administrator manu gui window*/
 	public administratorMenuGUI getAdminCon()
 	{
 		return this.currgui2;
 	}
+	/**getusermainmenu2() returns the administrator manu gui window*/
 	public administratorMenuGUI getusermainmenu2() {
 
 		return currgui2;

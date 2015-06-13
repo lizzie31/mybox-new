@@ -5,16 +5,19 @@ import java.awt.event.ActionListener;
 import view.*;
 
 public class createNewFolderController {
-	
+	/**createfolder is create new folder window*/
 	private createNewFolderGUI createfolder=null;
+	/**prevController is user menu controller*/
 	private userMainMenuController prevController;
 	
+	/**constractor*/
 	public createNewFolderController (createNewFolderGUI g , userMainMenuController lastCon){
 		
 		this.createfolder=g;
 		prevController=lastCon;
 		createfolder.addcancel(new ButtoncancelListener());
 	}
+	/**ButtoncancelListener is a class that implements action listener and opens user main menu window*/
 	private class ButtoncancelListener implements ActionListener {
 
 		@Override

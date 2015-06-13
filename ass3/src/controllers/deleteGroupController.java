@@ -7,8 +7,12 @@ import java.awt.event.ActionListener;
 
 
 public class deleteGroupController {
+	/**group is delete group window*/
 	private deleteGroupGUI group;
+	/**adm is administrator menu controller*/
 	private administratorMenuController adm;
+	
+	/**constractor*/
 	public deleteGroupController(deleteGroupGUI group, administratorMenuController lastCon)
 	{
 		this.group=group;

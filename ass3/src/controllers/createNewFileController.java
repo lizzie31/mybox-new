@@ -6,17 +6,21 @@ import Model.file;
 import view.*;
 
 public class createNewFileController {
-	
+	/**createfile is create new file window*/
 	private createNewFileGUI createfile=null;
+	/**prevController is user main menu controller*/
 	private userMainMenuController prevController;
+	/**f is a file*/
 	private file f = null;
 	
+	/**Constructor*/
 	public createNewFileController (createNewFileGUI g , userMainMenuController lastCon){
 		
 		this.createfile=g;
 		prevController=lastCon;
 		createfile.addcancel(new ButtoncancelListener());
 	}
+	/**ButtoncancelListener is a class that implements action listener and goes back to the user main menu window*/
 	private class ButtoncancelListener implements ActionListener {
 
 		@Override
