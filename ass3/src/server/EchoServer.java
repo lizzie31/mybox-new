@@ -84,22 +84,8 @@ public class EchoServer extends AbstractServer
    try{
 	  Statement stmt = conn.createStatement();
 
-      if(msg instanceof Envelope)
-      {
-	     Envelope en=(Envelope)msg;
-	   if((en.getTask()).equals("login"))  //search Login
-	     {
-		    logInMod showfiles=(logInMod)en.getObject();
-		    file f;
-		    String username;
-		    String pass;
-		    String mail;
-		    int status;
-		    ArrayList<directories> userDirectories=new ArrayList<>();
-		    ArrayList<file> files;
-		    directories directory;
-		    String re = "SELECT * FROM users WHERE users.username= '"+(showfiles.getUserName()+"' AND users.password='"+showfiles.getPassword()+"'");
-		    rs = stmt.executeQuery(re);
+  
+
 
    if(msg instanceof Envelope)
    {
@@ -268,6 +254,7 @@ public class EchoServer extends AbstractServer
  
    if(en.getTask().equals("add new group to DB"))
    {
+	   
    	Statement stmt1 = this.getConn().createStatement();
    	interestGroups s= (interestGroups)en.getObject();
    	 rs = stmt1.executeQuery("SELECT groupname FROM test.interestgroups WHERE interestgroups.groupname= '"+(s.getGroupName()+"'"));
@@ -278,7 +265,11 @@ public class EchoServer extends AbstractServer
    	else 
    		{
    		stmt1.executeUpdate("INSERT INTO test.interestgroups VALUES('"+s.getGroupName()+"');");
-   	
+   	    for(int i=0;i<s.getUsers().size();i++)
+   	    		{
+   	    	String re=("INSERT INTO test.userinterestgroups VALUES('"+s.getUsers().get(i).getUsreName()+"','"+s.getGroupName()+"');");
+   	    	stmt1.executeUpdate(re);
+   	    		}
    		client.sendToClient("the group was added sucssesfuly");
    		}
    }
@@ -319,6 +310,7 @@ public class EchoServer extends AbstractServer
 	   String str=(String)msg;
 	   Envelope e;
    	   User user1;
+   	   interestGroups interestgroup1;
 	   if(str.equals("ShowAllUsers"))
 	 {
 		 ArrayList<User> AllUsers=new ArrayList<>();
@@ -334,6 +326,22 @@ public class EchoServer extends AbstractServer
 		 e=new Envelope(AllUsers,"all users");
  		 client.sendToClient(e);
      }
+	   if(str.equals("ShowAllGroups"))
+	 {
+		 ArrayList<interestGroups> AllGroups=new ArrayList<>();
+	     String re="SELECT * FROM test.interestgroups";
+	     rs = stmt.executeQuery(re);
+	     while(rs.next()==true)
+    	 {
+
+	    	interestgroup1=new interestGroups(rs.getString(1));	
+    		AllGroups.add( interestgroup1);
+    	
+    	 }
+		 e=new Envelope(AllGroups,"all groups");
+ 		 client.sendToClient(e);
+     }
+	   
    }
    }	       
       catch (SQLException e) {

@@ -7,10 +7,13 @@ import javax.swing.JPanel;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JButton;
+
+import Model.interestGroups;
 
 public class deleteGroupGUI extends JFrame{
 
@@ -21,8 +24,10 @@ public class deleteGroupGUI extends JFrame{
 	private JLabel lblChooseAGroup;
 	private JButton btnCancel;
 	private JPanel panel;
+	private ArrayList<interestGroups> allinterestgroups;
 	
-	public deleteGroupGUI() {
+	public deleteGroupGUI(ArrayList<interestGroups> allinterestgroups ) {
+		this.allinterestgroups=allinterestgroups;
 		initialize();
 		this.setVisible(true);
 	}
@@ -39,9 +44,7 @@ public class deleteGroupGUI extends JFrame{
 		
 		JLabel lblGroupName = new JLabel("group name:");
 		lblGroupName.setBounds(25, 43, 104, 16);
-		comboBox = new JComboBox();
-		comboBox.setBounds(185, 41, 123, 22);
-		panel.add(comboBox);
+	
 		
 		lblChooseAGroup = new JLabel("choose a group");
 		lblChooseAGroup.setBounds(24, 44, 108, 16);
@@ -61,6 +64,15 @@ public class deleteGroupGUI extends JFrame{
 			panel=new JPanel();
 			panel.setLayout(null);
 			this.setTitle("deleteGroup");
+			comboBox = new JComboBox();
+			comboBox.setBounds(185, 41, 123, 22);
+			
+			comboBox.addItem(" ");
+			for (int i=1;i<allinterestgroups.size();i++)
+			{
+				comboBox.addItem(allinterestgroups.get(i).getGroupName());
+			}
+			panel.add(comboBox);
 		}
 		return panel;
 	}

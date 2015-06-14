@@ -15,6 +15,7 @@ import client.myboxapp;
 import controllers.userMainMenuController.LogOutListener;
 import Model.User;
 import Model.file;
+import Model.interestGroups;
 
 public class administratorMenuController extends userMainMenuController {
 	/**currgui 2 is administrator menu gui window
@@ -22,6 +23,7 @@ public class administratorMenuController extends userMainMenuController {
 	
 	private administratorMenuGUI currgui2;
 	private ArrayList<User> usersarr;
+	private ArrayList<interestGroups> allinterestgroups;
 	/***constractor***/
 	public administratorMenuController (userMainMenuGUI menu,logInCon lastCon,User user,administratorMenuGUI menu2){
 		
@@ -32,9 +34,10 @@ public class administratorMenuController extends userMainMenuController {
 	currgui2.addcreatenewfile(new ButtoncreatenewfileListener());
 	currgui2.addDeletegroup(new ButtondeleteGroupListener());
 	currgui2.addlogout(new LogOutListener());
-
+	currgui2.addDeletegroup(new ButtondeleteGroupListener());
 	currgui2.addcreatenewfolder(new ButtoncreatenewfolderListener());
 	}
+
 	/**ButtondeleteGroupListener is a class that implements action listener and opens delete group window*/
 	private class ButtondeleteGroupListener implements ActionListener {
 
@@ -46,10 +49,9 @@ public class administratorMenuController extends userMainMenuController {
 		
 	}
 	private void buttondeleteGroup() {
-		currgui2.close();
-		
-		deleteGroupGUI R= new deleteGroupGUI();
-		new deleteGroupController(R,this);
+		CurrGui.close();
+		sendToServer("ShowAllGroups");
+		myboxapp.clien.setCurrObj(this);
 		//R.setVisible(true);
 	}
 	/**ButtoncreatenewfolderListener is a class that implements action listener and opens create new folder window*/
@@ -63,11 +65,11 @@ public class administratorMenuController extends userMainMenuController {
 		
 	}
 private void buttonCreatefolder() {
-		CurrGui.close();
-		
+	
 		createNewFolderGUI R= new createNewFolderGUI();
 		new createNewFolderController(R,this);
 		R.setVisible(true);
+
 	}
 	/**LogOutListener is a class that implements action listener and logs out the user*/
 	 class LogOutListener implements ActionListener{
@@ -105,11 +107,21 @@ public void handleDBResult2(Object message) {
 	if(message instanceof ArrayList<?>)
 	{
 		if(((ArrayList<?>) message).get(0) instanceof User)
-			usersarr= (ArrayList<User>)message;
+		{
+		 usersarr= (ArrayList<User>)message;
+		 CurrGui.close();
+		 createNewGroupGUI R= new createNewGroupGUI(usersarr);
+		 new createNewGroupController(R,this,usersarr);
+		}
+		if(((ArrayList<?>) message).get(0) instanceof interestGroups)
+		{
+		 allinterestgroups= (ArrayList<interestGroups>)message;
+		 CurrGui.close();
+		 deleteGroupGUI D= new deleteGroupGUI(allinterestgroups);
+		// new createNewGroupController(R,this,usersarr);
+		}
 	}
-	CurrGui.close();
-	createNewGroupGUI R= new createNewGroupGUI(usersarr);
-	new createNewGroupController(R,this);
+	
 	
 	}
 	

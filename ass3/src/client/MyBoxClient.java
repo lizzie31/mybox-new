@@ -92,7 +92,9 @@ public synchronized void handleMessageFromServer(Object message)
 	    	((userMainMenuController)(currController)).handleDBResultFile((ArrayList<file>)E.getObject());
 	    }
 	    if(E.getTask().equals("all users"))    
-	    	((administratorMenuController)(currController)).handleDBResult2((ArrayList<User>)E.getObject());    
+	    	((administratorMenuController)(currController)).handleDBResult2((ArrayList<User>)E.getObject()); 
+	    if(E.getTask().equals("all groups"))    
+	    	((administratorMenuController)(currController)).handleDBResult2((ArrayList<interestGroups>)E.getObject()); 
 	        
 	}
 	if(message instanceof String ) //user name and password not found

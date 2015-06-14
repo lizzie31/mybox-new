@@ -77,14 +77,7 @@ public class administratorMenuGUI extends JFrame {
 		this.setTitle("main menu");;
 		this.setContentPane(getMainMenu());
 
-		/*userfiles=user.getFilesInDB();
-        arraysize=user.getFilesInDB().size();
-        values = new String[arraysize];
-        for(int i=0;i<userfiles.size();i++)
-		{
-			values[i]=userfiles.get(i).getFileName();
-		}
-		*/
+
 		btnCreateNewFile = new JButton("create new file");
 		btnCreateNewFile.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnCreateNewFile.setBounds(307, 250, 132, 23);    

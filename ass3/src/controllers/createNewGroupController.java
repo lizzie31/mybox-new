@@ -5,11 +5,13 @@ import Model.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.security.PrivateKey;
+import java.util.ArrayList;
 
 import client.myboxapp;
 
 
-public class createNewGroupController extends AbstractTransfer {
+public class createNewGroupController<JCheckBox> extends AbstractTransfer {
 	/**
 	 * the new group that administrarotor field.
 	 */
@@ -17,19 +19,53 @@ public class createNewGroupController extends AbstractTransfer {
 	private createNewGroupGUI group;
 	private administratorMenuController adm;
 	/**
+	 * all the users in DB.
+	 */
+	private ArrayList<User> allusers;
+	/**
+	 * the users that the admin choose.
+	 */
+	private ArrayList<User> groupusers=new ArrayList<>();
+
+	/**
 	 * contain the details about the new group to send the server.
 	 */
 	Envelope en;
 	
 	/**constructor*/
-	public createNewGroupController(createNewGroupGUI group, administratorMenuController lastCon)
+	public createNewGroupController(createNewGroupGUI group, administratorMenuController lastCon ,ArrayList<User> allusers )
 	{
 		this.group=group;
 		this.adm=lastCon;
+		this.allusers=allusers;
 		group.addcancel(new ButtonCancelListener());
 		group.addAdd(new ButtonaddlListener());
+	     group.addchecklist(new checkboxListener());
+
 	}
 	
+
+	
+	
+    private class checkboxListener implements ActionListener
+    {
+    	public void actionPerformed(ActionEvent e) {
+    		Object source = e.getSource();
+      	  for(int i=0;i<group.getUserslist().size();i++)
+      		  if (source ==group.getUserslist().get(i)) 
+      		  {
+      			 for(int j=0;j<allusers.size();j++)
+      			 {
+      				 if(group.getUserslist().get(i).getText().equals(""+allusers.get(j).getUserName()))
+      					 groupusers.add(allusers.get(j));
+      					 
+      					 
+      			 }
+      		  }
+			
+		}
+    }
+    	  
 	/**ButtoncancelListener is a class that implements action listener and adds a new group*/
 	private class ButtonaddlListener implements ActionListener {
 
@@ -41,12 +77,11 @@ public class createNewGroupController extends AbstractTransfer {
 	}
 	
 	private void buttonaddPressed() {
-		newgroup= new interestGroups(null);
-		newgroup.setGroupName(group.getGroupname().getText());
+		newgroup= new interestGroups(group.getGroupname().getText(), groupusers);
 		en=new Envelope(newgroup,"add new group to DB");
 		sendToServer(en);
 		myboxapp.clien.setCurrObj(this);
-		//adm.getAdminCon().setVisible(true);
+	
 	
 	}
 	/**ButtonCancelListener is a class that implements action listener and goes back to administrator menu window*/

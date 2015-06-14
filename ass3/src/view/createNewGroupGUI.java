@@ -55,12 +55,10 @@ public class createNewGroupGUI extends JFrame{
 	/**@param l is the log in controller*/
 	private logInCon l=null;
 
-	/**@param wor is the warning gui window*/
-	private warningGui wor=null;
-	/**@param chckbxNewCheckBox is a comboBox of all userNames*/
-	private JCheckBox chckbxNewCheckBox;
-
-	private JList list;
+	/**
+	 *the users that the admin choose to be in the group.
+	 */
+	private ArrayList<String> usersgroup=new ArrayList<>();
 	
 	/**
 	 *every check box will contain user in the system and the administrator will choose.
@@ -132,6 +130,7 @@ public class createNewGroupGUI extends JFrame{
 	         }
 	         
 	         else  userslist.get(i).setBounds(k,j, 97, 23);
+	 
 	         panel.add(userslist.get(i));
 	         j+=50;
 			}
@@ -141,7 +140,10 @@ public class createNewGroupGUI extends JFrame{
 	}
 	
 
-
+	public void addchecklist(ActionListener l) {
+		for (int i=0;i<userslist.size();i++)
+		userslist.get(i).addActionListener(l);
+	}
 	public void addcancel(ActionListener l) {
 		btnCancel.addActionListener(l);
 	}
@@ -149,10 +151,11 @@ public class createNewGroupGUI extends JFrame{
 		btnAdd.addActionListener(l);
 	}
 
-	/**close() closes the current window*/
 
-  
-public void itemStateChanged(ItemEvent e) {
+
+	   
+	   
+/*public void itemStateChanged(ItemEvent e) {
    
     Object source = e.getItemSelectable();
 
@@ -164,9 +167,9 @@ public void itemStateChanged(ItemEvent e) {
     //} else if (source == hairButton) {
         //...make a note of it...
     //} else if (source == teethButton) {
-        //...make a note of it...
+        //...make a note of it...*/
     
-
+		/**close() closes the current window*/
 	public void close() {
 		this.setVisible(false);
 		dispose();
@@ -198,4 +201,13 @@ public void itemStateChanged(ItemEvent e) {
  		Component frame=null;
  	JOptionPane.showMessageDialog(frame, "the group was added sucssefuly to DB :)");
  	}
+
+	public ArrayList<JCheckBox> getUserslist() {
+		return userslist;
+	}
+
+	public void setUserslist(ArrayList<JCheckBox> userslist) {
+		this.userslist = userslist;
+	}
+ 	
 }

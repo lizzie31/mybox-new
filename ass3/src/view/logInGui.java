@@ -22,6 +22,7 @@ import controllers.logInCon;
 import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
+import javax.swing.JPasswordField;
 
 public class logInGui extends JFrame{
 
@@ -30,7 +31,6 @@ public class logInGui extends JFrame{
 /**@param userNameField is the text field of user name*/
 	JTextField userNameField=null;
 	/**@param passwordField is the text field of password*/
-	private JTextField passwordField=null;
 	public JButton btnLogin=null;
 	/**@param btnfrgtPass is the forget password button */
 	public JButton btnfrgtPass;
@@ -41,6 +41,7 @@ public class logInGui extends JFrame{
 	private logInCon l=null;
 	/**@param wor is the warningGui*/
 	private warningGui wor=null;
+	private JPasswordField passwordField=null;
 
 	/**
 	 * Create the application.
@@ -78,14 +79,7 @@ public class logInGui extends JFrame{
 		
 		return lblName;
      }
-     /**getlblpassword() returns the password lable*/
-     public JLabel getlblpassword(){
-        lblPassword = new JLabel("password");
-        lblPassword.setFont(new Font("Arial Black", Font.PLAIN, 11));
-		lblPassword.setBounds(90, 60, 70, 14);
-		
-		return lblPassword;
-     }
+  
      /**gettextfield() returns the user name text field*/
      public  JTextField gettextfield(){
     	 userNameField = new JTextField();
@@ -94,15 +88,7 @@ public class logInGui extends JFrame{
    	   
 	   return userNameField;
     } 
-     /**gettextfield_1() reurns the password text field*/
-     public  JTextField gettextfield_1(){  
-    	 passwordField = new JTextField();
-    	 passwordField.setBounds(246, 57, 86, 20);
-
-    	 passwordField.setColumns(10);
-		
-		return passwordField;
-     }
+   
      /**getbtnLogin() returns log in button*/
      public JButton getbtnLogin(){
 		btnLogin = new JButton("LogIn");
@@ -144,12 +130,20 @@ public class logInGui extends JFrame{
 			FirstPanel.setForeground(SystemColor.activeCaption);
 			FirstPanel.setLayout(null);
 			FirstPanel.add(getlblname(), null);
-			FirstPanel.add(getlblpassword(), null);
 			FirstPanel.add(gettextfield(), null);
-			FirstPanel.add(gettextfield_1(), null);
 			FirstPanel.add(getbtnLogin(), null);
 			FirstPanel.add(getbtnfrgtPass(), null);
 			FirstPanel.add(getLblwarningMessage());
+			
+			passwordField = new JPasswordField();
+			passwordField.setToolTipText("");
+			passwordField.setBounds(246, 58, 86, 20);
+			FirstPanel.add(passwordField);
+			
+			JLabel password = new JLabel("password");
+			password.setFont(new Font("Arial Black", Font.PLAIN, 11));
+			password.setBounds(90, 54, 69, 27);
+			FirstPanel.add(password);
 		}
 		return FirstPanel; 
 		
