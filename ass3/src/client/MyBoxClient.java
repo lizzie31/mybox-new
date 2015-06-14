@@ -77,6 +77,7 @@ public synchronized void handleMessageFromServer(Object message)
 	if(message instanceof Envelope ) //user name and password is found
 	{
 		 Envelope E =(Envelope) message;
+		 
 	    if(E.getTask().equals("log in handle"))
 		   ((logInCon)(currController)).handleDBResult((User)E.getObject());
 	    if(E.getTask().equals("show interest group"))
@@ -84,7 +85,12 @@ public synchronized void handleMessageFromServer(Object message)
 	    if(E.getTask().equals("show all interest groups"))
 	    	((userMainMenuController)(currController)).handleDBAllGroupsResult((ArrayList<interestGroups>)E.getObject());
 	    if(E.getTask().endsWith("search file"))    
+	    {
+	    	if(E.getObject()==null)
+	    		((userMainMenuController)(currController)).handleDBResultFile(null);
+	    	else
 	    	((userMainMenuController)(currController)).handleDBResultFile((ArrayList<file>)E.getObject());
+	    }
 	    if(E.getTask().equals("all users"))    
 	    	((administratorMenuController)(currController)).handleDBResult2((ArrayList<User>)E.getObject());    
 	        
