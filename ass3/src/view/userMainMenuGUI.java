@@ -93,6 +93,7 @@ import javax.swing.AbstractListModel;
 import java.awt.SystemColor;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.event.TreeSelectionEvent;
+import javax.swing.ImageIcon;
 
 /**this class is the user main menu window*/
 public class userMainMenuGUI extends JFrame {
@@ -182,11 +183,11 @@ public class userMainMenuGUI extends JFrame {
 		lblSearch.setBounds(23, 62, 139, 24);
 		MainMenu.add(lblSearch);
 		
-		btnSearch = new JButton("Search");
-		btnSearch.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnSearch.setBackground(SystemColor.menu);
-		btnSearch.setBounds(336, 63, 138, 25);
-		MainMenu.add(btnSearch);
+		JLabel label = new JLabel("");
+		label.setBackground(new Color(30, 144, 255));
+		label.setIcon(new ImageIcon(userMainMenuGUI.class.getResource("/view/Computer-Background-Wallpapers-Ideas-Creative-Digital.jpg")));
+		label.setBounds(-14, 0, 508, 372);
+		MainMenu.add(label);
 	}
 
 	private JPanel getMainMenu(){
@@ -199,6 +200,12 @@ public class userMainMenuGUI extends JFrame {
 		tree.setBackground(new Color(0, 191, 255));
 		tree.setFont(new Font("Arial Black", Font.PLAIN, 14));
 		setJtree();
+		
+		btnSearch = new JButton("Search");
+		btnSearch.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnSearch.setBackground(SystemColor.menu);
+		btnSearch.setBounds(336, 63, 138, 25);
+		MainMenu.add(btnSearch);
 		tree.setBounds(35, 124, 240, 194);
 		MainMenu.add(tree);
 		
@@ -208,9 +215,9 @@ public class userMainMenuGUI extends JFrame {
 		MainMenu.add(btnNewButton);
 		
 		JLabel lblWelcomBack = new JLabel("welcom back "+user.getUserName()+"!!");
-		lblWelcomBack.setForeground(new Color(0, 0, 255));
+		lblWelcomBack.setForeground(new Color(0, 0, 0));
 		lblWelcomBack.setFont(new Font("Arial Black", Font.PLAIN, 16));
-		lblWelcomBack.setBounds(134, 21, 240, 23);
+		lblWelcomBack.setBounds(139, 21, 240, 23);
 		MainMenu.add(lblWelcomBack);
 		}
 		return MainMenu;	
@@ -270,7 +277,7 @@ public class userMainMenuGUI extends JFrame {
 								node.add(new DefaultMutableTreeNode(user.getuserDirectories().get(i).getfiles().get(j).getFileName()));
 					
 							}
-							add(node);
+						   add(node);
 						}
 					}
 				}

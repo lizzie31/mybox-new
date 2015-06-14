@@ -28,6 +28,7 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.SwingConstants;
 import javax.swing.ListSelectionModel;
+import javax.swing.ImageIcon;
 
 public class fileSearchGui extends JFrame {
 
@@ -44,6 +45,7 @@ public class fileSearchGui extends JFrame {
 	private ArrayList<file> filesByName=null;
 	/**@param list_1 is a list of all the files*/
 	private JList list_1;
+	private JLabel label;
 	
 /** file search gui constructor*/
 /**@param f- all the files with the selected string*/
@@ -65,21 +67,10 @@ public class fileSearchGui extends JFrame {
 		this.setSize(500,500);
 		this.setContentPane(getCreatePanel());
 		
-		btnCancel = new JButton("Back to main menu");
-		btnCancel.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btnCancel.setBounds(190, 398, 209, 34);
-		panel.add(btnCancel);
-		
 		values=new String[file.size()];
 		for(int i=0;i<file.size();i++){
 			values[i]=file.get(i).getFileName();
 		}
-		
-		JLabel lblYourInterestGroup = new JLabel("Files in database:");
-		lblYourInterestGroup.setHorizontalAlignment(SwingConstants.CENTER);
-		lblYourInterestGroup.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblYourInterestGroup.setBounds(43, 32, 186, 23);
-		panel.add(lblYourInterestGroup);
 		
 	}
 	private JPanel getCreatePanel(){
@@ -90,11 +81,22 @@ public class fileSearchGui extends JFrame {
 			panel=new JPanel();
 			panel.setBackground(new Color(135, 206, 235));
 			panel.setLayout(null);
+			
+			JLabel lblYourInterestGroup = new JLabel("Files in database:");
+			lblYourInterestGroup.setHorizontalAlignment(SwingConstants.CENTER);
+			lblYourInterestGroup.setFont(new Font("Tahoma", Font.BOLD, 14));
+			lblYourInterestGroup.setBounds(43, 32, 186, 23);
+			panel.add(lblYourInterestGroup);
+			
+			btnCancel = new JButton("Back to main menu");
+			btnCancel.setFont(new Font("Tahoma", Font.BOLD, 13));
+			btnCancel.setBounds(190, 398, 209, 34);
+			panel.add(btnCancel);
 		
 			list_1 = new JList();
 			list_1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			list_1.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-			list_1.setBackground(new Color(135, 206, 235));
+			list_1.setBackground(new Color(64, 224, 208));
 			list_1.setModel(new AbstractListModel() {
 				
 				public int getSize() {
@@ -106,6 +108,11 @@ public class fileSearchGui extends JFrame {
 			});
 			list_1.setBounds(43, 79, 186, 273);
 			panel.add(list_1);
+			
+			label = new JLabel("");
+			label.setIcon(new ImageIcon(fileSearchGui.class.getResource("/view/Computer-Background-Wallpapers-Ideas-Creative-Digital.jpg")));
+			label.setBounds(0, 0, 484, 461);
+			panel.add(label);
 		}
 		return panel;
 	}

@@ -3,7 +3,11 @@ package controllers;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
 import view.InterestGroupGui;
+import Model.Envelope;
 import Model.User;
 import Model.interestGroups;
 
@@ -17,6 +21,8 @@ public class InterestGroupCon extends AbstractTransfer {
 	private InterestGroupGui CurrGui;
 	/**prev controller*/
 	private GroupsListController prevCon;
+	/**the selected file name*/
+	private String selectedfile;
 	
 	/**constructor
 	 * 
@@ -25,22 +31,47 @@ public class InterestGroupCon extends AbstractTransfer {
 	 * @param prev 
 	 */
 	
-	public InterestGroupCon(InterestGroupGui CurrGui,User user,interestGroups groupdetails, GroupsListController prev)
+	public InterestGroupCon(InterestGroupGui CurrG,User user,interestGroups groupdetails, GroupsListController prev)
 	{
 		this.user=user;
 		this.groupInformation=groupdetails;
-		this.CurrGui=CurrGui;
+		this.CurrGui=CurrG;
 		this.prevCon=prev;
 		CurrGui.addcancel(new ButtoncancelListener());
-		
+		CurrGui.addListActionListener(new listSelecTionListen());
+		CurrGui.addOpen(new ButtonOpenListener());
 	}
 	
+	
+	
+	/**************************************************action listeners**********************************************************/
 	//cancel action listener
 	private class ButtoncancelListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
 			CurrGui.close();
 			prevCon.getGroupListGui().setVisible(true);
 		}
+	}
+	
+	private class ButtonOpenListener implements ActionListener {
+		public void actionPerformed(ActionEvent arg0) {
+			for(int i=0;i<groupInformation.getFilesForRead().size();i++)
+				if(groupInformation.getFilesForRead().get(i).getFileName().equals(selectedfile))
+				{
+			            Envelope en=new Envelope(groupInformation.getFilesForRead().get(i).getDirection(),"open file");
+			            sendToServer(en);
+				}
+		}
+		
+	}
+	
+	//list selection listener
+	private class listSelecTionListen implements ListSelectionListener
+	{
+		public void valueChanged(ListSelectionEvent arg0) {
+			selectedfile=(String) (CurrGui.getList1().getSelectedValue());
+			
+	   }
 	}
 
 
@@ -60,6 +91,7 @@ public class InterestGroupCon extends AbstractTransfer {
 
 	public void setGroupInformation(interestGroups groupInformation) {
 		this.groupInformation = groupInformation;
-	}
+	}	
 	
+
 }

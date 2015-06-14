@@ -23,6 +23,7 @@ import java.awt.Color;
 import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.ImageIcon;
 
 public class groupListGUI extends JFrame {
 
@@ -33,6 +34,7 @@ public class groupListGUI extends JFrame {
 	private User user;
 	/**@param list_1 is a list of all the interest groups*/
 	private JList list_1;
+	private JLabel label;
 	
 
 	public groupListGUI(User u) {
@@ -50,11 +52,10 @@ public class groupListGUI extends JFrame {
 		this.setSize(300,500);
 		this.setContentPane(getCreatePanel());
 		
-		JLabel lblYourInterestGroup = new JLabel("Your interest groups:");
-		lblYourInterestGroup.setHorizontalAlignment(SwingConstants.CENTER);
-		lblYourInterestGroup.setFont(new Font("Arial Black", Font.PLAIN, 14));
-		lblYourInterestGroup.setBounds(45, 23, 186, 23);
-		panel.add(lblYourInterestGroup);
+		label = new JLabel("");
+		label.setIcon(new ImageIcon(groupListGUI.class.getResource("/view/Computer-Background-Wallpapers-Ideas-Creative-Digital.jpg")));
+		label.setBounds(0, 0, 284, 461);
+		panel.add(label);
 		values=new String[user.getInterestGroupInDB().size()];
 		for(int i=0;i<user.getInterestGroupInDB().size();i++){
 	
@@ -69,6 +70,12 @@ public class groupListGUI extends JFrame {
 			panel=new JPanel();
 			panel.setBackground(new Color(135, 206, 235));
 			panel.setLayout(null);
+			
+			JLabel lblYourInterestGroup = new JLabel("Your interest groups:");
+			lblYourInterestGroup.setHorizontalAlignment(SwingConstants.CENTER);
+			lblYourInterestGroup.setFont(new Font("Arial Black", Font.PLAIN, 14));
+			lblYourInterestGroup.setBounds(45, 23, 186, 23);
+			panel.add(lblYourInterestGroup);
 			
 			btnCancel = new JButton("Back to main menu");
 			btnCancel.setFont(new Font("Tahoma", Font.BOLD, 13));

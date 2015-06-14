@@ -17,17 +17,29 @@ import javax.swing.event.ListSelectionListener;
 
 import Model.User;
 import Model.interestGroups;
+import java.awt.event.ActionEvent;
+import javax.swing.ImageIcon;
 
 public class InterestGroupGui extends AbstractGui{
+
+	/**values is an array that saves all groups names*/
+	private String[] values = null;
+	/** groupInformation is the interest groups information*/
+	private interestGroups groupInformation=null;
+	/**list_1 is a list of all the files in interest group*/
+	private JList list_1;
+	/** gui variables*/
+	private JButton btnOpen=null;
 	private JPanel panel=null;
 	private JButton btnCancel=null;
-	/**@param values is an array that saves all groups names*/
-	private String[] values = null;
-	/**@param groupInformation is the interest groups information*/
-	private interestGroups groupInformation=null;
-	/**@param list_1 is a list of all the interest groups*/
-	private JList list_1;
+	private JButton btnSetContant=null;
+	private JButton btnSetChar =null;
+	private JButton btnAddToDB=null;
 	
+	/**constructor
+	 * 
+	 * @param iGR
+	 */
 	public InterestGroupGui(interestGroups iGR) {
 		this.groupInformation=iGR;
 		initialize();
@@ -54,33 +66,80 @@ public class InterestGroupGui extends AbstractGui{
 			panel.add(getList());
 			panel.add(getLabelWelcom());
 			panel.add(getlblGroupFiles());
+			panel.add(getbtnOpen());
+			panel.add(getbtnSetContant());
+			panel.add(getbtnSetChar());
+			panel.add(getbtnAddToDB());
+			
+			JLabel label = new JLabel("");
+			label.setIcon(new ImageIcon(InterestGroupGui.class.getResource("/view/Computer-Background-Wallpapers-Ideas-Creative-Digital.jpg")));
+			label.setBounds(0, 0, 484, 461);
+			panel.add(label);
 		}
 		return panel;
 	}
 	
-	
-	private JLabel getlblGroupFiles() {
-		JLabel lblGroupFiles = new JLabel("group files:");
-		lblGroupFiles.setFont(new Font("Arial Black", Font.PLAIN, 13));
-		lblGroupFiles.setBounds(94, 76, 96, 32);
-		
-		return lblGroupFiles;
-	}
+
 /********************************************get components to JPanel*********************************************************/
 	public JLabel getLabelWelcom()
 	{
 		JLabel lblWelcomToThe = new JLabel("welcom to the group:"+groupInformation.getGroupName());
 		lblWelcomToThe.setBackground(new Color(30, 144, 255));
-		lblWelcomToThe.setForeground(new Color(0, 0, 255));
+		lblWelcomToThe.setForeground(new Color(0, 0, 0));
 		lblWelcomToThe.setFont(new Font("Arial Black", Font.PLAIN, 14));
 		lblWelcomToThe.setBounds(116, 15, 242, 50);
 		
 		return lblWelcomToThe;
 	}
+	
+	public JLabel getlblGroupFiles() {
+		JLabel lblGroupFiles = new JLabel("group files:");
+		lblGroupFiles.setFont(new Font("Arial Black", Font.PLAIN, 13));
+		lblGroupFiles.setBounds(140, 76, 96, 32);
+		
+		return lblGroupFiles;
+	}
+	
+	public JButton getbtnOpen()
+	{
+		btnOpen = new JButton("open");
+		btnOpen.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnOpen.setBounds(310, 121, 121, 30);
+		
+		return btnOpen;
+	}
+	
+	public JButton getbtnSetContant()
+	{
+		btnSetContant = new JButton("set contant");
+		btnSetContant.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnSetContant.setBounds(310, 162, 121, 32);
+		
+		return btnSetContant;
+	}
+	
+	public JButton getbtnSetChar()
+	{
+		btnSetChar = new JButton("set charecters");
+		btnSetChar.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnSetChar.setBounds(310, 205, 121, 32);
+		
+		return btnSetChar;
+	}
+	
+	public JButton getbtnAddToDB()
+	{
+		btnAddToDB = new JButton("add to my files");
+		btnAddToDB.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnAddToDB.setBounds(310, 248, 121, 32);
+		
+		return btnAddToDB;
+	}
+	
 	public JButton getbtnCancel() {
 		btnCancel = new JButton("Back to main menu");
 		btnCancel.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btnCancel.setBounds(53, 394, 183, 32);
+		btnCancel.setBounds(88, 394, 177, 30);
 		
 		return btnCancel;
 	}
@@ -88,7 +147,6 @@ public class InterestGroupGui extends AbstractGui{
 	@SuppressWarnings({ "unchecked", "rawtypes", "serial" })
 	public JList getList()
 	{
-		values=new String[groupInformation.getFilesForRead().size()];
 		values=new String[groupInformation.getFilesForRead().size()];
 		for(int i=0;i<groupInformation.getFilesForRead().size();i++)
 		values[i]=groupInformation.getFilesForRead().get(i).getFileName();
@@ -102,7 +160,7 @@ public class InterestGroupGui extends AbstractGui{
 			{return values.length; }
 			public Object getElementAt(int index) 
 			{return values[index]; }});
-		list_1.setBounds(50, 119, 186, 242);
+		list_1.setBounds(88, 119, 186, 242);
 		
 		return list_1;
 	}
@@ -116,7 +174,17 @@ public class InterestGroupGui extends AbstractGui{
 		list_1.addListSelectionListener(e);
 	}
 	
-	//
+	
+	public void addOpen(ActionListener l) {
+		btnOpen.addActionListener(l);
+	}
+	
+	/***********************************************getters and setters*****************************************************/
+	public JList getList1()
+	{
+		return list_1;
+	}
+	
 	public void close() {
 		this.setVisible(false);
 		dispose();

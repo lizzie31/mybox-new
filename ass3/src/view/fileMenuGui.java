@@ -38,6 +38,7 @@ import Model.User;
 
 import java.awt.event.ActionEvent;
 import java.awt.SystemColor;
+import javax.swing.ImageIcon;
 
 public class fileMenuGui extends JFrame {
 
@@ -120,6 +121,11 @@ public class fileMenuGui extends JFrame {
 			btnCancel_1 = new JButton("cancel");
 			btnCancel_1.setBounds(337, 108, 137, 23);
 			panel.add(btnCancel_1);
+			
+			JLabel label = new JLabel("");
+			label.setIcon(new ImageIcon(fileMenuGui.class.getResource("/view/Computer-Background-Wallpapers-Ideas-Creative-Digital.jpg")));
+			label.setBounds(0, 0, 484, 261);
+			panel.add(label);
 
 		}
 
