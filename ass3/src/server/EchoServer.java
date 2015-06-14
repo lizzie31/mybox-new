@@ -78,10 +78,12 @@ public class EchoServer extends AbstractServer
 //This method handles any messages received from the client. 
  public void handleMessageFromClient (Object msg, ConnectionToClient client)     
   {  
+
 	  User user=null;
 	  int write=0;
    try{
 	  Statement stmt = conn.createStatement();
+
       if(msg instanceof Envelope)
       {
 	     Envelope en=(Envelope)msg;
@@ -98,6 +100,24 @@ public class EchoServer extends AbstractServer
 		    directories directory;
 		    String re = "SELECT * FROM users WHERE users.username= '"+(showfiles.getUserName()+"' AND users.password='"+showfiles.getPassword()+"'");
 		    rs = stmt.executeQuery(re);
+
+   if(msg instanceof Envelope)
+   {
+	  Envelope en=(Envelope)msg;
+	 if((en.getTask()).equals("login"))  //search Login
+	  {
+		  logInMod showfiles=(logInMod)en.getObject();
+		  file f;
+		  String username;
+		  String pass;
+		  String mail;
+		  int status;
+		  ArrayList<directories> userDirectories=new ArrayList<>();
+		  ArrayList<file> files;
+		  directories directory;
+		  String re = "SELECT * FROM users WHERE users.username= '"+(showfiles.getUserName()+"' AND users.password='"+showfiles.getPassword()+"'");
+		  rs = stmt.executeQuery(re);
+
 		  
 		    if(rs.next()==true)
 		    {  

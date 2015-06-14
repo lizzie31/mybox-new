@@ -95,19 +95,22 @@ private void buttonCreateGroup() {
 		myboxapp.clien.setCurrObj(this);
 	
 	}
+
 /**handleDBResult2(Object message) handles data that comes from the data base*/
+
+
+
 public void handleDBResult2(Object message) {
 	
 	if(message instanceof ArrayList<?>)
 	{
-		if(((ArrayList<?>) message).get(0) instanceof file)
+		if(((ArrayList<?>) message).get(0) instanceof User)
 			usersarr= (ArrayList<User>)message;
 	}
 	CurrGui.close();
-	
 	createNewGroupGUI R= new createNewGroupGUI(usersarr);
 	new createNewGroupController(R,this);
-	R.setVisible(true);
+	
 	}
 	
 /**ButtoncreatenewfileListener is a class that implements action listener and opens create new file window*/

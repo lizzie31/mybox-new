@@ -149,21 +149,21 @@ MainMenu.setBackground(new Color(102, 205, 170));
 		
 		btncratenewgroup = new JButton("create group");
 		btncratenewgroup.setBackground(UIManager.getColor("SplitPane.shadow"));
-		btncratenewgroup.setBounds(338, 77, 101, 23);
+		btncratenewgroup.setBounds(326, 77, 113, 23);
 		MainMenu.add(btncratenewgroup);
 		
 		deleteGroupButton = new JButton("delete group");
 		deleteGroupButton.setBackground(UIManager.getColor("SplitPane.shadow"));
-		deleteGroupButton.setBounds(338, 109, 101, 23);
+		deleteGroupButton.setBounds(326, 109, 113, 23);
 		MainMenu.add(deleteGroupButton);
 		
 		btnNewButton_2 = new JButton("edit group");
 		btnNewButton_2.setBackground(UIManager.getColor("SplitPane.shadow"));
-		btnNewButton_2.setBounds(338, 143, 101, 23);
+		btnNewButton_2.setBounds(326, 143, 113, 23);
 		MainMenu.add(btnNewButton_2);
 		
 		btnrequests = new JButton("requests");
-		btnrequests.setBounds(338, 177, 101, 23);
+		btnrequests.setBounds(326, 177, 113, 23);
 		MainMenu.add(btnrequests);
 		
 		}

@@ -107,12 +107,12 @@ public class userMainMenuController extends AbstractTransfer{
 		String str = CurrGui.getTextField();
 		if(str.equals(""))
 		{
-			Component frame = null;
-			JOptionPane.showMessageDialog(frame, "Please type the filename to search!");
+			CurrGui.setWarningMessageVisibleTrue("Please type the filename to search!");
 		}
 			
 		else
 		{
+			CurrGui.undisplayWarningMessage();
 			Envelope en =new Envelope (CurrGui.getTextField(),"search files");
 			sendToServer(en);
 			myboxapp.clien.setCurrObj(this);
@@ -123,6 +123,7 @@ public class userMainMenuController extends AbstractTransfer{
 	 class LogOutListener implements ActionListener{
 			public void actionPerformed(ActionEvent e) {
 				UpdateDB(); //update the user to status 0 = logout
+				CurrGui.undisplayWarningMessage();
 				CurrGui.dispose();
 				prevController.getLoginG().ClearText();
 				prevController.getLoginG().setVisible(true);
@@ -136,6 +137,7 @@ public class userMainMenuController extends AbstractTransfer{
 	}
 
 	private void buttoncreatenewfilePressed() {
+		CurrGui.undisplayWarningMessage();
 		CurrGui.close();
 		userMainMenuController lastCon = this;
 		EventQueue.invokeLater(new Runnable() {
@@ -157,6 +159,7 @@ public class userMainMenuController extends AbstractTransfer{
 	}
 
 	private void buttoncreatenewfolderPressed() {
+		CurrGui.undisplayWarningMessage();
 		CurrGui.close();
 		createNewFolderGUI CNFOG=new createNewFolderGUI ();
 		new createNewFolderController(CNFOG,this);
@@ -169,6 +172,7 @@ public class userMainMenuController extends AbstractTransfer{
 	private class ButtonAddAGroupListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent arg0) {
+			CurrGui.undisplayWarningMessage();
 			Envelope en=new Envelope(userDetails,"show all interest groups");
 			sendToServer(en);
 			myboxapp.clien.setCurrObj(getCon());
@@ -197,18 +201,23 @@ public userMainMenuController getCon(){
 	
 	
 	public void handleDBResultFile(Object message) {
+		if(message==null)
+			CurrGui.setWarningMessageVisibleTrue("there are no files with this name. try again.");
 		if(message instanceof ArrayList<?>)
 		{
 			ArrayList a= (ArrayList<?>) message;
 			if(a.get(0) instanceof file)
-				filesarr= (ArrayList<file>)message;
+		    filesarr= (ArrayList<file>)message;
+			CurrGui.undisplayWarningMessage();
+			CurrGui.close();
+			fileSearchGui SG=new fileSearchGui (filesarr);
+			new fileSearchController(SG,this);
+			SG.setVisible(true);
 		}
+	}
 		
-		CurrGui.close();
-		fileSearchGui SG=new fileSearchGui (filesarr);
-		new fileSearchController(SG,this);
-		SG.setVisible(true);
-		}
+		
+
 	
 
 public logInCon getPrevController() {
