@@ -107,7 +107,8 @@ public class createNewGroupGUI extends JFrame{
 		
 	private JPanel getCreatePanel(){
 		
-		int j=0;
+		int j=130;
+		int k=80;
 		if(panel==null)
 		{
 			panel=new JPanel();
@@ -116,7 +117,13 @@ public class createNewGroupGUI extends JFrame{
 			for(int i=0;i<users.size();i++)
 			{
 	         userslist.add(new JCheckBox(""+users.get(i).getUserName()));
-	         userslist.get(i).setBounds(80,130+j, 97, 23);
+	         if((i+1)%5==0)
+	         {
+	        	 j=130;
+	        	 userslist.get(i).setBounds(k+=100,j, 97, 23);
+	         }
+	         
+	         else  userslist.get(i).setBounds(k,j, 97, 23);
 	         panel.add(userslist.get(i));
 	         j+=50;
 			}
