@@ -140,9 +140,6 @@ public class joinGroupGui extends JFrame {
 	public JLabel getLblwarningMessage() {
 		if(lblwarningMessage == null){
 			lblwarningMessage = new JLabel("");
-			//lblwarningMessage.setFont(new Font("Arial Black", Font.PLAIN, 13));
-			//lblwarningMessage.setForeground(new Color(255, 0, 0));
-			//lblwarningMessage.setBounds(33, 129, 226, 32);
 			lblwarningMessage.setVisible(false);
 		}
 		return lblwarningMessage;

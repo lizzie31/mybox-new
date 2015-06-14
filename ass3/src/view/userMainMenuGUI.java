@@ -9,6 +9,9 @@ import java.awt.PopupMenu;
 
 
 
+
+import java.awt.Window;
+
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JTree;
@@ -18,7 +21,11 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 
 
+
+
 import java.awt.BorderLayout;
+
+
 
 
 
@@ -32,13 +39,19 @@ import javax.swing.JLabel;
 
 
 
+
+
 import java.awt.Font;
+
+
 
 
 
 
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+
+
 
 
 
@@ -51,6 +64,8 @@ import java.awt.event.MouseEvent;
 
 
 
+
+
 import javax.swing.JMenuItem;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionListener;
@@ -58,8 +73,12 @@ import javax.swing.event.ListSelectionListener;
 
 
 
+
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
+
 
 
 
@@ -73,7 +92,11 @@ import java.awt.Color;
 
 
 
+
+
 import javax.swing.UIManager;
+
+
 
 
 
@@ -86,11 +109,14 @@ import java.util.ArrayList;
 
 
 
+
+
 import javax.swing.JComboBox;
 import javax.swing.JCheckBox;
 import javax.swing.AbstractListModel;
 
 import java.awt.SystemColor;
+
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.ImageIcon;
@@ -113,6 +139,8 @@ public class userMainMenuGUI extends JFrame {
 	private JButton btnSearch=null;
 	private JButton open=null;
 	private JButton btnLogOut=null;	
+	private JLabel warningIcon=null;
+	private JLabel lblwarningMessage=null;
 	/**@param tree is files JTree*/
 	private JTree tree=null;
 	/**@param node is nodes in JTree*/
@@ -139,55 +167,7 @@ public class userMainMenuGUI extends JFrame {
 		this.setTitle("main menu");;
 		this.setContentPane(getMainMenu());
 		
-        btnCreateNewFile = new JButton("create new file");
-		btnCreateNewFile.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnCreateNewFile.setBounds(307, 194, 138, 23);    
-		btnCreateNewFile.setBackground(UIManager.getColor("SplitPane.background"));
-		MainMenu.add(btnCreateNewFile);		
 
-		btnLogOut = new JButton("log out");
-		btnLogOut.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnLogOut.setBackground(UIManager.getColor("SplitPane.background"));
-		btnLogOut.setBounds(385, 327, 89, 23);
-		MainMenu.add(btnLogOut);
-		
-		btnShowgroups = new JButton("show Groups");
-		btnShowgroups.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnShowgroups.setBackground(UIManager.getColor("SplitPane.background"));
-		btnShowgroups.setBounds(307, 122, 138, 25);
-		MainMenu.add(btnShowgroups);		
-
-		btnCreateNewFolder = new JButton("create new folder");
-		btnCreateNewFolder.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnCreateNewFolder.setBackground(UIManager.getColor("SplitPane.background"));
-		btnCreateNewFolder.setBounds(307, 158, 138, 25);
-		MainMenu.add(btnCreateNewFolder);
-
-		btnJionGroup = new JButton("join new group");
-		btnJionGroup.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		btnJionGroup.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnJionGroup.setBackground(UIManager.getColor("SplitPane.background"));
-		btnJionGroup.setBounds(307, 228, 138, 23);
-		MainMenu.add(btnJionGroup);
-
-		search = new JTextField();
-		search.setBounds(162, 65, 166, 20);
-		MainMenu.add(search);
-		search.setColumns(10);	
-
-		JLabel lblSearch = new JLabel("type the file name:");
-		lblSearch.setFont(new Font("Arial Black", Font.PLAIN, 12));
-		lblSearch.setBounds(23, 62, 139, 24);
-		MainMenu.add(lblSearch);
-		
-		JLabel label = new JLabel("");
-		label.setBackground(new Color(30, 144, 255));
-		label.setIcon(new ImageIcon(userMainMenuGUI.class.getResource("/view/Computer-Background-Wallpapers-Ideas-Creative-Digital.jpg")));
-		label.setBounds(-14, 0, 508, 372);
-		MainMenu.add(label);
 	}
 
 	private JPanel getMainMenu(){
@@ -197,16 +177,68 @@ public class userMainMenuGUI extends JFrame {
 		MainMenu.setLayout(null);
 		
 		tree = new JTree();
-		tree.setBackground(new Color(0, 191, 255));
+		tree.setBackground(new Color(0, 206, 209));
 		tree.setFont(new Font("Arial Black", Font.PLAIN, 14));
 		setJtree();
+						
+								btnJionGroup = new JButton("join new group");
+								btnJionGroup.addActionListener(new ActionListener() {
+									public void actionPerformed(ActionEvent arg0) {
+									}
+								});
+        
+        warningIcon= new JLabel("");
+        warningIcon.setIcon(new ImageIcon(userMainMenuGUI.class.getResource("/view/warning.gif")));
+        warningIcon.setBounds(23, 83, 30, 25);
+        warningIcon.setVisible(false);
+        MainMenu.add(warningIcon);
+        
+        MainMenu.add(getLblwarningMessage());
+												
+        btnCreateNewFile = new JButton("create new file");
+        btnCreateNewFile.setFont(new Font("Tahoma", Font.BOLD, 11));
+        btnCreateNewFile.setBounds(307, 194, 138, 23);    
+        btnCreateNewFile.setBackground(UIManager.getColor("SplitPane.background"));
+        MainMenu.add(btnCreateNewFile);		
+										
+												btnLogOut = new JButton("log out");
+												btnLogOut.setFont(new Font("Tahoma", Font.BOLD, 11));
+												btnLogOut.setBackground(UIManager.getColor("SplitPane.background"));
+												btnLogOut.setBounds(385, 327, 89, 23);
+												MainMenu.add(btnLogOut);
+										
+										btnShowgroups = new JButton("show Groups");
+										btnShowgroups.setFont(new Font("Tahoma", Font.BOLD, 11));
+										btnShowgroups.setBackground(UIManager.getColor("SplitPane.background"));
+										btnShowgroups.setBounds(307, 122, 138, 25);
+										MainMenu.add(btnShowgroups);		
+								
+										btnCreateNewFolder = new JButton("create new folder");
+										btnCreateNewFolder.setFont(new Font("Tahoma", Font.BOLD, 11));
+										btnCreateNewFolder.setBackground(UIManager.getColor("SplitPane.background"));
+										btnCreateNewFolder.setBounds(307, 158, 138, 25);
+										MainMenu.add(btnCreateNewFolder);
+								btnJionGroup.setFont(new Font("Tahoma", Font.BOLD, 11));
+								btnJionGroup.setBackground(UIManager.getColor("SplitPane.background"));
+								btnJionGroup.setBounds(307, 228, 138, 23);
+								MainMenu.add(btnJionGroup);
+				
+						search = new JTextField();
+						search.setBounds(162, 65, 166, 20);
+						MainMenu.add(search);
+						search.setColumns(10);	
+		
+				JLabel lblSearch = new JLabel("type the file name:");
+				lblSearch.setFont(new Font("Arial Black", Font.PLAIN, 12));
+				lblSearch.setBounds(23, 62, 139, 24);
+				MainMenu.add(lblSearch);
 		
 		btnSearch = new JButton("Search");
 		btnSearch.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnSearch.setBackground(SystemColor.menu);
 		btnSearch.setBounds(336, 63, 138, 25);
 		MainMenu.add(btnSearch);
-		tree.setBounds(35, 124, 240, 194);
+		tree.setBounds(35, 124, 205, 194);
 		MainMenu.add(tree);
 		
 		JButton btnNewButton = new JButton("leave group");
@@ -219,6 +251,11 @@ public class userMainMenuGUI extends JFrame {
 		lblWelcomBack.setFont(new Font("Arial Black", Font.PLAIN, 16));
 		lblWelcomBack.setBounds(139, 21, 240, 23);
 		MainMenu.add(lblWelcomBack);
+		
+		JLabel label = new JLabel("");
+		label.setIcon(new ImageIcon(userMainMenuGUI.class.getResource("/view/Computer-Background-Wallpapers-Ideas-Creative-Digital.jpg")));
+		label.setBounds(0, 0, 484, 361);
+		MainMenu.add(label);
 		}
 		return MainMenu;	
 	}
@@ -277,12 +314,43 @@ public class userMainMenuGUI extends JFrame {
 								node.add(new DefaultMutableTreeNode(user.getuserDirectories().get(i).getfiles().get(j).getFileName()));
 					
 							}
-						   add(node);
+						  add(node);
 						}
 					}
 				}
 			));
 	}
+	
+
+/**getLblwarningMessage() returns the warning message*/
+public JLabel getLblwarningMessage() {
+	if(lblwarningMessage == null){
+		lblwarningMessage = new JLabel("");
+		lblwarningMessage.setForeground(new Color(255, 0, 0));
+		lblwarningMessage.setFont(new Font("Arial Black", Font.PLAIN, 13));
+		lblwarningMessage.setSize(327, 25);
+		lblwarningMessage.setLocation(52, 83);
+		lblwarningMessage.setVisible(false);
+	}
+	return lblwarningMessage;
+}
+/**setWarningMessageVisibleTrue(String st) sets the warning message st visible*/
+public void setWarningMessageVisibleTrue(String st) {
+	lblwarningMessage.setText(st);
+	lblwarningMessage.setForeground(Color.RED);
+	lblwarningMessage.setFont(new Font("Arial Black", Font.PLAIN, 11));
+	lblwarningMessage.setSize(303, 25);
+	lblwarningMessage.setLocation(52, 83);
+	warningIcon.setVisible(true);
+	lblwarningMessage.setVisible(true);	
+	
+}
+/**undisplayWarningMessage() sets the warning message not visible*/
+	public void undisplayWarningMessage() {
+		warningIcon.setVisible(false);
+	lblwarningMessage.setVisible(false);
+	
+}
 
 	public JTree gettree() {
 		return this.tree;

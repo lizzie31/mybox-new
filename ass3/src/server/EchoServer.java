@@ -269,22 +269,29 @@ public class EchoServer extends AbstractServer
     	Envelope e;
     	file f;
     	 String textField=(String)en.getObject();
-    	 ArrayList<file> FinalFiles=new ArrayList<>();
+    	 ArrayList<file> FinalFiles=null;
     	String re="SELECT * FROM test.files";
     	 rs = stmt.executeQuery(re);
-    	
+    	 FinalFiles=new ArrayList<>();
     	 while(rs.next()==true)
     	 {
-
     		f=new file(rs.getString(1),rs.getString(2),rs.getInt(3),rs.getString(4));
     		if(f.getFileName().contains(textField))
     		//if(f.getFileName().indexOf(textField)!=-1)	
     			FinalFiles.add(f);
     	
     	 }
+    	 if(FinalFiles.size()==0)
+    	 {
+    		 e=new Envelope(null,"search file");
+ 		     client.sendToClient(e); 
+    	 }
+ 		  else
+ 		  {
     	 e=new Envelope(FinalFiles,"search file");
  		 client.sendToClient(e);
-    	}
+    	  }
+    }
     
   }
    if(msg instanceof String)
