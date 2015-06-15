@@ -93,12 +93,7 @@ public synchronized void handleMessageFromServer(Object message)
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-	    	 if(E.getTask().equals("updated"))
-	 	   {
-	    		 ((UpdateCon)(currController)).getCurrGui().showsuceedmessege();; 
-	 	   }
 	    }
-	    
 	    if(E.getTask().endsWith("search file"))    
 	    {
 	    	if(E.getObject()==null)
@@ -138,6 +133,10 @@ public synchronized void handleMessageFromServer(Object message)
 		if(str.equals("the group delete secsefuly"))
 		{
 			((deleteGroupController)currController).getGroup().showsuceedmessege();
+		}
+		if(str.equals("updated"))
+		{
+			 ((UpdateCon)(currController)).getCurrGui().showsuceedmessege();
 		}
 		
 		

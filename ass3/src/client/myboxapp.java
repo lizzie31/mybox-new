@@ -6,7 +6,6 @@ import controllers.*;
 import Model.*;
 /**
  * the main class that start the ccrm application
- * @author jacob
  *
  */
 public class myboxapp {

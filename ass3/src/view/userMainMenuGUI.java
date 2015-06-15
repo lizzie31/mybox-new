@@ -201,17 +201,17 @@ public class userMainMenuGUI extends JFrame {
         btnCreateNewFile.setBackground(UIManager.getColor("SplitPane.background"));
         MainMenu.add(btnCreateNewFile);		
 										
-												btnLogOut = new JButton("log out");
-												btnLogOut.setFont(new Font("Tahoma", Font.BOLD, 11));
-												btnLogOut.setBackground(UIManager.getColor("SplitPane.background"));
-												btnLogOut.setBounds(385, 327, 89, 23);
-												MainMenu.add(btnLogOut);
+        btnLogOut = new JButton("log out");
+	    btnLogOut.setFont(new Font("Tahoma", Font.BOLD, 11));
+	    btnLogOut.setBackground(UIManager.getColor("SplitPane.background"));
+		btnLogOut.setBounds(385, 327, 89, 23);
+		MainMenu.add(btnLogOut);
 										
-										btnShowgroups = new JButton("show Groups");
-										btnShowgroups.setFont(new Font("Tahoma", Font.BOLD, 11));
-										btnShowgroups.setBackground(UIManager.getColor("SplitPane.background"));
-										btnShowgroups.setBounds(307, 122, 138, 25);
-										MainMenu.add(btnShowgroups);		
+	    btnShowgroups = new JButton("show Groups");
+		btnShowgroups.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnShowgroups.setBackground(UIManager.getColor("SplitPane.background"));
+		btnShowgroups.setBounds(307, 122, 138, 25);
+		MainMenu.add(btnShowgroups);		
 								
 										btnCreateNewFolder = new JButton("create new folder");
 										btnCreateNewFolder.setFont(new Font("Tahoma", Font.BOLD, 11));

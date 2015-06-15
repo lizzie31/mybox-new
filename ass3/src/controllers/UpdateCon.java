@@ -8,6 +8,7 @@ import java.nio.file.Files;
 
 import javax.swing.JFileChooser;
 
+import client.myboxapp;
 import controllers.fileMenuCon.ButtoncancelListener;
 import controllers.fileMenuCon.btnUpdateListener;
 import view.UpdateGui;
@@ -20,7 +21,7 @@ public class UpdateCon extends AbstractTransfer{
 	private User user;
 	private file fileDetails;
 	private UpdateGui CurrGui;
-
+    private UpdateCon thisCon=this;
 	private fileMenuCon prevCon;
 	private byte[] content=null;
 	
@@ -66,6 +67,8 @@ public class UpdateCon extends AbstractTransfer{
 			fileDetails.setFileContent(content);
 			Envelope en=new Envelope(fileDetails,"update file");
 		    sendToServer(en);
+		    myboxapp.clien.setCurrObj(getThisCon());
+		    
         }
 
 	}
@@ -78,4 +81,12 @@ public class UpdateCon extends AbstractTransfer{
 	public void setCurrGui(UpdateGui currGui) {
 		CurrGui = currGui;
 	}
+	public UpdateCon getThisCon() {
+		return thisCon;
+	}
+	public void setThisCon(UpdateCon thisCon) {
+		this.thisCon = thisCon;
+	}
+	
+	
 }
