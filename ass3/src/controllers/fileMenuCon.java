@@ -55,7 +55,7 @@ public class fileMenuCon extends AbstractTransfer{
 		public void actionPerformed(ActionEvent e) {
 			CurrGui.dispose();
 			deleteFile d= new deleteFile();
-			new deleteFileController(d,getThisCon());
+			new deleteFileController(d,getThisCon(),getChoosenFile());
 		
 		}
 	}
@@ -121,6 +121,10 @@ public class fileMenuCon extends AbstractTransfer{
 
 		public fileMenuCon getThisCon() {
 			return this.thisCon;
+		}
+		public file getChoosenFile()
+		{
+			return this.ChoosenFile;
 		}
 
 		public fileMenuGui getCurrGui() {
