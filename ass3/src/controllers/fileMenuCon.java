@@ -95,7 +95,7 @@ public class fileMenuCon extends AbstractTransfer{
 			Desktop desktop=null;
 			desktop=Desktop.getDesktop();
 			try {
-				desktop.open(f);
+				desktop.open(f.getAbsoluteFile());
 			} catch (IOException e1) {
                 e1.printStackTrace();
 			}
