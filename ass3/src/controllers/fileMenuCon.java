@@ -88,6 +88,8 @@ public class fileMenuCon extends AbstractTransfer{
 			BufferedWriter writer=new BufferedWriter(new FileWriter(f));
 			FileOutputStream fos = new FileOutputStream(f.getAbsolutePath());
 			fos.write(bs);
+			writer.close();
+			writer.flush();
 			fos.flush();
 			fos.close();
 			Desktop desktop=null;
