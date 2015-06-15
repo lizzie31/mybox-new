@@ -240,6 +240,7 @@ public class EchoServer extends AbstractServer
 	  fos.write(bs);
 	  fos.flush();
 	  fos.close();
+	  client.sendToClient("updated");
       
     }
     if(en.getTask().equals("show all interest groups"))
