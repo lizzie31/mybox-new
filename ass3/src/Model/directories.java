@@ -19,6 +19,11 @@ public class directories extends AbstractModel{
 	}
 	
 	
+	public directories(String name)
+	{
+		this.DirectoryName=name;
+	}
+	
 	/****************************************getters and setters*******************************************************/
 	
 	public ArrayList<file> getfiles()
