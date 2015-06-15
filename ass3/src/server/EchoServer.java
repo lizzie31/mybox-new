@@ -336,6 +336,38 @@ public class EchoServer extends AbstractServer
  		 client.sendToClient(e);
     	  }
     }
+       
+    
+    
+    if(en.getTask().equals("Save file in server"))
+    {
+    	Statement stmt1 = this.getConn().createStatement();
+    	file f = (file)(en.getObject());
+       	 rs = stmt1.executeQuery("SELECT filename FROM test.files WHERE files.filename= '"+(f.getFileName()+"'"));
+       	if (rs.next()==true) 
+       	   {
+       		client.sendToClient("file already exist");
+       	   }
+       	else 
+       		{
+
+    		byte[] filecontent=f.getFileContent();
+    		String name = f.getFileName();
+    		File file=new File(f.getDirection());
+    		BufferedWriter writer=new BufferedWriter(new FileWriter(file));
+    		FileOutputStream fos= new FileOutputStream(file.getAbsolutePath());
+    		fos.write(filecontent);
+    		fos.flush();
+    		fos.close();
+    		String re = "INSERT INTO test.files VALUES('"+f.getFileName()+"','"+f.getDirection()+"','"+f.getFilepermission()+"','"+f.getFileOwner()+"');";
+       		stmt1.executeUpdate(re);
+       		client.sendToClient("file saved successfully");
+       		} 	
+    }
+   
+    
+  }
+  
     if(en.getTask().equals("answer request"))
     {
     	GroupsRequests r=(GroupsRequests)en.getObject();

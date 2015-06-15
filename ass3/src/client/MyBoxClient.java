@@ -107,12 +107,17 @@ public synchronized void handleMessageFromServer(Object message)
 	    if(E.getTask().equals("all groups"))    
 
 	    	((administratorMenuController)(currController)).handleDBResult2((ArrayList<interestGroups>)E.getObject()); 
+<<<<<<< HEAD
 	  
 
 	    	
 	    if(E.getTask().equals("all requests"))    
 	    	((administratorMenuController)(currController)).handleDBResult2((ArrayList<GroupsRequests>)E.getObject()); 
 
+=======
+	    
+	    
+>>>>>>> refs/remotes/origin/kk
 	        
 	}
 	if(message instanceof String ) //user name and password not found
@@ -159,6 +164,11 @@ public synchronized void handleMessageFromServer(Object message)
 		{
 			((administratorMenuController)currController).getusermainmenu2().setWarningMessageVisibleTrue("you dont have requests");
 		}
+		
+		if(str.equals("file saved successfully"))
+	    	((createNewFileController)(currController)).handleDBResultFile("file saved successfully");
+		if(str.equals("file already exist"))
+	    	((createNewFileController)(currController)).handleDBResultFile("file already exist");
 		
 	}//if
 	/*if(message instanceof ArrayList<?>)

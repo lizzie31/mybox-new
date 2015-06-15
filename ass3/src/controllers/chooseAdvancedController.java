@@ -11,21 +11,21 @@ import java.util.ArrayList;
 import client.myboxapp;
 
 
-public class createNewGroupController<JCheckBox> extends AbstractTransfer {
+public class chooseAdvancedController<JCheckBox> extends AbstractTransfer {
 	/**
 	 * the new group that administrarotor field.
 	 */
 	private interestGroups newgroup;
-	private createNewGroupGUI group;
-	private administratorMenuController adm;
+	private chooseAdvancedRegularGUI chooseAdvanced;
+	private createNewFileController createFileCon;
 	/**
 	 * all the users in DB.
 	 */
-	private ArrayList<User> allusers;
+	private ArrayList<interestGroups> allgroups;
 	/**
 	 * the users that the admin choose.
 	 */
-	private ArrayList<User> groupusers=new ArrayList<>();
+	private ArrayList<interestGroups> groupusers=new ArrayList<>();
 
 	/**
 	 * contain the details about the new group to send the server.
@@ -33,31 +33,31 @@ public class createNewGroupController<JCheckBox> extends AbstractTransfer {
 	Envelope en;
 	
 	/**constructor*/
-	public createNewGroupController(createNewGroupGUI group, administratorMenuController lastCon ,ArrayList<User> allusers )
-	{
-		this.group=group;
-		this.adm=lastCon;
-		this.allusers=allusers;
-		group.addcancel(new ButtonCancelListener());
-		group.addAdd(new ButtonaddlListener());
-	     group.addchecklist(new checkboxListener());
-
+	
+    public chooseAdvancedController(chooseAdvancedRegularGUI cA,createNewFileController createFileCon, User userDetails) 
+    {
+    	this.chooseAdvanced=cA;
+		this.createFileCon=createFileCon;
+		this.allgroups=userDetails.getInterestGroupInDB();
+		chooseAdvanced.addcancel(new ButtonCancelListener());
+		chooseAdvanced.addAdd(new ButtonaddlListener());
+	     chooseAdvanced.addchecklist(new checkboxListener());
 	}
-	
 
-	
-	
-    private class checkboxListener implements ActionListener
+
+
+
+	private class checkboxListener implements ActionListener
     {
     	public void actionPerformed(ActionEvent e) {
     		Object source = e.getSource();
-      	  for(int i=0;i<group.getUserslist().size();i++)
-      		  if (source ==group.getUserslist().get(i)) 
+      	  for(int i=0;i<chooseAdvanced.getUserslist().size();i++)
+      		  if (source ==chooseAdvanced.getUserslist().get(i)) 
       		  {
-      			 for(int j=0;j<allusers.size();j++)
+      			 for(int j=0;j<allgroups.size();j++)
       			 {
-      				 if(group.getUserslist().get(i).getText().equals(""+allusers.get(j).getUserName()))
-      					 groupusers.add(allusers.get(j));
+      				 if(chooseAdvanced.getUserslist().get(i).getText().equals(""+allgroups.get(j).getGroupName()))
+      					 groupusers.add(allgroups.get(j));
       					 
       					 
       			 }
@@ -77,12 +77,11 @@ public class createNewGroupController<JCheckBox> extends AbstractTransfer {
 	}
 	
 	private void buttonaddPressed() {
-		//newgroup= new interestGroups(group.getGroupname().getText(), groupusers);
+		/*newgroup= new interestGroups(group.getGroupname().getText(), groupusers);
 		en=new Envelope(newgroup,"add new group to DB");
 		sendToServer(en);
-		myboxapp.clien.setCurrObj(this);
-		
-	     
+		myboxapp.clien.setCurrObj(this);*/
+	
 	
 	}
 	/**ButtonCancelListener is a class that implements action listener and goes back to administrator menu window*/
@@ -96,13 +95,13 @@ public class createNewGroupController<JCheckBox> extends AbstractTransfer {
 	}
 	
 	private void buttoncancelPressed() {
-		group.close();
-		adm.getAdminCon().setVisible(true);
+		chooseAdvanced.close();
+		createFileCon.getCreatefile().setVisible(true);
 	
 	}
 
-	public createNewGroupGUI getGroup() {
-		return group;
+	public chooseAdvancedRegularGUI getGroup() {
+		return chooseAdvanced;
 	}
 	
 	
