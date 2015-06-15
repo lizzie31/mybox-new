@@ -27,7 +27,6 @@ public class UpdateGui extends JFrame{
 	private User user;
 	
 	private file ChoosenFile;
-	private JButton btnCancel_1=null;
 	private JButton btnRead=null;
 	private JButton btnSetContent=null;
 	private JButton btnChooser=null;
@@ -69,7 +68,7 @@ public class UpdateGui extends JFrame{
 			panel.setBackground(SystemColor.inactiveCaption);
 			panel.setLayout(null);
 			
-			JButton btnCancel= new JButton("cancel");
+			btnCancel= new JButton("cancel");
 			btnCancel.setFont(new Font("Tahoma", Font.BOLD, 11));
 			btnCancel.setBounds(155, 122, 89, 23);
 			panel.add(btnCancel);
@@ -95,9 +94,7 @@ public class UpdateGui extends JFrame{
 
 	}
 
-	public void addcancel(ActionListener l) {
-		btnCancel_1.addActionListener(l);
-	}
+
 /**close() closes the current window*/
 	public void close() {
 		this.setVisible(false);
