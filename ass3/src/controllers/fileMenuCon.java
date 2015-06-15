@@ -53,9 +53,9 @@ public class fileMenuCon extends AbstractTransfer{
 	class btnDeleteListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
-			
-			sendToServer("ShowAllFiles");
-			myboxapp.clien.setCurrObj(getThisCon());
+			CurrGui.dispose();
+			deleteFile d= new deleteFile();
+			new deleteFileController(d,getThisCon());
 		
 		}
 	}
@@ -118,34 +118,14 @@ public class fileMenuCon extends AbstractTransfer{
 			}
 			
 		}
-     	public void handleDBResult(Object message)
-     	{
-	    	if(message instanceof ArrayList<?>)
-	    	{
-	    		if(((ArrayList<?>) message).get(0) instanceof file)
-	    		{
-	    		 allFiles= (ArrayList<file>)message;
-	    		 CurrGui.close();
-	    		 deleteFile R= new deleteFile(allFiles);
-	    		 new deleteFileController(R,this);
-	    		}
-	    	}
-    	}
-		
 
 		public fileMenuCon getThisCon() {
 			return this.thisCon;
 		}
 
-
-
-
 		public fileMenuGui getCurrGui() {
 			return CurrGui;
 		}
-
-
-
 
 		public void setCurrGui(fileMenuGui currGui) {
 			CurrGui = currGui;

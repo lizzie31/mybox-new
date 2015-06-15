@@ -105,8 +105,7 @@ public synchronized void handleMessageFromServer(Object message)
 	    	((administratorMenuController)(currController)).handleDBResult2((ArrayList<User>)E.getObject()); 
 	    if(E.getTask().equals("all groups"))    
 	    	((administratorMenuController)(currController)).handleDBResult2((ArrayList<interestGroups>)E.getObject()); 
-	    if(E.getTask().equals("all files"))    
-	    	((fileMenuCon)(currController)).handleDBResult((ArrayList<file>)E.getObject()); 
+	  
 	        
 	}
 	if(message instanceof String ) //user name and password not found

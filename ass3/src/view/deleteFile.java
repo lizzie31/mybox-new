@@ -32,8 +32,8 @@ public class deleteFile extends JFrame{
 	private JButton btnCancel;
 
 	/**constructor**/
-	public deleteFile(ArrayList<file>f) {
-		this.allFiles=f;
+	public deleteFile() {
+		
 		initialize();
 		this.setVisible(true);
 	}
@@ -57,10 +57,8 @@ public class deleteFile extends JFrame{
 		
 		comboBox = new JComboBox();
 		comboBox.setBounds(184, 58, 132, 22);
-		comboBox.addItem("");
-		
-		for(int i=0;i<allFiles.size();i++)
-			comboBox.addItem(allFiles.get(i).getFileName());
+		comboBox.addItem("no");
+		comboBox.addItem("yes");
 		
 		panel.add(comboBox);
 		

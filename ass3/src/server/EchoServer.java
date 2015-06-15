@@ -367,22 +367,7 @@ public class EchoServer extends AbstractServer
 		 e=new Envelope(AllGroups,"all groups");
  		 client.sendToClient(e);
      }
-	   if(str.equals("ShowAllFiles"))
-		 {
-		   file f;
-			 ArrayList<file> AllFiles=new ArrayList<>();
-		     String re="SELECT * FROM test.files";
-		     rs = stmt.executeQuery(re);
-		     while(rs.next()==true)
-	    	 {
-
-		    	 f=new file(rs.getString(1));	
-	    		AllFiles.add( f);
-	    	
-	    	 }
-			 e=new Envelope(AllFiles,"all files");
-	 		 client.sendToClient(e);
-	     }
+	   
 	   
    }
    }	       
