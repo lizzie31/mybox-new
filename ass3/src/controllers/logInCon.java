@@ -1,14 +1,11 @@
 package controllers;
 
-
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.concurrent.Executors;
-
 import Model.Envelope;
 import Model.User;
 import Model.file;
@@ -22,7 +19,6 @@ import client.IObserve;
 import client.myboxapp;
 /**
  * This Class is a Login Controller, which extends AbstractTransfer
- * @author jacob
  *
  */
 public class logInCon extends AbstractTransfer
@@ -38,6 +34,7 @@ public class logInCon extends AbstractTransfer
 	private String username;
 	private ArrayList<file> filesInUserDB=null;
 	private Envelope en=null;
+	private ArrayList<User> allUsers;
 	
 	
 	
@@ -68,6 +65,63 @@ public class logInCon extends AbstractTransfer
 		loginG.addfrgtPassActionListener(new frgtPassListener());
 		
 	}
+	
+	
+	public void setUser(ArrayList<User> u) {
+		allUsers = u;
+	}
+
+	public boolean userExist(String userName){
+		String temp;
+		for (int i =0 ;i<allUsers.size();i++){
+			temp=allUsers.get(i).getUserName();
+			if(userName.compareTo(temp)==0)
+				return true;
+		}
+		return false;
+	}
+	public boolean userConnect(String userName)
+	{
+		String temp;
+		for (int i =0 ;i<allUsers.size();i++){
+			temp=allUsers.get(i).getUserName();
+			if (temp.compareTo(userName)==0){
+				if (allUsers.get(i).getStatus()==1)
+					return true;
+				else 
+					return false;
+			}
+		}
+		return false;
+	}
+	public boolean checkPassword(String  userName,String Pass)
+	{
+		for (int i =0 ;i<allUsers.size();i++){
+			if (allUsers.get(i).getUserName().equals(userName)){
+				if (allUsers.get(i).getUpassword().equals(Pass))
+					return true;
+				else 
+					return false;		
+				}
+			}
+		return false;
+	}
+	public int changeStatus(String userName){
+		String temp;
+		int res = -1;
+		for (int i =0 ;i<allUsers.size();i++){
+			temp=allUsers.get(i).getUserName();
+			if (userName.compareTo(temp)==0){
+				allUsers.get(i).setStatus(1-allUsers.get(i).getStatus());
+				    res =  allUsers.get(i).getStatus();
+			}
+			}
+		return res;
+	}
+
+	
+	//============================================================================
+	
 	
 	/**
 	 * Inner class that handles when Button forget password Pressed, implements ActiontListener
