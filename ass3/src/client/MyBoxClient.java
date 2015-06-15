@@ -130,6 +130,10 @@ public synchronized void handleMessageFromServer(Object message)
 		{
 			((createNewGroupController)currController).getGroup().showsuceedmessege();
 		}
+		if(str.equals("the group delete secsefuly"))
+		{
+			((deleteGroupController)currController).getGroup().showsuceedmessege();
+		}
 		
 	}//if
 	/*if(message instanceof ArrayList<?>)

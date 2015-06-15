@@ -1,6 +1,9 @@
 package view;
 
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.EventQueue;
+import java.awt.Font;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -12,6 +15,7 @@ import java.util.ArrayList;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 import Model.interestGroups;
 
@@ -24,7 +28,10 @@ public class deleteGroupGUI extends JFrame{
 	private JLabel lblChooseAGroup;
 	private JButton btnCancel;
 	private JPanel panel;
+	private JButton btndelete;
 	private ArrayList<interestGroups> allinterestgroups;
+	/**@param lblwarningMessage is a lable of a warning message*/
+	private JLabel lblwarningMessage=null;
 	
 	public deleteGroupGUI(ArrayList<interestGroups> allinterestgroups ) {
 		this.allinterestgroups=allinterestgroups;
@@ -54,9 +61,10 @@ public class deleteGroupGUI extends JFrame{
 		btnCancel.setBounds(43, 171, 97, 25);
 		panel.add(btnCancel);
 		
-		JButton btnOk = new JButton("ok");
-		btnOk.setBounds(269, 171, 97, 25);
-		panel.add(btnOk);
+		btndelete = new JButton("Delete");
+		btndelete.setBounds(269, 171, 97, 25);
+		panel.add(btndelete);
+		panel.add(getLblwarningMessage() );
 	}
 	private JPanel getCreatePanel(){	
 		if(panel==null)
@@ -68,13 +76,17 @@ public class deleteGroupGUI extends JFrame{
 			comboBox.setBounds(185, 41, 123, 22);
 			
 			comboBox.addItem(" ");
-			for (int i=1;i<allinterestgroups.size();i++)
+			for (int i=0;i<allinterestgroups.size();i++)
 			{
 				comboBox.addItem(allinterestgroups.get(i).getGroupName());
 			}
 			panel.add(comboBox);
 		}
 		return panel;
+	}
+	
+	public void adddelete(ActionListener l) {
+		btndelete.addActionListener(l);
 	}
 	public void addcancel(ActionListener l) {
 		btnCancel.addActionListener(l);
@@ -84,4 +96,38 @@ public class deleteGroupGUI extends JFrame{
 		this.setVisible(false);
 		dispose();
 	}
+	/**addSelectGroup() combobox action listennet*/
+	public void addSelectGroup(ActionListener e)
+	{
+		comboBox.addActionListener(e);
+	}
+
+	public JComboBox getComboBox() {
+		return comboBox;
+	}
+	/**getLblwarningMessage() returns the warning message*/
+	public JLabel getLblwarningMessage() {
+		if(lblwarningMessage == null){
+			lblwarningMessage = new JLabel("123");
+			lblwarningMessage.setVisible(false);
+		}
+		return lblwarningMessage;
+	}
+	/**setWarningMessageVisibleTrue(String st) sets the warning message st visible*/
+	public void setWarningMessageVisibleTrue(String st) {
+		lblwarningMessage.setText(st);
+		lblwarningMessage.setForeground(Color.RED);
+		lblwarningMessage.setFont(new Font("Arial Black", Font.PLAIN, 13));
+		lblwarningMessage.setBounds(33, 80, 226, 32);
+		lblwarningMessage.setVisible(true);	
+		
+	}
+	/**showsuceedmessege() shows a message that the group was deleted successfully to the DB*/
+	public void showsuceedmessege()
+ 	{
+ 		Component frame=null;
+ 	JOptionPane.showMessageDialog(this, "the group was added sucssefuly to DB :)");
+ 	}
+
+	
 }
