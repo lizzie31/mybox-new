@@ -152,23 +152,6 @@ public class createNewGroupGUI extends JFrame{
 	}
 
 
-
-	   
-	   
-/*public void itemStateChanged(ItemEvent e) {
-   
-    Object source = e.getItemSelectable();
-
-    if (source == users.get(1)) 
-      System.out.println("11");
-    }
-   // } else if (source == glassesButton) {
-        //...make a note of it...
-    //} else if (source == hairButton) {
-        //...make a note of it...
-    //} else if (source == teethButton) {
-        //...make a note of it...*/
-    
 		/**close() closes the current window*/
 	public void close() {
 		this.setVisible(false);
@@ -186,7 +169,6 @@ public class createNewGroupGUI extends JFrame{
 	public void setWarningMessageVisibleTrue(String st) {
 		lblwarningMessage.setText(st);
 		lblwarningMessage.setForeground(Color.RED);
-		
 		lblwarningMessage.setVisible(true);	
 		
 	}
@@ -198,8 +180,10 @@ public class createNewGroupGUI extends JFrame{
  	/**showsuceedmessege() shows a message that the group was added sucssesfuly to the DB*/
  	public void showsuceedmessege()
  	{
+ 		
  		Component frame=null;
  	JOptionPane.showMessageDialog(frame, "the group was added sucssefuly to DB :)");
+ 	this.close();
  	}
 
 	public ArrayList<JCheckBox> getUserslist() {

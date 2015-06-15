@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 import client.myboxapp;
 import controllers.userMainMenuController.LogOutListener;
+import Model.GroupsRequests;
 import Model.User;
 import Model.file;
 import Model.interestGroups;
@@ -24,6 +25,7 @@ public class administratorMenuController extends userMainMenuController {
 	private administratorMenuGUI currgui2;
 	private ArrayList<User> usersarr;
 	private ArrayList<interestGroups> allinterestgroups;
+	private ArrayList<GroupsRequests> allrequests;
 	/***constractor***/
 	public administratorMenuController (userMainMenuGUI menu,logInCon lastCon,User user,administratorMenuGUI menu2){
 		
@@ -36,6 +38,7 @@ public class administratorMenuController extends userMainMenuController {
 	currgui2.addlogout(new LogOutListener());
 	currgui2.addDeletegroup(new ButtondeleteGroupListener());
 	currgui2.addcreatenewfolder(new ButtoncreatenewfolderListener());
+	currgui2.addrequests(new ButtonrequestsListener());
 	}
 
 	/**ButtondeleteGroupListener is a class that implements action listener and opens delete group window*/
@@ -108,16 +111,20 @@ public void handleDBResult2(Object message) {
 		if(((ArrayList<?>) message).get(0) instanceof User)
 		{
 		 usersarr= (ArrayList<User>)message;
-		 CurrGui.close();
 		 createNewGroupGUI R= new createNewGroupGUI(usersarr);
 		 new createNewGroupController(R,this,usersarr);
 		}
 		if(((ArrayList<?>) message).get(0) instanceof interestGroups)
 		{
 		 allinterestgroups= (ArrayList<interestGroups>)message;
-		 CurrGui.close();
 		 deleteGroupGUI D= new deleteGroupGUI(allinterestgroups);
 		new deleteGroupController(D,this);
+		}
+		if(((ArrayList<?>) message).get(0) instanceof GroupsRequests)
+		{
+		 allrequests= (ArrayList<GroupsRequests>)message;
+		 requestsGUI D= new requestsGUI(allrequests);
+		new requestController(D,this,allrequests);
 		}
 	}
 	
@@ -150,8 +157,8 @@ private void buttoncreatenewfilePressed() {
 	
 	private void buttonrequestsPressed() {
 		CurrGui.close();
-		requestsGUI R= new requestsGUI();
-		new requestController(R,this);
+		sendToServer("ShowAllrequets");
+		myboxapp.clien.setCurrObj(this);
 	}
 	/**getAdminCon() returns the administrator manu gui window*/
 	public administratorMenuGUI getAdminCon()

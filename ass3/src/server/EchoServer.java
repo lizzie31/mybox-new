@@ -312,8 +312,27 @@ public class EchoServer extends AbstractServer
  		 client.sendToClient(e);
     	  }
     }
-    
-  }
+    if(en.getTask().equals("answer request"))
+    {
+    	GroupsRequests r=(GroupsRequests)en.getObject();
+    	 String textField=(String)en.getObject();
+    	if(r.getRequestType().equals("join"))
+    	{
+    		String re=("INSERT INTO test.userinterestgroups VALUES('"+r.getUserName()+"','"+r.getGroupName()+"');");
+   	    	stmt.executeUpdate(re);	
+   	    	stmt.executeUpdate("DELETE FROM test.requests WHERE groupname='"+r.getGroupName()+"'AND username='"+r.getUserName()+"');");	
+   	     client.sendToClient("the user was added secssfuly to this group" );
+    	}
+    	else{
+    		stmt.executeUpdate("DELETE FROM test.userinterestgroups WHERE groupname='"+r.getGroupName()+"'AND username='"+r.getUserName()+"');");
+    		stmt.executeUpdate("DELETE FROM test.requests WHERE groupname='"+r.getGroupName()+"'AND username='"+r.getUserName()+"');");
+    		 client.sendToClient("the user was deleted secssfuly from this group" );
+    	}
+    		
+ 		
+    	  }
+   }
+  
    if(msg instanceof String)
    {
 	   String str=(String)msg;
@@ -335,6 +354,22 @@ public class EchoServer extends AbstractServer
 		 e=new Envelope(AllUsers,"all users");
  		 client.sendToClient(e);
      }
+	   if(str.equals("ShowAllrequets"))
+		 {
+		     GroupsRequests Request1;
+			 ArrayList<GroupsRequests> AllRequests=new ArrayList<>();
+		     String re="SELECT * FROM test.requests";
+		     rs = stmt.executeQuery(re);
+		     while(rs.next()==true)
+	    	 {
+
+		    	Request1=new GroupsRequests(rs.getString(1),rs.getString(2),rs.getString(3));
+		    	AllRequests.add(Request1);
+	    	
+	    	 }
+			 e=new Envelope(AllRequests,"all requests");
+	 		 client.sendToClient(e);
+	     }
 	   if(str.equals("ShowAllGroups"))
 	 {
 		 ArrayList<interestGroups> AllGroups=new ArrayList<>();
@@ -351,8 +386,8 @@ public class EchoServer extends AbstractServer
  		 client.sendToClient(e);
      }
 	   
+   }   
    }
-   }	       
       catch (SQLException e) {
         	e.printStackTrace();
       } 

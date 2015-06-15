@@ -163,6 +163,7 @@ MainMenu.setBackground(new Color(102, 205, 170));
 		return MainMenu;
 		
 	}
+	
 	public void addDeletegroup(ActionListener l) {
 		deleteGroupButton.addActionListener(l);
 	}
