@@ -129,7 +129,7 @@ public class EchoServer extends AbstractServer
 					re=("SELECT f.filename,f.direction,f.permission,f.fileowner FROM userdirectories as u,files as f WHERE f.filename=u.filename AND u.directory= '"+dirname.get(i)+"' AND u.username='"+username+"'");
 					rs1=stmt.executeQuery(re);
 					files=new ArrayList<>();
-					if(rs1.next()==true)
+					while(rs1.next()==true)
 					 {
 						 f=new file(rs1.getString(1),rs1.getString(2),rs1.getInt(3),rs1.getString(4));
 						 files.add(f);
