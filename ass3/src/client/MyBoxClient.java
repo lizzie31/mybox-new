@@ -95,7 +95,7 @@ public synchronized void handleMessageFromServer(Object message)
 			}
 	    	 if(E.getTask().equals("updated"))
 	 	   {
-	    		 
+	    		 ((UpdateCon)(currController)).getCurrGui().showsuceedmessege();; 
 	 	   }
 	    }
 	    

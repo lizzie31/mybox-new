@@ -50,7 +50,6 @@ public class fileMenuCon extends AbstractTransfer{
 	class btnUpdateListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
-			CurrGui.dispose();
 			UpdateGui UG=new UpdateGui(user,ChoosenFile);
 			new UpdateCon(user,ChoosenFile,UG,getThisCon());
 		}
@@ -106,6 +105,22 @@ public class fileMenuCon extends AbstractTransfer{
 		public fileMenuCon getThisCon() {
 			return thisCon;
 		}
+
+
+
+
+		public fileMenuGui getCurrGui() {
+			return CurrGui;
+		}
+
+
+
+
+		public void setCurrGui(fileMenuGui currGui) {
+			CurrGui = currGui;
+		}
+		
+		
 }
 			
 

@@ -20,6 +20,7 @@ public class UpdateCon extends AbstractTransfer{
 	private User user;
 	private file fileDetails;
 	private UpdateGui CurrGui;
+
 	private fileMenuCon prevCon;
 	private byte[] content=null;
 	
@@ -30,8 +31,8 @@ public class UpdateCon extends AbstractTransfer{
 		this.prevCon=prevCon;
 		CurrGui.addbtnChooser(new btnChooserListener());
 		CurrGui.addbtnUpdate(new btnUpdateListener());
-
-       }
+		CurrGui.addbtnCancel(new btnCancelListener());
+	}
 	
 	class btnChooserListener implements ActionListener{
 
@@ -51,6 +52,14 @@ public class UpdateCon extends AbstractTransfer{
 	                
 		}
 		}
+	
+	class btnCancelListener implements ActionListener{
+
+		public void actionPerformed(ActionEvent e) {
+				CurrGui.dispose();
+				prevCon.getCurrGui().setVisible(true);
+		}
+	}
 	class btnUpdateListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
@@ -61,4 +70,12 @@ public class UpdateCon extends AbstractTransfer{
 
 	}
 	
+	
+	/***********************************************getters and setters**********************************************************/
+	public UpdateGui getCurrGui() {
+		return CurrGui;
+	}
+	public void setCurrGui(UpdateGui currGui) {
+		CurrGui = currGui;
+	}
 }
