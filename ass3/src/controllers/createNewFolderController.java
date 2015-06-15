@@ -58,6 +58,9 @@ public class createNewFolderController extends AbstractTransfer{
 		user.getuserDirectories().add(dir);
 		Envelope en=new Envelope(user,"add directory");
 		sendToServer(en);
+		createfolder.close();
+		prevController.getusermainmenu().dispose();
+		
 	}
 }
 

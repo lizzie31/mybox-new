@@ -61,7 +61,7 @@ public class createNewFolderGUI extends JFrame {
 		lblNewLabel.setBounds(99, 82, 93, 14);
 		panel.add(lblNewLabel);
 		
-		label = new JLabel("");
+		label = new JLabel();
 		label.setIcon(new ImageIcon(createNewFolderGUI.class.getResource("/view/Computer-Background-Wallpapers-Ideas-Creative-Digital.jpg")));
 		label.setBounds(0, 0, 484, 461);
 		panel.add(label);
@@ -81,12 +81,12 @@ public class createNewFolderGUI extends JFrame {
 	}
 	
 	public void addOk(ActionListener l) {
-		btnCancel.addActionListener(l);
+		btnOk.addActionListener(l);
 	}
 	
 	public String getTextField()
 	{
-		return label.getText();
+		return folderNameField.getText();
 	}
 	
 	

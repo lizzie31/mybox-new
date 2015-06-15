@@ -73,6 +73,15 @@ public class userMainMenuController extends AbstractTransfer{
 		SG.setVisible(true);	
 	}
 	
+	private class ButtonAddAGroupListener implements ActionListener {
+		public void actionPerformed(ActionEvent arg0) {
+			CurrGui.undisplayWarningMessage();
+			Envelope en=new Envelope(userDetails,"show all interest groups");
+			sendToServer(en);
+			myboxapp.clien.setCurrObj(getCon());
+		}
+	}
+	
 	public class TreeSelection implements TreeSelectionListener{
 		public void valueChanged(TreeSelectionEvent e) {
 			file file=null;
@@ -168,15 +177,6 @@ public class userMainMenuController extends AbstractTransfer{
 
 	public userMainMenuGUI getusermainmenu() {
 		return CurrGui;
-	}
-	private class ButtonAddAGroupListener implements ActionListener {
-
-		public void actionPerformed(ActionEvent arg0) {
-			CurrGui.undisplayWarningMessage();
-			Envelope en=new Envelope(userDetails,"show all interest groups");
-			sendToServer(en);
-			myboxapp.clien.setCurrObj(getCon());
-		}
 	}
 
 

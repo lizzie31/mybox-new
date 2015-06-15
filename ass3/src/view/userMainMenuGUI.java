@@ -178,7 +178,7 @@ public class userMainMenuGUI extends JFrame {
 		MainMenu.setLayout(null);
 		
 		tree = new JTree();
-		tree.setBackground(new Color(0, 206, 209));
+		tree.setBackground(Color.PINK);
 		tree.setFont(new Font("Arial Black", Font.PLAIN, 14));
 		setJtree();
 						
@@ -248,13 +248,13 @@ public class userMainMenuGUI extends JFrame {
 		MainMenu.add(btnNewButton);
 		
 		JLabel lblWelcomBack = new JLabel("welcom back "+user.getUserName()+"!!");
-		lblWelcomBack.setForeground(new Color(0, 0, 0));
+		lblWelcomBack.setForeground(new Color(255, 160, 122));
 		lblWelcomBack.setFont(new Font("Arial Black", Font.PLAIN, 16));
 		lblWelcomBack.setBounds(139, 21, 240, 23);
 		MainMenu.add(lblWelcomBack);
 		
 		JLabel label = new JLabel("");
-		label.setIcon(new ImageIcon(userMainMenuGUI.class.getResource("/view/Computer-Background-Wallpapers-Ideas-Creative-Digital.jpg")));
+		label.setIcon(new ImageIcon(userMainMenuGUI.class.getResource("/view/6830591-background-pictures.jpg")));
 		label.setBounds(0, 0, 484, 361);
 		MainMenu.add(label);
 		}
@@ -274,10 +274,10 @@ public class userMainMenuGUI extends JFrame {
 	}
 
 	public void addjoingruop(ActionListener l) {
-		btnNewButton.addActionListener(l);
+		btnJionGroup.addActionListener(l);
 	}
 	public void addleavegruop(ActionListener l) {
-		btnJionGroup.addActionListener(l);
+		btnNewButton.addActionListener(l);
 	}
 
 	public void addshowgruops(ActionListener l) {
