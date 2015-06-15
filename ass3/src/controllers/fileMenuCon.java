@@ -24,15 +24,21 @@ import Model.file;
 
 
 public class fileMenuCon extends AbstractTransfer{
-
+	/**user is a specific user*/
 	private User user;
+	/**currGui is file menu window*/
 	private fileMenuGui CurrGui;
+	/**prevCon is the user main menu controller*/
 	private userMainMenuController prevCon;
 	private file ChoosenFile=null;
+	/**menu is user main menu window**/
 	private userMainMenuGUI menu;
+	/**thisCon is the file menu controller*/
 	private fileMenuCon thisCon=this;
+	/**allFiles is an arrayList of all the files in the DB*/
 	private ArrayList<file> allFiles=null;
 	
+	/**constructor*/
 	public fileMenuCon(fileMenuGui menu,userMainMenuController  lastCon,User user, file file) {
 		this.user=user;
 		this.CurrGui=menu;
@@ -48,12 +54,9 @@ public class fileMenuCon extends AbstractTransfer{
 
 		public void actionPerformed(ActionEvent e) {
 			
-			//CurrGui.dispose();
 			sendToServer("ShowAllFiles");
 			myboxapp.clien.setCurrObj(getThisCon());
-			//deleteFile DF=new deleteFile();
-			//new deleteFileController(DF,thisCon);
-			
+		
 		}
 	}
 	class ButtoncancelListener implements ActionListener{
