@@ -12,6 +12,7 @@ import java.io.IOException;
 
 import client.myboxapp;
 import view.UpdateGui;
+import view.deleteFile;
 import view.fileMenuGui;
 import view.userMainMenuGUI;
 import Model.Envelope;
@@ -37,8 +38,17 @@ public class fileMenuCon extends AbstractTransfer{
 		CurrGui.addcancel(new ButtoncancelListener());
 		CurrGui.addread(new readListener());
 		CurrGui.addupdate(new btnUpdateListener());
+		CurrGui.adddelete(new btnDeleteListener());
 	}
-	
+	class btnDeleteListener implements ActionListener{
+
+		public void actionPerformed(ActionEvent e) {
+			CurrGui.dispose();
+			deleteFile DF=new deleteFile();
+			//new deleteFileController(DF,this);
+			
+		}
+	}
 	class ButtoncancelListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
@@ -88,14 +98,12 @@ public class fileMenuCon extends AbstractTransfer{
 			BufferedWriter writer=new BufferedWriter(new FileWriter(f));
 			FileOutputStream fos = new FileOutputStream(f.getAbsolutePath());
 			fos.write(bs);
-			writer.close();
-			writer.flush();
 			fos.flush();
 			fos.close();
 			Desktop desktop=null;
 			desktop=Desktop.getDesktop();
 			try {
-				desktop.open(f.getAbsoluteFile());
+				desktop.open(f);
 			} catch (IOException e1) {
                 e1.printStackTrace();
 			}
