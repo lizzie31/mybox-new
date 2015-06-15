@@ -52,7 +52,6 @@ public class administratorMenuController extends userMainMenuController {
 		CurrGui.close();
 		sendToServer("ShowAllGroups");
 		myboxapp.clien.setCurrObj(this);
-		//R.setVisible(true);
 	}
 	/**ButtoncreatenewfolderListener is a class that implements action listener and opens create new folder window*/
 	private class ButtoncreatenewfolderListener implements ActionListener {
@@ -118,7 +117,7 @@ public void handleDBResult2(Object message) {
 		 allinterestgroups= (ArrayList<interestGroups>)message;
 		 CurrGui.close();
 		 deleteGroupGUI D= new deleteGroupGUI(allinterestgroups);
-		// new createNewGroupController(R,this,usersarr);
+		new deleteGroupController(D,this);
 		}
 	}
 	

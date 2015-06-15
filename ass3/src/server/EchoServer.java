@@ -27,6 +27,7 @@ import ocsf.server.*;
 import server.EchoServer;
 import server.serverGui;
 import server.ServerLogGui;
+import view.InterestGroupGui;
 
 import java.security.Security;
 import java.util.Date;
@@ -251,7 +252,15 @@ public class EchoServer extends AbstractServer
       	en=new Envelope(allGroups,"show all interest groups");
       	 client.sendToClient(en);
 	}
- 
+    if(en.getTask().equals("Delete this Group"))
+    {
+    	Statement stmt1 = this.getConn().createStatement();
+    	interestGroups interestGroup1=(interestGroups)en.getObject();
+
+    	stmt1.executeUpdate("DELETE FROM test.interestgroups WHERE groupname='"+(interestGroup1.getGroupName()+"'"));
+      	 stmt1.executeUpdate("DELETE FROM test.userinterestgroups WHERE groupname='"+(interestGroup1.getGroupName()+"'"));
+      	 client.sendToClient("the group delete secsefuly"); 
+    }
    if(en.getTask().equals("add new group to DB"))
    {
 	   
