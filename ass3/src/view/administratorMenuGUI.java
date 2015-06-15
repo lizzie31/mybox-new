@@ -75,8 +75,8 @@ public class administratorMenuGUI extends JFrame {
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBackground(Color.CYAN);
-		setBounds(100, 100, 450, 300);
-		this.setSize(600,600);
+		setBounds(400, 100, 300, 300);
+		this.setSize(600,550);
 		this.setTitle("main menu");;
 		this.setContentPane(getMainMenu());
 		
@@ -91,7 +91,7 @@ MainMenu.setBackground(new Color(102, 205, 170));
 				
 				warningIcon= new JLabel("");
 				warningIcon.setIcon(new ImageIcon(userMainMenuGUI.class.getResource("/view/warning.gif")));
-				warningIcon.setBounds(29, 480, 30, 25);
+				warningIcon.setBounds(27, 464, 30, 25);
 				warningIcon.setVisible(false);
 				MainMenu.add(warningIcon);
 				
@@ -116,7 +116,7 @@ MainMenu.setBackground(new Color(102, 205, 170));
 				btnLogOut = new JButton("log out");
 				btnLogOut.setFont(new Font("Tahoma", Font.BOLD, 11));
 				btnLogOut.setBackground(UIManager.getColor("SplitPane.background"));
-				btnLogOut.setBounds(424, 504, 128, 23);
+				btnLogOut.setBounds(425, 466, 128, 23);
 				MainMenu.add(btnLogOut);
 		
 		
@@ -138,12 +138,12 @@ MainMenu.setBackground(new Color(102, 205, 170));
 							node.add(new DefaultMutableTreeNode(""+user.getuserDirectories().get(i).getfiles().get(j).getFileName()));
 				
 						}
-					add(node);
+					getContentPane().add(node);
 					}
 				}
 			}
 		));
-		tree.setBounds(27, 124, 252, 202);
+		tree.setBounds(27, 124, 252, 192);
 		MainMenu.add(tree);
 		
 		JLabel lblHelloSystemAdministrtor = new JLabel("hello system administrtor!!");
@@ -216,7 +216,7 @@ MainMenu.setBackground(new Color(102, 205, 170));
 			lblwarningMessage.setForeground(new Color(255, 0, 0));
 			lblwarningMessage.setFont(new Font("Arial Black", Font.PLAIN, 13));
 			lblwarningMessage.setSize(298, 25);
-			lblwarningMessage.setLocation(84, 480);
+			lblwarningMessage.setLocation(67, 464);
 			lblwarningMessage.setVisible(false);
 		}
 		return lblwarningMessage;

@@ -277,12 +277,9 @@ public class userMainMenuGUI extends JFrame {
 		btnJionGroup.addActionListener(l);
 	}
 	public void addleavegruop(ActionListener l) {
-<<<<<<< HEAD
 		btnleaveButton.addActionListener(l);
-=======
-		btnNewButton.addActionListener(l);
->>>>>>> refs/heads/mmm
 	}
+
 
 	public void addshowgruops(ActionListener l) {
 		btnShowgroups.addActionListener(l);
