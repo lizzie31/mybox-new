@@ -147,6 +147,7 @@ public class userMainMenuGUI extends JFrame {
 	private DefaultMutableTreeNode node=null;
 	/**@param user is current user information*/
 	private User user;
+	private JButton btnNewButton=null;
 
 	/**constructor*/
 	/**@param user is the current user information*/
@@ -241,7 +242,7 @@ public class userMainMenuGUI extends JFrame {
 		tree.setBounds(35, 124, 205, 194);
 		MainMenu.add(tree);
 		
-		JButton btnNewButton = new JButton("leave group");
+		btnNewButton = new JButton("leave group");
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnNewButton.setBounds(307, 262, 138, 23);
 		MainMenu.add(btnNewButton);
@@ -273,6 +274,9 @@ public class userMainMenuGUI extends JFrame {
 	}
 
 	public void addjoingruop(ActionListener l) {
+		btnNewButton.addActionListener(l);
+	}
+	public void addleavegruop(ActionListener l) {
 		btnJionGroup.addActionListener(l);
 	}
 
