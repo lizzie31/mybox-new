@@ -44,8 +44,19 @@ public class createNewFileGUI extends JFrame{
 	private JButton btnFinish;
 	private File file;
 	private int selectedComboBox = 0;
-	private JComboBox<Integer> comboBox;
+	private JComboBox comboBox;
 	private JFrame frame;
+	private JButton btnChooseAdvancedGroups = null;
+	
+
+	public JButton getBtnChooseAdvancedGroups() {
+		return btnChooseAdvancedGroups;
+	}
+
+	public void setBtnChooseAdvancedGroups(JButton btnChooseAdvancedGroups) {
+		this.btnChooseAdvancedGroups = btnChooseAdvancedGroups;
+	}
+
 	/**@param fileNameField is the file name text field*/
 	private JTextField fileNameField;
 	/**@param descriptionField is the description text field*/
@@ -89,8 +100,7 @@ public class createNewFileGUI extends JFrame{
 		this.setBounds(100, 100, 345, 300);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(500,500);
-	    this.setContentPane(getCreatePanel());   
-
+	    this.setContentPane(getCreatePanel());   	
 	}
 
 	private JPanel getCreatePanel(){
@@ -103,72 +113,77 @@ public class createNewFileGUI extends JFrame{
 			//createpanel.add(textArea);
 			//JScrollPane logScrollPane = new JScrollPane(log);
 			//createpanel.add(logScrollPane, BorderLayout.CENTER);
-			comboBox = new JComboBox<Integer>();
-			comboBox.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					setSelectedComboBox(comboBox.getSelectedIndex());
-				}
-			});
-			comboBox.setBounds(216, 147, 93, 20);
+			comboBox = new JComboBox();
+			comboBox.setBounds(175, 165, 93, 20);
 			createpanel.add(comboBox);
-			comboBox.addItem(null);
+			comboBox.addItem(" ");
 			for (int i=1;i<4;i++)
 			{
 				comboBox.addItem(i);
 			}
 			
-			
 			JLabel lblSetPermmision = new JLabel("Set permmision:");
 			lblSetPermmision.setFont(new Font("Tahoma", Font.BOLD, 13));
 			lblSetPermmision.setHorizontalAlignment(SwingConstants.LEFT);
-			lblSetPermmision.setBounds(66, 149, 132, 14);
+			lblSetPermmision.setBounds(22, 167, 132, 14);
 			createpanel.add(lblSetPermmision);
 			
 		    
 			fileNameField = new JTextField();
-			fileNameField.setBounds(216, 38, 115, 20);
+			fileNameField.setBounds(175, 38, 207, 20);
 			fileNameField.setColumns(10);
 			createpanel.add(fileNameField);
 			
 			JLabel lblFileName = new JLabel("File name:");
 			lblFileName.setFont(new Font("Tahoma", Font.BOLD, 13));
 			lblFileName.setHorizontalAlignment(SwingConstants.LEFT);
-			lblFileName.setBounds(66, 39, 93, 17);
+			lblFileName.setBounds(40, 39, 93, 17);
 			createpanel.add(lblFileName);
 			
 			descriptionField = new JTextField();
-			descriptionField.setBounds(216, 84, 115, 46);
+			descriptionField.setBounds(175, 84, 207, 46);
 			descriptionField.setColumns(10);
 			createpanel.add(descriptionField);
 			
 			JLabel lblDescription = new JLabel("Description:");
 			lblDescription.setHorizontalAlignment(SwingConstants.LEFT);
 			lblDescription.setFont(new Font("Tahoma", Font.BOLD, 13));
-			lblDescription.setBounds(66, 84, 110, 14);
+			lblDescription.setBounds(40, 84, 110, 14);
 			createpanel.add(lblDescription);
 			
 			btnOpen = new JButton("Load your file");
 			btnOpen.setFont(new Font("Tahoma", Font.BOLD, 12));
-			btnOpen.setBounds(66, 214, 132, 32);
+			btnOpen.setBounds(173, 212, 132, 32);
 			//btnOpen.addActionListener(new buttonOpenOrSavePressed());
 			createpanel.add(btnOpen);
 		    
 			btnFinish = new JButton("Finish");
 			btnFinish.setFont(new Font("Tahoma", Font.BOLD, 11));
-			btnFinish.setBounds(295, 308, 159, 32);
+			btnFinish.setBounds(175, 266, 132, 32);
 			//btnOpen.addActionListener(new buttonOpenOrSavePressed());
 			createpanel.add(btnFinish);
 			
 			btnCancel = new JButton("Cancel");
-			btnCancel.setBounds(66, 308, 132, 32);
+			btnCancel.setBounds(173, 373, 132, 32);
 			createpanel.add(btnCancel);
 			
 			textArea = new JTextArea();
 			textArea.setBounds(394, 265, -147, 46);
 			createpanel.add(textArea);
+			
+			btnChooseAdvancedGroups = new JButton("Choose advanced groups");
+			btnChooseAdvancedGroups.setEnabled(false);
+			btnChooseAdvancedGroups.setBounds(298, 162, 176, 23);
+			createpanel.add(btnChooseAdvancedGroups);
 		}
 			return createpanel;
 	}
+	
+	public void selectPermission(ActionListener e)
+	{
+		comboBox.addActionListener(e);
+	}
+	
 	public void addcancel(ActionListener l) {
 		btnCancel.addActionListener(l);
 	}
@@ -179,6 +194,11 @@ public class createNewFileGUI extends JFrame{
 	public void addOpen(ActionListener l) {
 		btnOpen.addActionListener(l);
 	}
+	
+	public void addChooseAdvancedGroups(ActionListener l) {
+		btnChooseAdvancedGroups.addActionListener(l);
+	}
+	
 	public void close() {
 		this.setVisible(false);
 		dispose();
@@ -201,11 +221,8 @@ public class createNewFileGUI extends JFrame{
 		this.file = file;
 	}
 
-	public int getSelectedComboBox() {
-		return selectedComboBox;
-	}
-
-	public void setSelectedComboBox(int selectedComboBox) {
-		this.selectedComboBox = selectedComboBox;
+	public JComboBox getComboBox() {
+		return this.comboBox;
+		
 	}
 }
