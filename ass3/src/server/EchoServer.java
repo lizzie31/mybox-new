@@ -320,12 +320,13 @@ public class EchoServer extends AbstractServer
     	{
     		String re=("INSERT INTO test.userinterestgroups VALUES('"+r.getUserName()+"','"+r.getGroupName()+"');");
    	    	stmt.executeUpdate(re);	
-   	    	stmt.executeUpdate("DELETE FROM test.requests WHERE groupname='"+r.getGroupName()+"'AND username='"+r.getUserName()+"');");	
+   	    	//DELETE FROM `test`.`requests` WHERE `groupname`='animals';
+   	    	stmt.executeUpdate("DELETE FROM test.requests WHERE groupname='"+r.getGroupName()+"'AND username='"+r.getUserName()+"'");	
    	     client.sendToClient("the user was added secssfuly to this group" );
     	}
     	else{
     		stmt.executeUpdate("DELETE FROM test.userinterestgroups WHERE groupname='"+r.getGroupName()+"'AND username='"+r.getUserName()+"');");
-    		stmt.executeUpdate("DELETE FROM test.requests WHERE groupname='"+r.getGroupName()+"'AND username='"+r.getUserName()+"');");
+    		stmt.executeUpdate("DELETE FROM test.requests WHERE groupname='"+r.getGroupName()+"'AND username='"+r.getUserName()+"'");
     		 client.sendToClient("the user was deleted secssfuly from this group" );
     	}
     		

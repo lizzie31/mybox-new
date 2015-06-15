@@ -117,7 +117,6 @@ public class requestsGUI extends JFrame {
  	/**showsuceedmessege() shows a message that the group was added sucssesfuly to the DB*/
  	public void showsuceedmessege(String st)
  	{
- 		
  		Component frame=null;
  	JOptionPane.showMessageDialog(frame, st);
  	this.close();
