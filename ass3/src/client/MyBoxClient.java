@@ -84,6 +84,18 @@ public synchronized void handleMessageFromServer(Object message)
 	    	((GroupsListController)(currController)).handleDBresult((interestGroups)E.getObject());
 	    if(E.getTask().equals("show all interest groups"))
 	    	((userMainMenuController)(currController)).handleDBAllGroupsResult((ArrayList<interestGroups>)E.getObject());
+	    if(E.getTask().equals("open file"))
+	    {
+	    	byte[] file=(byte[])E.getObject();
+	    	try {
+				((fileMenuCon)(currController)).handleDBResultFile((file));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    	
+	    }
+	    
 	    if(E.getTask().endsWith("search file"))    
 	    {
 	    	if(E.getObject()==null)

@@ -6,6 +6,7 @@ package server;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -216,14 +217,17 @@ public class EchoServer extends AbstractServer
     }
     if(en.getTask().equals("open file"))
     {
-    	Desktop desktop=null;
     	String path=(String)en.getObject();
-    	desktop=Desktop.getDesktop();
-			try {
-				desktop.open(new File(path));
-			} catch (IOException e1) {
-                e1.printStackTrace();
-			}
+    	File f=new File(path);
+    	byte[] content = Files.readAllBytes(f.toPath());
+    	Envelope e=new Envelope(content,"open file");
+    	client.sendToClient(e);
+
+    }
+    if(en.getTask().equals("update file"))
+    {
+      file f=(file)en.getObject();
+      
     }
     if(en.getTask().equals("show all interest groups"))
     {

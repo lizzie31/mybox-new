@@ -54,6 +54,8 @@ public class fileMenuGui extends JFrame {
 	private String FileName;
 	private JButton btnCancel_1=null;
 	private JButton btnRead=null;
+	private JButton btnSetContent=null;
+
 
 
 
@@ -62,6 +64,7 @@ public class fileMenuGui extends JFrame {
 		this.user=u;
 		initialize();
 		this.setVisible(true);
+		
 
 	}
 
@@ -114,7 +117,7 @@ public class fileMenuGui extends JFrame {
 			btnNewButton_1.setBounds(184, 108, 137, 23);
 			panel.add(btnNewButton_1);
 
-			JButton btnSetContent = new JButton("set content");
+			btnSetContent = new JButton("set content");
 			btnSetContent.setBounds(337, 56, 137, 23);
 			panel.add(btnSetContent);
 
@@ -149,10 +152,24 @@ public class fileMenuGui extends JFrame {
 		btnRead.addActionListener(l);
 	}
 	
+	public void addupdate(ActionListener l) {
+		 btnSetContent.addActionListener(l);	
+	}
+	
 	public JButton getbtnRead()
 	{
 		return this.btnRead;
 	}
+	
+
+	public JButton getBtnSetContent() {
+		return btnSetContent;
+	}
+
+	public void setBtnSetContent(JButton btnSetContent) {
+		this.btnSetContent = btnSetContent;
+	}
+
 	
 
 }

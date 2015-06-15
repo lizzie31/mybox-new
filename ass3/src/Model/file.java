@@ -5,7 +5,9 @@ public class file extends AbstractModel{
 	private String Direction;
 	private int Permission;
 	private String FileOwner;
+	private byte[] fileContent;
 	
+
 	public file(String name,String Dir, int perm, String fileOwner)
 	{
 		fileName=name;
@@ -13,7 +15,7 @@ public class file extends AbstractModel{
 		this.Permission=perm;
 		this.FileOwner=fileOwner;
 	}
-	
+	/********************************************getters and setters**********************************************************/
 	public String getFileName()
 	{
 	return fileName;
@@ -53,6 +55,14 @@ public class file extends AbstractModel{
 	{
 	this.FileOwner=Owner;
     }
+	
+	public byte[] getFileContent() {
+		return fileContent;
+	}
+
+	public void setFileContent(byte[] fileContent) {
+		this.fileContent = fileContent;
+	}
     
 }
 
