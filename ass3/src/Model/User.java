@@ -8,7 +8,6 @@ import Model.AbstractModel;
 
 /**
  * this class is User Model  which saves the user Model fields data ,which extends AbstractModel
- * @author lizzie
  *
  */
 public class User extends AbstractModel {

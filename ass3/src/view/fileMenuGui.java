@@ -50,7 +50,7 @@ public class fileMenuGui extends JFrame {
 	private String[] values = null;
 	/**@param user is the current user*/
 	private User user;
-	
+	private JButton btndelete;
 	private String FileName;
 	private JButton btnCancel_1=null;
 	private JButton btnRead=null;
@@ -99,14 +99,9 @@ public class fileMenuGui extends JFrame {
 			btnUpdate.setBounds(26, 108, 137, 23);
 			panel.add(btnUpdate);
 
-			JButton btnNewButton = new JButton("delete");
-			btnNewButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-				}
-			});
-
-			btnNewButton.setBounds(184, 56, 137, 23);
-			panel.add(btnNewButton);
+			btndelete = new JButton("delete");
+			btndelete.setBounds(184, 56, 137, 23);
+			panel.add(btndelete);
 
 			JLabel lblWhatIsThe = new JLabel("what is the action you want to do with the file:"+FileName);
 			lblWhatIsThe.setFont(new Font("Arial Black", Font.PLAIN, 12));
@@ -135,17 +130,21 @@ public class fileMenuGui extends JFrame {
 		return panel;
 
 	}
-
-	public void addcancel(ActionListener l) {
-		btnCancel_1.addActionListener(l);
-	}
-/**close() closes the current window*/
+	/**close() closes the current window*/
 	public void close() {
 		this.setVisible(false);
 		dispose();
 
 	}
 
+	public void addcancel(ActionListener l) {
+		btnCancel_1.addActionListener(l);
+	}
+
+	public void adddelete(ActionListener l) {
+		btndelete.addActionListener(l);
+	}
+	
 
 
 	public void addread(ActionListener l) {

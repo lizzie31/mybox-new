@@ -6,7 +6,12 @@ public class file extends AbstractModel{
 	private int Permission;
 	private String FileOwner;
 	private byte[] fileContent;
+
+	public file(String name)
+	{
+		fileName=name;
 	
+	}
 
 	public file(String name,String Dir, int perm, String fileOwner)
 	{

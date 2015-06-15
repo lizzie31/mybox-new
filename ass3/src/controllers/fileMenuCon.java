@@ -9,9 +9,11 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import client.myboxapp;
 import view.UpdateGui;
+import view.createNewGroupGUI;
 import view.deleteFile;
 import view.fileMenuGui;
 import view.userMainMenuGUI;
@@ -29,6 +31,7 @@ public class fileMenuCon extends AbstractTransfer{
 	private file ChoosenFile=null;
 	private userMainMenuGUI menu;
 	private fileMenuCon thisCon=this;
+	private ArrayList<file> allFiles=null;
 	
 	public fileMenuCon(fileMenuGui menu,userMainMenuController  lastCon,User user, file file) {
 		this.user=user;
@@ -40,12 +43,16 @@ public class fileMenuCon extends AbstractTransfer{
 		CurrGui.addupdate(new btnUpdateListener());
 		CurrGui.adddelete(new btnDeleteListener());
 	}
+	
 	class btnDeleteListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
-			CurrGui.dispose();
-			deleteFile DF=new deleteFile();
-			//new deleteFileController(DF,this);
+			
+			//CurrGui.dispose();
+			sendToServer("ShowAllFiles");
+			myboxapp.clien.setCurrObj(getThisCon());
+			//deleteFile DF=new deleteFile();
+			//new deleteFileController(DF,thisCon);
 			
 		}
 	}
@@ -108,12 +115,23 @@ public class fileMenuCon extends AbstractTransfer{
 			}
 			
 		}
-		
-		
+     	public void handleDBResult(Object message)
+     	{
+	    	if(message instanceof ArrayList<?>)
+	    	{
+	    		if(((ArrayList<?>) message).get(0) instanceof file)
+	    		{
+	    		 allFiles= (ArrayList<file>)message;
+	    		 CurrGui.close();
+	    		 deleteFile R= new deleteFile(allFiles);
+	    		 new deleteFileController(R,this);
+	    		}
+	    	}
+    	}
 		
 
 		public fileMenuCon getThisCon() {
-			return thisCon;
+			return this.thisCon;
 		}
 
 
