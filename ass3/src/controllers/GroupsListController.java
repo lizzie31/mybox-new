@@ -27,6 +27,11 @@ public class GroupsListController extends AbstractTransfer{
 	    grouplist.addListActionListener(new listListener());
 	}
 	
+	public GroupsListController(leavegroupGUI lG,
+			userMainMenuController lastCon, User userDetails) {
+		// TODO Auto-generated constructor stub
+	}
+
 	public class listListener implements ListSelectionListener{
 		public void valueChanged(ListSelectionEvent arg0) {
 			Envelope  en=null;

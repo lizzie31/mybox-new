@@ -147,7 +147,7 @@ public class userMainMenuGUI extends JFrame {
 	private DefaultMutableTreeNode node=null;
 	/**@param user is current user information*/
 	private User user;
-	private JButton btnNewButton=null;
+	private JButton btnleaveButton=null;
 
 	/**constructor*/
 	/**@param user is the current user information*/
@@ -242,10 +242,10 @@ public class userMainMenuGUI extends JFrame {
 		tree.setBounds(35, 124, 205, 194);
 		MainMenu.add(tree);
 		
-		btnNewButton = new JButton("leave group");
-		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnNewButton.setBounds(307, 262, 138, 23);
-		MainMenu.add(btnNewButton);
+		btnleaveButton = new JButton("leave group");
+		btnleaveButton.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnleaveButton.setBounds(307, 262, 138, 23);
+		MainMenu.add(btnleaveButton);
 		
 		JLabel lblWelcomBack = new JLabel("welcom back "+user.getUserName()+"!!");
 		lblWelcomBack.setForeground(new Color(0, 0, 0));
@@ -274,10 +274,10 @@ public class userMainMenuGUI extends JFrame {
 	}
 
 	public void addjoingruop(ActionListener l) {
-		btnNewButton.addActionListener(l);
+		btnJionGroup.addActionListener(l);
 	}
 	public void addleavegruop(ActionListener l) {
-		btnJionGroup.addActionListener(l);
+		btnleaveButton.addActionListener(l);
 	}
 
 	public void addshowgruops(ActionListener l) {

@@ -342,7 +342,7 @@ public class EchoServer extends AbstractServer
    	     client.sendToClient("the user was added secssfuly to this group" );
     	}
     	else{
-    		stmt.executeUpdate("DELETE FROM test.userinterestgroups WHERE groupname='"+r.getGroupName()+"'AND username='"+r.getUserName()+"');");
+    		stmt.executeUpdate("DELETE FROM test.userinterestgroups WHERE groupname='"+r.getGroupName()+"'AND username='"+r.getUserName()+"'");
     		stmt.executeUpdate("DELETE FROM test.requests WHERE groupname='"+r.getGroupName()+"'AND username='"+r.getUserName()+"'");
     		 client.sendToClient("the user was deleted secssfuly from this group" );
     	}
@@ -377,9 +377,7 @@ public class EchoServer extends AbstractServer
 		     GroupsRequests Request1;
 			 ArrayList<GroupsRequests> AllRequests=new ArrayList<>();
 		     String re="SELECT * FROM test.requests";
-		     rs = stmt.executeQuery(re);
-		     if(rs.next()==false) client.sendToClient("no requests");
-		     else{
+		     rs = stmt.executeQuery(re);  
 		     while(rs.next()==true)
 	    	 {
 
@@ -387,6 +385,8 @@ public class EchoServer extends AbstractServer
 		    	AllRequests.add(Request1);
 	    	
 	    	 }
+		     if(AllRequests.size()==0) client.sendToClient("no requests");
+		     else{
 			 e=new Envelope(AllRequests,"all requests");
 	 		 client.sendToClient(e);
 		     }

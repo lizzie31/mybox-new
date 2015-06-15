@@ -109,7 +109,7 @@ public class leavegroupGUI extends JFrame {
 			panel.setBackground(new Color(135, 206, 235));
 			panel.setLayout(null);
 			
-			JLabel lblSelectTheGroup = new JLabel("select the group you want to join:");
+			JLabel lblSelectTheGroup = new JLabel("select the group you want to leave:");
 			lblSelectTheGroup.setFont(new Font("Arial Black", Font.PLAIN, 13));
 			lblSelectTheGroup.setBounds(10, 27, 274, 37);
 			panel.add(lblSelectTheGroup);

@@ -192,9 +192,7 @@ MainMenu.setBackground(new Color(102, 205, 170));
 	public void addcreatenewfolder(ActionListener l) {
 		btnCreateNewFolder.addActionListener(l);
 	}
-	public void addleaveEntergruop(ActionListener l) {
-		btnAddleaveAGroup.addActionListener(l);
-	}
+	
 	public void addlogout(ActionListener l) {
 		btnLogOut.addActionListener(l);
 	}

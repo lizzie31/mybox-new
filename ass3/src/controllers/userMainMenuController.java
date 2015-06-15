@@ -57,8 +57,22 @@ public class userMainMenuController extends AbstractTransfer{
 		CurrGui.addLogOut(new LogOutListener());
 		CurrGui.addtreeSelectionListener(new TreeSelection());
 		CurrGui.addsearchfiles(new addsearchfilesListener());
+		CurrGui.addleavegruop(new ButtonleaveListene());
 	}
-
+	public class ButtonleaveListene implements ActionListener {
+		public void actionPerformed(ActionEvent arg0) {
+			buttonleavePressed();
+		}	
+	}
+	
+	protected void buttonleavePressed() {	
+		CurrGui.close();
+		this.setUserDetails(userDetails);
+		leavegroupGUI LG=new leavegroupGUI(userDetails);
+		new leavegroupcontroller(LG,this,userDetails);
+		LG.setVisible(true);	
+	
+	}
 	protected class ButtonshowgrouprListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
 			buttonshowgroupPressed();
