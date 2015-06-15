@@ -117,7 +117,7 @@ public class EchoServer extends AbstractServer
 			    mail=rs.getString(3);
 			    status=rs.getInt(4);
 			    ArrayList<String> dirname=new ArrayList<>();
-			    re = "SELECT DISTINCT directory FROM test.userdirectories WHERE userdirectories.username='"+(showfiles.getUserName()+"'");
+			    re = "SELECT DISTINCT directory FROM test.user_and_dir WHERE user_and_dir.username='"+(showfiles.getUserName()+"'");
 				rs1 = stmt.executeQuery(re);
 				while(rs1.next())
 				 {
@@ -299,7 +299,14 @@ public class EchoServer extends AbstractServer
    		client.sendToClient("the group was added sucssesfuly");
    		}
    }
-    
+   if(en.getTask().equals("add directory"))
+   {
+     User user1=(User)en.getObject();
+     directories dir=user1.getuserDirectories().get(user1.getuserDirectories().size()-1);
+     String re=("INSERT INTO test.user_and_dir VALUES('"+user1.getUsreName()+"','"+dir.getDirectoryName()+"');");
+     stmt.executeUpdate(re);
+     
+   }
     if(en.getTask().equals("search files"))
     {
  

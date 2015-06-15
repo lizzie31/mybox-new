@@ -162,7 +162,7 @@ public class userMainMenuController extends AbstractTransfer{
 		CurrGui.undisplayWarningMessage();
 		CurrGui.close();
 		createNewFolderGUI CNFOG=new createNewFolderGUI ();
-		new createNewFolderController(CNFOG,this);
+		new createNewFolderController(CNFOG,this,userDetails);
 	    CNFOG.setVisible(true);
 	}
 
