@@ -93,7 +93,10 @@ public synchronized void handleMessageFromServer(Object message)
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-	    	
+	    	 if(E.getTask().equals("updated"))
+	 	   {
+	    		 ((UpdateCon)(currController)).getCurrGui().showsuceedmessege();; 
+	 	   }
 	    }
 	    
 	    if(E.getTask().endsWith("search file"))    

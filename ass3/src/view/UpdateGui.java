@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
@@ -10,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import Model.User;
@@ -111,6 +113,10 @@ public class UpdateGui extends JFrame{
 		 btnUpdate.addActionListener(l);	
 	}
 	
+	public void addbtnCancel(ActionListener l) {
+		 btnCancel.addActionListener(l);	
+	}
+	
 
 	
 	public JFileChooser getFileChooser() {
@@ -122,6 +128,15 @@ public class UpdateGui extends JFrame{
 	public void setFileChooser(JFileChooser fileChooser) {
 		this.fileChooser = fileChooser;
 	}
+
+	
+ 	/**showsuceedmessege() shows a message that the group was added sucssesfuly to the DB*/
+ 	public void showsuceedmessege()
+ 	{
+ 		Component frame=null;
+ 	   JOptionPane.showMessageDialog(frame, "the file was updated sucssefuly!!");
+ 	   this.close();
+ 	}
 
 }
 
