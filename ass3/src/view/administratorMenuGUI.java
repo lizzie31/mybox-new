@@ -138,7 +138,7 @@ MainMenu.setBackground(new Color(102, 205, 170));
 							node.add(new DefaultMutableTreeNode(""+user.getuserDirectories().get(i).getfiles().get(j).getFileName()));
 				
 						}
-					getContentPane().add(node);
+					add(node);
 					}
 				}
 			}
