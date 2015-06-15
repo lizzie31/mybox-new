@@ -77,7 +77,7 @@ public class createNewGroupController<JCheckBox> extends AbstractTransfer {
 	}
 	
 	private void buttonaddPressed() {
-		newgroup= new interestGroups(group.getGroupname().getText(), groupusers);
+		//newgroup= new interestGroups(group.getGroupname().getText(), groupusers);
 		en=new Envelope(newgroup,"add new group to DB");
 		sendToServer(en);
 		myboxapp.clien.setCurrObj(this);

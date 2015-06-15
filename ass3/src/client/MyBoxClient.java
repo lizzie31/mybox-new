@@ -139,8 +139,8 @@ public synchronized void handleMessageFromServer(Object message)
 		
 		if(str.equals("file saved successfully"))
 	    	((createNewFileController)(currController)).handleDBResultFile("file saved successfully");
-		if(str.equals("file not saved"))
-	    	((createNewFileController)(currController)).handleDBResultFile("file not saved");
+		if(str.equals("file already exist"))
+	    	((createNewFileController)(currController)).handleDBResultFile("file already exist");
 		
 	}//if
 	/*if(message instanceof ArrayList<?>)
