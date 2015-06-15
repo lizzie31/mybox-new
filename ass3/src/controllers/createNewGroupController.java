@@ -81,7 +81,8 @@ public class createNewGroupController<JCheckBox> extends AbstractTransfer {
 		en=new Envelope(newgroup,"add new group to DB");
 		sendToServer(en);
 		myboxapp.clien.setCurrObj(this);
-	
+		
+	     
 	
 	}
 	/**ButtonCancelListener is a class that implements action listener and goes back to administrator menu window*/

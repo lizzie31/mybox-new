@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.io.*;
 
 import Model.Envelope;
+import Model.GroupsRequests;
 import Model.User;
 import Model.file;
 import Model.interestGroups;
@@ -104,8 +105,14 @@ public synchronized void handleMessageFromServer(Object message)
 	    if(E.getTask().equals("all users"))    
 	    	((administratorMenuController)(currController)).handleDBResult2((ArrayList<User>)E.getObject()); 
 	    if(E.getTask().equals("all groups"))    
+
 	    	((administratorMenuController)(currController)).handleDBResult2((ArrayList<interestGroups>)E.getObject()); 
 	  
+
+	    	
+	    if(E.getTask().equals("all requests"))    
+	    	((administratorMenuController)(currController)).handleDBResult2((ArrayList<GroupsRequests>)E.getObject()); 
+
 	        
 	}
 	if(message instanceof String ) //user name and password not found
@@ -133,11 +140,22 @@ public synchronized void handleMessageFromServer(Object message)
 		{
 			((deleteGroupController)currController).getGroup().showsuceedmessege();
 		}
+
 		if(str.equals("updated"))
 		{
 			 ((UpdateCon)(currController)).getCurrGui().showsuceedmessege();
 		}
 		
+
+		if(str.equals("the user was added secssfuly to this group"))
+		{
+			((requestController)currController).getRequestgui().showsuceedmessege("the user was added secssfuly to this group");
+		}
+		if(str.equals("the user was deleted secssfuly from this group"))
+		{
+			((requestController)currController).getRequestgui().showsuceedmessege("the user was deleted secssfuly from this group");
+		}
+
 		
 	}//if
 	/*if(message instanceof ArrayList<?>)

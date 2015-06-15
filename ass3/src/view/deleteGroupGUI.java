@@ -126,7 +126,7 @@ public class deleteGroupGUI extends JFrame{
 	public void showsuceedmessege()
  	{
  		Component frame=null;
- 	JOptionPane.showMessageDialog(this, "the group was added sucssefuly to DB :)");
+ 	JOptionPane.showMessageDialog(this, "the group was deleted successfully:)");
  	}
 
 	

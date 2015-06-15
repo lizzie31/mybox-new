@@ -59,6 +59,7 @@ public class deleteGroupController extends AbstractTransfer {
 			else
 			{
 			groupToDel=new interestGroups(GroupName);
+			group.close();
 			Envelope en=new Envelope(groupToDel,"Delete this Group");
 			sendToServer(en);
 			myboxapp.clien.setCurrObj(getThiscon() );
