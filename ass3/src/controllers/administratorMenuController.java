@@ -123,8 +123,10 @@ public void handleDBResult2(Object message) {
 		if(((ArrayList<?>) message).get(0) instanceof GroupsRequests)
 		{
 		 allrequests= (ArrayList<GroupsRequests>)message;
+		
 		 requestsGUI D= new requestsGUI(allrequests);
 		new requestController(D,this,allrequests);
+
 		}
 	}
 	
@@ -156,10 +158,12 @@ private void buttoncreatenewfilePressed() {
 	}
 	
 	private void buttonrequestsPressed() {
+
 		CurrGui.close();
 		sendToServer("ShowAllrequets");
 		myboxapp.clien.setCurrObj(this);
-	}
+		}
+
 	/**getAdminCon() returns the administrator manu gui window*/
 	public administratorMenuGUI getAdminCon()
 	{

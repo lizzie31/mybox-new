@@ -378,6 +378,8 @@ public class EchoServer extends AbstractServer
 			 ArrayList<GroupsRequests> AllRequests=new ArrayList<>();
 		     String re="SELECT * FROM test.requests";
 		     rs = stmt.executeQuery(re);
+		     if(rs.next()==false) client.sendToClient("no requests");
+		     else{
 		     while(rs.next()==true)
 	    	 {
 
@@ -387,6 +389,7 @@ public class EchoServer extends AbstractServer
 	    	 }
 			 e=new Envelope(AllRequests,"all requests");
 	 		 client.sendToClient(e);
+		     }
 	     }
 	   if(str.equals("ShowAllGroups"))
 	 {

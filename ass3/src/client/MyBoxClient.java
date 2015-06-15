@@ -155,7 +155,10 @@ public synchronized void handleMessageFromServer(Object message)
 		{
 			((requestController)currController).getRequestgui().showsuceedmessege("the user was deleted secssfuly from this group");
 		}
-
+		if(str.equals("no requests"))
+		{
+			((administratorMenuController)currController).getusermainmenu2().setWarningMessageVisibleTrue("you dont have requests");
+		}
 		
 	}//if
 	/*if(message instanceof ArrayList<?>)

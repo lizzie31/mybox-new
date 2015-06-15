@@ -10,6 +10,7 @@ import javax.swing.tree.DefaultTreeModel;
 import java.awt.BorderLayout;
 
 import javax.swing.AbstractListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JScrollBar;
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -49,6 +50,8 @@ public class administratorMenuGUI extends JFrame {
 	private JButton btnAddleaveAGroup=null;
 	private JButton btncratenewgroup=null;
 	private JButton btnLogOut=null;
+	private JLabel warningIcon=null;
+	private JLabel lblwarningMessage=null;
 	private User user;
 	private JButton btnrequests = null;
 	/**@param userfiles is array list of all the user files*/
@@ -106,6 +109,14 @@ public class administratorMenuGUI extends JFrame {
 		lblSearch.setBounds(105, 46, 104, 17);
 		MainMenu.add(lblSearch);
 		
+		warningIcon= new JLabel("");
+        warningIcon.setIcon(new ImageIcon(userMainMenuGUI.class.getResource("/view/warning.gif")));
+        warningIcon.setBounds(23, 83, 30, 25);
+        warningIcon.setVisible(false);
+        MainMenu.add(warningIcon);
+        
+        MainMenu.add(getLblwarningMessage());
+		
 
 	}
 	
@@ -159,6 +170,7 @@ MainMenu.setBackground(new Color(102, 205, 170));
 		btnrequests.setBounds(326, 177, 113, 23);
 		MainMenu.add(btnrequests);
 		
+		
 		}
 		return MainMenu;
 		
@@ -190,6 +202,27 @@ MainMenu.setBackground(new Color(102, 205, 170));
 	public void close() {
 		this.setVisible(false);
 		dispose();
+	}
+	public JLabel getLblwarningMessage() {
+		if(lblwarningMessage == null){
+			lblwarningMessage = new JLabel("");
+			lblwarningMessage.setForeground(new Color(255, 0, 0));
+			lblwarningMessage.setFont(new Font("Arial Black", Font.PLAIN, 13));
+			lblwarningMessage.setSize(327, 25);
+			lblwarningMessage.setLocation(52, 83);
+			lblwarningMessage.setVisible(false);
+		}
+		return lblwarningMessage;
+	}
+	public void setWarningMessageVisibleTrue(String st) {
+		lblwarningMessage.setText(st);
+		lblwarningMessage.setForeground(Color.RED);
+		lblwarningMessage.setFont(new Font("Arial Black", Font.PLAIN, 11));
+		lblwarningMessage.setSize(303, 25);
+		lblwarningMessage.setLocation(52, 83);
+		warningIcon.setVisible(true);
+		lblwarningMessage.setVisible(true);	
+		
 	}
 	}
 
