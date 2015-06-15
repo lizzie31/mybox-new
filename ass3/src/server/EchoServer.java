@@ -117,7 +117,7 @@ public class EchoServer extends AbstractServer
 			    mail=rs.getString(3);
 			    status=rs.getInt(4);
 			    ArrayList<String> dirname=new ArrayList<>();
-			    re = "SELECT directory FROM test.userdirectories WHERE userdirectories.username='"+(showfiles.getUserName()+"'");
+			    re = "SELECT DISTINCT directory FROM test.userdirectories WHERE userdirectories.username='"+(showfiles.getUserName()+"'");
 				rs1 = stmt.executeQuery(re);
 				while(rs1.next())
 				 {
