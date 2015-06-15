@@ -14,7 +14,7 @@ import view.requestsGUI;
 
 
 public class requestController extends AbstractTransfer {
-	private requestsGUI requestgui=null;
+	private requestsGUI requestgui;
 	private administratorMenuController prevController;
 	private String selectedrequest;
 	private GroupsRequests request1;
@@ -27,6 +27,7 @@ public class requestController extends AbstractTransfer {
 		prevController=lastCon;
 		requestgui.addcancelRequest(new ButtoncancelListener());
 		requestgui.addapproveRequest(new ButtonaprroveListener());
+		requestgui.addListActionListener(new listSelecTionListen());
 	}
 	
 	private class ButtonaprroveListener implements ActionListener {
@@ -66,7 +67,8 @@ public class requestController extends AbstractTransfer {
 	private class listSelecTionListen implements ListSelectionListener
 	{
 		public void valueChanged(ListSelectionEvent arg0) {
-			selectedrequest=(String) (requestgui.getList().getSelectedValue());
+			selectedrequest=(String)( requestgui.getList().getSelectedValue());
+					
 			
 	   }
 	}

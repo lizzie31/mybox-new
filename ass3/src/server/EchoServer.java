@@ -315,7 +315,7 @@ public class EchoServer extends AbstractServer
     if(en.getTask().equals("answer request"))
     {
     	GroupsRequests r=(GroupsRequests)en.getObject();
-    	 String textField=(String)en.getObject();
+    	
     	if(r.getRequestType().equals("join"))
     	{
     		String re=("INSERT INTO test.userinterestgroups VALUES('"+r.getUserName()+"','"+r.getGroupName()+"');");

@@ -26,6 +26,7 @@ import Model.GroupsRequests;
 import javax.swing.JList;
 import javax.swing.AbstractListModel;
 import javax.swing.border.EtchedBorder;
+import javax.swing.event.ListSelectionListener;
 
 public class requestsGUI extends JFrame {
 
@@ -74,13 +75,13 @@ public class requestsGUI extends JFrame {
 			btnCancel = new JButton("cancel");
 			btnCancel.setBounds(358, 324, 97, 25);
 			panel.add(btnCancel);
-			panel.add(getList());
+			panel.add(getList1());
 		panel.add(list);
 			
 		}
 		return panel;
 	}
-	public JList getList()
+	public JList getList1()
 	{
 		String str;
 		values=new String[allrequests.size()];
@@ -109,6 +110,10 @@ public class requestsGUI extends JFrame {
 	public void addapproveRequest(ActionListener l) {
 		btnAprrove.addActionListener(l);
 	}
+	public void addListActionListener(ListSelectionListener e)
+	{
+		list.addListSelectionListener(e);
+	}
  	/**showsuceedmessege() shows a message that the group was added sucssesfuly to the DB*/
  	public void showsuceedmessege(String st)
  	{
@@ -122,4 +127,10 @@ public class requestsGUI extends JFrame {
 		this.setVisible(false);
 		dispose();
 	}
+
+	public JList getList() {
+		return list;
+	}
+	
+	
 }
