@@ -107,6 +107,8 @@ public synchronized void handleMessageFromServer(Object message)
 	    	((administratorMenuController)(currController)).handleDBResult2((ArrayList<User>)E.getObject()); 
 	    if(E.getTask().equals("all groups"))    
 	    	((administratorMenuController)(currController)).handleDBResult2((ArrayList<interestGroups>)E.getObject()); 
+	    
+	    
 	        
 	}
 	if(message instanceof String ) //user name and password not found
@@ -134,6 +136,11 @@ public synchronized void handleMessageFromServer(Object message)
 		{
 			((deleteGroupController)currController).getGroup().showsuceedmessege();
 		}
+		
+		if(str.equals("file saved successfully"))
+	    	((createNewFileController)(currController)).handleDBResultFile("file saved successfully");
+		if(str.equals("file not saved"))
+	    	((createNewFileController)(currController)).handleDBResultFile("file not saved");
 		
 	}//if
 	/*if(message instanceof ArrayList<?>)

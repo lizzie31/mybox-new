@@ -36,8 +36,6 @@ public final class OpenFile {
 
 			}
 			
-			
-			currGUI.setTextField2(file.getPath());
 			input.close();
 		}
 		else
