@@ -4,7 +4,10 @@ package server;
 // license found at www.lloseng.com 
 
 import java.awt.Desktop;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.sql.Connection;
@@ -228,6 +231,15 @@ public class EchoServer extends AbstractServer
     if(en.getTask().equals("update file"))
     {
       file f=(file)en.getObject();
+      byte[] bs=f.getFileContent();
+      File curfile=new File(f.getDirection());
+      curfile.delete();
+      curfile=new File(f.getDirection());
+      BufferedWriter writer=new BufferedWriter(new FileWriter(curfile));
+	  FileOutputStream fos = new FileOutputStream(curfile.getAbsolutePath());
+	  fos.write(bs);
+	  fos.flush();
+	  fos.close();
       
     }
     if(en.getTask().equals("show all interest groups"))
