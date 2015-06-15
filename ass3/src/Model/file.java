@@ -5,7 +5,7 @@ public class file extends AbstractModel{
 	private String Direction;
 	private int Permission;
 	private String FileOwner;
-	
+	private static byte [] bArr;
 	public file(String name,String Dir, int perm, String fileOwner)
 	{
 		fileName=name;
@@ -53,6 +53,19 @@ public class file extends AbstractModel{
 	{
 	this.FileOwner=Owner;
     }
+
+	public void initArray(int length) {
+		bArr = new byte [length];
+		
+	}
+
+	public byte [] getbArr() {
+		return bArr;
+	}
+
+	public void setbArr(byte [] bArr) {
+		this.bArr = bArr;
+	}
     
 }
 
