@@ -182,11 +182,11 @@ public class userMainMenuGUI extends JFrame {
 		tree.setFont(new Font("Arial Black", Font.PLAIN, 14));
 		setJtree();
 						
-								btnJionGroup = new JButton("join new group");
-								btnJionGroup.addActionListener(new ActionListener() {
-									public void actionPerformed(ActionEvent arg0) {
-									}
-								});
+		btnJionGroup = new JButton("join new group");
+		btnJionGroup.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent arg0) {
+		}
+		});
         
         warningIcon= new JLabel("");
         warningIcon.setIcon(new ImageIcon(userMainMenuGUI.class.getResource("/view/warning.gif")));

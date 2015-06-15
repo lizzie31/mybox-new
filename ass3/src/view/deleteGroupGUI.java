@@ -19,6 +19,8 @@ import javax.swing.JOptionPane;
 
 import Model.interestGroups;
 
+import javax.swing.ImageIcon;
+
 public class deleteGroupGUI extends JFrame{
 
 	
@@ -32,7 +34,8 @@ public class deleteGroupGUI extends JFrame{
 	private ArrayList<interestGroups> allinterestgroups;
 	/**@param lblwarningMessage is a lable of a warning message*/
 	private JLabel lblwarningMessage=null;
-	
+	private JLabel label;
+	private JLabel warningIcon=null;
 	public deleteGroupGUI(ArrayList<interestGroups> allinterestgroups ) {
 		this.allinterestgroups=allinterestgroups;
 		initialize();
@@ -50,21 +53,7 @@ public class deleteGroupGUI extends JFrame{
 		this.setContentPane(getCreatePanel());
 		
 		JLabel lblGroupName = new JLabel("group name:");
-		lblGroupName.setBounds(25, 43, 104, 16);
-	
-		
-		lblChooseAGroup = new JLabel("choose a group");
-		lblChooseAGroup.setBounds(24, 44, 108, 16);
-		panel.add(lblChooseAGroup);
-		
-		btnCancel = new JButton("cancel");
-		btnCancel.setBounds(43, 171, 97, 25);
-		panel.add(btnCancel);
-		
-		btndelete = new JButton("Delete");
-		btndelete.setBounds(269, 171, 97, 25);
-		panel.add(btndelete);
-		panel.add(getLblwarningMessage() );
+		lblGroupName.setBounds(110, 310, 252, -18);
 	}
 	private JPanel getCreatePanel(){	
 		if(panel==null)
@@ -73,14 +62,41 @@ public class deleteGroupGUI extends JFrame{
 			panel.setLayout(null);
 			this.setTitle("deleteGroup");
 			comboBox = new JComboBox();
-			comboBox.setBounds(185, 41, 123, 22);
+			comboBox.setBounds(243, 80, 123, 22);
 			
 			comboBox.addItem(" ");
 			for (int i=0;i<allinterestgroups.size();i++)
 			{
 				comboBox.addItem(allinterestgroups.get(i).getGroupName());
 			}
+				warningIcon= new JLabel("");
+				warningIcon.setIcon(new ImageIcon(userMainMenuGUI.class.getResource("/view/warning.gif")));
+				warningIcon.setBounds(68, 299, 42, 25);
+				warningIcon.setVisible(false);
+				panel.add(getLblwarningMessage() );
+				panel.add(warningIcon);
+				
+				btndelete = new JButton("Delete");
+				btndelete.setFont(new Font("Tahoma", Font.BOLD, 11));
+				btndelete.setBounds(269, 171, 97, 25);
+				panel.add(btndelete);
+				
+				btnCancel = new JButton("cancel");
+				btnCancel.setFont(new Font("Tahoma", Font.BOLD, 11));
+				btnCancel.setBounds(90, 171, 97, 25);
+				panel.add(btnCancel);
+			
+				
+				lblChooseAGroup = new JLabel("choose a group");
+				lblChooseAGroup.setFont(new Font("Arial Black", Font.PLAIN, 14));
+				lblChooseAGroup.setBounds(83, 80, 132, 19);
+				panel.add(lblChooseAGroup);
 			panel.add(comboBox);
+			
+			label = new JLabel("");
+			label.setIcon(new ImageIcon(deleteGroupGUI.class.getResource("/view/green-backgrounds-9.jpg")));
+			label.setBounds(0, 0, 484, 462);
+			panel.add(label);
 		}
 		return panel;
 	}
@@ -109,6 +125,8 @@ public class deleteGroupGUI extends JFrame{
 	public JLabel getLblwarningMessage() {
 		if(lblwarningMessage == null){
 			lblwarningMessage = new JLabel("123");
+			lblwarningMessage.setSize(252, -24);
+			lblwarningMessage.setLocation(110, 320);
 			lblwarningMessage.setVisible(false);
 		}
 		return lblwarningMessage;
@@ -118,8 +136,9 @@ public class deleteGroupGUI extends JFrame{
 		lblwarningMessage.setText(st);
 		lblwarningMessage.setForeground(Color.RED);
 		lblwarningMessage.setFont(new Font("Arial Black", Font.PLAIN, 13));
-		lblwarningMessage.setBounds(33, 80, 226, 32);
+		lblwarningMessage.setBounds(110, 310, 252, -18);
 		lblwarningMessage.setVisible(true);	
+		warningIcon.setVisible(true);
 		
 	}
 	/**showsuceedmessege() shows a message that the group was deleted successfully to the DB*/

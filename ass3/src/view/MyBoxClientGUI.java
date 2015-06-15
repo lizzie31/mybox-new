@@ -69,7 +69,7 @@ public class MyBoxClientGUI extends JFrame{
 			TextHost = new JTextField();
 			TextHost.setBounds(68, 10, 160, 20);
 			TextHost.setColumns(10);
-			TextHost.setText("192.168.1.11");
+			TextHost.setText("localhost");
 		}
 		return TextHost;
 	}
