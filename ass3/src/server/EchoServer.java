@@ -366,7 +366,7 @@ public class EchoServer extends AbstractServer
     }
    
     
-  }
+  
   
     if(en.getTask().equals("answer request"))
     {

@@ -79,7 +79,7 @@ public class fileMenuGui extends JFrame {
 	private void initialize() {
 		this.setBounds(400,200,300,200);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(500,300);
+		this.setSize(524,262);
 		this.setContentPane(getCreatePanel());
 	}
 
@@ -91,16 +91,16 @@ public class fileMenuGui extends JFrame {
 			panel.setLayout(null);
 
 			btnRead = new JButton("open");
-			btnRead.setBounds(26, 56, 137, 23);
+			btnRead.setBounds(10, 56, 137, 23);
 			panel.add(btnRead);
 
 			
 			JButton btnUpdate = new JButton("set charecters");
-			btnUpdate.setBounds(26, 108, 137, 23);
+			btnUpdate.setBounds(10, 108, 137, 23);
 			panel.add(btnUpdate);
 
 			btndelete = new JButton("delete");
-			btndelete.setBounds(184, 56, 137, 23);
+			btndelete.setBounds(169, 56, 137, 23);
 			panel.add(btndelete);
 
 			JLabel lblWhatIsThe = new JLabel("what is the action you want to do with the file:"+FileName);
@@ -109,20 +109,20 @@ public class fileMenuGui extends JFrame {
 			panel.add(lblWhatIsThe);
 
 			JButton btnNewButton_1 = new JButton("set permission");
-			btnNewButton_1.setBounds(184, 108, 137, 23);
+			btnNewButton_1.setBounds(169, 108, 137, 23);
 			panel.add(btnNewButton_1);
 
 			btnSetContent = new JButton("set content");
-			btnSetContent.setBounds(337, 56, 137, 23);
+			btnSetContent.setBounds(316, 56, 137, 23);
 			panel.add(btnSetContent);
 
 			btnCancel_1 = new JButton("cancel");
-			btnCancel_1.setBounds(337, 108, 137, 23);
+			btnCancel_1.setBounds(316, 108, 137, 23);
 			panel.add(btnCancel_1);
 			
 			JLabel label = new JLabel("");
-			label.setIcon(new ImageIcon(fileMenuGui.class.getResource("/view/Computer-Background-Wallpapers-Ideas-Creative-Digital.jpg")));
-			label.setBounds(0, 0, 484, 261);
+			label.setIcon(new ImageIcon(fileMenuGui.class.getResource("/view/lottle2.jpg")));
+			label.setBounds(0, 0, 508, 223);
 			panel.add(label);
 
 		}

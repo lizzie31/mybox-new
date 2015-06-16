@@ -39,31 +39,31 @@ public class createNewFolderGUI extends JFrame {
 	private void initialize() {
 		this.setBounds(100, 100, 345, 300);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(500,500);
+		this.setSize(450,200);
 		this.setContentPane(getCreatePanel());
 			
 		btnCancel = new JButton("cancel");
-		btnCancel.setBounds(136, 151, 89, 23);
+		btnCancel.setBounds(78, 87, 89, 23);
 		panel.add(btnCancel);
 		
 			
 		folderNameField = new JTextField();
-		folderNameField.setBounds(227, 79, 86, 20);
+		folderNameField.setBounds(181, 43, 86, 20);
 		panel.add(folderNameField);
 		folderNameField.setColumns(10);
 		
 		btnOk = new JButton("ok");
-		btnOk.setBounds(261, 151, 89, 23);
+		btnOk.setBounds(177, 87, 89, 23);
 		panel.add(btnOk);
 		
 		lblNewLabel = new JLabel("folder name");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblNewLabel.setBounds(99, 82, 93, 14);
+		lblNewLabel.setBounds(78, 44, 93, 14);
 		panel.add(lblNewLabel);
 		
 		label = new JLabel();
-		label.setIcon(new ImageIcon(createNewFolderGUI.class.getResource("/view/Computer-Background-Wallpapers-Ideas-Creative-Digital.jpg")));
-		label.setBounds(0, 0, 484, 461);
+		label.setIcon(new ImageIcon(createNewFolderGUI.class.getResource("/view/little.jpg")));
+		label.setBounds(0, 0, 434, 161);
 		panel.add(label);
 	}
 	private JPanel getCreatePanel(){

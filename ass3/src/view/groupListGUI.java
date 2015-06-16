@@ -49,12 +49,12 @@ public class groupListGUI extends JFrame {
 	private void initialize() {
 		this.setBounds(500, 200, 345, 300);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(300,500);
+		this.setSize(400,442);
 		this.setContentPane(getCreatePanel());
 		
 		label = new JLabel("");
-		label.setIcon(new ImageIcon(groupListGUI.class.getResource("/view/Computer-Background-Wallpapers-Ideas-Creative-Digital.jpg")));
-		label.setBounds(0, 0, 284, 461);
+		label.setIcon(new ImageIcon(groupListGUI.class.getResource("/view/long.jpg")));
+		label.setBounds(0, 0, 384, 403);
 		panel.add(label);
 		values=new String[user.getInterestGroupInDB().size()];
 		for(int i=0;i<user.getInterestGroupInDB().size();i++){
@@ -74,18 +74,18 @@ public class groupListGUI extends JFrame {
 			JLabel lblYourInterestGroup = new JLabel("Your interest groups:");
 			lblYourInterestGroup.setHorizontalAlignment(SwingConstants.CENTER);
 			lblYourInterestGroup.setFont(new Font("Arial Black", Font.PLAIN, 14));
-			lblYourInterestGroup.setBounds(45, 23, 186, 23);
+			lblYourInterestGroup.setBounds(50, 26, 186, 23);
 			panel.add(lblYourInterestGroup);
 			
 			btnCancel = new JButton("Back to main menu");
 			btnCancel.setFont(new Font("Tahoma", Font.BOLD, 13));
-			btnCancel.setBounds(45, 360, 186, 37);
+			btnCancel.setBounds(50, 355, 186, 37);
 			panel.add(btnCancel);
 			
 			list_1 = new JList();
 			list_1.setFont(new Font("Arial Black", Font.PLAIN, 13));
 			list_1.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-			list_1.setBackground(new Color(0, 191, 255));
+			list_1.setBackground(new Color(176, 224, 230));
 			list_1.setModel(new AbstractListModel() {
 				
 				public int getSize() {
@@ -95,7 +95,7 @@ public class groupListGUI extends JFrame {
 					return values[index];
 				}
 			});
-			list_1.setBounds(45, 73, 186, 234);
+			list_1.setBounds(50, 71, 186, 234);
 			panel.add(list_1);
 		}
 		return panel;

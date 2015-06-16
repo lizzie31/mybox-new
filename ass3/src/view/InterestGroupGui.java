@@ -51,7 +51,7 @@ public class InterestGroupGui extends AbstractGui{
 	private void initialize() {
 		this.setBounds(400, 200, 345, 300);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(500,500);
+		this.setSize(500,444);
 		this.setContentPane(getCreatePanel());;
 	}
 	
@@ -72,8 +72,8 @@ public class InterestGroupGui extends AbstractGui{
 			panel.add(getbtnAddToDB());
 			
 			JLabel label = new JLabel("");
-			label.setIcon(new ImageIcon(InterestGroupGui.class.getResource("/view/Computer-Background-Wallpapers-Ideas-Creative-Digital.jpg")));
-			label.setBounds(0, 0, 484, 461);
+			label.setIcon(new ImageIcon(InterestGroupGui.class.getResource("/view/searchgui.jpg")));
+			label.setBounds(0, 0, 484, 405);
 			panel.add(label);
 		}
 		return panel;
@@ -87,7 +87,7 @@ public class InterestGroupGui extends AbstractGui{
 		lblWelcomToThe.setBackground(new Color(30, 144, 255));
 		lblWelcomToThe.setForeground(new Color(0, 0, 0));
 		lblWelcomToThe.setFont(new Font("Arial Black", Font.PLAIN, 14));
-		lblWelcomToThe.setBounds(116, 15, 242, 50);
+		lblWelcomToThe.setBounds(92, 0, 242, 50);
 		
 		return lblWelcomToThe;
 	}
@@ -95,7 +95,7 @@ public class InterestGroupGui extends AbstractGui{
 	public JLabel getlblGroupFiles() {
 		JLabel lblGroupFiles = new JLabel("group files:");
 		lblGroupFiles.setFont(new Font("Arial Black", Font.PLAIN, 13));
-		lblGroupFiles.setBounds(140, 76, 96, 32);
+		lblGroupFiles.setBounds(72, 54, 96, 32);
 		
 		return lblGroupFiles;
 	}
@@ -104,7 +104,7 @@ public class InterestGroupGui extends AbstractGui{
 	{
 		btnOpen = new JButton("open");
 		btnOpen.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnOpen.setBounds(310, 121, 121, 30);
+		btnOpen.setBounds(249, 84, 121, 30);
 		
 		return btnOpen;
 	}
@@ -113,7 +113,7 @@ public class InterestGroupGui extends AbstractGui{
 	{
 		btnSetContant = new JButton("set contant");
 		btnSetContant.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnSetContant.setBounds(310, 162, 121, 32);
+		btnSetContant.setBounds(249, 125, 121, 32);
 		
 		return btnSetContant;
 	}
@@ -122,7 +122,7 @@ public class InterestGroupGui extends AbstractGui{
 	{
 		btnSetChar = new JButton("set charecters");
 		btnSetChar.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnSetChar.setBounds(310, 205, 121, 32);
+		btnSetChar.setBounds(249, 168, 121, 32);
 		
 		return btnSetChar;
 	}
@@ -131,7 +131,7 @@ public class InterestGroupGui extends AbstractGui{
 	{
 		btnAddToDB = new JButton("add to my files");
 		btnAddToDB.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnAddToDB.setBounds(310, 248, 121, 32);
+		btnAddToDB.setBounds(249, 211, 121, 32);
 		
 		return btnAddToDB;
 	}
@@ -139,7 +139,7 @@ public class InterestGroupGui extends AbstractGui{
 	public JButton getbtnCancel() {
 		btnCancel = new JButton("Back to main menu");
 		btnCancel.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btnCancel.setBounds(88, 394, 177, 30);
+		btnCancel.setBounds(139, 356, 177, 30);
 		
 		return btnCancel;
 	}
@@ -154,13 +154,13 @@ public class InterestGroupGui extends AbstractGui{
 		list_1.setFont(new Font("Arial Black", Font.PLAIN, 12));
 		list_1.setForeground(new Color(0, 0, 0));
 		list_1.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		list_1.setBackground(new Color(0, 191, 255));
+		list_1.setBackground(new Color(176, 224, 230));
 		list_1.setModel(new AbstractListModel() {
 			public int getSize() 
 			{return values.length; }
 			public Object getElementAt(int index) 
 			{return values[index]; }});
-		list_1.setBounds(88, 119, 186, 242);
+		list_1.setBounds(23, 86, 186, 242);
 		
 		return list_1;
 	}

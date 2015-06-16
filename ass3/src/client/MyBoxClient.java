@@ -107,17 +107,12 @@ public synchronized void handleMessageFromServer(Object message)
 	    if(E.getTask().equals("all groups"))    
 
 	    	((administratorMenuController)(currController)).handleDBResult2((ArrayList<interestGroups>)E.getObject()); 
-<<<<<<< HEAD
 	  
 
 	    	
 	    if(E.getTask().equals("all requests"))    
 	    	((administratorMenuController)(currController)).handleDBResult2((ArrayList<GroupsRequests>)E.getObject()); 
 
-=======
-	    
-	    
->>>>>>> refs/remotes/origin/kk
 	        
 	}
 	if(message instanceof String ) //user name and password not found

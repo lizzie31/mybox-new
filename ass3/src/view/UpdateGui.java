@@ -70,21 +70,21 @@ public class UpdateGui extends JFrame{
 			
 			btnCancel= new JButton("cancel");
 			btnCancel.setFont(new Font("Tahoma", Font.BOLD, 11));
-			btnCancel.setBounds(155, 122, 89, 23);
+			btnCancel.setBounds(147, 122, 89, 23);
 			panel.add(btnCancel);
 			
 			btnUpdate = new JButton("update");
 			btnUpdate.setFont(new Font("Tahoma", Font.BOLD, 11));
-			btnUpdate.setBounds(279, 122, 89, 23);
+			btnUpdate.setBounds(246, 122, 89, 23);
 			panel.add(btnUpdate);
 			
 			btnChooser = new JButton("choose the file");
 			btnChooser.setFont(new Font("Tahoma", Font.BOLD, 11));
-			btnChooser.setBounds(196, 47, 134, 39);
+			btnChooser.setBounds(174, 47, 134, 39);
 			panel.add(btnChooser);
 			
 			JLabel label = new JLabel("");
-			label.setIcon(new ImageIcon(fileMenuGui.class.getResource("/view/Computer-Background-Wallpapers-Ideas-Creative-Digital.jpg")));
+			label.setIcon(new ImageIcon(UpdateGui.class.getResource("/view/Multicolor Grass Books.jpg")));
 			label.setBounds(0, 0, 484, 261);
 			panel.add(label);
 

@@ -1,14 +1,22 @@
 package controllers;
 
+import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import client.myboxapp;
 import view.InterestGroupGui;
 import Model.Envelope;
 import Model.User;
+import Model.file;
 import Model.interestGroups;
 
 /** this class is the controller of the interest groups window*/
@@ -23,6 +31,8 @@ public class InterestGroupCon extends AbstractTransfer {
 	private GroupsListController prevCon;
 	/**the selected file name*/
 	private String selectedfile;
+	private InterestGroupCon thisCon=this;
+	private file choosenFile=null;
 	
 	/**constructor
 	 * 
@@ -44,6 +54,29 @@ public class InterestGroupCon extends AbstractTransfer {
 	
 	
 	
+	
+	
+ 	public void handleDBResultFile(byte[] bs1) throws IOException
+	 
+	{
+		byte[] bs=bs1;
+		File f=new File(choosenFile.getDirection());
+		BufferedWriter writer=new BufferedWriter(new FileWriter(f));
+		FileOutputStream fos = new FileOutputStream(f.getAbsolutePath());
+		fos.write(bs);
+		fos.flush();
+		fos.close();
+		Desktop desktop=null;
+		desktop=Desktop.getDesktop();
+		try {
+			desktop.open(f);
+		} catch (IOException e1) {
+            e1.printStackTrace();
+		}
+		
+	}
+	
+	
 	/**************************************************action listeners**********************************************************/
 	//cancel action listener
 	private class ButtoncancelListener implements ActionListener {
@@ -58,8 +91,25 @@ public class InterestGroupCon extends AbstractTransfer {
 			for(int i=0;i<groupInformation.getFilesForRead().size();i++)
 				if(groupInformation.getFilesForRead().get(i).getFileName().equals(selectedfile))
 				{
-			            Envelope en=new Envelope(groupInformation.getFilesForRead().get(i).getDirection(),"open file");
-			            sendToServer(en);
+					setChoosenFile(groupInformation.getFilesForRead().get(i));
+					boolean check = new File(choosenFile.getDirection()).exists();
+					if(check)
+					{
+						Desktop desktop=null;
+						desktop=Desktop.getDesktop();
+						try {
+							desktop.open(new File(choosenFile.getDirection()));
+						} catch (IOException e1) {
+			                e1.printStackTrace();
+						}
+					}
+					else
+					{
+					    Envelope en=new Envelope(choosenFile.getDirection(),"open file");
+					    sendToServer(en);
+					    myboxapp.clien.setCurrObj(getThisCon());
+					}
+
 				}
 		}
 		
@@ -91,7 +141,32 @@ public class InterestGroupCon extends AbstractTransfer {
 
 	public void setGroupInformation(interestGroups groupInformation) {
 		this.groupInformation = groupInformation;
+	}
+
+	public InterestGroupCon getThisCon() {
+		return thisCon;
+	}
+
+	public void setThisCon(InterestGroupCon thisCon) {
+		this.thisCon = thisCon;
+	}
+
+
+
+
+
+	public file getChoosenFile() {
+		return choosenFile;
+	}
+
+
+	public void setChoosenFile(file choosenFile) {
+		this.choosenFile = choosenFile;
 	}	
+	
+	
+	
+	
 	
 
 }

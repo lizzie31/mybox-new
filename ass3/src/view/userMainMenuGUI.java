@@ -1,17 +1,5 @@
 package view;
 
-import java.awt.AWTEvent;
-import java.awt.Desktop;
-import java.awt.EventQueue;
-import java.awt.MenuItem;
-import java.awt.PopupMenu;
-
-
-
-
-
-import java.awt.Window;
-
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JTree;
@@ -19,101 +7,27 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 
-
-
-
-
-import java.awt.BorderLayout;
-
-
-
-
-
-
-import javax.swing.JFileChooser;
-import javax.swing.JScrollBar;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 
 
-
-
-
-
 import java.awt.Font;
-
-
-
-
-
-
 import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
-
-
-
-
-
-
-import java.awt.Container;
-import java.awt.Component;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
-
-
-
-
-
-import javax.swing.JMenuItem;
-import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionListener;
-
-
-
-
-
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-
-
-
-
-
 import Model.User;
 import Model.file;
 import controllers.*;
-
 import java.awt.Color;
 
-
-
-
-
-
 import javax.swing.UIManager;
-
-
-
-
-
-
-import java.awt.Dimension;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-
-
-
-
-
-import javax.swing.JComboBox;
-import javax.swing.JCheckBox;
-import javax.swing.AbstractListModel;
 
 import java.awt.SystemColor;
 
@@ -123,34 +37,36 @@ import javax.swing.ImageIcon;
 
 /**this class is the user main menu window*/
 public class userMainMenuGUI extends JFrame {
-	/**@param MainMenu is the pannel that shows user main menu*/
+	/**MainMenu is the pannel that shows user main menu*/
 	private JPanel MainMenu;
-	/**@param search is text field that user can enter letters or words in order to find a file*/
+	/**search is text field that user can enter letters or words in order to find a file*/
 	private JTextField search;
-	/**@param btnCreateNewFile is a button that is pressed if a user wants to create a new file*/
+	/**btnCreateNewFile is a button that is pressed if a user wants to create a new file*/
 	private JButton btnCreateNewFile=null;
-	/**@param btnShowgroups is a button the user can press in order to see the groups he is in */
+	/**btnShowgroups is a button the user can press in order to see the groups he is in */
 	private JButton btnShowgroups=null;
-	/**@param btnCreateNewFolder is a button in order to create new folder*/
+	/**btnCreateNewFolder is a button in order to create new folder*/
 	private JButton btnCreateNewFolder=null;
-	/**@param btnJionGroup is a button in oreder to join a group*/
+	/**btnJionGroup is a button in oreder to join a group*/
 	private JButton btnJionGroup=null;
-	/**@param btnSearch is a button in order to search the file the user entered*/
+	/**btnSearch is a button in order to search the file the user entered*/
 	private JButton btnSearch=null;
-	private JButton open=null;
+	/**buttons on window**/
 	private JButton btnLogOut=null;	
 	private JLabel warningIcon=null;
 	private JLabel lblwarningMessage=null;
-	/**@param tree is files JTree*/
+	private JButton btnleaveButton=null;
+	/**tree is files JTree*/
 	private JTree tree=null;
-	/**@param node is nodes in JTree*/
+	/**nodes in JTree*/
 	private DefaultMutableTreeNode node=null;
 	/**@param user is current user information*/
 	private User user;
-	private JButton btnleaveButton=null;
 
-	/**constructor*/
-	/**@param user is the current user information*/
+	/**constructor
+	 * 
+	 * @param user
+	 */
 	public userMainMenuGUI(User user) {
 		this.user=user;
 		initialize();
@@ -164,7 +80,7 @@ public class userMainMenuGUI extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBackground(Color.CYAN);
 		setBounds(400, 200, 300, 300);
-		this.setSize(500,400);
+		this.setSize(600,450);
 		this.setTitle("main menu");;
 		this.setContentPane(getMainMenu());
 		
@@ -172,95 +88,81 @@ public class userMainMenuGUI extends JFrame {
 	}
 
 	private JPanel getMainMenu(){
-		if(MainMenu==null)
-		{MainMenu=new JPanel();
+	  if(MainMenu==null)
+	  {
+		MainMenu=new JPanel();
         MainMenu.setBackground(new Color(135, 206, 235));
 		MainMenu.setLayout(null);
-		
-		tree = new JTree();
-		tree.setBackground(Color.PINK);
-		tree.setFont(new Font("Arial Black", Font.PLAIN, 14));
+		MainMenu.add(getwarningIcon());
 		setJtree();
-						
-		btnJionGroup = new JButton("join new group");
-		btnJionGroup.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent arg0) {
-		}
-		});
-        
-        warningIcon= new JLabel("");
-        warningIcon.setIcon(new ImageIcon(userMainMenuGUI.class.getResource("/view/warning.gif")));
-        warningIcon.setBounds(23, 83, 30, 25);
-        warningIcon.setVisible(false);
-        MainMenu.add(warningIcon);
-        
+        MainMenu.add(getbtnSearch());   
         MainMenu.add(getLblwarningMessage());
-												
-        btnCreateNewFile = new JButton("create new file");
-        btnCreateNewFile.setFont(new Font("Tahoma", Font.BOLD, 11));
-        btnCreateNewFile.setBounds(307, 194, 138, 23);    
-        btnCreateNewFile.setBackground(UIManager.getColor("SplitPane.background"));
-        MainMenu.add(btnCreateNewFile);		
+        MainMenu.add(getbtnCreateNewFile());		
 										
         btnLogOut = new JButton("log out");
 	    btnLogOut.setFont(new Font("Tahoma", Font.BOLD, 11));
 	    btnLogOut.setBackground(UIManager.getColor("SplitPane.background"));
-		btnLogOut.setBounds(385, 327, 89, 23);
+		btnLogOut.setBounds(466, 366, 89, 23);
 		MainMenu.add(btnLogOut);
 										
 	    btnShowgroups = new JButton("show Groups");
 		btnShowgroups.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnShowgroups.setBackground(UIManager.getColor("SplitPane.background"));
-		btnShowgroups.setBounds(307, 122, 138, 25);
+		btnShowgroups.setBounds(277, 133, 138, 33);
 		MainMenu.add(btnShowgroups);		
 								
-										btnCreateNewFolder = new JButton("create new folder");
-										btnCreateNewFolder.setFont(new Font("Tahoma", Font.BOLD, 11));
-										btnCreateNewFolder.setBackground(UIManager.getColor("SplitPane.background"));
-										btnCreateNewFolder.setBounds(307, 158, 138, 25);
-										MainMenu.add(btnCreateNewFolder);
-								btnJionGroup.setFont(new Font("Tahoma", Font.BOLD, 11));
-								btnJionGroup.setBackground(UIManager.getColor("SplitPane.background"));
-								btnJionGroup.setBounds(307, 228, 138, 23);
-								MainMenu.add(btnJionGroup);
+        btnCreateNewFolder = new JButton("create new folder");
+	    btnCreateNewFolder.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnCreateNewFolder.setBackground(UIManager.getColor("SplitPane.background"));
+		btnCreateNewFolder.setBounds(277, 177, 138, 33);
+		MainMenu.add(btnCreateNewFolder);
+		
+		btnJionGroup = new JButton("join new group");
+		btnJionGroup.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnJionGroup.setBackground(UIManager.getColor("SplitPane.background"));
+		btnJionGroup.setBounds(277, 265, 138, 33);
+		MainMenu.add(btnJionGroup);
 				
-						search = new JTextField();
-						search.setBounds(162, 65, 166, 20);
-						MainMenu.add(search);
-						search.setColumns(10);	
+		search = new JTextField();
+		search.setBounds(176, 67, 165, 25);
+		search.setColumns(10);
+		MainMenu.add(search);	
 		
-				JLabel lblSearch = new JLabel("type the file name:");
-				lblSearch.setFont(new Font("Arial Black", Font.PLAIN, 12));
-				lblSearch.setBounds(23, 62, 139, 24);
-				MainMenu.add(lblSearch);
+		JLabel lblSearch = new JLabel("type the file name:");
+		lblSearch.setForeground(new Color(0, 0, 0));
+		lblSearch.setFont(new Font("Arial Black", Font.PLAIN, 13));
+		lblSearch.setBounds(24, 65, 142, 24);
+		MainMenu.add(lblSearch);
 		
-		btnSearch = new JButton("Search");
-		btnSearch.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnSearch.setBackground(SystemColor.menu);
-		btnSearch.setBounds(336, 63, 138, 25);
-		MainMenu.add(btnSearch);
-		tree.setBounds(35, 124, 205, 194);
+		tree.setBounds(42, 133, 205, 218);
 		MainMenu.add(tree);
 		
 		btnleaveButton = new JButton("leave group");
 		btnleaveButton.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnleaveButton.setBounds(307, 262, 138, 23);
+		btnleaveButton.setBounds(277, 309, 138, 33);
 		MainMenu.add(btnleaveButton);
 		
 		JLabel lblWelcomBack = new JLabel("welcom back "+user.getUserName()+"!!");
-		lblWelcomBack.setForeground(new Color(255, 160, 122));
+		lblWelcomBack.setForeground(new Color(0, 0, 0));
 		lblWelcomBack.setFont(new Font("Arial Black", Font.PLAIN, 16));
-		lblWelcomBack.setBounds(139, 21, 240, 23);
+		lblWelcomBack.setBounds(178, 22, 250, 33);
 		MainMenu.add(lblWelcomBack);
 		
+		JButton btnSearch_1 = new JButton("search");
+		btnSearch_1.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnSearch_1.setBounds(361, 68, 118, 23);
+		MainMenu.add(btnSearch_1);
+		
 		JLabel label = new JLabel("");
-		label.setIcon(new ImageIcon(userMainMenuGUI.class.getResource("/view/6830591-background-pictures.jpg")));
-		label.setBounds(0, 0, 484, 361);
+		label.setIcon(new ImageIcon(userMainMenuGUI.class.getResource("/view/Multicolor Grass Books.jpg")));
+		label.setBounds(0, 0, 584, 422);
 		MainMenu.add(label);
 		}
 		return MainMenu;	
 	}
+
 	
+	/*************************************************buttons action listeners***********************************/
 	public void addsearchfiles(ActionListener l) {
 		btnSearch.addActionListener(l);
 	}
@@ -294,10 +196,36 @@ public class userMainMenuGUI extends JFrame {
 	{
 		tree.addTreeSelectionListener(TreeSelection);
 	}
-/**close() closes the current gui window*/
-	public void close() {
-		this.setVisible(false);
-		dispose();
+	
+/**********************************************************getters and setters*****************************************/	
+	public JLabel getwarningIcon()
+	{
+	    warningIcon= new JLabel("");
+	    warningIcon.setIcon(new ImageIcon(userMainMenuGUI.class.getResource("/view/warning.gif")));
+	    warningIcon.setBounds(61, 97, 30, 25);
+	    warningIcon.setVisible(false);
+	    
+	    return warningIcon;
+	}
+	
+	public JButton getbtnSearch()
+	{
+	    btnSearch = new JButton("Search");
+        btnSearch.setFont(new Font("Tahoma", Font.BOLD, 11));
+        btnSearch.setBackground(SystemColor.menu);
+        
+        return btnSearch;   
+     }
+
+	public JButton getbtnCreateNewFile()
+	{
+       btnCreateNewFile = new JButton("create new file");
+       btnCreateNewFile.setFont(new Font("Tahoma", Font.BOLD, 11));
+       btnCreateNewFile.setBounds(277, 221, 138, 33);    
+       btnCreateNewFile.setBackground(UIManager.getColor("SplitPane.background"));
+    
+       return btnCreateNewFile;
+    
 	}
 
 /** getTextField() returns the textFeild the user entered*/	
@@ -305,25 +233,34 @@ public class userMainMenuGUI extends JFrame {
 	{
 		return search.getText();
 	}
+	
+	public JTree gettree() {
+		return this.tree;
+	}
+	
+	
 /**setJtree() sets the files and folders of the user*/
 	public void setJtree()
 	{
-		tree.setModel(new DefaultTreeModel(
-				new DefaultMutableTreeNode(""+user.getUserName()+"'s files") {
-					{
-						for(int i=0;i<user.getuserDirectories().size();i++)
-						{
-							node=new DefaultMutableTreeNode(""+user.getuserDirectories().get(i).getDirectoryName());
-							for(int j=0;j<user.getuserDirectories().get(i).getfiles().size();j++)
-							{
-								node.add(new DefaultMutableTreeNode(user.getuserDirectories().get(i).getfiles().get(j).getFileName()));
+	  tree = new JTree();
+	  tree.setBackground(new Color(173, 216, 230));
+	  tree.setFont(new Font("Arial Black", Font.PLAIN, 14));
+	  tree.setModel(new DefaultTreeModel(
+	    new DefaultMutableTreeNode(""+user.getUserName()+"'s files") {
+		{
+		  for(int i=0;i<user.getuserDirectories().size();i++)
+			{
+			  node=new DefaultMutableTreeNode(""+user.getuserDirectories().get(i).getDirectoryName());
+		      for(int j=0;j<user.getuserDirectories().get(i).getfiles().size();j++)
+				{
+			      node.add(new DefaultMutableTreeNode(user.getuserDirectories().get(i).getfiles().get(j).getFileName()));
 					
-							}
-						  add(node);
-						}
-					}
-				}
-			));
+				 }
+		      
+			   add(node);
+			}
+		 }
+	  }));
 	}
 	
 
@@ -334,7 +271,7 @@ public JLabel getLblwarningMessage() {
 		lblwarningMessage.setForeground(new Color(255, 0, 0));
 		lblwarningMessage.setFont(new Font("Arial Black", Font.PLAIN, 13));
 		lblwarningMessage.setSize(327, 25);
-		lblwarningMessage.setLocation(52, 83);
+		lblwarningMessage.setLocation(101, 97);
 		lblwarningMessage.setVisible(false);
 	}
 	return lblwarningMessage;
@@ -356,9 +293,11 @@ public void setWarningMessageVisibleTrue(String st) {
 	lblwarningMessage.setVisible(false);
 	
 }
-
-	public JTree gettree() {
-		return this.tree;
+	
+	/**close() closes the current gui window*/
+	public void close() {
+		this.setVisible(false);
+		dispose();
 	}
 }
 
