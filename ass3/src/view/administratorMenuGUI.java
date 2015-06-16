@@ -175,7 +175,7 @@ MainMenu.setBackground(new Color(102, 205, 170));
 		MainMenu.add(btnrequests);
 		
 		JLabel label = new JLabel("");
-		label.setIcon(new ImageIcon(administratorMenuGUI.class.getResource("/view/green-backgrounds-9.jpg")));
+		label.setIcon(new ImageIcon(administratorMenuGUI.class.getResource("/view/2085-springlike-green-nature-butterfly-abstract-background.jpg")));
 		label.setBounds(0, -12, 584, 574);
 		MainMenu.add(label);
 		

@@ -94,7 +94,7 @@ public class deleteGroupGUI extends JFrame{
 			panel.add(comboBox);
 			
 			label = new JLabel("");
-			label.setIcon(new ImageIcon(deleteGroupGUI.class.getResource("/view/green-backgrounds-9.jpg")));
+			label.setIcon(new ImageIcon(deleteGroupGUI.class.getResource("/view/2085-springlike-green-nature-butterfly-abstract-background.jpg")));
 			label.setBounds(0, 0, 484, 462);
 			panel.add(label);
 		}

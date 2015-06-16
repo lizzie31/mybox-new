@@ -179,6 +179,10 @@ public class InterestGroupGui extends AbstractGui{
 		btnOpen.addActionListener(l);
 	}
 	
+	public void addupdate(ActionListener l) {
+		btnSetContant.addActionListener(l);
+	}
+	
 	/***********************************************getters and setters*****************************************************/
 	public JList getList1()
 	{

@@ -14,6 +14,7 @@ import javax.swing.event.ListSelectionListener;
 
 import client.myboxapp;
 import view.InterestGroupGui;
+import view.UpdateGui;
 import Model.Envelope;
 import Model.User;
 import Model.file;
@@ -50,6 +51,7 @@ public class InterestGroupCon extends AbstractTransfer {
 		CurrGui.addcancel(new ButtoncancelListener());
 		CurrGui.addListActionListener(new listSelecTionListen());
 		CurrGui.addOpen(new ButtonOpenListener());
+		CurrGui.addupdate(new ButtonupdateListener());
 	}
 	
 	
@@ -83,6 +85,21 @@ public class InterestGroupCon extends AbstractTransfer {
 		public void actionPerformed(ActionEvent arg0) {
 			CurrGui.close();
 			prevCon.getGroupListGui().setVisible(true);
+		}
+	}
+	
+	
+	private class ButtonupdateListener implements ActionListener {
+		public void actionPerformed(ActionEvent arg0) {
+			
+				for(int i=0;i<getGroupInformation().getFilesForUpdate().size();i++)
+				{
+					if(getGroupInformation().getFilesForUpdate().get(i).getFileName().equals(selectedfile))
+						CurrGui.close();
+					    UpdateGui UG=new UpdateGui(user,getGroupInformation().getFilesForUpdate().get(i));
+					    new UpdateCon(user,getGroupInformation().getFilesForUpdate().get(i),UG,getThisCon());
+			    }
+			
 		}
 	}
 	
@@ -149,6 +166,22 @@ public class InterestGroupCon extends AbstractTransfer {
 
 	public void setThisCon(InterestGroupCon thisCon) {
 		this.thisCon = thisCon;
+	}
+
+
+
+
+
+	public InterestGroupGui getCurrGui() {
+		return CurrGui;
+	}
+
+
+
+
+
+	public void setCurrGui(InterestGroupGui currGui) {
+		CurrGui = currGui;
 	}
 
 
