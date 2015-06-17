@@ -92,12 +92,22 @@ public class InterestGroupCon extends AbstractTransfer {
 	private class ButtonupdateListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
 			
+			    if(getGroupInformation().getFilesForUpdate().size()==0)
+			    {
+			    	CurrGui.setWarningMessageVisibleTrue("sorry,this group cant update this file!");
+			    }
 				for(int i=0;i<getGroupInformation().getFilesForUpdate().size();i++)
 				{
 					if(getGroupInformation().getFilesForUpdate().get(i).getFileName().equals(selectedfile))
+					{
 						CurrGui.close();
 					    UpdateGui UG=new UpdateGui(user,getGroupInformation().getFilesForUpdate().get(i));
 					    new UpdateCon(user,getGroupInformation().getFilesForUpdate().get(i),UG,getThisCon());
+					}
+					else
+					{
+						CurrGui.setWarningMessageVisibleTrue("sorry,this group cant update this file!");
+					}
 			    }
 			
 		}

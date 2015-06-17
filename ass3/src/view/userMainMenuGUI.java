@@ -12,7 +12,9 @@ import javax.swing.JTextField;
 import javax.swing.JLabel;
 
 
+
 import java.awt.Font;
+
 import javax.swing.JPanel;
 import javax.swing.event.ListSelectionListener;
 
@@ -22,9 +24,11 @@ import java.awt.event.ActionEvent;
 import Model.User;
 import Model.file;
 import controllers.*;
+
 import java.awt.Color;
 
 import javax.swing.UIManager;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -93,10 +97,10 @@ public class userMainMenuGUI extends JFrame {
 		MainMenu=new JPanel();
         MainMenu.setBackground(new Color(135, 206, 235));
 		MainMenu.setLayout(null);
-		MainMenu.add(getwarningIcon());
 		setJtree();
-        MainMenu.add(getbtnSearch());   
         MainMenu.add(getLblwarningMessage());
+        MainMenu.add(getwarningIcon());   
+        MainMenu.add(getbtnSearch());  
         MainMenu.add(getbtnCreateNewFile());		
 										
         btnLogOut = new JButton("log out");
@@ -148,10 +152,10 @@ public class userMainMenuGUI extends JFrame {
 		lblWelcomBack.setBounds(178, 22, 250, 33);
 		MainMenu.add(lblWelcomBack);
 		
-		JButton btnSearch_1 = new JButton("search");
-		btnSearch_1.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnSearch_1.setBounds(361, 68, 118, 23);
-		MainMenu.add(btnSearch_1);
+		btnSearch = new JButton("search");
+		btnSearch.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnSearch.setBounds(361, 68, 118, 23);
+		MainMenu.add(btnSearch);
 		
 		JLabel label = new JLabel("");
 		label.setIcon(new ImageIcon(userMainMenuGUI.class.getResource("/view/Multicolor Grass Books.jpg")));
@@ -200,12 +204,12 @@ public class userMainMenuGUI extends JFrame {
 /**********************************************************getters and setters*****************************************/	
 	public JLabel getwarningIcon()
 	{
-	    warningIcon= new JLabel("");
-	    warningIcon.setIcon(new ImageIcon(userMainMenuGUI.class.getResource("/view/warning.gif")));
-	    warningIcon.setBounds(61, 97, 30, 25);
-	    warningIcon.setVisible(false);
-	    
-	    return warningIcon;
+		    warningIcon= new JLabel("");
+		    warningIcon.setIcon(new ImageIcon(userMainMenuGUI.class.getResource("/view/warning.gif")));
+	        warningIcon.setBounds(34, 97, 30, 25);
+		    warningIcon.setVisible(false);
+		    
+		    return warningIcon;
 	}
 	
 	public JButton getbtnSearch()
@@ -257,7 +261,7 @@ public class userMainMenuGUI extends JFrame {
 					
 				 }
 		      
-			   add(node);
+			     add(node);
 			}
 		 }
 	  }));
@@ -268,10 +272,6 @@ public class userMainMenuGUI extends JFrame {
 public JLabel getLblwarningMessage() {
 	if(lblwarningMessage == null){
 		lblwarningMessage = new JLabel("");
-		lblwarningMessage.setForeground(new Color(255, 0, 0));
-		lblwarningMessage.setFont(new Font("Arial Black", Font.PLAIN, 13));
-		lblwarningMessage.setSize(327, 25);
-		lblwarningMessage.setLocation(101, 97);
 		lblwarningMessage.setVisible(false);
 	}
 	return lblwarningMessage;
@@ -280,9 +280,9 @@ public JLabel getLblwarningMessage() {
 public void setWarningMessageVisibleTrue(String st) {
 	lblwarningMessage.setText(st);
 	lblwarningMessage.setForeground(Color.RED);
-	lblwarningMessage.setFont(new Font("Arial Black", Font.PLAIN, 11));
-	lblwarningMessage.setSize(303, 25);
-	lblwarningMessage.setLocation(52, 83);
+	lblwarningMessage.setFont(new Font("Arial Black", Font.PLAIN, 12));
+	lblwarningMessage.setSize(327, 25);
+	lblwarningMessage.setLocation(74, 97);
 	warningIcon.setVisible(true);
 	lblwarningMessage.setVisible(true);	
 	

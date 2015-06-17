@@ -17,7 +17,9 @@ import javax.swing.event.ListSelectionListener;
 
 import Model.User;
 import Model.interestGroups;
+
 import java.awt.event.ActionEvent;
+
 import javax.swing.ImageIcon;
 
 public class InterestGroupGui extends AbstractGui{
@@ -35,6 +37,8 @@ public class InterestGroupGui extends AbstractGui{
 	private JButton btnSetContant=null;
 	private JButton btnSetChar =null;
 	private JButton btnAddToDB=null;
+	private JLabel warningIcon=null;
+	private JLabel lblwarningMessage=null;
 	
 	/**constructor
 	 * 
@@ -70,6 +74,8 @@ public class InterestGroupGui extends AbstractGui{
 			panel.add(getbtnSetContant());
 			panel.add(getbtnSetChar());
 			panel.add(getbtnAddToDB());
+			panel.add(getwarningIcon());
+	        panel.add(getLblwarningMessage());
 			
 			JLabel label = new JLabel("");
 			label.setIcon(new ImageIcon(InterestGroupGui.class.getResource("/view/searchgui.jpg")));
@@ -95,7 +101,7 @@ public class InterestGroupGui extends AbstractGui{
 	public JLabel getlblGroupFiles() {
 		JLabel lblGroupFiles = new JLabel("group files:");
 		lblGroupFiles.setFont(new Font("Arial Black", Font.PLAIN, 13));
-		lblGroupFiles.setBounds(72, 54, 96, 32);
+		lblGroupFiles.setBounds(71, 41, 96, 32);
 		
 		return lblGroupFiles;
 	}
@@ -139,7 +145,7 @@ public class InterestGroupGui extends AbstractGui{
 	public JButton getbtnCancel() {
 		btnCancel = new JButton("Back to main menu");
 		btnCancel.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btnCancel.setBounds(139, 356, 177, 30);
+		btnCancel.setBounds(132, 356, 177, 30);
 		
 		return btnCancel;
 	}
@@ -160,9 +166,45 @@ public class InterestGroupGui extends AbstractGui{
 			{return values.length; }
 			public Object getElementAt(int index) 
 			{return values[index]; }});
-		list_1.setBounds(23, 86, 186, 242);
+		list_1.setBounds(21, 73, 186, 242);
 		
 		return list_1;
+	}
+	
+	public JLabel getwarningIcon()
+	{
+	    warningIcon= new JLabel("");
+	    warningIcon.setIcon(new ImageIcon(userMainMenuGUI.class.getResource("/view/warning.gif")));
+	    warningIcon.setBounds(31, 320, 30, 25);
+	    warningIcon.setVisible(false);
+	    
+	    return warningIcon;
+	}
+	
+	/**getLblwarningMessage() returns the warning message*/
+	public JLabel getLblwarningMessage() {
+		if(lblwarningMessage == null){
+			lblwarningMessage = new JLabel("");
+			lblwarningMessage.setVisible(false);
+		}
+		return lblwarningMessage;
+	}
+	/**setWarningMessageVisibleTrue(String st) sets the warning message st visible*/
+	public void setWarningMessageVisibleTrue(String st) {
+		lblwarningMessage.setText(st);
+		lblwarningMessage.setForeground(Color.RED);
+		lblwarningMessage.setFont(new Font("Arial Black", Font.PLAIN, 13));
+		lblwarningMessage.setSize(327, 19);
+		lblwarningMessage.setLocation(67, 326);
+		warningIcon.setVisible(true);
+		lblwarningMessage.setVisible(true);	
+		
+	}
+	/**undisplayWarningMessage() sets the warning message not visible*/
+		public void undisplayWarningMessage() {
+			warningIcon.setVisible(false);
+		    lblwarningMessage.setVisible(false);
+		
 	}
 	/************************************************add listeners*******************************************************************/
 	public void addcancel(ActionListener l) {

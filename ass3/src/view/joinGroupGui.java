@@ -26,6 +26,7 @@ import java.awt.Toolkit;
 import java.awt.SystemColor;
 import java.awt.Color;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 
 public class joinGroupGui extends JFrame {
 
@@ -63,9 +64,6 @@ public class joinGroupGui extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(500,200);
 		this.setContentPane(getCreatePanel());
-		
-		comboBox = new JComboBox<String>();
-		comboBox.setBounds(282, 36, 131, 22);
 		if(groups.size() > 0)
 		{
 			values=new String[groups.size()];
@@ -77,19 +75,6 @@ public class joinGroupGui extends JFrame {
 			for(int i = 0; i < values.length; i++)
 				comboBox.addItem(values[i]);
 		}
-			
-		panel.add(comboBox);
-		
-		btnCancel = new JButton("Back to main menu");
-		btnCancel.setFont(new Font("Tahoma", Font.BOLD, 11));
-
-		btnCancel.setBounds(33, 86, 158, 32);
-		panel.add(btnCancel);
-		
-		btnSendToSystem = new JButton("send to system administrator");
-		btnSendToSystem.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnSendToSystem.setBounds(231, 86, 171, 32);
-		panel.add(btnSendToSystem);
 		/*
 		btnSendToSystem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -108,12 +93,33 @@ public class joinGroupGui extends JFrame {
 			panel=new JPanel();
 			panel.setBackground(new Color(135, 206, 235));
 			panel.setLayout(null);
+			panel.add(getLblwarningMessage());
+			
+			btnCancel = new JButton("Back to main menu");
+			btnCancel.setFont(new Font("Tahoma", Font.BOLD, 11));
+			
+					btnCancel.setBounds(33, 86, 158, 32);
+					panel.add(btnCancel);
+			
+			comboBox = new JComboBox<String>();
+			comboBox.setBounds(282, 36, 131, 22);
+			
+		panel.add(comboBox);
+			
+			btnSendToSystem = new JButton("send to system administrator");
+			btnSendToSystem.setFont(new Font("Tahoma", Font.BOLD, 11));
+			btnSendToSystem.setBounds(231, 86, 171, 32);
+			panel.add(btnSendToSystem);
 			
 			JLabel lblSelectTheGroup = new JLabel("select the group you want to join:");
 			lblSelectTheGroup.setFont(new Font("Arial Black", Font.PLAIN, 13));
 			lblSelectTheGroup.setBounds(10, 27, 274, 37);
 			panel.add(lblSelectTheGroup);
-			panel.add(getLblwarningMessage());
+			
+			JLabel label = new JLabel("");
+			label.setIcon(new ImageIcon(joinGroupGui.class.getResource("/view/lottle2.jpg")));
+			label.setBounds(0, 0, 494, 171);
+			panel.add(label);
 		}
 		return panel;
 	}
@@ -163,6 +169,4 @@ public class joinGroupGui extends JFrame {
 		setVisible(false);
 		dispose();
 	}
-
-
 }

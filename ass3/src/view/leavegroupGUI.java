@@ -26,6 +26,7 @@ import java.awt.Toolkit;
 import java.awt.SystemColor;
 import java.awt.Color;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 
 public class leavegroupGUI extends JFrame {
 
@@ -44,6 +45,7 @@ public class leavegroupGUI extends JFrame {
 	private ArrayList<interestGroups> groups=null;
 	/**@param comboBox is a comboBox of all the groups*/
 	private JComboBox<String> comboBox;
+	private JLabel label;
  
 	public leavegroupGUI(User u) {
 		setBackground(new Color(0, 191, 255));
@@ -86,10 +88,10 @@ public class leavegroupGUI extends JFrame {
 		btnCancel.setBounds(33, 86, 158, 32);
 		panel.add(btnCancel);
 		
-		btnSendToSystem = new JButton("send to system administrator");
-		btnSendToSystem.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnSendToSystem.setBounds(231, 86, 171, 32);
-		panel.add(btnSendToSystem);
+		label = new JLabel("");
+		label.setIcon(new ImageIcon(leavegroupGUI.class.getResource("/view/lottle2.jpg")));
+		label.setBounds(0, 0, 494, 171);
+		panel.add(label);
 		/*
 		btnSendToSystem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -108,6 +110,11 @@ public class leavegroupGUI extends JFrame {
 			panel=new JPanel();
 			panel.setBackground(new Color(135, 206, 235));
 			panel.setLayout(null);
+			
+			btnSendToSystem = new JButton("send to system administrator");
+			btnSendToSystem.setFont(new Font("Tahoma", Font.BOLD, 11));
+			btnSendToSystem.setBounds(231, 86, 171, 32);
+			panel.add(btnSendToSystem);
 			
 			JLabel lblSelectTheGroup = new JLabel("select the group you want to leave:");
 			lblSelectTheGroup.setFont(new Font("Arial Black", Font.PLAIN, 13));
