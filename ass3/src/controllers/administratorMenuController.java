@@ -29,11 +29,13 @@ public class administratorMenuController extends userMainMenuController {
 	private ArrayList<interestGroups> allinterestgroups;
 	private ArrayList<GroupsRequests> allrequests;
 	private ArrayList<file> fileArr;
+	private User u;
 	/***constructor
 	 * @wbp.parser.entryPoint***/
 	public administratorMenuController (userMainMenuGUI menu,logInCon lastCon,User user,administratorMenuGUI menu2){
 		
 	super(menu,lastCon,user);
+	this.u=user;
     this.currgui2=menu2;
 	currgui2.addrequests(new ButtonrequestsListener());
 	currgui2.addcreatenewgroup(new ButtonCreateGroupListener());
@@ -92,7 +94,7 @@ public class administratorMenuController extends userMainMenuController {
 private void buttonCreatefolder() {
 	
 		createNewFolderGUI R= new createNewFolderGUI();
-		//new createNewFolderController(R,this);
+		new createNewFolderController(R,this,u);
 		R.setVisible(true);
 
 	}

@@ -25,13 +25,27 @@ public class createNewFolderController extends AbstractTransfer{
 		this.createfolder=g;
 		this.user=u;
 		prevController=lastCon;
-		createfolder.addcancel(new ButtoncancelListener());
+		//createfolder.addbtnCancel(new ButtonCancelListener());
+		createfolder.addbtnCancel(new ButtonCancelListener());
 		createfolder.addOk(new ButtonOKListener());
 	}
-	/**ButtoncancelListener is a class that implements action listener and opens user main menu window*/
-	private class ButtoncancelListener implements ActionListener {
+	private class ButtonCancelListener implements ActionListener {
 
 		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			buttoncancelPressed();
+		}
+		
+	}
+	
+	private void buttoncancelPressed() {
+		createfolder.close();
+		//adm.getAdminCon().setVisible(true);
+	
+	}
+	/**ButtoncancelListener is a class that implements action listener and opens user main menu window*/
+	/*private class ButtonCancelListener implements ActionListener {
+
 		public void actionPerformed(ActionEvent arg0) {
 			buttoncancelPressed();
 		}
@@ -42,7 +56,7 @@ public class createNewFolderController extends AbstractTransfer{
 		if (prevController instanceof administratorMenuController)
 		((administratorMenuController) prevController).getusermainmenu2().setVisible(true);
 		else prevController.getusermainmenu().setVisible(true);
-	}
+	}*/
 	
 	private class ButtonOKListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
