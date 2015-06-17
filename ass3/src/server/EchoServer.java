@@ -346,7 +346,43 @@ public class EchoServer extends AbstractServer
     		 client.sendToClient(e);
     	 }
     }
-       
+    if(en.getTask().contains("change permission"))
+    {
+    	String per="0";
+    	String permission;
+    	if(en.getTask().contains("1"))
+    		per="1";
+    	if(en.getTask().contains("2"))
+    		per="2";
+    	if(en.getTask().contains("3"))
+    		per="3";
+    	
+    	String re = "SELECT * FROM test.files WHERE files.filename= '"+(en.getObject()+"'");
+    	rs = stmt.executeQuery(re);  	
+	   	 while(rs.next()==true)
+	   	 {
+	   		permission=(rs.getString(3));
+	   		if(permission.equals(per))
+	   		{
+	   			//do nothing this means there has been no change
+	   		}
+	   		else
+	   		{
+	   			if(permission.equals("1"))
+	   			{
+	   				//change permission to 1 and delete the file from everybody else
+	   			}
+	   			if(permission.equals("2"))
+	   			{
+	   				//change permission to 2. delete from everywhere else
+	   			}
+	   			if(permission.equals("3"))
+	   			{
+	   				//change permission to 3. everyone can see this file and read it
+	   			}
+	   		}
+	   	 }
+    }
     
     
     if(en.getTask().equals("Save file in server"))

@@ -16,6 +16,7 @@ import view.UpdateGui;
 import view.createNewGroupGUI;
 import view.deleteFile;
 import view.fileMenuGui;
+import view.permissionGui;
 import view.userMainMenuGUI;
 import Model.Envelope;
 import Model.User;
@@ -48,8 +49,17 @@ public class fileMenuCon extends AbstractTransfer{
 		CurrGui.addread(new readListener());
 		CurrGui.addupdate(new btnUpdateListener());
 		CurrGui.adddelete(new btnDeleteListener());
+		CurrGui.addpermission(new btnPermissionListener());
 	}
-	
+	class btnPermissionListener implements ActionListener{
+
+		public void actionPerformed(ActionEvent e) {
+			CurrGui.dispose();
+			permissionGui p= new permissionGui();
+			new permissionController(p,getThisCon(),user,ChoosenFile);
+		
+		}
+	}
 	class btnDeleteListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
