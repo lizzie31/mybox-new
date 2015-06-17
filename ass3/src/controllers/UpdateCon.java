@@ -19,14 +19,20 @@ import Model.file;
 public class UpdateCon extends AbstractTransfer{
 	
 	private User user;
+	/**fileDetails saves the details of a specific file*/
 	private file fileDetails;
+	/**CurrGui is the update gui window*/
 	private UpdateGui CurrGui;
+	/**thisCon is update controller*/
     private UpdateCon thisCon=this;
+    /**prevCon is the file menu controller**/
 	private fileMenuCon prevCon;
+	/**prevCon1 is interest groups controller**/
 	private InterestGroupCon prevCon1;
 	private byte[] content=null;
 	private int flag;
 	
+	/**constructors*/
 	public UpdateCon(User u,file f,UpdateGui currGui, fileMenuCon prevCon){
 		this.flag=0;
 		this.user=u;
@@ -49,6 +55,9 @@ public class UpdateCon extends AbstractTransfer{
 		CurrGui.addbtnCancel(new btnCancelListener());
 	}
 	
+	/*********************action listeners*******************/
+	/**button listener of choose
+	 * @param returnVal*/
 	class btnChooserListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
@@ -67,7 +76,7 @@ public class UpdateCon extends AbstractTransfer{
 	                
 		}
 		}
-	
+	/**button listener of cancel*/
 	class btnCancelListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
@@ -83,6 +92,7 @@ public class UpdateCon extends AbstractTransfer{
 			}
 		}
 	}
+	/**button listener of update*/
 	class btnUpdateListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {

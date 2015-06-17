@@ -13,11 +13,13 @@ import Model.interestGroups;
 import view.*;
 
 public class GroupsListController extends AbstractTransfer{
-	
+	/**grouplist is group list gui window*/
 	private groupListGUI grouplist=null;
-	private userMainMenuController prevController;
+	/**prev controller is user main menu controller*/
+	private userMainMenuController prevController;	
 	private User user;
 	
+	/**constructor*/
 	public GroupsListController (groupListGUI g , userMainMenuController lastCon, User userDetails){
 		
 		this.grouplist=g;
@@ -26,12 +28,12 @@ public class GroupsListController extends AbstractTransfer{
 	    grouplist.addcancel(new ButtoncancelListener());
 	    grouplist.addListActionListener(new listListener());
 	}
-	
-	public GroupsListController(leavegroupGUI lG,
-			userMainMenuController lastCon, User userDetails) {
-		// TODO Auto-generated constructor stub
+	/**constructor*/
+	public GroupsListController(leavegroupGUI lG,userMainMenuController lastCon, User userDetails) {
+		
 	}
 
+	/**list listener is a class that implements list selection listener and handles a press on the list*/
 	public class listListener implements ListSelectionListener{
 		public void valueChanged(ListSelectionEvent arg0) {
 			Envelope  en=null;
@@ -48,6 +50,7 @@ public class GroupsListController extends AbstractTransfer{
 
 		
 	}
+	/**button listener of cancel*/
 	private class ButtoncancelListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
 			buttongrouplistPressed();
@@ -58,7 +61,7 @@ public class GroupsListController extends AbstractTransfer{
 		grouplist.close();
 		prevController.getusermainmenu().setVisible(true);
 	}
-	
+	/***********getters and setters************/
 	private Object getCurrCon() {
 		
 		return this;
@@ -67,7 +70,7 @@ public class GroupsListController extends AbstractTransfer{
 	public groupListGUI getGroupListGui() {
 		return grouplist;
 	}
-	
+	/**handleDBresult closes the current window and opens interest group gui window*/
 	public void handleDBresult(interestGroups IGR) {
 		grouplist.close();
 		InterestGroupGui IGG=new InterestGroupGui(IGR);

@@ -15,7 +15,7 @@ import client.myboxapp;
 //import client.CCRMClient;
 /**
  * This Class is a CCRM Client Controller which create ccrmClient instance and check the port and host to server
- * @author jacob
+ * 
  *
  */
 public class MyBoxClientController 
@@ -61,7 +61,7 @@ public class MyBoxClientController
 
 	/**
 	 * Inner class that handles when Button OK Pressed, implements ActiontListener
-	 * @author jacob
+	 *
 	 *
 	 */
 	class OKListener implements ActionListener
@@ -111,7 +111,7 @@ public class MyBoxClientController
 	
 	/**
 	 *  Inner class that handles when Button cancel Pressed, implements ActiontListener
-	 * @author jacob
+	 * 
 	 *
 	 */
 	class CancelListener implements ActionListener{

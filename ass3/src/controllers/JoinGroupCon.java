@@ -11,14 +11,15 @@ import Model.User;
 import view.*;
 
 public class JoinGroupCon extends AbstractTransfer{
-	
-
-		
+		/**joinGroupGui is a join group gui window*/
 		private joinGroupGui JoinGroupGui=null;
+		/**prevController is user main menu controller*/
 		private userMainMenuController prevController;
+		/**GroupName saves the group name that the user requested to enter**/
 		private String GroupName=null;
 		private User user;
 		
+		/**constructor**/
 		public JoinGroupCon (joinGroupGui g , userMainMenuController lastCon, User userDetails){
 			
 			this.JoinGroupGui=g;
@@ -29,6 +30,9 @@ public class JoinGroupCon extends AbstractTransfer{
 			JoinGroupGui.addSendToSystem(new ButtonSend());
 			
 		}
+		
+		/*********************action listeners*******************/
+		/**button listener of cancel*/
 		private class ButtoncancelListener implements ActionListener {
 
 			@Override
@@ -43,7 +47,7 @@ public class JoinGroupCon extends AbstractTransfer{
 			prevController.getusermainmenu().setVisible(true);
 		}
 		
-		
+		/**button listener of selecting a group*/
 		public class SelectedGroupListener implements ActionListener
 		{
 			public void actionPerformed(ActionEvent e) {
@@ -52,14 +56,12 @@ public class JoinGroupCon extends AbstractTransfer{
 				
 			}
 		}
-		
+		/**button listener of send*/
 		public class ButtonSend implements ActionListener
 		{
 			public void actionPerformed(ActionEvent e) {
 				if(GroupName==null)
-				{
 					JoinGroupGui.setWarningMessageVisibleTrue("please select a group!");
-				}
 				else
 				{
 				GroupsRequests request=new GroupsRequests(GroupName,user.getUserName(),"join");

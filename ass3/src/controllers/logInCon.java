@@ -23,17 +23,25 @@ import client.myboxapp;
  */
 public class logInCon extends AbstractTransfer
 {
-	
+	/**loginG is log in gui window*/
 	private logInGui loginG;
+	/**loginM is log in mod*/
 	private logInMod loginM;
+	/**tempL is logInController*/
 	private logInCon tempL;
 	private User user;
+	/**Menu2 is administrator menu gui window*/
 	private administratorMenuGUI  Menu2;
+	/**Menu is user main menu gui window*/
 	private userMainMenuGUI Menu;
+	/**frgt is forget password gui window*/
 	private forgget_password frgt;
+	/**username saves the user name entered in the login window*/
 	private String username;
+	/**filesInUserDB is an array list of all the files that the user added to his personal space*/
 	private ArrayList<file> filesInUserDB=null;
 	private Envelope en=null;
+	/**allUsers is an array list of all the users in the DB*/
 	private ArrayList<User> allUsers;
 	
 	
@@ -66,11 +74,13 @@ public class logInCon extends AbstractTransfer
 		
 	}
 	
-	
+	/**sets the array list of all the users to a given array list*/
 	public void setUser(ArrayList<User> u) {
 		allUsers = u;
 	}
-
+	
+	/**checks if a given user name already exist in the db
+	 @param temp is a string that saves each time a name of a user from allUsers arrayList**/
 	public boolean userExist(String userName){
 		String temp;
 		for (int i =0 ;i<allUsers.size();i++){
@@ -80,6 +90,8 @@ public class logInCon extends AbstractTransfer
 		}
 		return false;
 	}
+	/**check if the user is connected or not
+	  @param temp is a string that saves each time a name of a user from allUsers arrayList* */
 	public boolean userConnect(String userName)
 	{
 		String temp;
@@ -94,6 +106,7 @@ public class logInCon extends AbstractTransfer
 		}
 		return false;
 	}
+	/**check if the password of the userName is correct*/
 	public boolean checkPassword(String  userName,String Pass)
 	{
 		for (int i =0 ;i<allUsers.size();i++){
@@ -106,6 +119,7 @@ public class logInCon extends AbstractTransfer
 			}
 		return false;
 	}
+	/**change the status of the user userName*/
 	public int changeStatus(String userName){
 		String temp;
 		int res = -1;

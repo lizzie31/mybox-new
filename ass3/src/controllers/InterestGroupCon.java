@@ -57,7 +57,7 @@ public class InterestGroupCon extends AbstractTransfer {
 	
 	
 	
-	
+	/**handles the result that comes from the db for files*/
  	public void handleDBResultFile(byte[] bs1) throws IOException
 	 
 	{

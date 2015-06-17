@@ -14,12 +14,18 @@ import view.requestsGUI;
 
 
 public class requestController extends AbstractTransfer {
+	/**requestgui is requests gui window*/
 	private requestsGUI requestgui;
+	/**prevController is administrator menu controller*/
 	private administratorMenuController prevController;
+	/**saves the selected request*/
 	private String selectedrequest;
+	/**request1 is group requests gui*/
 	private GroupsRequests request1;
+	/**allrequests is an array list of all the group requests**/
 	private ArrayList<GroupsRequests> allrequests;
 	
+	/**constructor*/
 	public requestController (requestsGUI g , administratorMenuController lastCon,ArrayList<GroupsRequests> allrequests){
 		
 		this.requestgui=g;
@@ -29,7 +35,8 @@ public class requestController extends AbstractTransfer {
 		requestgui.addapproveRequest(new ButtonaprroveListener());
 		requestgui.addListActionListener(new listSelecTionListen());
 	}
-	
+	/*********************action listeners*******************/
+	/**button listener of approve request*/
 	private class ButtonaprroveListener implements ActionListener {
 
 		@Override
@@ -50,6 +57,7 @@ public class requestController extends AbstractTransfer {
 		
 		
 	}
+	/**button listener of cancel*/
 	private class ButtoncancelListener implements ActionListener {
 
 		@Override
@@ -64,6 +72,7 @@ public class requestController extends AbstractTransfer {
 		
 	}
 	//list selection listener
+	/**listSelecTionListen is a class that implements ListSelectionListener*/
 	private class listSelecTionListen implements ListSelectionListener
 	{
 		public void valueChanged(ListSelectionEvent arg0) {
@@ -72,6 +81,7 @@ public class requestController extends AbstractTransfer {
 			
 	   }
 	}
+	/*******getters and setters**********/
 	public requestsGUI getRequestgui() {
 		return requestgui;
 	}

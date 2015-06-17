@@ -11,7 +11,9 @@ import org.junit.Test;
 import controllers.*;
 import Model.*;
 public class logInConTest {
+	/**loginC is log in controller*/
 	public logInCon loginC = null;
+	/**userTest is array list of all the users*/
 	public ArrayList<User> userTest =new ArrayList<User>();
 
 	@Before
@@ -23,6 +25,7 @@ public class logInConTest {
 		loginC.setUser(userTest);
 	}
 	@Test
+	/**check if the password gives the right answer for correct and wrong password*/
 	public void testPass(){
 		String cPass = "22222";
 		String cUser = "newUser2";
@@ -34,6 +37,7 @@ public class logInConTest {
 	}
 	
 	@Test
+	/**test if the user is connected or not according to the expectations*/
 	public void testuserConnect(){
 		String userName="newUser3";
 		//check if the user is not connected
@@ -43,7 +47,7 @@ public class logInConTest {
 		assertTrue(loginC.userConnect(userName));
 		
 	}
-	
+	/**check if a user exist according to our expectations*/
 	public void testuserExist(){
 		String userName="newUser3";
 		//check if the user is exist
@@ -52,7 +56,7 @@ public class logInConTest {
 		//check if the user is not exist
 		assertFalse(loginC.userExist(userName));
 	}
-	
+	/**check if changing the status is according to our expectations*/
 	public void testchangeStatus(){
 		String userName="newUser1";
 		//check if the status is changed
