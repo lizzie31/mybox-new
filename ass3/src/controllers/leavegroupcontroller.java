@@ -11,14 +11,15 @@ import Model.User;
 import view.*;
 
 public class leavegroupcontroller extends AbstractTransfer{
-	
-
-		
+		/**leaveGroupGui is leave group gui window*/
 		private leavegroupGUI leaveGroupGui=null;
+		/**prevController is the user main menu controller*/
 		private userMainMenuController prevController;
+		/**GroupName is the name of the group the user requested to leave*/
 		private String GroupName=null;
 		private User user;
 		
+		/**constructor*/
 		public leavegroupcontroller (leavegroupGUI g , userMainMenuController lastCon, User userDetails){
 			
 			this.leaveGroupGui=g;
@@ -29,6 +30,8 @@ public class leavegroupcontroller extends AbstractTransfer{
 			leaveGroupGui.addSendToSystem(new ButtonSend());
 			
 		}
+		/*********************action listeners*******************/
+		/**button listener of cancel*/
 		private class ButtoncancelListener implements ActionListener {
 
 			@Override
@@ -43,7 +46,7 @@ public class leavegroupcontroller extends AbstractTransfer{
 			prevController.getusermainmenu().setVisible(true);
 		}
 		
-		
+		/**button listener of select group*/
 		public class SelectedGroupListener implements ActionListener
 		{
 			public void actionPerformed(ActionEvent e) {
@@ -52,7 +55,7 @@ public class leavegroupcontroller extends AbstractTransfer{
 				
 			}
 		}
-		
+		/**button listener of send*/
 		public class ButtonSend implements ActionListener
 		{
 			public void actionPerformed(ActionEvent e) {
