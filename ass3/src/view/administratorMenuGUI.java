@@ -62,6 +62,7 @@ public class administratorMenuGUI extends JFrame {
 	private String[] values;
 	private JButton deleteGroupButton=null;
 	private DefaultMutableTreeNode node=null;
+	private JButton btnSearch;
 	
 	public administratorMenuGUI(User user) {
 	
@@ -93,10 +94,15 @@ MainMenu.setBackground(new Color(102, 205, 170));
 				warningIcon.setIcon(new ImageIcon(userMainMenuGUI.class.getResource("/view/warning.gif")));
 				warningIcon.setBounds(27, 464, 30, 25);
 				warningIcon.setVisible(false);
+				
+				btnSearch = new JButton("search");
+				btnSearch.setFont(new Font("Tahoma", Font.BOLD, 13));
+				btnSearch.setBounds(346, 60, 97, 25);
+				MainMenu.add(btnSearch);
 				MainMenu.add(warningIcon);
 				
 				searchField = new JTextField();
-				searchField.setBounds(236, 62, 146, 20);
+				searchField.setBounds(110, 62, 146, 20);
 				MainMenu.add(searchField);
 				searchField.setColumns(10);
 				
@@ -104,7 +110,7 @@ MainMenu.setBackground(new Color(102, 205, 170));
 				
 				JLabel lblSearch = new JLabel("search");
 				lblSearch.setFont(new Font("Tahoma", Font.BOLD, 14));
-				lblSearch.setBounds(120, 62, 104, 17);
+				lblSearch.setBounds(27, 63, 104, 17);
 				MainMenu.add(lblSearch);
 				
 				btnCreateNewFolder = new JButton("create new folder");
@@ -138,7 +144,7 @@ MainMenu.setBackground(new Color(102, 205, 170));
 							node.add(new DefaultMutableTreeNode(""+user.getuserDirectories().get(i).getfiles().get(j).getFileName()));
 				
 						}
-					add(node);
+				add(node);
 					}
 				}
 			}
@@ -184,7 +190,9 @@ MainMenu.setBackground(new Color(102, 205, 170));
 		return MainMenu;
 		
 	}
-	
+	public void addsearchfiles(ActionListener l) {
+		btnSearch.addActionListener(l);
+	}
 	public void addDeletegroup(ActionListener l) {
 		deleteGroupButton.addActionListener(l);
 	}
@@ -204,6 +212,10 @@ MainMenu.setBackground(new Color(102, 205, 170));
 	
 	public void addlogout(ActionListener l) {
 		btnLogOut.addActionListener(l);
+	}
+	public String getTextField()
+	{
+		return searchField.getText();
 	}
 	/**close() closes the current window*/
 	public void close() {
@@ -231,6 +243,11 @@ MainMenu.setBackground(new Color(102, 205, 170));
 		lblwarningMessage.setVisible(true);	
 		
 	}
+	public void undisplayWarningMessage() {
+		warningIcon.setVisible(false);
+	lblwarningMessage.setVisible(false);
+	
+}
 	}
 
 

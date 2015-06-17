@@ -307,9 +307,11 @@ public class EchoServer extends AbstractServer
      stmt.executeUpdate(re);
      
    }
-    if(en.getTask().equals("search files"))
+    if(en.getTask().contains("search files"))
     {
- 
+    	boolean isadmin=false;
+    	if(en.getTask().equals("search files 2"))
+    		isadmin=true;
     	Envelope e;
     	file f; 
     	 String textField=(String)en.getObject();
@@ -320,21 +322,29 @@ public class EchoServer extends AbstractServer
     	 while(rs.next()==true)
     	 {
     		f=new file(rs.getString(1),rs.getString(2),rs.getInt(3),rs.getString(4));
-    		if(f.getFileName().contains(textField))
-    		//if(f.getFileName().indexOf(textField)!=-1)	
+    		if(f.getFileName().contains(textField))	
     			FinalFiles.add(f);
-    	
     	 }
-    	 if(FinalFiles.size()==0)
+    	 if(FinalFiles.size()==0 && isadmin==false)
     	 {
     		 e=new Envelope(null,"search file");
  		     client.sendToClient(e); 
     	 }
- 		  else
- 		  {
-    	 e=new Envelope(FinalFiles,"search file");
- 		 client.sendToClient(e);
-    	  }
+    	 if(FinalFiles.size()==0 && isadmin==true)
+    	 {
+    		 e=new Envelope(null,"search file 2");
+ 		     client.sendToClient(e); 
+    	 }
+    	 if(FinalFiles.size()!=0 && isadmin==true)
+ 		 {
+    		 e=new Envelope(FinalFiles,"search file 2");
+    		 client.sendToClient(e);
+    	 }
+    	 if(FinalFiles.size()!=0 && isadmin==false)
+ 		 {
+    		 e=new Envelope(FinalFiles,"search file");
+    		 client.sendToClient(e);
+    	 }
     }
        
     
