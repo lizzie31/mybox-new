@@ -102,6 +102,13 @@ public synchronized void handleMessageFromServer(Object message)
 	    	else
 	    	((userMainMenuController)(currController)).handleDBResultFile((ArrayList<file>)E.getObject());
 	    }
+	    if(E.getTask().endsWith("search file 2"))    
+	    {
+	    	if(E.getObject()==null)
+	    		((administratorMenuController)(currController)).handleDBResultFile(null);
+	    	else
+	    	((administratorMenuController)(currController)).handleDBResultFile((ArrayList<file>)E.getObject());
+	    }
 	    if(E.getTask().equals("all users"))    
 	    	((administratorMenuController)(currController)).handleDBResult2((ArrayList<User>)E.getObject()); 
 	    if(E.getTask().equals("all groups"))    
