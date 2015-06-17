@@ -36,6 +36,7 @@ public class createNewFileController extends AbstractTransfer{
 	/**f is a file*/
 	private file f = null;
 	private File f1 = null;
+	private file advancedFile = null;
 	private boolean flag = false;
 	private String ss;
 	private JFileChooser fileChooser;
@@ -130,6 +131,8 @@ public class createNewFileController extends AbstractTransfer{
 		{
 			
 			File oldFile= new File(ss);
+			
+				
 			byte[] bArr=null;;
 			try {
 				bArr = Files.readAllBytes(oldFile.toPath());
@@ -142,6 +145,11 @@ public class createNewFileController extends AbstractTransfer{
 			String name=createfile.getFileNameField().getText();
 			String temp ="D:/mybox/"+ name+ "." + type[1];
 			file upFile = new file(name,temp, selectedComboBox,myboxapp.clien.getCurrUser().getUserName());
+			if(advancedFile!=null)
+			{
+				upFile.setGroupsForRead(advancedFile.getGroupsForRead());
+				upFile.setGroupsForUpdate(advancedFile.getGroupsForUpdate());
+			}
 			upFile.setFileContent(bArr);
 			
 			Envelope ev = new Envelope(upFile,"Save file in server");
@@ -209,6 +217,14 @@ public class createNewFileController extends AbstractTransfer{
 
 	public void setFlag(boolean flag) {
 		this.flag = flag;
+	}
+
+	public file getAdvancedFile() {
+		return advancedFile;
+	}
+
+	public void setAdvancedFile(file advancedFile) {
+		this.advancedFile = advancedFile;
 	}
 	
 	

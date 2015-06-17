@@ -361,6 +361,20 @@ public class EchoServer extends AbstractServer
     		fos.close();
     		String re = "INSERT INTO test.files VALUES('"+f.getFileName()+"','"+f.getDirection()+"','"+f.getFilepermission()+"','"+f.getFileOwner()+"');";
        		stmt1.executeUpdate(re);
+       		int readCount = f.getGroupsForRead().size();
+       		int updateCount = f.getGroupsForUpdate().size();
+       		for(int i = 0; i < readCount; i++)
+       		{
+       			String read = "INSERT INTO test.file_read_groups VALUES('"+f.getFileName()+"','"+f.getGroupsForRead().get(i).getGroupName()+"');";
+       			stmt.executeUpdate(read);
+       		}
+       		
+       		for(int i = 0; i < updateCount; i++)
+       		{
+       			String update = "INSERT INTO test.file_update_groups VALUES('"+f.getFileName()+"','"+f.getGroupsForUpdate().get(i).getGroupName()+"');";
+       			stmt.executeUpdate(update);
+       		}
+       		 		
        		client.sendToClient("file saved successfully");
        		} 	
     }
