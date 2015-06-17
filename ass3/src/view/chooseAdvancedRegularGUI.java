@@ -53,9 +53,12 @@ public class chooseAdvancedRegularGUI extends JFrame{
 	private JButton btnCancel;
 	private JPanel panel;
 	private JLabel lblwarningMessage = null;
+	private JLabel lblChooseGroupsTo;
+	private JLabel lblChooseGroupsTo_1;
 	private User user;
 	/**@param l is the log in controller*/
 	private logInCon l=null;
+	private int flag;
 
 	/**
 	 *the users that the admin choose to be in the group.
@@ -65,17 +68,20 @@ public class chooseAdvancedRegularGUI extends JFrame{
 	/**
 	 *every check box will contain user in the system and the administrator will choose.
 	 */
-	private ArrayList<JCheckBox> groupslist=new ArrayList<>();
+	private ArrayList<JCheckBox> groupsRead=new ArrayList<>();
+	private ArrayList<JCheckBox> groupsUpdate=new ArrayList<>();
+	
 
 	/**
 	 * @param users the array of all users in DB.
 	 */
-	private ArrayList<interestGroups> groups;
-
+	private ArrayList<interestGroups> groupsR;
+	private ArrayList<interestGroups> groupsU;
 
 
 	public chooseAdvancedRegularGUI(User userDetails) {
-		this.groups=userDetails.getInterestGroupInDB();
+		this.groupsR=userDetails.getInterestGroupInDB();
+		this.groupsU=userDetails.getInterestGroupInDB();
 		getContentPane().setLayout(null);
 		initialize();
 		this.setVisible(true);
@@ -105,6 +111,31 @@ public class chooseAdvancedRegularGUI extends JFrame{
 		lblwarningMessage.setBounds(32, 300, 434, 50);
 		panel.add(lblwarningMessage);
 		lblwarningMessage.setVisible(false);
+		
+		lblChooseGroupsTo = new JLabel("Choose groups to read");
+		lblChooseGroupsTo.setBounds(36, 46, 132, 14);
+		panel.add(lblChooseGroupsTo);
+		
+		
+		lblChooseGroupsTo_1 = new JLabel("Choose groups to update ");
+		lblChooseGroupsTo_1.setBounds(272, 46, 154, 14);
+		panel.add(lblChooseGroupsTo_1);
+		if(groupsR.size() == 0)
+		{
+			lblChooseGroupsTo.setVisible(false);
+			lblChooseGroupsTo_1.setVisible(false);
+			btnAdd.setEnabled(false);
+			setWarningMessageVisibleTrue("You are NOT in any group, please contact with administrator");
+		}
+		
+		else
+		{
+			lblChooseGroupsTo.setVisible(true);
+			lblChooseGroupsTo_1.setVisible(true);
+			btnAdd.setEnabled(true);
+			undisplayWarningMessage();
+		}
+		
 	}
 		
 	private JPanel getCreatePanel(){
@@ -116,30 +147,55 @@ public class chooseAdvancedRegularGUI extends JFrame{
 			panel=new JPanel();
 			panel.setLayout(null);
 	
-			for(int i=0;i<groups.size();i++)
-			{
-	         groupslist.add(new JCheckBox(""+groups.get(i).getGroupName()));
-	         if((i+1)%5==0)
-	         {
-	        	 j=130;
-	        	 groupslist.get(i).setBounds(k+=100,j, 97, 23);
-	         }
+				for(int i=0;i<groupsR.size();i++)
+				{
+					groupsRead.add(new JCheckBox(""+groupsR.get(i).getGroupName()));
+					if((i+1)%5==0)
+					{
+						j=10;
+						groupsRead.get(i).setBounds(k+=100,j, 97, 23);
+					}
 	         
-	         else  groupslist.get(i).setBounds(k,j, 97, 23);
+					else  
+						groupsRead.get(i).setBounds(k,j, 97, 23);
 	 
-	         panel.add(groupslist.get(i));
-	         j+=50;
-			}
-	
-	}
+					panel.add(groupsRead.get(i));
+					j+=30;
+				}
+			
+				j=130;
+				k=280;
+				for(int i=0;i<groupsU.size();i++)
+				{
+					groupsUpdate.add(new JCheckBox(""+groupsU.get(i).getGroupName()));
+					if((i+1)%5==0)
+					{
+						j=10;
+						groupsUpdate.get(i).setBounds(k+=100,j, 97, 23);
+					}
+	         
+					else  
+						groupsUpdate.get(i).setBounds(k,j, 97, 23);
+	 
+					panel.add(groupsUpdate.get(i));
+					j+=30;
+				}
+			
+		}
 		return panel;	
 	}
 	
 
 	public void addchecklist(ActionListener l) {
-		for (int i=0;i<groupslist.size();i++)
-		groupslist.get(i).addActionListener(l);
+		for (int i=0;i<groupsRead.size();i++)
+		groupsRead.get(i).addActionListener(l);
 	}
+	
+	public void addchecklistUpdate(ActionListener l) {
+		for (int i=0;i<groupsUpdate.size();i++)
+		groupsUpdate.get(i).addActionListener(l);
+	}
+	
 	public void addcancel(ActionListener l) {
 		btnCancel.addActionListener(l);
 	}
@@ -196,12 +252,19 @@ public class chooseAdvancedRegularGUI extends JFrame{
  	JOptionPane.showMessageDialog(frame, "the group was added sucssefuly to DB :)");
  	}
 
-	public ArrayList<JCheckBox> getUserslist() {
-		return groupslist;
+	public ArrayList<JCheckBox> getGroupsReadList() {
+		return groupsRead;
 	}
 
-	public void setUserslist(ArrayList<JCheckBox> userslist) {
-		this.groupslist = userslist;
+	public void setGroupsReadList(ArrayList<JCheckBox> groupslist) {
+		this.groupsRead = groupslist;
 	}
- 	
+
+	public ArrayList<JCheckBox> getGroupsUpdateList() {
+		return groupsUpdate;
+	}
+
+	public void setGroupsUpdateList(ArrayList<JCheckBox> groupsUpdate) {
+		this.groupsUpdate = groupsUpdate;
+	}
 }
