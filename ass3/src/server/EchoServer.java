@@ -311,7 +311,7 @@ public class EchoServer extends AbstractServer
     {
  
     	Envelope e;
-    	file f;
+    	file f; 
     	 String textField=(String)en.getObject();
     	 ArrayList<file> FinalFiles=null;
     	String re="SELECT * FROM test.files";
