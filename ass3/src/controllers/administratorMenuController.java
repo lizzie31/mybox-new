@@ -12,7 +12,9 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import client.myboxapp;
+import controllers.deleteGroupController.SelectedGroupListener;
 import controllers.userMainMenuController.LogOutListener;
+import Model.Envelope;
 import Model.GroupsRequests;
 import Model.User;
 import Model.file;
@@ -23,10 +25,22 @@ public class administratorMenuController extends userMainMenuController {
 	 usersarr is array list of all the users */
 	
 	private administratorMenuGUI currgui2;
+	private interestGroups currgroup;
 	private ArrayList<User> usersarr;
 	private ArrayList<interestGroups> allinterestgroups;
 	private ArrayList<GroupsRequests> allrequests;
-	/***constractor***/
+	private ArrayList<file> allfiles;
+	private Envelope en=null;
+	private interestGroups grouptoedit=null;
+	/**the group that the admin choose to edit*/
+	private String GroupName=null;
+	/***constractor***
+	 * 
+	 * @param menu
+	 * @param lastCon
+	 * @param user
+	 * @param menu2
+	 */
 	public administratorMenuController (userMainMenuGUI menu,logInCon lastCon,User user,administratorMenuGUI menu2){
 		
 	super(menu,lastCon,user);
@@ -39,6 +53,27 @@ public class administratorMenuController extends userMainMenuController {
 	currgui2.addDeletegroup(new ButtondeleteGroupListener());
 	currgui2.addcreatenewfolder(new ButtoncreatenewfolderListener());
 	currgui2.addrequests(new ButtonrequestsListener());
+	currgui2.addSelectGroup(new SelectedGroupListener());
+	currgui2.addeditgroup(new ButtoneditGroupListener());
+	}
+	
+	private class ButtoneditGroupListener implements ActionListener {
+
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			buttoneditGroupprresed();
+		}
+		
+	}
+	private void buttoneditGroupprresed(){
+		
+		currgroup=new interestGroups(GroupName);
+		Envelope en=new Envelope(currgroup,"Show fils in group");
+		sendToServer(en);
+		myboxapp.clien.setCurrObj(this);
+	
+		
 	}
 
 	/**ButtondeleteGroupListener is a class that implements action listener and opens delete group window*/
@@ -55,6 +90,13 @@ public class administratorMenuController extends userMainMenuController {
 		CurrGui.close();
 		sendToServer("ShowAllGroups");
 		myboxapp.clien.setCurrObj(this);
+	}
+	public class SelectedGroupListener implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e) {
+			GroupName=(String)currgui2.getComboBox().getSelectedItem();
+
+		}
 	}
 	/**ButtoncreatenewfolderListener is a class that implements action listener and opens create new folder window*/
 	private class ButtoncreatenewfolderListener implements ActionListener {
@@ -97,6 +139,7 @@ private void buttonCreateGroup() {
 		CurrGui.close();
 		sendToServer("ShowAllUsers");
 		myboxapp.clien.setCurrObj(this);
+		
 	
 	}
 
@@ -129,9 +172,24 @@ public void handleDBResult2(Object message) {
 
 		}
 	}
+	if(message instanceof interestGroups)
+	{
 	
-	
+		grouptoedit=(interestGroups) message;
+		sendToServer("show all files");
+		myboxapp.clien.setCurrObj(this);
+		
+		
 	}
+}
+	public void getfiles(Object message)
+	{
+		allfiles=(ArrayList<file>) message;
+		EditGroupGUI EG=new EditGroupGUI(grouptoedit,allfiles);	
+		new EditGroupCon(EG,grouptoedit,this);
+	}
+	
+	
 	
 /**ButtoncreatenewfileListener is a class that implements action listener and opens create new file window*/
 private class ButtoncreatenewfileListener implements ActionListener {

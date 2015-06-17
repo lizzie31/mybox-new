@@ -43,6 +43,7 @@ public class userMainMenuController extends AbstractTransfer{
 	protected fileMenuGui fileMenu;
 	/**fileCon is file menu controller*/
     protected fileMenuCon fileCon;
+	
 	private Envelope en;
 	/**f is a specific file*/
 	private file f;
@@ -80,6 +81,7 @@ public class userMainMenuController extends AbstractTransfer{
 		LG.setVisible(true);	
 	
 	}
+
 	/**button listener of show groups*/
 	protected class ButtonshowgrouprListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {

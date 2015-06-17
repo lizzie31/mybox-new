@@ -43,7 +43,11 @@ public class createNewFileController extends AbstractTransfer{
 	protected User userDetails;
 	private int selectedComboBox;
 	
-	/**Constructor*/
+	/**Constructor
+	 * 
+	 * @param g
+	 * @param lastCon
+	 */
 	public createNewFileController (createNewFileGUI g , userMainMenuController lastCon){
 		
 		this.createfile=g;

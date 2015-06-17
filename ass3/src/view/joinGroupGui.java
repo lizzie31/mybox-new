@@ -62,7 +62,7 @@ public class joinGroupGui extends JFrame {
 	private void initialize() {
 		this.setBounds(400, 200,200, 100);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(500,200);
+		this.setSize(581,200);
 		this.setContentPane(getCreatePanel());
 		if(groups.size() > 0)
 		{
@@ -113,12 +113,12 @@ public class joinGroupGui extends JFrame {
 			
 			JLabel lblSelectTheGroup = new JLabel("select the group you want to join:");
 			lblSelectTheGroup.setFont(new Font("Arial Black", Font.PLAIN, 13));
-			lblSelectTheGroup.setBounds(10, 27, 274, 37);
+			lblSelectTheGroup.setBounds(20, 27, 274, 37);
 			panel.add(lblSelectTheGroup);
 			
 			JLabel label = new JLabel("");
 			label.setIcon(new ImageIcon(joinGroupGui.class.getResource("/view/lottle2.jpg")));
-			label.setBounds(0, 0, 494, 171);
+			label.setBounds(0, 0, 675, 171);
 			panel.add(label);
 		}
 		return panel;
@@ -146,6 +146,8 @@ public class joinGroupGui extends JFrame {
 	public JLabel getLblwarningMessage() {
 		if(lblwarningMessage == null){
 			lblwarningMessage = new JLabel("");
+			lblwarningMessage.setFont(new Font("Tahoma", Font.PLAIN, 10));
+			lblwarningMessage.setBounds(20, 126, 545, 45);
 			lblwarningMessage.setVisible(false);
 		}
 		return lblwarningMessage;
@@ -155,7 +157,7 @@ public class joinGroupGui extends JFrame {
 		lblwarningMessage.setText(st);
 		lblwarningMessage.setForeground(Color.RED);
 		lblwarningMessage.setFont(new Font("Arial Black", Font.PLAIN, 13));
-		lblwarningMessage.setBounds(33, 129, 226, 32);
+		lblwarningMessage.setBounds(43, 129, 276, 32);
 		lblwarningMessage.setVisible(true);	
 		
 	}
@@ -163,6 +165,11 @@ public class joinGroupGui extends JFrame {
  	public void undisplayWarningMessage() {
 		lblwarningMessage.setVisible(false);
 		
+	}
+	public void secssid_massege()
+	{
+		Component frame = null;
+		JOptionPane.showMessageDialog(frame, "your request was send to the system administrator!");
 	}
 	/**close() closes the current window*/
 	public void close() {

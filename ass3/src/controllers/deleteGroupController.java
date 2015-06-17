@@ -26,7 +26,11 @@ public class deleteGroupController extends AbstractTransfer {
 	private interestGroups groupToDel;
 	private deleteGroupController thiscon;
 	
-	/**constractor*/
+	/**constractor
+	 * 
+	 * @param group
+	 * @param lastCon
+	 */
 	public deleteGroupController(deleteGroupGUI group, administratorMenuController lastCon)
 	{
 		this.group=group;
