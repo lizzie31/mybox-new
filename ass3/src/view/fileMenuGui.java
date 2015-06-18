@@ -56,6 +56,7 @@ public class fileMenuGui extends JFrame {
 	private JButton btnRead=null;
 	private JButton btnSetContent=null;
 	private JButton btnpermission;
+	private JButton btnSetChrarcters;
 
 
 
@@ -68,14 +69,6 @@ public class fileMenuGui extends JFrame {
 		
 
 	}
-
-
-
-	/**
-
-	 * Initialize the contents of the frame.
-
-	 */
 
 	private void initialize() {
 		this.setBounds(400,200,300,200);
@@ -90,15 +83,16 @@ public class fileMenuGui extends JFrame {
 			panel=new JPanel();
 			panel.setBackground(SystemColor.inactiveCaption);
 			panel.setLayout(null);
+			this.setTitle("file menu");
 
 			btnRead = new JButton("open");
 			btnRead.setBounds(10, 56, 137, 23);
 			panel.add(btnRead);
 
 			
-			JButton btnUpdate = new JButton("set charecters");
-			btnUpdate.setBounds(10, 108, 137, 23);
-			panel.add(btnUpdate);
+			btnSetChrarcters = new JButton("set charecters");
+			btnSetChrarcters.setBounds(10, 108, 137, 23);
+			panel.add(btnSetChrarcters);
 
 			btndelete = new JButton("delete");
 			btndelete.setBounds(169, 56, 137, 23);
@@ -136,6 +130,10 @@ public class fileMenuGui extends JFrame {
 		this.setVisible(false);
 		dispose();
 
+	}
+
+	public void addsetCharacters(ActionListener l) {
+		btnSetChrarcters.addActionListener(l);
 	}
 
 	public void addpermission(ActionListener l) {

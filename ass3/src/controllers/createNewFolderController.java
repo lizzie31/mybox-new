@@ -25,7 +25,6 @@ public class createNewFolderController extends AbstractTransfer{
 		this.createfolder=g;
 		this.user=u;
 		prevController=lastCon;
-		//createfolder.addbtnCancel(new ButtonCancelListener());
 		createfolder.addbtnCancel(new ButtonCancelListener());
 		createfolder.addOk(new ButtonOKListener());
 	}

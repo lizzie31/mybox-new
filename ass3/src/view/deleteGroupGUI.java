@@ -38,6 +38,7 @@ public class deleteGroupGUI extends JFrame{
 	private JLabel warningIcon=null;
 	public deleteGroupGUI(ArrayList<interestGroups> allinterestgroups ) {
 		this.allinterestgroups=allinterestgroups;
+		getContentPane().setLayout(null);
 		initialize();
 		this.setVisible(true);
 	}
