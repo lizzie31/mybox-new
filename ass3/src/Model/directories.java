@@ -3,18 +3,18 @@ package Model;
 import java.util.ArrayList;
 
 /** this Class saves the files in users Directories, any directory has its own */
-public class directories extends AbstractModel{
+public class directories extends SystemItem{
 	
 	/**files in user directories*/
-	private ArrayList<file> filesInDirectory;
+	private ArrayList<SystemItem> ItemsInDirectory=null;
 	/**directory name*/
 	private String DirectoryName;
 	
 	/**@param filesInDirectory*/
 	/**@pram name*/
-	public directories(ArrayList<file> filesInDir,String name)
+	public directories(ArrayList<SystemItem> files,String name)
 	{
-		this.filesInDirectory=filesInDir;
+	  this.ItemsInDirectory=files;
 		this.DirectoryName=name;
 	}
 	
@@ -26,15 +26,15 @@ public class directories extends AbstractModel{
 	
 	/****************************************getters and setters*******************************************************/
 	
-	public ArrayList<file> getfiles()
+	public ArrayList<SystemItem> getfiles()
 	{
-		return this.filesInDirectory;
+		return this.ItemsInDirectory;
 	}
 	
 
-	public void setfiles(ArrayList<file> files)
+	public void setfiles(ArrayList<SystemItem> files)
 	{
-		this.filesInDirectory=files;
+		this.ItemsInDirectory=files;
 	}
 	
 	public String getDirectoryName()

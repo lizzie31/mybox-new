@@ -32,6 +32,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import Model.User;
+import Model.directories;
 import Model.file;
 import controllers.*;
 
@@ -62,6 +63,7 @@ public class administratorMenuGUI extends JFrame {
 	private String[] values;
 	private JButton deleteGroupButton=null;
 	private DefaultMutableTreeNode node=null;
+	private JTree tree=null;
 	
 	public administratorMenuGUI(User user) {
 	
@@ -86,8 +88,11 @@ public class administratorMenuGUI extends JFrame {
 	private JPanel getMainMenu(){
 		if(MainMenu==null)
 		{MainMenu=new JPanel();
-MainMenu.setBackground(new Color(102, 205, 170));
+        MainMenu.setBackground(new Color(102, 205, 170));
 		MainMenu.setLayout(null);
+		setJtree();
+		tree.setBounds(42, 133, 205, 218);
+		MainMenu.add(tree);
 				
 				warningIcon= new JLabel("");
 				warningIcon.setIcon(new ImageIcon(userMainMenuGUI.class.getResource("/view/warning.gif")));
@@ -126,25 +131,7 @@ MainMenu.setBackground(new Color(102, 205, 170));
 				btnCreateNewFile.setBackground(UIManager.getColor("SplitPane.background"));
 				MainMenu.add(btnCreateNewFile);
 
-		JTree tree = new JTree();
-		tree.setModel(new DefaultTreeModel(
-			new DefaultMutableTreeNode(""+user.getUserName()+"files") {
-				{
-					for(int i=0;i<user.getuserDirectories().size();i++)
-					{
-						node=new DefaultMutableTreeNode(""+user.getuserDirectories().get(i).getDirectoryName());
-						for(int j=0;j<user.getuserDirectories().get(i).getfiles().size();j++)
-						{
-							node.add(new DefaultMutableTreeNode(""+user.getuserDirectories().get(i).getfiles().get(j).getFileName()));
-				
-						}
-					add(node);
-					}
-				}
-			}
-		));
-		tree.setBounds(27, 124, 252, 192);
-		MainMenu.add(tree);
+			
 		
 		JLabel lblHelloSystemAdministrtor = new JLabel("hello system administrtor!!");
 		lblHelloSystemAdministrtor.setFont(new Font("Arial Black", Font.PLAIN, 14));
@@ -184,6 +171,72 @@ MainMenu.setBackground(new Color(102, 205, 170));
 		return MainMenu;
 		
 	}
+	
+	/**setJtree() sets the files and folders of the user*/
+	 public void setJtree()
+	 {
+					  
+		  DefaultMutableTreeNode root= new DefaultMutableTreeNode(""+user.getUserName()+"'s files") ;
+		  for(int i=0;i<user.getuserItems().size();i++)
+		  {
+			 if(user.getuserItems().get(i) instanceof directories)
+			 {
+			   root.add(adddirectorynode("from user",i,node,user));
+			 }
+			 else root.add(new DefaultMutableTreeNode(((file) ( user.getuserItems().get(i))).getFileName()));
+		  }
+			tree = new JTree(root);
+			tree.setBackground(new Color(173, 216, 230));
+	        tree.setFont(new Font("Arial Black", Font.PLAIN, 14));
+	 }
+
+					
+	 public DefaultMutableTreeNode adddirectorynode(String str,int i,DefaultMutableTreeNode node,Object type)
+	 {
+		 int num=i;
+		 directories dir=null;
+		 DefaultMutableTreeNode node1=null;
+		 if(str.equals("from user"))
+		 {
+			dir=((directories) user.getuserItems().get(num));
+		    node1=new DefaultMutableTreeNode(""+(dir.getDirectoryName()));
+		    if(dir.getfiles()!=null)
+		    {
+			 int arraysize=dir.getfiles().size();
+			 for(int j=0;j<arraysize;j++)
+			 {
+			   if(dir.getfiles().get(j) instanceof directories)
+				{
+				   node1.add(adddirectorynode("from dir",j,node1,(directories)dir.getfiles().get(j)));
+			    }
+			   else
+				 node1.add(new DefaultMutableTreeNode(((file)(dir.getfiles().get(j))).getFileName()));
+							
+			 }
+		    }
+		 }
+		else
+		 {
+			dir=(directories)(type);
+			node1=new DefaultMutableTreeNode(""+(dir.getDirectoryName()));
+			if(dir.getfiles()!=null)
+			{
+			  int arraysize=dir.getfiles().size();
+			  for(int j=0;j<arraysize;j++)
+			  {
+			    if(dir.getfiles().get(j) instanceof directories)
+				  {
+				    node1.add(adddirectorynode("from dir",j,node,dir));
+				   }
+			   else
+					      node1.add(new DefaultMutableTreeNode(((file)(dir.getfiles().get(j))).getFileName()));
+							
+			  }
+		    }
+				     
+		  }
+		 return (node1); 
+  }
 	
 	public void addDeletegroup(ActionListener l) {
 		deleteGroupButton.addActionListener(l);

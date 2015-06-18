@@ -27,6 +27,7 @@ import javax.swing.tree.TreePath;
 import client.myboxapp;
 import Model.Envelope;
 import Model.User;
+import Model.directories;
 import Model.file;
 import Model.interestGroups;
 
@@ -49,7 +50,9 @@ public class userMainMenuController extends AbstractTransfer{
 	/**filesarr is an array list of files*/
 	private ArrayList<file> filesarr;
 
-/**constructor*/
+/**constructor
+ * 
+ */
 	public userMainMenuController(userMainMenuGUI menu, logInCon lastCon,User user) {
 		this.CurrGui= menu;
 		prevController=lastCon;
@@ -108,26 +111,57 @@ public class userMainMenuController extends AbstractTransfer{
 	public class TreeSelection implements TreeSelectionListener{
 		public void valueChanged(TreeSelectionEvent e) {
 			file file=null;
+			directories dir=null;
 				    /**Returns the last path element of the selection.
 				    This method is useful only when the selection model allows a single selection.*/
-				    DefaultMutableTreeNode node = (DefaultMutableTreeNode) CurrGui.gettree().getLastSelectedPathComponent();
+				   DefaultMutableTreeNode node = (DefaultMutableTreeNode) CurrGui.gettree().getLastSelectedPathComponent();
 				    Object nodeInfo = node.getUserObject();
 				    String str = (String) nodeInfo;;
-			    for(int i=0;i<userDetails.getuserDirectories().size();i++)
+			    for(int i=0;i<userDetails.getuserItems().size();i++)
 				{
-				   for(int j=0;j<userDetails.getuserDirectories().get(i).getfiles().size();j++)
-					if(userDetails.getuserDirectories().get(i).getfiles().get(j).getFileName().equals(str))
-					{
-						file=userDetails.getuserDirectories().get(i).getfiles().get(j);
+			      if(userDetails.getuserItems().get(i) instanceof directories)
+			       {
+			    	  dir=((directories)(userDetails.getuserItems().get(i)));
+			    	  findInTree(dir,str);
+			       }
+			      else
+			       {
+					   if(((file)(userDetails.getuserItems().get(i))).getFileName().equals(str))
+				    	{
+						file=(file)dir.getfiles().get(i);
 				        CurrGui.close();			
 				        fileMenu=new fileMenuGui(userDetails,str);
 				        fileCon=new fileMenuCon(fileMenu,getCon(),userDetails,file);
-					}
-				}
+					    }
+				    }
+		}
+	}
 			 
-		   }
+		   
+
+		private void findInTree(directories dir,String Str)
+		{
+		 String filename=Str;	
+		 for(int i=0;i<dir.getfiles().size();i++)
+			{
+			 if(dir.getfiles().get(i) instanceof directories)
+		    	{
+				  findInTree((directories)dir.getfiles().get(i),filename);
+		    	}
+			 else if(((file)(dir.getfiles().get(i))).getFileName().equals(filename))
+			 {
+				    file file=(file)dir.getfiles().get(i);
+			        CurrGui.close();			
+			        fileMenu=new fileMenuGui(userDetails,filename);
+			        fileCon=new fileMenuCon(fileMenu,getCon(),userDetails,file);
+			 }
+			}
+			    	
+		}
+
 		   
 		}
+		
 		
 	/**button listener of search file*/
 	protected class addsearchfilesListener implements ActionListener {
@@ -247,4 +281,5 @@ public logInCon getPrevController() {
 	}
 
 }
+
 

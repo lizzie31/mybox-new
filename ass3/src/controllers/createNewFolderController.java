@@ -55,7 +55,7 @@ public class createNewFolderController extends AbstractTransfer{
 	private void buttonOKPressed() {
 		String foldername=createfolder.getTextField();
 		directories dir=new directories(foldername);
-		user.getuserDirectories().add(dir);
+		//user.getuserDirectories().add(dir);
 		Envelope en=new Envelope(user,"add directory");
 		sendToServer(en);
 		createfolder.close();

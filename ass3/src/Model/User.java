@@ -20,7 +20,7 @@ public class User extends AbstractModel {
 	/**interest groups in user DB*/
 	private  ArrayList<interestGroups> interestGroupInDB=null;
 	/** user directories*/
-	private ArrayList<directories> userDirectories;
+	private ArrayList<SystemItem> userItems;
 	private String email = null;
 
 /**
@@ -34,13 +34,13 @@ public class User extends AbstractModel {
  * @param dir
  * 
  */
-	public User(String usreName, String upassword,String email,int status,ArrayList<directories> dir, ArrayList<interestGroups> interestGroup)
+	public User(String usreName, String upassword,String email,int status,ArrayList<SystemItem> Item, ArrayList<interestGroups> interestGroup)
 	{
 		this.userName = usreName;
     	this.upassword =upassword;
     	this.status = status;
 		this.email = email;
-		this.userDirectories=dir;
+		this.userItems=Item;
 		this.interestGroupInDB=interestGroup;
 	}
 	
@@ -62,12 +62,12 @@ public void setInterestGroupInDB(ArrayList<interestGroups> interestGroupInDB) {
 }
 
 
-public void setuserDirectories(ArrayList<directories> dir) {
-	this.userDirectories = dir;
+public void setuserItems(ArrayList<SystemItem> Items) {
+	this.userItems =Items ;
 }
 
-public ArrayList<directories> getuserDirectories() {
-	return userDirectories;
+public ArrayList<SystemItem> getuserItems() {
+	return userItems;
 }
 
 /**

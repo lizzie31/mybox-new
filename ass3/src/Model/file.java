@@ -1,6 +1,6 @@
 package Model;
 
-public class file extends AbstractModel{
+public class file extends SystemItem{
 	private String fileName;
 	private String Direction;
 	private int Permission;

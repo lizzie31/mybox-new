@@ -7,12 +7,17 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 
+import javax.swing.tree.MutableTreeNode;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 
 
 
+
+
+
+import java.awt.Component;
 import java.awt.Font;
 
 import javax.swing.JPanel;
@@ -22,6 +27,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import Model.User;
+import Model.directories;
 import Model.file;
 import controllers.*;
 
@@ -246,27 +252,71 @@ public class userMainMenuGUI extends JFrame {
 /**setJtree() sets the files and folders of the user*/
 	public void setJtree()
 	{
-	  tree = new JTree();
-	  tree.setBackground(new Color(173, 216, 230));
-	  tree.setFont(new Font("Arial Black", Font.PLAIN, 14));
-	  tree.setModel(new DefaultTreeModel(
-	    new DefaultMutableTreeNode(""+user.getUserName()+"'s files") {
-		{
-		  for(int i=0;i<user.getuserDirectories().size();i++)
+	  
+	  DefaultMutableTreeNode root= new DefaultMutableTreeNode(""+user.getUserName()+"'s files") ;
+		  for(int i=0;i<user.getuserItems().size();i++)
 			{
-			  node=new DefaultMutableTreeNode(""+user.getuserDirectories().get(i).getDirectoryName());
-		      for(int j=0;j<user.getuserDirectories().get(i).getfiles().size();j++)
-				{
-			      node.add(new DefaultMutableTreeNode(user.getuserDirectories().get(i).getfiles().get(j).getFileName()));
-					
-				 }
-		      
-			     add(node);
+			  if(user.getuserItems().get(i) instanceof directories)
+			  {
+			     root.add(adddirectorynode("from user",i,node,user));
+			  }
+			  else root.add(new DefaultMutableTreeNode(((file) ( user.getuserItems().get(i))).getFileName()));
 			}
-		 }
-	  }));
+		  tree = new JTree(root);
+		  tree.setBackground(new Color(173, 216, 230));
+		  tree.setFont(new Font("Arial Black", Font.PLAIN, 14));
 	}
+
 	
+ public DefaultMutableTreeNode adddirectorynode(String str,int i,DefaultMutableTreeNode node,Object type)
+ {
+	 int num=i;
+	 directories dir=null;
+	 DefaultMutableTreeNode node1=null;
+	 if(str.equals("from user"))
+	 {
+	 dir=((directories) user.getuserItems().get(num));
+	  node1=new DefaultMutableTreeNode(""+(dir.getDirectoryName()));
+	 if(dir.getfiles()!=null){
+	 int arraysize=dir.getfiles().size();
+     for(int j=0;j<arraysize;j++)
+		{
+    	  if(dir.getfiles().get(j) instanceof directories)
+    	  {
+    		 node1.add(adddirectorynode("from dir",j,node1,(directories)dir.getfiles().get(j)));
+    	  }
+    	  else
+	      node1.add(new DefaultMutableTreeNode(((file)(dir.getfiles().get(j))).getFileName()));
+			
+		 }
+	   }
+	 }
+	 else
+	 {
+     dir=(directories)(type);
+	 node1=new DefaultMutableTreeNode(""+(dir.getDirectoryName()));
+	 if(dir.getfiles()!=null)
+	 {
+	 int arraysize=dir.getfiles().size();
+     for(int j=0;j<arraysize;j++)
+		{
+    	  if(dir.getfiles().get(j) instanceof directories)
+    	  {
+    		  node1.add(adddirectorynode("from dir",j,node,dir));
+    	  }
+    	  else
+	      node1.add(new DefaultMutableTreeNode(((file)(dir.getfiles().get(j))).getFileName()));
+			
+		 }
+	 }
+     
+	    }
+	 return (node1); 
+	 
+	 
+}
+	    
+      
 
 /**getLblwarningMessage() returns the warning message*/
 public JLabel getLblwarningMessage() {

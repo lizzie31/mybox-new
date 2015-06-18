@@ -22,6 +22,7 @@ import controllers.forgetPassCon;
 import controllers.logInCon;
 import Model.Envelope;
 import Model.GroupsRequests;
+import Model.SystemItem;
 import Model.User;
 import Model.directories;
 import Model.file;
@@ -98,14 +99,12 @@ public class EchoServer extends AbstractServer
 	 if((en.getTask()).equals("login"))  //search Login
 	  {
 		  logInMod showfiles=(logInMod)en.getObject();
-		  file f;
 		  String username;
 		  String pass;
 		  String mail;
 		  int status;
-		  ArrayList<directories> userDirectories=new ArrayList<>();
-		  ArrayList<file> files;
-		  directories directory;
+		  ArrayList<SystemItem> userItems=new ArrayList<>();
+		  ArrayList<directories> Items=new ArrayList<>();
 		  String re = "SELECT * FROM users WHERE users.username= '"+(showfiles.getUserName()+"' AND users.password='"+showfiles.getPassword()+"'");
 		  rs = stmt.executeQuery(re);
 
@@ -116,27 +115,21 @@ public class EchoServer extends AbstractServer
 			    pass=rs.getString(2);
 			    mail=rs.getString(3);
 			    status=rs.getInt(4);
-			    ArrayList<String> dirname=new ArrayList<>();
+			    ArrayList<String> Itemname=new ArrayList<>();
 			    re = "SELECT DISTINCT directory FROM test.user_and_dir WHERE user_and_dir.username='"+(showfiles.getUserName()+"'");
 				rs1 = stmt.executeQuery(re);
 				while(rs1.next())
 				 {
-					dirname.add(rs1.getString(1));
+					Itemname.add(rs1.getString(1));
 				 }
 				
-				for(int i=0;i<dirname.size();i++)
+				for(int i=0;i<Itemname.size();i++)
 				{
-					re=("SELECT f.filename,f.direction,f.permission,f.fileowner FROM userdirectories as u,files as f WHERE f.filename=u.filename AND u.directory= '"+dirname.get(i)+"' AND u.username='"+username+"'");
-					rs1=stmt.executeQuery(re);
-					files=new ArrayList<>();
-					while(rs1.next()==true)
-					 {
-						 f=new file(rs1.getString(1),rs1.getString(2),rs1.getInt(3),rs1.getString(4));
-						 files.add(f);
-					 }
-					 
-					 directory=new directories(files,dirname.get(i));
-					 userDirectories.add(directory);
+					directories d=null;
+					d=setthetree(Itemname.get(i),username,stmt);
+					userItems.add(d);
+					
+
 				}
 				interestGroups s= null;
 		    	ArrayList<interestGroups> interestGroup=new ArrayList<>();
@@ -148,7 +141,7 @@ public class EchoServer extends AbstractServer
 		    	  interestGroup.add(s);
 		    	}
 				
-	       	 user = new User(username,pass,mail,status,userDirectories,interestGroup);
+	       	 user = new User(username,pass,mail,status,userItems,interestGroup);
 	    	 en=new Envelope(user,"log in handle");
 	    	 client.sendToClient(en);
 		  }
@@ -302,7 +295,7 @@ public class EchoServer extends AbstractServer
    if(en.getTask().equals("add directory"))
    {
      User user1=(User)en.getObject();
-     directories dir=user1.getuserDirectories().get(user1.getuserDirectories().size()-1);
+     directories dir=(directories)user1.getuserItems().get(user1.getuserItems().size()-1);
      String re=("INSERT INTO test.user_and_dir VALUES('"+user1.getUsreName()+"','"+dir.getDirectoryName()+"');");
      stmt.executeUpdate(re);
      
@@ -462,7 +455,63 @@ public class EchoServer extends AbstractServer
 	
 }
 
-  
+ private directories setthetree(String ItemName, String username,Statement stmt) throws SQLException
+ {
+	    String Itemname=ItemName;
+	    String UserName=username; 
+	    file f;
+	    directories d=null;
+		ArrayList<file> files=new ArrayList<>();
+		ArrayList<directories> dir=new ArrayList<>();
+		ArrayList<SystemItem> items = new ArrayList<>();
+		String re=("SELECT f.filename,f.direction,f.permission,f.fileowner FROM userdirectories as u,files as f WHERE f.filename=u.Itemname AND u.directory= '"+Itemname+"' AND u.username='"+UserName+"'");
+		rs=stmt.executeQuery(re);
+		while(rs.next()==true)
+		 {
+			 f=new file(rs.getString(1),rs.getString(2),rs.getInt(3),rs.getString(4));
+			 files.add(f);
+		 }
+		re=("SELECT u.Itemname FROM userdirectories as u,files as f WHERE f.filename=u.Itemname AND u.directory= '"+Itemname+"' AND u.username='"+UserName+"'");
+		String re2=("select Itemname from userdirectories AS u Where u.directory= '"+Itemname+"' AND u.username='"+username+"' AND Itemname NOT IN ("+re+")" );
+		rs1=stmt.executeQuery(re2);
+		while(rs1.next())
+		{
+			String str=rs1.getString(1);
+			directories dr=setthetree(str,UserName,stmt);
+			dir.add(dr);
+					
+		}
+		if(files.size()!=0)	
+		{
+			SystemItem si;
+			for(int i=0;i<files.size();i++)
+			{
+				si=(SystemItem)files.get(i);
+				items.add(si);
+			}
+				
+		}
+		
+		if(dir.size()!=0)
+		{
+			SystemItem si;
+			for(int i=0;i<dir.size();i++)
+			{
+				si=(SystemItem)dir.get(i);
+				items.add(si);
+			}
+				
+		}
+			
+		
+		if(files.size()==0&&dir.size()==0)
+			d=new directories(Itemname);
+		else d=new directories(items,Itemname);
+		
+			return d;
+			
+			
+ }
 
   
   public static ArrayList<String> Select(Connection con1, String str, String table,String where,ConnectionToClient client)

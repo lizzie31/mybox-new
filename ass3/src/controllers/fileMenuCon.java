@@ -38,7 +38,13 @@ public class fileMenuCon extends AbstractTransfer{
 	/**allFiles is an arrayList of all the files in the DB*/
 	private ArrayList<file> allFiles=null;
 	
-	/**constructor*/
+	/**constructor
+	 * 
+	 * @param menu
+	 * @param lastCon
+	 * @param user
+	 * @param file
+	 */
 	public fileMenuCon(fileMenuGui menu,userMainMenuController  lastCon,User user, file file) {
 		this.user=user;
 		this.CurrGui=menu;
