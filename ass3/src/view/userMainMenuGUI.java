@@ -147,7 +147,7 @@ public class userMainMenuGUI extends JFrame {
 		tree.setBounds(42, 133, 205, 218);
 		MainMenu.add(tree);
 		
-		btnleaveButton = new JButton("Leave group"");
+		btnleaveButton = new JButton("Leave group");
 		btnleaveButton.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnleaveButton.setBounds(277, 309, 138, 33);
 		MainMenu.add(btnleaveButton);

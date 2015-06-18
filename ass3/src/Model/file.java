@@ -1,12 +1,14 @@
 package Model;
 
+import java.util.ArrayList;
+
 public class file extends SystemItem{
 	private String fileName;
 	private String Direction;
 	private int Permission;
 	private String FileOwner;
 	private byte[] fileContent;
-    	private ArrayList<interestGroups> groupsForRead = new ArrayList<>();
+    private ArrayList<interestGroups> groupsForRead = new ArrayList<>();
 	private ArrayList<interestGroups> groupsForUpdate = new ArrayList<>();
 	public file(String name)
 	{
