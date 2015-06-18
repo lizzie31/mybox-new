@@ -13,6 +13,7 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -22,7 +23,9 @@ import controllers.logInCon;
 import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
+
 import javax.swing.JPasswordField;
+import javax.swing.SwingConstants;
 
 public class logInGui extends JFrame{
 
@@ -56,6 +59,7 @@ public class logInGui extends JFrame{
 	private void initialize() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(400, 200, 300, 300);
+		
 		this.setSize(500, 300);
 		this.setContentPane(getFirstPanel());
 		this.setTitle("myBox/login");
@@ -73,9 +77,10 @@ public class logInGui extends JFrame{
 	 }
     /**getlblname() returns the user name lable*/  
      public JLabel getlblname(){
-        lblName = new JLabel("user name");
-        lblName.setFont(new Font("Arial Black", Font.PLAIN, 11));
-		lblName.setBounds(90, 23, 79, 14);
+        lblName = new JLabel("Username :");
+        lblName.setHorizontalAlignment(SwingConstants.CENTER);
+        lblName.setFont(new Font("Arial Black", Font.PLAIN, 12));
+		lblName.setBounds(90, 44, 87, 18);
 		
 		return lblName;
      }
@@ -83,7 +88,7 @@ public class logInGui extends JFrame{
      /**gettextfield() returns the user name text field*/
      public  JTextField gettextfield(){
     	 userNameField = new JTextField();
-    	 userNameField.setBounds(246, 20, 86, 20);
+    	 userNameField.setBounds(217, 42, 86, 20);
     	 userNameField.setColumns(10);
    	   
 	   return userNameField;
@@ -91,7 +96,8 @@ public class logInGui extends JFrame{
    
      /**getbtnLogin() returns log in button*/
      public JButton getbtnLogin(){
-		btnLogin = new JButton("LogIn");
+		btnLogin = new JButton("Login!");
+		btnLogin.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnLogin.setBackground(SystemColor.menu);
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -103,7 +109,8 @@ public class logInGui extends JFrame{
      }
      /**getbtnfrgtPass() returns the forget password button*/
      public JButton getbtnfrgtPass(){
-		btnfrgtPass = new JButton("forgot Password");
+		btnfrgtPass = new JButton("Forgot Password");
+		btnfrgtPass.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnfrgtPass.setBackground(SystemColor.menu);
 		btnfrgtPass.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -137,13 +144,15 @@ public class logInGui extends JFrame{
 			
 			passwordField = new JPasswordField();
 			passwordField.setToolTipText("");
-			passwordField.setBounds(246, 58, 86, 20);
+			passwordField.setBounds(217, 73, 86, 20);
 			FirstPanel.add(passwordField);
 			
-			JLabel password = new JLabel("password");
-			password.setFont(new Font("Arial Black", Font.PLAIN, 11));
-			password.setBounds(90, 54, 69, 27);
+			JLabel password = new JLabel("Password :");
+			password.setHorizontalAlignment(SwingConstants.CENTER);
+			password.setFont(new Font("Arial Black", Font.PLAIN, 12));
+			password.setBounds(90, 73, 87, 27);
 			FirstPanel.add(password);
+			
 		}
 		return FirstPanel; 
 		
@@ -151,7 +160,8 @@ public class logInGui extends JFrame{
  	/**getLblwarningMessage() returns a label with a warning message that user name of password is in correct*/
 	public JLabel getLblwarningMessage() {
 		if(lblwarningMessage == null){
-			lblwarningMessage = new JLabel("user name or password is wrong");
+			lblwarningMessage = new JLabel("The username or password is wrong!");
+			lblwarningMessage.setHorizontalAlignment(SwingConstants.CENTER);
 			lblwarningMessage.setForeground(new Color(255, 0, 0));
 			lblwarningMessage.setBounds(10, 165, 200, 30);
 			lblwarningMessage.setVisible(false);
