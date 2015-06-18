@@ -9,7 +9,10 @@ public class directories extends SystemItem{
 	private ArrayList<SystemItem> ItemsInDirectory=null;
 	/**directory name*/
 	private String DirectoryName;
-	
+	private directories parent=null;
+	private boolean rootFlag=false;
+	private String username;
+
 	/**@param filesInDirectory*/
 	/**@pram name*/
 	public directories(ArrayList<SystemItem> files,String name)
@@ -19,10 +22,6 @@ public class directories extends SystemItem{
 	}
 	
 	
-	public directories(String name)
-	{
-		this.DirectoryName=name;
-	}
 	
 	/****************************************getters and setters*******************************************************/
 	
@@ -46,6 +45,48 @@ public class directories extends SystemItem{
 	{
 		this.DirectoryName=name;
 	}
+
+
+	
+	public directories(String name)
+	{
+		this.DirectoryName=name;
+	}
+	
+	public directories getParent() {
+		return parent;
+	}
+
+
+
+	public void setParent(directories parent) {
+		this.parent = parent;
+	}
+
+
+
+	public boolean getRootFlag() {
+		return rootFlag;
+	}
+
+
+
+	public void setRootFlag(boolean rootFlag) {
+		this.rootFlag = rootFlag;
+	}
+
+
+
+	public String getUsername() {
+		return username;
+	}
+
+
+
+	public void setUsername(String string) {
+		this.username = string;
+	}
+	
 	
 
 }

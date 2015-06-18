@@ -1,6 +1,5 @@
 package Model;
 
-import java.awt.Component;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -20,7 +19,7 @@ public class User extends AbstractModel {
 	/**interest groups in user DB*/
 	private  ArrayList<interestGroups> interestGroupInDB=null;
 	/** user directories*/
-	private ArrayList<SystemItem> userItems;
+	private directories userItems;
 	private String email = null;
 
 /**
@@ -34,7 +33,7 @@ public class User extends AbstractModel {
  * @param dir
  * 
  */
-	public User(String usreName, String upassword,String email,int status,ArrayList<SystemItem> Item, ArrayList<interestGroups> interestGroup)
+	public User(String usreName, String upassword,String email,int status,directories Item, ArrayList<interestGroups> interestGroup)
 	{
 		this.userName = usreName;
     	this.upassword =upassword;
@@ -62,11 +61,11 @@ public void setInterestGroupInDB(ArrayList<interestGroups> interestGroupInDB) {
 }
 
 
-public void setuserItems(ArrayList<SystemItem> Items) {
+public void setuserItems(directories Items) {
 	this.userItems =Items ;
 }
 
-public ArrayList<SystemItem> getuserItems() {
+public directories getuserItems() {
 	return userItems;
 }
 
@@ -133,6 +132,7 @@ public ArrayList<SystemItem> getuserItems() {
 		public void setStatus(int status) {
 			this.status = status;
 		}
+
 
 		
 

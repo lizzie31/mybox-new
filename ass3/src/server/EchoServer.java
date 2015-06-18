@@ -1,3 +1,10 @@
+
+
+
+
+
+
+
 package server;
 // This file contains material supporting section 3.7 of the textbook:
 // "Object Oriented Software Engineering" and is issued under the open-source
@@ -104,7 +111,7 @@ public class EchoServer extends AbstractServer
 		  String mail;
 		  int status;
 		  ArrayList<SystemItem> userItems=new ArrayList<>();
-		  ArrayList<directories> Items=new ArrayList<>();
+		  directories Items=new directories(""+showfiles.getUserName()+"'s files");
 		  String re = "SELECT * FROM users WHERE users.username= '"+(showfiles.getUserName()+"' AND users.password='"+showfiles.getPassword()+"'");
 		  rs = stmt.executeQuery(re);
 
@@ -131,6 +138,7 @@ public class EchoServer extends AbstractServer
 					
 
 				}
+				Items.setfiles(userItems);
 				interestGroups s= null;
 		    	ArrayList<interestGroups> interestGroup=new ArrayList<>();
 		    	re="SELECT * FROM test.userinterestgroups WHERE userinterestgroups.username= '"+username +"'";
@@ -141,7 +149,7 @@ public class EchoServer extends AbstractServer
 		    	  interestGroup.add(s);
 		    	}
 				
-	       	 user = new User(username,pass,mail,status,userItems,interestGroup);
+	       	 user = new User(username,pass,mail,status,Items,interestGroup);
 	    	 en=new Envelope(user,"log in handle");
 	    	 client.sendToClient(en);
 		  }
@@ -294,10 +302,17 @@ public class EchoServer extends AbstractServer
    }
    if(en.getTask().equals("add directory"))
    {
-     User user1=(User)en.getObject();
-     directories dir=(directories)user1.getuserItems().get(user1.getuserItems().size()-1);
-     String re=("INSERT INTO test.user_and_dir VALUES('"+user1.getUsreName()+"','"+dir.getDirectoryName()+"');");
+     directories dir=(directories)en.getObject();
+     if(dir.getParent().getRootFlag()==true)
+     {
+     String re=("INSERT INTO test.user_and_dir VALUES('"+dir.getUsername()+"','"+dir.getDirectoryName()+"');");
      stmt.executeUpdate(re);
+     }
+     else
+     {
+    	 String re=("INSERT INTO test.userdirectories VALUES('"+dir.getUsername()+"','"+dir.getParent().getDirectoryName()+"','"+dir.getDirectoryName()+"')");
+    	 stmt.executeUpdate(re);
+     }
      
    }
     if(en.getTask().contains("search files"))

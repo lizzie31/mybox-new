@@ -2,17 +2,27 @@ package controllers;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
+import javax.swing.tree.DefaultMutableTreeNode;
+
+import controllers.userMainMenuController.TreeSelection;
 import Model.Envelope;
 import Model.User;
 import Model.directories;
+import Model.file;
 import view.*;
 
 public class createNewFolderController extends AbstractTransfer{
+	
+
 	/**createfolder is create new folder window*/
 	private createNewFolderGUI createfolder=null;
 	/**prevController is user menu controller*/
-	private userMainMenuController prevController;
+	private userMainMenuController prevController=null;
 	private User user=null;
+	private directories parent=null;
+	private String str=null;
 	
 	/**Constructor
 	 * 
@@ -20,13 +30,14 @@ public class createNewFolderController extends AbstractTransfer{
 	 * @param lastCon
 	 * @param u
 	 */
-	public createNewFolderController (createNewFolderGUI g , userMainMenuController lastCon,User u){
+	public createNewFolderController (createNewFolderGUI g ,userMainMenuController lastCon,User u){
 		
 		this.createfolder=g;
 		this.user=u;
-		prevController=lastCon;
+		this.prevController=lastCon;
 		createfolder.addbtnCancel(new ButtonCancelListener());
 		createfolder.addOk(new ButtonOKListener());
+		createfolder.addtreeSelectionListener(new TreeSelection());
 	}
 
 	/**ButtoncancelListener is a class that implements action listener and opens user main menu window*/
@@ -49,18 +60,71 @@ public class createNewFolderController extends AbstractTransfer{
 			buttonOKPressed();
 			
 		}
-		
 	}
-	
 	private void buttonOKPressed() {
 		String foldername=createfolder.getTextField();
+		if(foldername.equals(""))
+			createfolder.setWarningMessageVisibleTrue("please enter the directory name!!");
+		else if(str==null)
+			createfolder.setWarningMessageVisibleTrue("please select the location!!");
+		else{
 		directories dir=new directories(foldername);
-		//user.getuserDirectories().add(dir);
-		Envelope en=new Envelope(user,"add directory");
+		dir.setParent(parent);
+		parent.getfiles().add(dir);
+		dir.setUsername(user.getUsreName());
+		Envelope en=new Envelope(dir,"add directory");
 		sendToServer(en);
 		createfolder.close();
-		prevController.getusermainmenu().dispose();
+		prevController.getusermainmenu().setVisible(true);
+		}
 		
 	}
+		
+		/**button listener of the tree
+		 * @param file is a specific file*/
+		public class TreeSelection implements TreeSelectionListener{
+			public void valueChanged(TreeSelectionEvent e) {
+			     /**Returns the last path element of the selection.
+			    This method is useful only when the selection model allows a single selection.*/
+				DefaultMutableTreeNode node = (DefaultMutableTreeNode) createfolder.gettree().getLastSelectedPathComponent();
+				Object nodeInfo = node.getUserObject();
+				str = (String) nodeInfo;;
+			    Object rootInfo = createfolder.getRoot().getUserObject();
+			    String rootname = (String) rootInfo;
+			    if(rootname.equals(str))
+				{
+			      parent=user.getuserItems();
+				  parent.setRootFlag(true);
+			    }
+			   else
+			     findInTree(user.getuserItems(),str) ;
+				  
+				      
+			}
+			}
+		
+		
+	private void findInTree(directories dire,String Str)
+	{
+	  int i=0;
+	  String dirname=Str;
+	  directories dir=dire;
+	  if(dir.getDirectoryName().equals(dirname))
+			 parent=dir;
+		 else{
+		 for(i=0;i<dir.getfiles().size();i++)
+			{
+			 if(dir.getfiles().get(i) instanceof directories)
+			 {
+				  dir=((directories)(dir.getfiles().get(i)));
+			      findInTree(dir,dirname);
+			 }
+		    }
+			 }
+		 
+	  return;
+	}
+
 }
+
 

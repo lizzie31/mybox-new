@@ -93,7 +93,7 @@ public class administratorMenuController extends userMainMenuController {
 	}
 private void buttonCreatefolder() {
 	
-		createNewFolderGUI R= new createNewFolderGUI();
+		createNewFolderGUI R= new createNewFolderGUI(u);
 		new createNewFolderController(R,this,u);
 		R.setVisible(true);
 

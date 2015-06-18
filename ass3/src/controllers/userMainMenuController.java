@@ -117,16 +117,16 @@ public class userMainMenuController extends AbstractTransfer{
 				   DefaultMutableTreeNode node = (DefaultMutableTreeNode) CurrGui.gettree().getLastSelectedPathComponent();
 				    Object nodeInfo = node.getUserObject();
 				    String str = (String) nodeInfo;;
-			    for(int i=0;i<userDetails.getuserItems().size();i++)
+			    for(int i=0;i<userDetails.getuserItems().getfiles().size();i++)
 				{
-			      if(userDetails.getuserItems().get(i) instanceof directories)
+			      if(userDetails.getuserItems().getfiles().get(i) instanceof directories)
 			       {
-			    	  dir=((directories)(userDetails.getuserItems().get(i)));
+			    	  dir=((directories)(userDetails.getuserItems().getfiles().get(i)));
 			    	  findInTree(dir,str);
 			       }
 			      else
 			       {
-					   if(((file)(userDetails.getuserItems().get(i))).getFileName().equals(str))
+					   if(((file)(userDetails.getuserItems().getfiles().get(i))).getFileName().equals(str))
 				    	{
 						file=(file)dir.getfiles().get(i);
 				        CurrGui.close();			
@@ -224,7 +224,7 @@ public class userMainMenuController extends AbstractTransfer{
 	private void buttoncreatenewfolderPressed() {
 		CurrGui.undisplayWarningMessage();
 		CurrGui.close();
-		createNewFolderGUI CNFOG=new createNewFolderGUI ();
+		createNewFolderGUI CNFOG=new createNewFolderGUI (userDetails);
 		new createNewFolderController(CNFOG,this,userDetails);
 	    CNFOG.setVisible(true);
 	}

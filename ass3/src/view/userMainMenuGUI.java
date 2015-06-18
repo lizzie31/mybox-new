@@ -103,7 +103,6 @@ public class userMainMenuGUI extends JFrame {
 		MainMenu=new JPanel();
         MainMenu.setBackground(new Color(135, 206, 235));
 		MainMenu.setLayout(null);
-		setJtree();
         MainMenu.add(getLblwarningMessage());
         MainMenu.add(getwarningIcon());   
         MainMenu.add(getbtnSearch());  
@@ -144,6 +143,7 @@ public class userMainMenuGUI extends JFrame {
 		lblSearch.setBounds(24, 65, 142, 24);
 		MainMenu.add(lblSearch);
 		
+		setJtree();
 		tree.setBounds(42, 133, 205, 218);
 		MainMenu.add(tree);
 		
@@ -252,48 +252,22 @@ public class userMainMenuGUI extends JFrame {
 /**setJtree() sets the files and folders of the user*/
 	public void setJtree()
 	{
+		DefaultMutableTreeNode root=adddirectorynode("from user",0,user.getuserItems());
+		tree = new JTree(root);
+		tree.setBackground(new Color(173, 216, 230));
+        tree.setFont(new Font("Arial Black", Font.PLAIN, 14));
 	  
-	  DefaultMutableTreeNode root= new DefaultMutableTreeNode(""+user.getUserName()+"'s files") ;
-		  for(int i=0;i<user.getuserItems().size();i++)
-			{
-			  if(user.getuserItems().get(i) instanceof directories)
-			  {
-			     root.add(adddirectorynode("from user",i,node,user));
-			  }
-			  else root.add(new DefaultMutableTreeNode(((file) ( user.getuserItems().get(i))).getFileName()));
-			}
-		  tree = new JTree(root);
-		  tree.setBackground(new Color(173, 216, 230));
-		  tree.setFont(new Font("Arial Black", Font.PLAIN, 14));
+		  
+			
+
 	}
 
 	
- public DefaultMutableTreeNode adddirectorynode(String str,int i,DefaultMutableTreeNode node,Object type)
+ public DefaultMutableTreeNode adddirectorynode(String str,int i,directories di)
  {
-	 int num=i;
 	 directories dir=null;
 	 DefaultMutableTreeNode node1=null;
-	 if(str.equals("from user"))
-	 {
-	 dir=((directories) user.getuserItems().get(num));
-	  node1=new DefaultMutableTreeNode(""+(dir.getDirectoryName()));
-	 if(dir.getfiles()!=null){
-	 int arraysize=dir.getfiles().size();
-     for(int j=0;j<arraysize;j++)
-		{
-    	  if(dir.getfiles().get(j) instanceof directories)
-    	  {
-    		 node1.add(adddirectorynode("from dir",j,node1,(directories)dir.getfiles().get(j)));
-    	  }
-    	  else
-	      node1.add(new DefaultMutableTreeNode(((file)(dir.getfiles().get(j))).getFileName()));
-			
-		 }
-	   }
-	 }
-	 else
-	 {
-     dir=(directories)(type);
+     dir=di;
 	 node1=new DefaultMutableTreeNode(""+(dir.getDirectoryName()));
 	 if(dir.getfiles()!=null)
 	 {
@@ -302,13 +276,11 @@ public class userMainMenuGUI extends JFrame {
 		{
     	  if(dir.getfiles().get(j) instanceof directories)
     	  {
-    		  node1.add(adddirectorynode("from dir",j,node,dir));
+    		  node1.add(adddirectorynode("from dir",j,(directories)dir.getfiles().get(j)));
     	  }
     	  else
 	      node1.add(new DefaultMutableTreeNode(((file)(dir.getfiles().get(j))).getFileName()));
-			
-		 }
-	 }
+		}
      
 	    }
 	 return (node1); 

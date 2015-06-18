@@ -10,11 +10,6 @@ public class file extends SystemItem{
 	private byte[] fileContent;
     private ArrayList<interestGroups> groupsForRead = new ArrayList<>();
 	private ArrayList<interestGroups> groupsForUpdate = new ArrayList<>();
-	public file(String name)
-	{
-		fileName=name;
-	
-	}
 
 
 	public file(String name,String Dir, int perm, String fileOwner)
