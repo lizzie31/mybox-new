@@ -76,7 +76,7 @@ public class createNewFolderGUI extends JFrame {
 		}
 		return panel;
 	}
-	public void addcancel(ActionListener l) {
+	public void addbtnCancel(ActionListener l) {
 		btnCancel.addActionListener(l);
 	}
 	

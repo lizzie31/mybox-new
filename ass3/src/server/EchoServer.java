@@ -300,11 +300,13 @@ public class EchoServer extends AbstractServer
      stmt.executeUpdate(re);
      
    }
-    if(en.getTask().equals("search files"))
+    if(en.getTask().contains("search files"))
     {
- 
+    	boolean isadmin=false;
+    	if(en.getTask().equals("search files 2"))
+    		isadmin=true;
     	Envelope e;
-    	file f;
+    	file f; 
     	 String textField=(String)en.getObject();
     	 ArrayList<file> FinalFiles=null;
     	String re="SELECT * FROM test.files";
@@ -313,23 +315,67 @@ public class EchoServer extends AbstractServer
     	 while(rs.next()==true)
     	 {
     		f=new file(rs.getString(1),rs.getString(2),rs.getInt(3),rs.getString(4));
-    		if(f.getFileName().contains(textField))
-    		//if(f.getFileName().indexOf(textField)!=-1)	
+    		if(f.getFileName().contains(textField))	
     			FinalFiles.add(f);
-    	
     	 }
-    	 if(FinalFiles.size()==0)
+    	 if(FinalFiles.size()==0 && isadmin==false)
     	 {
     		 e=new Envelope(null,"search file");
  		     client.sendToClient(e); 
     	 }
- 		  else
- 		  {
-    	 e=new Envelope(FinalFiles,"search file");
- 		 client.sendToClient(e);
-    	  }
+    	 if(FinalFiles.size()==0 && isadmin==true)
+    	 {
+    		 e=new Envelope(null,"search file 2");
+ 		     client.sendToClient(e); 
+    	 }
+    	 if(FinalFiles.size()!=0 && isadmin==true)
+ 		 {
+    		 e=new Envelope(FinalFiles,"search file 2");
+    		 client.sendToClient(e);
+    	 }
+    	 if(FinalFiles.size()!=0 && isadmin==false)
+ 		 {
+    		 e=new Envelope(FinalFiles,"search file");
+    		 client.sendToClient(e);
+    	 }
     }
-       
+    if(en.getTask().contains("change permission"))
+    {
+    	String per="0";
+    	String permission;
+    	if(en.getTask().contains("1"))
+    		per="1";
+    	if(en.getTask().contains("2"))
+    		per="2";
+    	if(en.getTask().contains("3"))
+    		per="3";
+    	
+    	String re = "SELECT * FROM test.files WHERE files.filename= '"+(en.getObject()+"'");
+    	rs = stmt.executeQuery(re);  	
+	   	 while(rs.next()==true)
+	   	 {
+	   		permission=(rs.getString(3));
+	   		if(permission.equals(per))
+	   		{
+	   			//do nothing this means there has been no change
+	   		}
+	   		else
+	   		{
+	   			if(permission.equals("1"))
+	   			{
+	   				//change permission to 1 and delete the file from everybody else
+	   			}
+	   			if(permission.equals("2"))
+	   			{
+	   				//change permission to 2. delete from everywhere else
+	   			}
+	   			if(permission.equals("3"))
+	   			{
+	   				//change permission to 3. everyone can see this file and read it
+	   			}
+	   		}
+	   	 }
+    }
     
     
     if(en.getTask().equals("Save file in server"))
@@ -354,6 +400,20 @@ public class EchoServer extends AbstractServer
     		fos.close();
     		String re = "INSERT INTO test.files VALUES('"+f.getFileName()+"','"+f.getDirection()+"','"+f.getFilepermission()+"','"+f.getFileOwner()+"');";
        		stmt1.executeUpdate(re);
+       		int readCount = f.getGroupsForRead().size();
+       		int updateCount = f.getGroupsForUpdate().size();
+       		for(int i = 0; i < readCount; i++)
+       		{
+       			String read = "INSERT INTO test.file_read_groups VALUES('"+f.getFileName()+"','"+f.getGroupsForRead().get(i).getGroupName()+"');";
+       			stmt.executeUpdate(read);
+       		}
+       		
+       		for(int i = 0; i < updateCount; i++)
+       		{
+       			String update = "INSERT INTO test.file_update_groups VALUES('"+f.getFileName()+"','"+f.getGroupsForUpdate().get(i).getGroupName()+"');";
+       			stmt.executeUpdate(update);
+       		}
+       		 		
        		client.sendToClient("file saved successfully");
        		} 	
     }

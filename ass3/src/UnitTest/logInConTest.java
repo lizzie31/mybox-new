@@ -63,7 +63,7 @@ public class logInConTest {
 		assertTrue(loginC.changeStatus(userName)==(userTest.get(0).getStatus()));
 		//check if the status is't changed
 		assertFalse(loginC.changeStatus(userName)==(1-userTest.get(1).getStatus()));
-		
+		System.out.println("aaa");
 	}
 	
 

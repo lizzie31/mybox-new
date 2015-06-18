@@ -22,11 +22,14 @@ public class chooseAdvancedController<JCheckBox> extends AbstractTransfer {
 	 * all the users in DB.
 	 */
 	private ArrayList<interestGroups> allgroups;
+	private ArrayList<interestGroups> groupsR;
+	private ArrayList<interestGroups> groupsU;
 	/**
 	 * the users that the admin choose.
 	 */
 	private ArrayList<interestGroups> groupusers=new ArrayList<>();
-
+	private ArrayList<interestGroups> groupsRead=new ArrayList<>();
+	private ArrayList<interestGroups> groupsUpdate=new ArrayList<>();
 	/**
 	 * contain the details about the new group to send the server.
 	 */
@@ -39,9 +42,12 @@ public class chooseAdvancedController<JCheckBox> extends AbstractTransfer {
     	this.chooseAdvanced=cA;
 		this.createFileCon=createFileCon;
 		this.allgroups=userDetails.getInterestGroupInDB();
+		this.groupsR=userDetails.getInterestGroupInDB();
+		this.groupsU=userDetails.getInterestGroupInDB();
 		chooseAdvanced.addcancel(new ButtonCancelListener());
 		chooseAdvanced.addAdd(new ButtonaddlListener());
 	     chooseAdvanced.addchecklist(new checkboxListener());
+	     chooseAdvanced.addchecklistUpdate(new checkboxUpdateListener());
 	}
 
 
@@ -51,18 +57,34 @@ public class chooseAdvancedController<JCheckBox> extends AbstractTransfer {
     {
     	public void actionPerformed(ActionEvent e) {
     		Object source = e.getSource();
-      	  for(int i=0;i<chooseAdvanced.getUserslist().size();i++)
-      		  if (source ==chooseAdvanced.getUserslist().get(i)) 
+      	  for(int i=0;i<chooseAdvanced.getGroupsReadList().size();i++)
+      		  if (source ==chooseAdvanced.getGroupsReadList().get(i)) 
       		  {
-      			 for(int j=0;j<allgroups.size();j++)
+      			 for(int j=0;j<groupsR.size();j++)
       			 {
-      				 if(chooseAdvanced.getUserslist().get(i).getText().equals(""+allgroups.get(j).getGroupName()))
-      					 groupusers.add(allgroups.get(j));
+      				 if(chooseAdvanced.getGroupsReadList().get(i).getText().equals(""+groupsR.get(j).getGroupName()))
+      					groupsRead.add(groupsR.get(j));
       					 
       					 
       			 }
-      		  }
-			
+      		  }		
+		}
+    }
+	
+	
+	private class checkboxUpdateListener implements ActionListener
+    {
+    	public void actionPerformed(ActionEvent e) {
+    		Object source = e.getSource();
+      	  for(int i=0;i<chooseAdvanced.getGroupsUpdateList().size();i++)
+      		  if (source == chooseAdvanced.getGroupsUpdateList().get(i)) 
+      		  {
+      			 for(int j=0;j<groupsU.size();j++)
+      			 {
+      				 if(chooseAdvanced.getGroupsUpdateList().get(i).getText().equals(""+groupsU.get(j).getGroupName()))
+      					groupsUpdate.add(groupsU.get(j));     					 
+      			 }
+      		  }	
 		}
     }
     	  
@@ -77,6 +99,10 @@ public class chooseAdvancedController<JCheckBox> extends AbstractTransfer {
 	}
 	
 	private void buttonaddPressed() {
+		
+		chooseAdvanced.close();
+		createFileCon.setAdvancedFile(new file(groupsRead,groupsUpdate));
+		createFileCon.getCreatefile().setVisible(true);
 		/*newgroup= new interestGroups(group.getGroupname().getText(), groupusers);
 		en=new Envelope(newgroup,"add new group to DB");
 		sendToServer(en);

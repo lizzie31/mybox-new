@@ -27,7 +27,7 @@ public class ServerController {
     private Connection conn; 
     private  ArrayList<User> userLog;
     private String userName = "root";
-    private String password1 = "Nofar1990";
+    private String password1 = "Braude";
     private String Defport = "5555";
     private int port = 0;
     private String Scheam = "jdbc:mysql://localhost/test";

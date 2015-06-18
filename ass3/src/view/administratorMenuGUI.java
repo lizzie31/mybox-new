@@ -64,6 +64,7 @@ public class administratorMenuGUI extends JFrame {
 	private JButton deleteGroupButton=null;
 	private DefaultMutableTreeNode node=null;
 	private JTree tree=null;
+	private JButton btnSearch;
 	
 	public administratorMenuGUI(User user) {
 	
@@ -99,6 +100,11 @@ public class administratorMenuGUI extends JFrame {
 				warningIcon.setBounds(27, 464, 30, 25);
 				warningIcon.setVisible(false);
 				MainMenu.add(warningIcon);
+				
+				btnSearch = new JButton("search");
+				btnSearch.setFont(new Font("Tahoma", Font.BOLD, 13));
+				btnSearch.setBounds(346, 60, 97, 25);
+				MainMenu.add(btnSearch);
 				
 				searchField = new JTextField();
 				searchField.setBounds(236, 62, 146, 20);
@@ -238,6 +244,9 @@ public class administratorMenuGUI extends JFrame {
 		 return (node1); 
   }
 	
+   public void addsearchfiles(ActionListener l) {
+		btnSearch.addActionListener(l);
+	}
 	public void addDeletegroup(ActionListener l) {
 		deleteGroupButton.addActionListener(l);
 	}
@@ -257,6 +266,11 @@ public class administratorMenuGUI extends JFrame {
 	
 	public void addlogout(ActionListener l) {
 		btnLogOut.addActionListener(l);
+	}
+	
+	public String getTextField()
+	{
+		return searchField.getText();
 	}
 	/**close() closes the current window*/
 	public void close() {
@@ -284,6 +298,11 @@ public class administratorMenuGUI extends JFrame {
 		lblwarningMessage.setVisible(true);	
 		
 	}
-	}
+	
+	public void undisplayWarningMessage() {
+		warningIcon.setVisible(false);
+	lblwarningMessage.setVisible(false);
+    }
+}
 
 

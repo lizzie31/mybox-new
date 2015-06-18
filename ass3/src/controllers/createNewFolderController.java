@@ -25,13 +25,13 @@ public class createNewFolderController extends AbstractTransfer{
 		this.createfolder=g;
 		this.user=u;
 		prevController=lastCon;
-		createfolder.addcancel(new ButtoncancelListener());
+		createfolder.addbtnCancel(new ButtonCancelListener());
 		createfolder.addOk(new ButtonOKListener());
 	}
-	/**ButtoncancelListener is a class that implements action listener and opens user main menu window*/
-	private class ButtoncancelListener implements ActionListener {
 
-		@Override
+	/**ButtoncancelListener is a class that implements action listener and opens user main menu window*/
+	private class ButtonCancelListener implements ActionListener {
+
 		public void actionPerformed(ActionEvent arg0) {
 			buttoncancelPressed();
 		}

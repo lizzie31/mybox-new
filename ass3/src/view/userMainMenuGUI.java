@@ -109,25 +109,25 @@ public class userMainMenuGUI extends JFrame {
         MainMenu.add(getbtnSearch());  
         MainMenu.add(getbtnCreateNewFile());		
 										
-        btnLogOut = new JButton("log out");
+        btnLogOut = new JButton("Log Out");
 	    btnLogOut.setFont(new Font("Tahoma", Font.BOLD, 11));
 	    btnLogOut.setBackground(UIManager.getColor("SplitPane.background"));
-		btnLogOut.setBounds(466, 366, 89, 23);
+		btnLogOut.setBounds(459, 364, 96, 25);
 		MainMenu.add(btnLogOut);
 										
-	    btnShowgroups = new JButton("show Groups");
+	    btnShowgroups = new JButton("Show groups");
 		btnShowgroups.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnShowgroups.setBackground(UIManager.getColor("SplitPane.background"));
 		btnShowgroups.setBounds(277, 133, 138, 33);
 		MainMenu.add(btnShowgroups);		
 								
-        btnCreateNewFolder = new JButton("create new folder");
+        btnCreateNewFolder = new JButton("Create new folder");
 	    btnCreateNewFolder.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnCreateNewFolder.setBackground(UIManager.getColor("SplitPane.background"));
 		btnCreateNewFolder.setBounds(277, 177, 138, 33);
 		MainMenu.add(btnCreateNewFolder);
 		
-		btnJionGroup = new JButton("join new group");
+		btnJionGroup = new JButton("Join new group");
 		btnJionGroup.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnJionGroup.setBackground(UIManager.getColor("SplitPane.background"));
 		btnJionGroup.setBounds(277, 265, 138, 33);
@@ -138,7 +138,7 @@ public class userMainMenuGUI extends JFrame {
 		search.setColumns(10);
 		MainMenu.add(search);	
 		
-		JLabel lblSearch = new JLabel("type the file name:");
+		JLabel lblSearch = new JLabel("Type the file name:");
 		lblSearch.setForeground(new Color(0, 0, 0));
 		lblSearch.setFont(new Font("Arial Black", Font.PLAIN, 13));
 		lblSearch.setBounds(24, 65, 142, 24);
@@ -147,18 +147,18 @@ public class userMainMenuGUI extends JFrame {
 		tree.setBounds(42, 133, 205, 218);
 		MainMenu.add(tree);
 		
-		btnleaveButton = new JButton("leave group");
+		btnleaveButton = new JButton("Leave group"");
 		btnleaveButton.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnleaveButton.setBounds(277, 309, 138, 33);
 		MainMenu.add(btnleaveButton);
 		
-		JLabel lblWelcomBack = new JLabel("welcom back "+user.getUserName()+"!!");
+		JLabel lblWelcomBack = new JLabel("Wellcom back "+user.getUserName()+"!!");
 		lblWelcomBack.setForeground(new Color(0, 0, 0));
 		lblWelcomBack.setFont(new Font("Arial Black", Font.PLAIN, 16));
 		lblWelcomBack.setBounds(178, 22, 250, 33);
 		MainMenu.add(lblWelcomBack);
 		
-		btnSearch = new JButton("search");
+		btnSearch = new JButton("Search");
 		btnSearch.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnSearch.setBounds(361, 68, 118, 23);
 		MainMenu.add(btnSearch);
@@ -229,7 +229,7 @@ public class userMainMenuGUI extends JFrame {
 
 	public JButton getbtnCreateNewFile()
 	{
-       btnCreateNewFile = new JButton("create new file");
+       btnCreateNewFile = new JButton("Create new file");
        btnCreateNewFile.setFont(new Font("Tahoma", Font.BOLD, 11));
        btnCreateNewFile.setBounds(277, 221, 138, 33);    
        btnCreateNewFile.setBackground(UIManager.getColor("SplitPane.background"));
