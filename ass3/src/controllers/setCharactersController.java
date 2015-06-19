@@ -97,22 +97,16 @@ public class setCharactersController extends AbstractTransfer{
 		{
 			if(((file) message).getFileName().equals(ChoosenFile.getFileName()))
 			{
+			
 				Component frame = null;
 				JOptionPane.showMessageDialog(frame, "updated successfuly!");
-				en=new Envelope(user,"refresh data");
-				sendToServer(en);
-				//////////////////////////
-			
+				CurrGui.dispose();
+				prevCon.getCurrGui().setVisible(true);
+				
 			}
 		}
 		
 		}
-	public void refreshUserData(User u)
-	{
-		this.user=u;
-		CurrGui.dispose();
-		prevCon.getCurrGui().setVisible(true);
-		
-	}
+	
 
 }
