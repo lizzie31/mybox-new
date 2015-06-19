@@ -95,6 +95,18 @@ public synchronized void handleMessageFromServer(Object message)
 				e.printStackTrace();
 			}
 	    }
+	    if(E.getTask().equals("refresh data"))
+	    {
+	    	User userrefresh=(User)E.getObject();
+	    	if(currController instanceof createNewFolderController)
+	    	{
+	    		((createNewFolderController)(currController)).RefreshUserData(userrefresh);
+	    	}
+	    	if(currController instanceof createNewFileController)
+	    	{
+	    		((createNewFileController)(currController)).RefreshUserData(userrefresh);
+	    	}
+	    }
 	    if(E.getTask().endsWith("search file"))    
 	    {
 	    	if(E.getObject()==null)

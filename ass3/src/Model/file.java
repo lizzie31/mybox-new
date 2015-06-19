@@ -10,6 +10,7 @@ public class file extends SystemItem{
 	private byte[] fileContent;
     private ArrayList<interestGroups> groupsForRead = new ArrayList<>();
 	private ArrayList<interestGroups> groupsForUpdate = new ArrayList<>();
+	private directories parent;
 
 
 	public file(String name,String Dir, int perm, String fileOwner)
@@ -91,6 +92,14 @@ public class file extends SystemItem{
 
 	public void setGroupsForUpdate(ArrayList<interestGroups> groupsForUpdate) {
 		this.groupsForUpdate = groupsForUpdate;
+	}
+
+	public directories getParent() {
+		return parent;
+	}
+
+	public void setParent(directories parent) {
+		this.parent = parent;
 	}
     
 }

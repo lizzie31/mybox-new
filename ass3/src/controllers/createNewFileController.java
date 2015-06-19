@@ -17,6 +17,7 @@ import controllers.JoinGroupCon.SelectedGroupListener;
 import client.myboxapp;
 import Model.Envelope;
 import Model.User;
+import Model.directories;
 import Model.file;
 import view.*;
 
@@ -43,17 +44,20 @@ public class createNewFileController extends AbstractTransfer{
 	//private User user;
 	protected User userDetails;
 	private int selectedComboBox;
+	private directories parent=null;
 	
 	/**Constructor*/
-	public createNewFileController (createNewFileGUI g , userMainMenuController lastCon){
+	public createNewFileController (createNewFileGUI g , userMainMenuController lastCon,User us){
 		
 		this.createfile=g;
+		this.userDetails=us;
 		prevController=lastCon;
 		createfile.addcancel(new ButtoncancelListener());
 		createfile.addOpen(new ButtonOpenListener());
 		createfile.addFinish(new ButtonFinishListener());
 		createfile.selectPermission(new SelectedPermissionListener());
 		createfile.addChooseAdvancedGroups(new addChooseAdvancedGroupsListener());
+		createfile.addChooseLocation(new ChooseLocationListener());
 		
 	}
 	/**ButtoncancelListener is a class that implements action listener and goes back to the user main menu window*/
@@ -63,15 +67,29 @@ public class createNewFileController extends AbstractTransfer{
 			addChooseAdvancedGroupsPressed();
 		}	
 	}
+	
+	
 	private void addChooseAdvancedGroupsPressed() {
 		//CurrGui.close();
-		userDetails = prevController.getUserDetails();
 		chooseAdvancedRegularGUI CA=new chooseAdvancedRegularGUI (userDetails);
 		new chooseAdvancedController(CA,this,userDetails);
 		CA.setVisible(true);
 	}
 	
 	
+	private class ChooseLocationListener implements ActionListener {
+		public void actionPerformed(ActionEvent arg0) {
+			btnChooseLocationPressed();
+		}	
+	}
+	
+	private void btnChooseLocationPressed()
+	{
+		createfile.close();
+		NewFileLocationGui filegui=new NewFileLocationGui(this,userDetails);
+		new NewFileLocationCon(filegui,this,userDetails);
+		filegui.setVisible(true);
+	}
 	
 	private class ButtoncancelListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
@@ -151,6 +169,7 @@ public class createNewFileController extends AbstractTransfer{
 				upFile.setGroupsForUpdate(advancedFile.getGroupsForUpdate());
 			}
 			upFile.setFileContent(bArr);
+			upFile.setParent(parent);
 			
 			Envelope ev = new Envelope(upFile,"Save file in server");
 			sendToServer(ev);
@@ -189,12 +208,9 @@ public class createNewFileController extends AbstractTransfer{
 	public void handleDBResultFile(Object message) {
 		if(message.equals("file saved successfully"))
 		{
-			
-			JOptionPane.showMessageDialog(createfile, "File added succsesfully!", "Congratulations!", 1);
-			createfile.close();
-			if (prevController instanceof administratorMenuController)
-			((administratorMenuController) prevController).getusermainmenu2().setVisible(true);
-			else prevController.getusermainmenu().setVisible(true);
+			Envelope en=new Envelope(userDetails,"refresh data");
+			sendToServer(en);
+			myboxapp.clien.setCurrObj(this);
 		setFlag(false);
 		}
 		if(message.equals("file already exist"))
@@ -226,6 +242,30 @@ public class createNewFileController extends AbstractTransfer{
 	public void setAdvancedFile(file advancedFile) {
 		this.advancedFile = advancedFile;
 	}
+
+	public directories getParent() {
+		return parent;
+	}
+
+	public void setParent(directories parent) {
+		this.parent = parent;
+	}
+
+	public void RefreshUserData(User userrefresh) {
+		JOptionPane.showMessageDialog(createfile, "File added succsesfully!", "Congratulations!", 1);
+		userDetails=userrefresh;
+		createfile.close();
+		if (prevController instanceof administratorMenuController)
+		((administratorMenuController) prevController).getusermainmenu2().setVisible(true);
+		else 	
+		{
+		userMainMenuGUI menu=new userMainMenuGUI(userDetails);
+		new userMainMenuController(menu,userDetails);
+		}
+		
+	}
+	
+	
 	
 	
 }
