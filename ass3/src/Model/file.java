@@ -12,7 +12,7 @@ public class file extends SystemItem{
 	private byte[] fileContent;
     private ArrayList<interestGroups> groupsForRead = new ArrayList<>();
 	private ArrayList<interestGroups> groupsForUpdate = new ArrayList<>();
-
+    private directories parent;
 
 	public file(String name,String Dir, int perm, String fileOwner,String Description)
 	{
@@ -116,6 +116,15 @@ public class file extends SystemItem{
     }
 	public void setnewfilename(String d) {
 		this.newfilename = d;
+	}
+	
+	
+	public directories getParent() {
+		return parent;
+	}
+
+	public void setParent(directories parent) {
+		this.parent = parent;
 	}
 	
     

@@ -148,7 +148,43 @@ public class EchoServer extends AbstractServer
 		  else 
 			 client.sendToClient("Not found User");
 	  }
-	
+	 if(en.getTask().equals("refresh data"))
+	 {
+		  User userrefresh=(User)en.getObject();
+		  ArrayList<String> Itemname=new ArrayList<>();
+		  ArrayList<SystemItem> userItems=new ArrayList<>();
+		  directories Items=new directories(""+userrefresh.getUserName()+"'s files");
+		  String re = "SELECT DISTINCT directory FROM test.user_and_dir WHERE user_and_dir.username='"+(userrefresh.getUserName()+"'");
+			rs1 = stmt.executeQuery(re);
+			while(rs1.next())
+			 {
+				Itemname.add(rs1.getString(1));
+			 }
+			
+			for(int i=0;i<Itemname.size();i++)
+			{
+				directories d=null;
+				d=setthetree(Itemname.get(i),userrefresh.getUserName(),stmt);
+				userItems.add(d);
+				
+
+			}
+			Items.setfiles(userItems);
+			interestGroups s= null;
+	    	ArrayList<interestGroups> interestGroup=new ArrayList<>();
+	    	re="SELECT * FROM test.userinterestgroups WHERE userinterestgroups.username= '"+userrefresh.getUserName() +"'";
+	    	rs = stmt.executeQuery(re);
+	    	while(rs.next()==true)
+	    	{
+	    	  s=new interestGroups(rs.getString(2));
+	    	  interestGroup.add(s);
+	    	}
+	    	userrefresh.setuserItems(Items);
+	    	userrefresh.setInterestGroupInDB(interestGroup);
+	    	Envelope e=new Envelope(userrefresh,"refresh data");
+	    	client.sendToClient(e);
+			
+	 }
 	 if(en.getTask().equals("forgotPass"))
 	  {
 		  forgetPassCon forgot=(forgetPassCon)en.getObject();
@@ -408,7 +444,8 @@ public class EchoServer extends AbstractServer
        			String update = "INSERT INTO test.file_update_groups VALUES('"+f.getFileName()+"','"+f.getGroupsForUpdate().get(i).getGroupName()+"');";
        			stmt.executeUpdate(update);
        		}
-       		 		
+       	    re=("INSERT INTO test.userdirectories VALUES('"+f.getFileOwner()+"','"+f.getParent().getDirectoryName()+"','"+f.getFileName()+"')");
+    	    stmt.executeUpdate(re); 		
        		client.sendToClient("file saved successfully");
        		} 	
     }

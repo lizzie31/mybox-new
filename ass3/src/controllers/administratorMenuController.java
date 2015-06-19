@@ -181,7 +181,7 @@ private class ButtoncreatenewfileListener implements ActionListener {
 private void buttoncreatenewfilePressed() {
 	CurrGui.close();
 	createNewFileGUI CNFG=new createNewFileGUI ();
-	new createNewFileController(CNFG,this);
+	new createNewFileController(CNFG,this,userDetails);
 	CNFG.setVisible(true);
 
 }

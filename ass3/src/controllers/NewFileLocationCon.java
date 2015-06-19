@@ -1,4 +1,5 @@
 package controllers;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -7,25 +8,26 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 
-import client.myboxapp;
-import controllers.userMainMenuController.TreeSelection;
+import view.NewFileLocationGui;
+import view.createNewFolderGUI;
+import view.userMainMenuGUI;
 import Model.Envelope;
 import Model.User;
 import Model.directories;
-import Model.file;
-import view.*;
+import client.myboxapp;
+import controllers.createNewFolderController.TreeSelection;
 
-public class createNewFolderController extends AbstractTransfer{
+public class NewFileLocationCon {
+
 	
-
-	/**createfolder is create new folder window*/
-	private createNewFolderGUI createfolder=null;
+	/**createfile is create new folder window*/
+	private NewFileLocationGui CurrGui=null;
 	/**prevController is user menu controller*/
-	private userMainMenuController prevController=null;
+	private createNewFileController prevController=null;
 	private User user=null;
 	private directories parent=null;
 	private String str=null;
-	private createNewFolderController CurrCon=this;
+	private NewFileLocationCon CurrCon=this;
 	
 	/**Constructor
 	 * 
@@ -33,14 +35,14 @@ public class createNewFolderController extends AbstractTransfer{
 	 * @param lastCon
 	 * @param u
 	 */
-	public createNewFolderController (createNewFolderGUI g ,userMainMenuController lastCon,User u){
+	public NewFileLocationCon(NewFileLocationGui g ,createNewFileController lastCon,User u){
 		
-		this.createfolder=g;
+		this.CurrGui=g;
 		this.user=u;
 		this.prevController=lastCon;
-		createfolder.addbtnCancel(new ButtonCancelListener());
-		createfolder.addOk(new ButtonOKListener());
-		createfolder.addtreeSelectionListener(new TreeSelection());
+		CurrGui.addbtnCancel(new ButtonCancelListener());
+		CurrGui.addOk(new ButtonOKListener());
+		CurrGui.addtreeSelectionListener(new TreeSelection());
 	}
 
 	/**ButtoncancelListener is a class that implements action listener and opens user main menu window*/
@@ -52,10 +54,9 @@ public class createNewFolderController extends AbstractTransfer{
 		
 	}
 	private void buttoncancelPressed() {
-		createfolder.close();
-		if (prevController instanceof administratorMenuController)
-		((administratorMenuController) prevController).getusermainmenu2().setVisible(true);
-		else prevController.getusermainmenu().setVisible(true);
+		CurrGui.close();
+		prevController.getCreatefile().setVisible(true);
+		
 	}
 	
 	private class ButtonOKListener implements ActionListener {
@@ -65,22 +66,11 @@ public class createNewFolderController extends AbstractTransfer{
 		}
 	}
 	private void buttonOKPressed() {
-		String foldername=createfolder.getTextField();
-		if(foldername.equals(""))
-			createfolder.setWarningMessageVisibleTrue("please enter the directory name!!");
-		else if(str==null)
-			createfolder.setWarningMessageVisibleTrue("please select the location!!");
+		 if(str==null)
+			 CurrGui.setWarningMessageVisibleTrue("please select the location!!");
 		else{
-		directories dir=new directories(foldername);
-		dir.setParent(parent);
-		parent.getfiles().add(dir);
-		dir.setUsername(user.getUsreName());
-		Envelope en=new Envelope(dir,"add directory");
-		sendToServer(en);
-		en=new Envelope(user,"refresh data");
-		sendToServer(en);
-		myboxapp.clien.setCurrObj(getCurrCon());
-		
+		  prevController.setParent(parent);
+		  prevController.getCreatefile().setVisible(true);
 		}
 		
 	}
@@ -91,10 +81,10 @@ public class createNewFolderController extends AbstractTransfer{
 			public void valueChanged(TreeSelectionEvent e) {
 			     /**Returns the last path element of the selection.
 			    This method is useful only when the selection model allows a single selection.*/
-				DefaultMutableTreeNode node = (DefaultMutableTreeNode) createfolder.gettree().getLastSelectedPathComponent();
+				DefaultMutableTreeNode node = (DefaultMutableTreeNode) CurrGui.gettree().getLastSelectedPathComponent();
 				Object nodeInfo = node.getUserObject();
 				str = (String) nodeInfo;;
-			    Object rootInfo = createfolder.getRoot().getUserObject();
+			    Object rootInfo = CurrGui.getRoot().getUserObject();
 			    String rootname = (String) rootInfo;
 			    if(rootname.equals(str))
 				{
@@ -127,12 +117,12 @@ public class createNewFolderController extends AbstractTransfer{
 	 }
 
 
-	public createNewFolderController getCurrCon() {
+	public NewFileLocationCon getCurrCon() {
 		return CurrCon;
 	}
 
 
-	public void setCurrCon(createNewFolderController currCon) {
+	public void setCurrCon(NewFileLocationCon currCon) {
 		CurrCon = currCon;
 	}
 	
@@ -141,14 +131,10 @@ public class createNewFolderController extends AbstractTransfer{
 	{
 		this.user=u;
 		JOptionPane.showMessageDialog(null,"the folder added succesfully!");
-		createfolder.close();
+        CurrGui.close();
 		userMainMenuGUI menu=new userMainMenuGUI(user);
 		new userMainMenuController(menu,user); 
 	}
 	
 	}
-	
-
-
-
 

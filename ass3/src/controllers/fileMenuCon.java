@@ -179,6 +179,27 @@ public class fileMenuCon extends AbstractTransfer{
 	
 	class readListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
+			int flag=0;
+			if(ChoosenFile.getFileOwner().equals(user.getUserName()))
+				flag=1;
+			if(ChoosenFile.getFilepermission()==2)
+			{
+				for(int i=0;i<ChoosenFile.getGroupsForRead().size();i++)
+				{
+					for(int j=0;j<user.getInterestGroupInDB().size();j++)
+						if(ChoosenFile.getGroupsForRead().get(i).getGroupName().equals(user.getInterestGroupInDB().get(j).getGroupName()))
+						{
+							flag=1;
+							CurrGui.close();
+						}
+					
+				}
+			}
+			if(ChoosenFile.getFilepermission()==3)
+				flag=1;
+			if(flag==1)
+			{
+			
 			boolean check = new File(ChoosenFile.getDirection()).exists();
 			if(check)
 			{
@@ -197,6 +218,8 @@ public class fileMenuCon extends AbstractTransfer{
 			    myboxapp.clien.setCurrObj(getThisCon());
 			}
 			}
+			else CurrGui.setWarningMessageVisibleTrue("sorry,you don't have permission to read this file.");
+		}
 	
 	}
 			
