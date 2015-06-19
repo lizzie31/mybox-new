@@ -71,19 +71,23 @@ public class fileMenuCon extends AbstractTransfer{
 	class btnPermissionListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
+		if(ChoosenFile.getFileOwner().equals(user.getUserName()))
+		{
 			CurrGui.dispose();
 			permissionGui p= new permissionGui();
 			new permissionController(p,getThisCon(),user,ChoosenFile);
-		
+		}
+		else	
+			CurrGui.setWarningMessageVisibleTrue("you don't have permission!");
+	
 		}
 	}
 	class btnDeleteListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
-			CurrGui.dispose();
-			deleteFile d= new deleteFile();
-			new deleteFileController(d,getThisCon(),getChoosenFile());
-		
+				CurrGui.dispose();
+				deleteFile d= new deleteFile();
+				new deleteFileController(d,getThisCon(),getChoosenFile());	
 		}
 	}
 	class ButtoncancelListener implements ActionListener{

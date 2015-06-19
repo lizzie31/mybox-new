@@ -61,16 +61,19 @@ public class permissionController extends AbstractTransfer {
 	{
 		public void actionPerformed(ActionEvent e) {
 			selectedPermission=(String) CurrGui.getComboBox().getSelectedItem();
-			if(selectedPermission=="1")
+			if(selectedPermission.equals("1"))
 				permission=1;
 			else
 			{
-				if(selectedPermission=="2")
+				if(selectedPermission.equals("2"))
 					permission=2;
-				if(selectedPermission=="3")
-					permission=3;
 				else
-					permission=0;
+				{
+					if(selectedPermission.equals("3"))
+						permission=3;
+					else
+						permission=0;
+				}
 			}
 			
 		}
@@ -84,22 +87,21 @@ public class permissionController extends AbstractTransfer {
 				CurrGui.setWarningMessageVisibleTrue("please select a permission!");
 			else
 			{
-				if(f.getFileOwner().equals(user.getUserName()))
-				{
 					//GroupsRequests request=new GroupsRequests(GroupName,user.getUserName(),"join");
-					if(permission==1)
-						en=new Envelope(f.getFileName(),"change permission 1");
+				if(permission==1)
+					en=new Envelope(f.getFileName(),"change permission 1");
+				else
+				{
 					if(permission==2)
 						en=new Envelope(f.getFileName(),"change permission 2");
 					else
 						en=new Envelope(f.getFileName(),"change permission 3");
-					
-						sendToServer(en);
-						Component frame = null;
-						JOptionPane.showMessageDialog(frame, "updated successfuly!");
 				}
-				else
-					CurrGui.setWarningMessageVisibleTrue("you don't have permission!");		
+					
+				sendToServer(en);
+				Component frame = null;
+				JOptionPane.showMessageDialog(frame, "updated successfuly!");
+			
 			}
 		}
 	}
