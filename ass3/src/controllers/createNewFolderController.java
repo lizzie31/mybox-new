@@ -97,34 +97,32 @@ public class createNewFolderController extends AbstractTransfer{
 				  parent.setRootFlag(true);
 			    }
 			   else
-			     findInTree(user.getuserItems(),str) ;
+			     parent=findInTree(user.getuserItems(),str) ;
 				  
 				      
 			}
 			}
 		
 		
-	private void findInTree(directories dire,String Str)
+	private directories findInTree(directories dire,String Str)
 	{
-	  int i=0;
-	  String dirname=Str;
-	  directories dir=dire;
-	  if(dir.getDirectoryName().equals(dirname))
-			 parent=dir;
-		 else{
-		 for(i=0;i<dir.getfiles().size();i++)
-			{
-			 if(dir.getfiles().get(i) instanceof directories)
-			 {
-				  dir=((directories)(dir.getfiles().get(i)));
-			      findInTree(dir,dirname);
-			 }
-		    }
-			 }
-		 
-	  return;
+		if( dire.getDirectoryName().equals(Str))
+			return dire; 
+	        directories  temp;
+	        if (dire.getfiles().size()>0)
+	        for (int i = 0; i < dire.getfiles().size(); i++) {  
+	        	if(dire.getfiles().get(i) instanceof directories)
+	        	{
+	            temp = findInTree((directories)(dire.getfiles().get(i)),Str);
+	            if(temp!=null)
+	                return temp;
+	        	}
+	        }
+	        return null;
+	 }
 	}
+	
 
-}
+
 
 
