@@ -92,16 +92,27 @@ public class setCharactersController extends AbstractTransfer{
 	}
 	/**handleDBResult2(Object message) handles data that comes from the data base*/
 	public void handleDBResult(Object message) {
-		
+		Envelope en;
 		if(message instanceof file)
 		{
 			if(((file) message).getFileName().equals(ChoosenFile.getFileName()))
 			{
 				Component frame = null;
 				JOptionPane.showMessageDialog(frame, "updated successfuly!");
-				CurrGui.dispose();
-				prevCon.getCurrGui().setVisible(true);
+				en=new Envelope(user,"refresh data");
+				sendToServer(en);
+				//////////////////////////
+			
 			}
-		}}
+		}
+		
+		}
+	public void refreshUserData(User u)
+	{
+		this.user=u;
+		CurrGui.dispose();
+		prevCon.getCurrGui().setVisible(true);
+		
+	}
 
 }

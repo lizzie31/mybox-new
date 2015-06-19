@@ -393,7 +393,7 @@ public class EchoServer extends AbstractServer
     		fos.write(filecontent);
     		fos.flush();
     		fos.close();
-    		String re = "INSERT INTO test.files VALUES('"+f.getFileName()+"','"+f.getDirection()+"','"+f.getFilepermission()+"','"+f.getFileOwner()+"');";
+    		String re = "INSERT INTO test.files VALUES('"+f.getFileName()+"','"+f.getDirection()+"','"+f.getFilepermission()+"','"+f.getFileOwner()+"','hello');";
        		stmt1.executeUpdate(re);
        		int readCount = f.getGroupsForRead().size();
        		int updateCount = f.getGroupsForUpdate().size();
