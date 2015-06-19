@@ -1,10 +1,3 @@
-
-
-
-
-
-
-
 package server;
 // This file contains material supporting section 3.7 of the textbook:
 // "Object Oriented Software Engineering" and is issued under the open-source
@@ -53,9 +46,7 @@ public class EchoServer extends AbstractServer
 {
     private Connection conn;
     private ServerController controller;
-     
-
-
+ 
     ResultSet rs;
     ResultSet rs1;
     ResultSet rs2;
@@ -136,7 +127,6 @@ public class EchoServer extends AbstractServer
 					directories d=null;
 					d=setthetree(Itemname.get(i),username,stmt);
 					userItems.add(d);
-					
 
 				}
 				Items.setfiles(userItems);
@@ -357,42 +347,31 @@ public class EchoServer extends AbstractServer
     }
     if(en.getTask().contains("change permission"))
     {
-    	String per="0";
+    		Envelope e;
     	String permission;
+    	file f=(file)(en.getObject());
     	if(en.getTask().contains("1"))
-    		per="1";
-    	if(en.getTask().contains("2"))
-    		per="2";
-    	if(en.getTask().contains("3"))
-    		per="3";
-    	
-    	String re = "SELECT * FROM test.files WHERE files.filename= '"+(en.getObject()+"'");
-    	rs = stmt.executeQuery(re);  	
-	   	 while(rs.next()==true)
-	   	 {
-	   		permission=(rs.getString(3));
-	   		if(permission.equals(per))
-	   		{
-	   			//do nothing this means there has been no change
-	   		}
-	   		else
-	   		{
-	   			if(permission.equals("1"))
-	   			{
-	   				//change permission to 1 and delete the file from everybody else
-	   			}
-	   			if(permission.equals("2"))
-	   			{
-	   				//change permission to 2. delete from everywhere else
-	   			}
-	   			if(permission.equals("3"))
-	   			{
-	   				//change permission to 3. everyone can see this file and read it
-	   			}
-	   		}
-	   	 }
+    		permission="1";
+    	else
+    	{
+    		if(en.getTask().contains("2"))
+        		permission="2";
+    		else
+    			permission="3";
+    	}
+    		
+    	String re = "UPDATE test.files SET permission= "+permission+" WHERE files.filename= '"+(((file)(en.getObject())).getFileName()+"'");
+    	stmt.executeUpdate(re);  
+    	 e=new Envelope(f,"change permission");
+		 client.sendToClient(e);
     }
-    
+    if(en.getTask().equals("change description"))
+    {
+    	String re = "UPDATE test.files SET description= '"+(((file)(en.getObject())).getDescription()+"' WHERE files.filename= '"+(((file)(en.getObject())).getFileName()+"'"));
+    	stmt.executeUpdate(re);
+    	String re2 = "UPDATE test.files SET filename= '"+(((file)(en.getObject())).getnewfilename()+"' WHERE files.filename= '"+(((file)(en.getObject())).getFileName()+"'"));
+    	stmt.executeUpdate(re2);
+    }
     
     if(en.getTask().equals("Save file in server"))
     {

@@ -3,6 +3,7 @@ package controllers;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
@@ -11,6 +12,7 @@ import Model.Envelope;
 import Model.GroupsRequests;
 import Model.User;
 import Model.file;
+import view.createNewGroupGUI;
 import view.fileMenuGui;
 import view.permissionGui;
 
@@ -89,20 +91,23 @@ public class permissionController extends AbstractTransfer {
 			{
 					//GroupsRequests request=new GroupsRequests(GroupName,user.getUserName(),"join");
 				if(permission==1)
-					en=new Envelope(f.getFileName(),"change permission 1");
+					en=new Envelope(f,"change permission 1");
 				else
 				{
 					if(permission==2)
-						en=new Envelope(f.getFileName(),"change permission 2");
+						en=new Envelope(f,"change permission 2");
 					else
-						en=new Envelope(f.getFileName(),"change permission 3");
+						en=new Envelope(f,"change permission 3");
 				}
-					
+				f.setFilePermission(permission);	
 				sendToServer(en);
 				Component frame = null;
 				JOptionPane.showMessageDialog(frame, "updated successfuly!");
+				CurrGui.dispose();
+				prevCon.getCurrGui().setVisible(true);
 			
 			}
 		}
 	}
+
 }

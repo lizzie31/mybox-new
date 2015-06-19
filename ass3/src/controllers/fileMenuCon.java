@@ -62,12 +62,46 @@ public class fileMenuCon extends AbstractTransfer{
 	class btnSetCharctersListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
-			CurrGui.dispose();
-			setCharacters p= new setCharacters();
-			new setCharactersController(p,getThisCon(),ChoosenFile,user);
-		
+			buttoncharactersPressed();
 		}
 	}
+	private void buttoncharactersPressed() {
+		if(ChoosenFile.getFileOwner().equals(user.getUserName()))
+		{	setCharacters p= new setCharacters();
+			new setCharactersController(p,getThisCon(),ChoosenFile,user);
+		}
+		else{
+		if(ChoosenFile.getFilepermission()==3)
+			CurrGui.setWarningMessageVisibleTrue("sorry,you don't have permission to update this file.");
+		if(ChoosenFile.getFilepermission()==2)
+		{
+			int flag=0;
+			for(int i=0;i<ChoosenFile.getGroupsForUpdate().size();i++)
+			{
+				for(int j=0;j<user.getInterestGroupInDB().size();j++)
+					if(ChoosenFile.getGroupsForUpdate().get(i).getGroupName().equals(user.getInterestGroupInDB().get(j).getGroupName()))
+					{
+						flag=1;
+						CurrGui.close();
+						setCharacters p= new setCharacters();
+						new setCharactersController(p,getThisCon(),ChoosenFile,user);
+					}
+				
+			}
+			 if(flag==0) CurrGui.setWarningMessageVisibleTrue("sorry,you don't have permission to update this file.");
+		}
+		if(ChoosenFile.getFilepermission()==1)
+		{
+			if(ChoosenFile.getFileOwner().equals(user.getUserName()))
+			{
+				UpdateGui UG=new UpdateGui(user,ChoosenFile);
+			    new UpdateCon(user,ChoosenFile,UG,getThisCon());
+			}
+			else CurrGui.setWarningMessageVisibleTrue("sorry,you don't have permission to update this file.");
+		}
+		}
+	}
+
 	class btnPermissionListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {

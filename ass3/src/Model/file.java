@@ -7,13 +7,24 @@ public class file extends SystemItem{
 	private String Direction;
 	private int Permission;
 	private String FileOwner;
+	private String Description;
+	private String newfilename;
 	private byte[] fileContent;
     private ArrayList<interestGroups> groupsForRead = new ArrayList<>();
 	private ArrayList<interestGroups> groupsForUpdate = new ArrayList<>();
 
 
+	public file(String name,String Dir, int perm, String fileOwner,String Description)
+	{
+		this.Description=Description;
+		fileName=name;
+		Direction=Dir;
+		this.Permission=perm;
+		this.FileOwner=fileOwner;
+	}
 	public file(String name,String Dir, int perm, String fileOwner)
 	{
+		this.Description=Description;
 		fileName=name;
 		Direction=Dir;
 		this.Permission=perm;
@@ -92,6 +103,21 @@ public class file extends SystemItem{
 	public void setGroupsForUpdate(ArrayList<interestGroups> groupsForUpdate) {
 		this.groupsForUpdate = groupsForUpdate;
 	}
+	public String getDescription()
+	{
+	return this.Description;
+    }
+	public void setDescription(String d) {
+		this.Description = d;
+	}
+	public String getnewfilename()
+	{
+	return this.newfilename;
+    }
+	public void setnewfilename(String d) {
+		this.newfilename = d;
+	}
+	
     
 }
 
