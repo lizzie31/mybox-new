@@ -58,6 +58,7 @@ public class EchoServer extends AbstractServer
 
     ResultSet rs;
     ResultSet rs1;
+    ResultSet rs2;
     int flag = 0;
     int insertFlag = 0;
     int whereFlag = 0;
@@ -544,7 +545,8 @@ public class EchoServer extends AbstractServer
 		while(rs.next()==true)
 		 {
 			 f=new file(rs.getString(1),rs.getString(2),rs.getInt(3),rs.getString(4));
-			 files.add(f);
+			 file f2=setGroupsPermission(f);
+			 files.add(f2);
 		 }
 		re=("SELECT u.Itemname FROM userdirectories as u,files as f WHERE f.filename=u.Itemname AND u.directory= '"+Itemname+"' AND u.username='"+UserName+"'");
 		String re2=("select Itemname from userdirectories AS u Where u.directory= '"+Itemname+"' AND u.username='"+username+"' AND Itemname NOT IN ("+re+")" );
@@ -587,7 +589,33 @@ public class EchoServer extends AbstractServer
 			
 			
  }
-
+ 
+ public file setGroupsPermission(file f) throws SQLException
+ {
+	 Statement stmt1 = conn.createStatement();
+	 ArrayList<interestGroups> groupsnamesupdate=new ArrayList<>();
+	 ArrayList<interestGroups> groupsnamesread=new ArrayList<>();
+	 String re="SELECT * from file_update_groups WHERE file_name='"+f.getFileName()+"'";
+	 rs1=stmt1.executeQuery(re);
+	 while(rs1.next())
+	 {
+		interestGroups groupupdate=new interestGroups(rs1.getString(2));
+		groupsnamesupdate.add(groupupdate);
+	 }
+	 f.setGroupsForUpdate(groupsnamesupdate);
+	 re="SELECT * from file_read_groups WHERE file_name='"+f.getFileName()+"'";
+	 rs2=stmt1.executeQuery(re);
+	 while(rs2.next())
+	 {
+		interestGroups groupread=new interestGroups(rs2.getString(2));
+		groupsnamesread.add(groupread);
+	 }
+	 f.setGroupsForRead(groupsnamesread);
+	 
+	 
+	return f;
+	 
+ }
   
   public static ArrayList<String> Select(Connection con1, String str, String table,String where,ConnectionToClient client)
     {

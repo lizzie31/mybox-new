@@ -97,8 +97,45 @@ public class fileMenuCon extends AbstractTransfer{
 	class btnUpdateListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
-			UpdateGui UG=new UpdateGui(user,ChoosenFile);
-			new UpdateCon(user,ChoosenFile,UG,getThisCon());
+			buttonUpdatePressed();
+		}
+
+		private void buttonUpdatePressed() {
+			if(ChoosenFile.getFileOwner().equals(user.getUserName()))
+			{
+				UpdateGui UG=new UpdateGui(user,ChoosenFile);
+			    new UpdateCon(user,ChoosenFile,UG,getThisCon());
+			}
+			else{
+			if(ChoosenFile.getFilepermission()==3)
+				CurrGui.setWarningMessageVisibleTrue("sorry,you don't have permission to update this file.");
+			if(ChoosenFile.getFilepermission()==2)
+			{
+				int flag=0;
+				for(int i=0;i<ChoosenFile.getGroupsForUpdate().size();i++)
+				{
+					for(int j=0;j<user.getInterestGroupInDB().size();j++)
+						if(ChoosenFile.getGroupsForUpdate().get(i).getGroupName().equals(user.getInterestGroupInDB().get(j).getGroupName()))
+						{
+							flag=1;
+							CurrGui.close();
+							UpdateGui UG=new UpdateGui(user,ChoosenFile);
+							new UpdateCon(user,ChoosenFile,UG,getThisCon());
+						}
+					
+				}
+				 if(flag==0) CurrGui.setWarningMessageVisibleTrue("sorry,you don't have permission to update this file.");
+			}
+			if(ChoosenFile.getFilepermission()==1)
+			{
+				if(ChoosenFile.getFileOwner().equals(user.getUserName()))
+				{
+					UpdateGui UG=new UpdateGui(user,ChoosenFile);
+				    new UpdateCon(user,ChoosenFile,UG,getThisCon());
+				}
+				else CurrGui.setWarningMessageVisibleTrue("sorry,you don't have permission to update this file.");
+			}
+			}
 		}
 	}
 	
@@ -122,6 +159,7 @@ public class fileMenuCon extends AbstractTransfer{
 			    myboxapp.clien.setCurrObj(getThisCon());
 			}
 			}
+	
 	}
 			
 			
