@@ -126,14 +126,7 @@ public class UpdateGui extends JFrame{
 		this.fileChooser = fileChooser;
 	}
 
-	
- 	/**showsuceedmessege() shows a message that the group was added sucssesfuly to the DB*/
- 	public void showsuceedmessege()
- 	{
- 		Component frame=null;
- 	   JOptionPane.showMessageDialog(frame, "the file was updated sucssefuly!!");
- 	   this.close();
- 	}
+
 
 }
 

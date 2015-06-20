@@ -327,6 +327,23 @@ public class EchoServer extends AbstractServer
    		client.sendToClient("the group was added sucssesfuly");
    		}
    }
+   
+   if(en.getTask().equals("add file to user"))
+   {
+     file file=(file)en.getObject();
+     String re="SELECT * FROM test.userdirectories WHERE username='"+file.getCurrAddingUser()+"' AND directory='"+file.getParent().getDirectoryName()+"' AND Itemname='"+file.getFileName()+"'";
+     rs=stmt.executeQuery(re);
+     if(rs.next())	
+     {
+    	 client.sendToClient("this file exists in your files");
+     }
+     else{
+     re=("INSERT INTO test.userdirectories VALUES('"+file.getCurrAddingUser()+"','"+file.getParent().getDirectoryName()+"','"+file.getFileName()+"')");
+	 stmt.executeUpdate(re);
+	 client.sendToClient("file added succesfully");
+     }
+   }
+   
    if(en.getTask().equals("add directory"))
    {
      directories dir=(directories)en.getObject();
@@ -402,10 +419,29 @@ public class EchoServer extends AbstractServer
     }
     if(en.getTask().equals("change description"))
     {
-    	String re = "UPDATE test.files SET description= '"+(((file)(en.getObject())).getDescription()+"' WHERE files.filename= '"+(((file)(en.getObject())).getFileName()+"'"));
+    	file file=(file)en.getObject();
+    	File f=new File(file.getDirection());
+    	byte[] content = Files.readAllBytes(f.toPath());
+    	byte[] newfilecontent=content;
+    	f.delete();
+    	String[] type = file.getDirection().split("\\.",2);
+		String name=file.getnewfilename();
+		String temp ="D:/mybox/"+ name+ "." + type[1];
+    	file.setDirection(temp);
+		f=new File(file.getDirection());
+		BufferedWriter writer=new BufferedWriter(new FileWriter(f));
+		FileOutputStream fos = new FileOutputStream(f.getAbsolutePath());
+		fos.write(newfilecontent);
+		fos.flush();
+		fos.close();
+	 	String re = "UPDATE test.files SET description= '"+(((file)(en.getObject())).getDescription()+"' WHERE files.filename= '"+(((file)(en.getObject())).getFileName()+"'"));
     	stmt.executeUpdate(re);
     	String re2 = "UPDATE test.files SET filename= '"+(((file)(en.getObject())).getnewfilename()+"' WHERE files.filename= '"+(((file)(en.getObject())).getFileName()+"'"));
     	stmt.executeUpdate(re2);
+    	re="UPDATE test.files SET direction= '"+file.getDirection()+"' WHERE files.filename= '"+file.getnewfilename()+"'";
+    	stmt.executeUpdate(re);
+    	re="UPDATE test.userdirectories SET Itemname='"+file.getnewfilename()+"'WHERE userdirectories.Itemname='"+file.getFileName()+"'";
+    	stmt.executeUpdate(re);
     }
     
     if(en.getTask().equals("Save file in server"))

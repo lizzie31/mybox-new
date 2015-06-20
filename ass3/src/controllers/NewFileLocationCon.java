@@ -69,6 +69,7 @@ public class NewFileLocationCon {
 		 if(str==null)
 			 CurrGui.setWarningMessageVisibleTrue("please select the location!!");
 		else{
+		  CurrGui.close();
 		  prevController.setParent(parent);
 		  prevController.getCreatefile().setVisible(true);
 		}

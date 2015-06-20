@@ -127,8 +127,10 @@ public class fileMenuCon extends AbstractTransfer{
 	class ButtoncancelListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
-			CurrGui.dispose();
-			prevCon.getusermainmenu().setVisible(true);
+			Envelope en=new Envelope(user,"refresh data");
+			sendToServer(en);
+			myboxapp.clien.setCurrObj(getThisCon());
+			
 		}
 	}
 	
@@ -190,7 +192,6 @@ public class fileMenuCon extends AbstractTransfer{
 						if(ChoosenFile.getGroupsForRead().get(i).getGroupName().equals(user.getInterestGroupInDB().get(j).getGroupName()))
 						{
 							flag=1;
-							CurrGui.close();
 						}
 					
 				}
@@ -259,6 +260,14 @@ public class fileMenuCon extends AbstractTransfer{
 
 		public void setCurrGui(fileMenuGui currGui) {
 			CurrGui = currGui;
+		}
+
+		public void RefreshUserData(User userrefresh) {
+			user=userrefresh;
+			CurrGui.close();
+			userMainMenuGUI menu=new userMainMenuGUI(user);
+			new userMainMenuController(menu,user);
+			
 		}
 		
 		

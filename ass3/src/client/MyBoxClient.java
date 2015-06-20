@@ -95,6 +95,7 @@ public synchronized void handleMessageFromServer(Object message)
 				e.printStackTrace();
 			}
 	    }
+	    
 	    if(E.getTask().equals("refresh data"))
 	    {
 	    	User userrefresh=(User)E.getObject();
@@ -105,6 +106,14 @@ public synchronized void handleMessageFromServer(Object message)
 	    	if(currController instanceof createNewFileController)
 	    	{
 	    		((createNewFileController)(currController)).RefreshUserData(userrefresh);
+	    	}
+	    	if(currController instanceof fileMenuCon)
+	    	{
+	    		((fileMenuCon)(currController)).RefreshUserData(userrefresh);
+	    	}
+	    	if(currController instanceof GroupsListController)
+	    	{
+	    		((GroupsListController)(currController)).RefreshUserData(userrefresh);
 	    	}
 	    }
 	    if(E.getTask().endsWith("search file"))    
@@ -159,8 +168,16 @@ public synchronized void handleMessageFromServer(Object message)
 
 		if(str.equals("updated"))
 		{
-			 ((UpdateCon)(currController)).getCurrGui().showsuceedmessege();
+			 ((UpdateCon)(currController)).showsuceedmessege();
 		}
+	    if(str.equals("this file exists in your files"))
+	    {
+	    	((AddToClientFilesCon)(currController)).getCurrGui().setWarningMessageVisibleTrue("this file already exists in this folder");
+	    }
+	    if(str.equals("file added succesfully"))
+	    {
+	    	((AddToClientFilesCon)(currController)).HandleDBresult();
+	    }
 		
 
 		if(str.equals("the user was added secssfuly to this group"))

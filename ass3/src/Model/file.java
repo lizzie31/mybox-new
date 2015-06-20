@@ -16,6 +16,7 @@ public class file extends SystemItem{
     private ArrayList<interestGroups> groupsForRead = new ArrayList<>();
 	private ArrayList<interestGroups> groupsForUpdate = new ArrayList<>();
     private directories parent;
+    private String CurrAddingUser=null;
 
 	public file(String name,String Dir, int perm, String fileOwner,String Description)
 	{
@@ -137,6 +138,16 @@ public class file extends SystemItem{
 	public void setuserNotOwnerDeleteFile(String userName) {
 		this.userNotOwnerDeleteFile = userName;
 	}
+	public String getCurrAddingUser() {
+		return CurrAddingUser;
+	}
+	public void setCurrAddingUser(String currAddingUser) {
+		CurrAddingUser = currAddingUser;
+	}
+	
+	
+	
+	
 	
 }
 

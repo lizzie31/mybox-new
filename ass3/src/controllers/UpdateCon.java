@@ -1,5 +1,6 @@
 package controllers;
 
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -7,6 +8,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 import client.myboxapp;
 import controllers.fileMenuCon.ButtoncancelListener;
@@ -118,6 +120,22 @@ public class UpdateCon extends AbstractTransfer{
 	}
 	public void setThisCon(UpdateCon thisCon) {
 		this.thisCon = thisCon;
+	}
+
+	public void showsuceedmessege() {
+ 		Component frame=null;
+  	    JOptionPane.showMessageDialog(frame, "the file was updated sucssefuly!!");
+  	  if(flag==0)
+		{
+			CurrGui.dispose();
+			prevCon.getCurrGui().setVisible(true);
+		}
+		else
+		{
+			CurrGui.dispose();
+			prevCon1.getCurrGui().setVisible(true);
+		}
+		
 	}
 	
 	

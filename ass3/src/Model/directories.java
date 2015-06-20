@@ -21,7 +21,12 @@ public class directories extends SystemItem{
 		this.DirectoryName=name;
 	}
 	
-	
+
+	public directories(String name)
+	{
+		this.DirectoryName=name;
+		this.ItemsInDirectory=new ArrayList<>();
+	}
 	
 	/****************************************getters and setters*******************************************************/
 	
@@ -47,11 +52,6 @@ public class directories extends SystemItem{
 	}
 
 
-	
-	public directories(String name)
-	{
-		this.DirectoryName=name;
-	}
 	
 	public directories getParent() {
 		return parent;
