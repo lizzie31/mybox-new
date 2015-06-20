@@ -72,7 +72,7 @@ public class fileMenuCon extends AbstractTransfer{
 		}
 		else{
 		if(ChoosenFile.getFilepermission()==3)
-			CurrGui.setWarningMessageVisibleTrue("sorry,you don't have permission to update this file.");
+			CurrGui.setWarningMessageVisibleTrue("you don't have permission to change this file.");
 		if(ChoosenFile.getFilepermission()==2)
 		{
 			int flag=0;

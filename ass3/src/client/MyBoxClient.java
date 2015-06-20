@@ -129,9 +129,7 @@ public synchronized void handleMessageFromServer(Object message)
     	
 	    if(E.getTask().equals("all requests"))    
 	    	((administratorMenuController)(currController)).handleDBResult2((ArrayList<GroupsRequests>)E.getObject()); 
-	    if(E.getTask().equals("change permission"))    
-	    	((setCharactersController)(currController)).handleDBResult((file)(E.getObject()));
-	 
+	
 	    
 
 	        

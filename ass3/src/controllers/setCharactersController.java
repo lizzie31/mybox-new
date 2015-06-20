@@ -42,7 +42,8 @@ public class setCharactersController extends AbstractTransfer{
 			Envelope en;
 			String text=CurrGui.getContantFiled();
 			String newname=CurrGui.getNameFiled();
-			if(newname==null)
+			boolean flag=false;
+			if(newname.equals(" ")||newname.equals("")||newname.isEmpty())
 				CurrGui.setWarningMessageVisibleTrue("the file name is empty!");
 			else{
 				if(newname.contains("!")||newname.contains("@")||newname.contains("#")||newname.contains("$")||newname.contains("%"))
@@ -74,6 +75,10 @@ public class setCharactersController extends AbstractTransfer{
 				ChoosenFile.setDescription(text);
 				ChoosenFile.setnewfilename(newname);
 				sendToServer(en);		
+				Component frame = null;
+				JOptionPane.showMessageDialog(frame, "updated successfuly!");
+				CurrGui.dispose();
+				prevCon.getCurrGui().setVisible(true);
 		
 			}
 			else
@@ -90,23 +95,23 @@ public class setCharactersController extends AbstractTransfer{
 		
 		}
 	}
-	/**handleDBResult2(Object message) handles data that comes from the data base*/
-	public void handleDBResult(Object message) {
+	/**handleDBResult(Object message) handles data that comes from the data base*/
+	/*public void handleDBResult(Object message) {
 		Envelope en;
 		if(message instanceof file)
 		{
 			if(((file) message).getFileName().equals(ChoosenFile.getFileName()))
-			{
+			{/*
 			
 				Component frame = null;
 				JOptionPane.showMessageDialog(frame, "updated successfuly!");
 				CurrGui.dispose();
-				prevCon.getCurrGui().setVisible(true);
-				
+				prevCon.getCurrGui().setVisible(true);*/
+		/*		
 			}
 		}
 		
 		}
-	
+	*/
 
 }

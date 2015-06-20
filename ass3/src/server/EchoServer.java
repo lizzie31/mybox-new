@@ -398,8 +398,7 @@ public class EchoServer extends AbstractServer
     		
     	String re = "UPDATE test.files SET permission= "+permission+" WHERE files.filename= '"+(((file)(en.getObject())).getFileName()+"'");
     	stmt.executeUpdate(re);  
-    	 e=new Envelope(f,"change permission");
-		 client.sendToClient(e);
+ 
     }
     if(en.getTask().equals("change description"))
     {
