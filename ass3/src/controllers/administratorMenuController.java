@@ -136,7 +136,7 @@ public void handleDBResultFile(Object message) {
 		currgui2.undisplayWarningMessage();
 		currgui2.close();
 		fileSearchGui SG=new fileSearchGui (fileArr);
-		new fileSearchController(SG,this);
+		new fileSearchController(SG,this,userDetails,fileArr);
 		SG.setVisible(true);
 	}
 }

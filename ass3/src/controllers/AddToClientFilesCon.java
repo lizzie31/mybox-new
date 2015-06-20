@@ -35,11 +35,14 @@ public class AddToClientFilesCon extends AbstractTransfer{
 	private AddToClientFilesGui CurrGui=null;
 	/**prevController is user menu controller*/
 	private InterestGroupCon prevController=null;
+	private fileSearchController prevController2=null;
 	private User user=null;
 	private directories parent=null;
 	private String str=null;
 	private AddToClientFilesCon CurrCon=this;
 	private file file=null;
+	private int flag;
+	
 	
 	/**Constructor
 	 * 
@@ -47,12 +50,26 @@ public class AddToClientFilesCon extends AbstractTransfer{
 	 * @param lastCon
 	 * @param u
 	 */
-	public AddToClientFilesCon (AddToClientFilesGui  g ,InterestGroupCon lastCon,User u,file f){
+	public AddToClientFilesCon (AddToClientFilesGui  g ,InterestGroupCon lastCon,User u,file f,int flag){
 		
 		this.CurrGui=g;
 		this.user=u;
 		this.prevController=lastCon;
+		
 		this.file=f;
+		this.flag=flag;
+		CurrGui.addbtnCancel(new ButtonCancelListener());
+		CurrGui.addOk(new ButtonOKListener());
+		CurrGui.addtreeSelectionListener(new TreeSelection());
+	}
+	
+	public AddToClientFilesCon (AddToClientFilesGui  g ,fileSearchController lastCon,User u,file f,int flag){
+		
+		this.CurrGui=g;
+		this.user=u;
+		this.prevController2=lastCon;
+		this.file=f;
+		this.flag=flag;
 		CurrGui.addbtnCancel(new ButtonCancelListener());
 		CurrGui.addOk(new ButtonOKListener());
 		CurrGui.addtreeSelectionListener(new TreeSelection());
@@ -68,7 +85,10 @@ public class AddToClientFilesCon extends AbstractTransfer{
 	}
 	private void buttoncancelPressed() {
 		CurrGui.close();
-		 prevController.getCurrGui().setVisible(true);
+		if(flag==1)
+		   prevController.getCurrGui().setVisible(true);
+		if(flag==2)
+		   prevController2.getSearchG().setVisible(true);	
 	}
 	
 	private class ButtonOKListener implements ActionListener {
@@ -158,9 +178,13 @@ public class AddToClientFilesCon extends AbstractTransfer{
 	
 	public void HandleDBresult()
 	{
+		
 		JOptionPane.showMessageDialog(null,"the file added succesfully!");
 		CurrGui.close();
-		prevController.getCurrGui().setVisible(true);
+		if(flag==1)
+		   prevController.getCurrGui().setVisible(true);
+		if(flag==2)
+			prevController2.getSearchG().setVisible(true);	
 	}
 	
 	

@@ -108,7 +108,7 @@ public class InterestGroupCon extends AbstractTransfer {
 		}
 	  CurrGui.close();
 	  AddToClientFilesGui ATM=new AddToClientFilesGui(user);
-	  new AddToClientFilesCon(ATM,this,user,choosenFile);
+	  new AddToClientFilesCon(ATM,this,user,choosenFile,1);
 	}
 	
 	

@@ -103,6 +103,10 @@ public synchronized void handleMessageFromServer(Object message)
 	    	{
 	    		((createNewFolderController)(currController)).RefreshUserData(userrefresh);
 	    	}
+	    	if(currController instanceof fileSearchController)
+	    	{
+	    		((fileSearchController)(currController)).RefreshUserData(userrefresh);
+	    	}
 	    	if(currController instanceof createNewFileController)
 	    	{
 	    		((createNewFileController)(currController)).RefreshUserData(userrefresh);

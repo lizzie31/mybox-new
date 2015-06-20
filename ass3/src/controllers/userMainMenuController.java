@@ -264,7 +264,7 @@ public class userMainMenuController extends AbstractTransfer{
 			CurrGui.undisplayWarningMessage();
 			CurrGui.close();
 			fileSearchGui SG=new fileSearchGui (filesarr);
-			new fileSearchController(SG,this);
+			new fileSearchController(SG,this,userDetails,filesarr);
 			SG.setVisible(true);
 		}
 	}
