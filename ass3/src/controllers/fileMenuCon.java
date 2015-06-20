@@ -121,7 +121,7 @@ public class fileMenuCon extends AbstractTransfer{
 		public void actionPerformed(ActionEvent e) {
 				CurrGui.dispose();
 				deleteFile d= new deleteFile();
-				new deleteFileController(d,getThisCon(),getChoosenFile());	
+				new deleteFileController(d,getThisCon(),getChoosenFile(),user);	
 		}
 	}
 	class ButtoncancelListener implements ActionListener{

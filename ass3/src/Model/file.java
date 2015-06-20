@@ -8,7 +8,10 @@ public class file extends SystemItem{
 	private int Permission;
 	private String FileOwner;
 	private String Description;
+	/**renaming file*/
 	private String newfilename;
+	/**if some one wants to delete a file from personal db*/
+	private String userNotOwnerDeleteFile;
 	private byte[] fileContent;
     private ArrayList<interestGroups> groupsForRead = new ArrayList<>();
 	private ArrayList<interestGroups> groupsForUpdate = new ArrayList<>();
@@ -127,6 +130,13 @@ public class file extends SystemItem{
 		this.parent = parent;
 	}
 	
-    
+	public String getuserNotOwnerDeleteFile() {
+		return userNotOwnerDeleteFile;
+	}
+
+	public void setuserNotOwnerDeleteFile(String userName) {
+		this.userNotOwnerDeleteFile = userName;
+	}
+	
 }
 

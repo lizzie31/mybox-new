@@ -469,9 +469,15 @@ public class EchoServer extends AbstractServer
     		stmt.executeUpdate("DELETE FROM test.requests WHERE groupname='"+r.getGroupName()+"'AND username='"+r.getUserName()+"'");
     		 client.sendToClient("the user was deleted secssfuly from this group" );
     	}
-    		
- 		
-    	  }
+    
+     }
+    if(en.getTask().equals("delete file not owner"))
+    {
+    	Statement stmt1 = this.getConn().createStatement();
+    	file f=(file)en.getObject();
+    	stmt1.executeUpdate("DELETE FROM test.userDirectories WHERE Itemname='"+(f.getFileName()+"' AND username='"+f.getuserNotOwnerDeleteFile())+"'");
+    }
+    
    }
   
    if(msg instanceof String)
