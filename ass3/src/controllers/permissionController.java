@@ -3,6 +3,9 @@ package controllers;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 
 import javax.swing.JComponent;
@@ -29,6 +32,7 @@ public class permissionController extends AbstractTransfer {
 	private fileMenuCon prevCon;
 	/**selectedPermission is the permission the user selected*/
 	private String selectedPermission;
+	private int selectedComboBox;
 	private int permission;
 	private User user;
 	private file f;
@@ -120,9 +124,10 @@ public class permissionController extends AbstractTransfer {
 	/**button listener of send*/
 	public class ButtonOk implements ActionListener
 	{
-		private file advancedFile;
+		private int selectedComboBox;
 
 		public void actionPerformed(ActionEvent e) {
+		
 
 			Envelope en = new Envelope(f,"");
 
@@ -185,18 +190,13 @@ public class permissionController extends AbstractTransfer {
 			//CurrGui.dispose();
 			//prevCon.getCurrGui().setVisible(true);
 			//f.setFilePermission(permission);	
+			
+		}
 			sendToServer(en);
 			myboxapp.clien.setCurrObj(this);
-		}
-	}
-
-
-	public void setAdvancedFile(file advancedFile) {
-		this.advancedFile = advancedFile;
-		
 	}
 	
-	public void handleDBResultFile2(Object message) {
+	public void handleDBResultFile(Object message) {
 		if(message.equals("updated successfully"))
 		{
 		
@@ -217,12 +217,6 @@ public class permissionController extends AbstractTransfer {
 
 }
 
-
-	public void handleDBResultFile2(String string) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	public file getAdvancedFile() {
 		return advancedFile;
 	}
@@ -230,6 +224,15 @@ public class permissionController extends AbstractTransfer {
 	public void setAdvancedFile(file advancedFile) {
 		this.advancedFile = advancedFile;
 	}
+
+	public int getSelectedComboBox() {
+		return selectedComboBox;
+	}
+
+	public void setSelectedComboBox(int selectedComboBox) {
+		this.selectedComboBox = selectedComboBox;
+	}
+
 }
 
 
