@@ -221,6 +221,25 @@ public class EchoServer extends AbstractServer
     	  stmt.executeUpdate(re);
     }
     
+        if(en.getTask().equals("add file for read"))
+    {
+    	  interestGroups groupforedit=(interestGroups)en.getObject();
+    	  int i=(groupforedit.getFilesForRead().size())-1;
+    	  stmt.executeUpdate("INSERT INTO test.file_read_groups VALUES('"+groupforedit.getFilesForRead().get(i).getFileName()+"','"+groupforedit.getGroupName()+"');");
+    	      client.sendToClient("the file added to the group");
+    	
+    }
+    if(en.getTask().equals("add file for update"))
+    {
+    	 interestGroups groupforedit2=(interestGroups)en.getObject();
+   	  int k=(groupforedit2.getFilesForRead().size())-1;
+   	 int j=(groupforedit2.getFilesForUpdate().size())-1;
+    	  stmt.executeUpdate("INSERT INTO test.file_read_groups VALUES('"+ groupforedit2.getFilesForRead().get(k).getFileName()+"','"+ groupforedit2.getGroupName()+"');");
+    	  stmt.executeUpdate("INSERT INTO test.file_update_groups VALUES('"+ groupforedit2.getFilesForUpdate().get(j).getFileName()+"','"+ groupforedit2.getGroupName()+"');");
+    	      client.sendToClient("the file added to the group");
+    	
+    }
+    
     if(en.getTask().equals("show interest group to user"))
     {
     	interestGroups IG=(interestGroups)en.getObject();
@@ -305,6 +324,20 @@ public class EchoServer extends AbstractServer
     	stmt1.executeUpdate("DELETE FROM test.interestgroups WHERE groupname='"+(interestGroup1.getGroupName()+"'"));
       	 stmt1.executeUpdate("DELETE FROM test.userinterestgroups WHERE groupname='"+(interestGroup1.getGroupName()+"'"));
       	 client.sendToClient("the group delete secsefuly"); 
+    }
+    
+        if(en.getTask().equals("delete file from interest group"))
+    {
+    	Statement stmt1 = this.getConn().createStatement();
+    	String file1=(String)en.getObject();
+
+    	stmt1.executeUpdate("DELETE FROM test.file_read_groups WHERE file_name='"+(file1+"'"));
+    	String re="SELECT * FROM file_update_groups WHERE file_name='"+file1+"'";
+     	 rs = stmt.executeQuery(re);
+     	 if(rs.next()==true)
+     	stmt1.executeUpdate("DELETE FROM file_update_groups WHERE file_name='"+file1+"'");
+        
+      	 client.sendToClient("the file delete secsefuly"); 
     }
    if(en.getTask().equals("add new group to DB"))
    {
@@ -603,6 +636,26 @@ public class EchoServer extends AbstractServer
 	   Envelope e;
    	   User user1;
    	   interestGroups interestgroup1;
+   	   
+   	      	   
+   	  if(str.equals("all interest groups to admin"))
+   	  {
+   		 {
+   			 ArrayList<interestGroups> AllGroups2=new ArrayList<>();
+   		     String re="SELECT * FROM test.interestgroups";
+   		     rs = stmt.executeQuery(re);
+   		     while(rs.next()==true)
+   	    	 {
+
+   		    	interestgroup1=new interestGroups(rs.getString(1));	
+   	    		AllGroups2.add( interestgroup1);
+   	    	
+   	    	 }
+   			 e=new Envelope(AllGroups2,"all groups to admin");
+   	 		 client.sendToClient(e);
+   	     }
+   		     
+   	  }
 	   if(str.equals("ShowAllUsers"))
 	 {
 		 ArrayList<User> AllUsers=new ArrayList<>();
@@ -653,7 +706,22 @@ public class EchoServer extends AbstractServer
  		 client.sendToClient(e);
      }
 	   
+	  if(str.equals("show all files"))
+	 {
+		 ArrayList<file> Allfiles=new ArrayList<>();
+		 file file1;
+	     String re="SELECT * FROM test.files";
+	     rs = stmt.executeQuery(re);
+	     while(rs.next()==true)
+    	 {
 
+	    	file1=new file(rs.getString(1));	
+	    	Allfiles.add( file1);
+    	
+    	 }
+		 e=new Envelope(Allfiles,"all files");
+ 		 client.sendToClient(e);
+     }
    }   
 
    }

@@ -20,7 +20,7 @@ import Model.file;
 import Model.interestGroups;
 import controllers.*;
 
-
+//////////
 
 /**
  * This class overrides some of the methods defined in the abstract
@@ -139,10 +139,19 @@ public synchronized void handleMessageFromServer(Object message)
 	    if(E.getTask().equals("all groups"))    
 
 	    	((administratorMenuController)(currController)).handleDBResult2((ArrayList<interestGroups>)E.getObject()); 
-    	
+
+	
+
 	    if(E.getTask().equals("all requests"))    
 	    	((administratorMenuController)(currController)).handleDBResult2((ArrayList<GroupsRequests>)E.getObject()); 
-	        
+
+	    if(E.getTask().equals("all groups to admin"))    
+	    	((logInCon)(currController)).handleDBResult2((ArrayList<interestGroups>)E.getObject());
+	    if(E.getTask().equals("files in group"))    
+	    	((administratorMenuController)(currController)).handleDBResult2((interestGroups)E.getObject());
+	    if(E.getTask().equals("all files"))    
+	    	((administratorMenuController)(currController)).getfiles((ArrayList<file>)E.getObject());
+
 	}
 	if(message instanceof String ) //user name and password not found
 	{
@@ -192,11 +201,31 @@ public synchronized void handleMessageFromServer(Object message)
 		{
 			((requestController)currController).getRequestgui().showsuceedmessege("the user was deleted secssfuly from this group");
 		}
+		if(str.equals("request allready exist"))
+		{
+			((JoinGroupCon)currController).getJoinGroupGui().setWarningMessageVisibleTrue("you all ready send this request, please be patient");
+		}
+		if(str.equals("request was send"))
+		{
+			((JoinGroupCon)currController).getJoinGroupGui().secssid_massege();
+		}
+		
 		if(str.equals("no requests"))
 		{
 			((administratorMenuController)currController).getusermainmenu2().setWarningMessageVisibleTrue("you dont have requests");
-		}	
+
+		}
+		if(str.equals("the file delete secsefuly"))
+		{
+			((EditGroupCon)currController).getEgroup().showsuceedmessege("the file deleted from this group");
+		}
+		if(str.equals("the file added to the group"))
+		{
+			((EditGroupCon)currController).getEgroup().showsuceedmessege("the file added to this group :)");
+		}
 		
+		
+
 		if(str.equals("file saved successfully"))
 	    	((createNewFileController)(currController)).handleDBResultFile("file saved successfully");
 		if(str.equals("file already exist"))

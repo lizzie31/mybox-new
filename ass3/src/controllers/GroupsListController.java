@@ -42,9 +42,15 @@ public class GroupsListController extends AbstractTransfer{
 			  {
 				  if(user.getInterestGroupInDB().get(i).getGroupName().equals(grouplist.GetList().getSelectedValue()))
 				  {
+<<<<<<< HEAD
 				    en=new Envelope(user.getInterestGroupInDB().get(i),"show interest group to user");
 				    sendToServer(en);
 				    myboxapp.clien.setCurrObj(getCurrCon());
+=======
+					  en=new Envelope(user.getInterestGroupInDB().get(i),"show interest group to user");
+				      sendToServer(en);
+				      myboxapp.clien.setCurrObj(getCurrCon());
+>>>>>>> refs/heads/cvc
 				  }
 			 }
 			

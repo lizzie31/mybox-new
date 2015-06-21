@@ -45,6 +45,7 @@ public class userMainMenuController extends AbstractTransfer{
 	protected fileMenuGui fileMenu;
 	/**fileCon is file menu controller*/
     protected fileMenuCon fileCon;
+	
 	private Envelope en;
 	/**f is a specific file*/
 	private file f;
@@ -58,7 +59,7 @@ public class userMainMenuController extends AbstractTransfer{
 		this.CurrGui= menu;
 		prevController=lastCon;
 		userDetails=user;
-		CurrGui.addcreatenewfile(new ButtoncreatenewfileListener());
+	
 		CurrGui.addcreatenewfolder(new ButtoncreatenewfolderListener());
 		CurrGui.addjoingruop(new ButtonAddAGroupListener());
 		CurrGui.addshowgruops(new ButtonshowgrouprListener());
@@ -66,6 +67,7 @@ public class userMainMenuController extends AbstractTransfer{
 		CurrGui.addtreeSelectionListener(new TreeSelection());
 		CurrGui.addsearchfiles(new addsearchfilesListener());
 		CurrGui.addleavegruop(new ButtonleaveListene());
+		CurrGui.addcreatenewfile(new ButtoncreatenewfileListener());
 	}
 	
 	public userMainMenuController(userMainMenuGUI menu, User user) {
@@ -98,6 +100,7 @@ public class userMainMenuController extends AbstractTransfer{
 		LG.setVisible(true);	
 	
 	}
+
 	/**button listener of show groups*/
 	protected class ButtonshowgrouprListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {

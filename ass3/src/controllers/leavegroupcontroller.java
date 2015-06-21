@@ -19,7 +19,12 @@ public class leavegroupcontroller extends AbstractTransfer{
 		private String GroupName=null;
 		private User user;
 		
-		/**constructor*/
+		/**constructor
+		 * 
+		 * @param g
+		 * @param lastCon
+		 * @param userDetails
+		 */
 		public leavegroupcontroller (leavegroupGUI g , userMainMenuController lastCon, User userDetails){
 			
 			this.leaveGroupGui=g;

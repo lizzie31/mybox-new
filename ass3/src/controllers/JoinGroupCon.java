@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
+import client.myboxapp;
 import Model.Envelope;
 import Model.GroupsRequests;
 import Model.User;
@@ -13,6 +14,7 @@ import view.*;
 public class JoinGroupCon extends AbstractTransfer{
 		/**joinGroupGui is a join group gui window*/
 		private joinGroupGui JoinGroupGui=null;
+		private JoinGroupCon JGC=this;
 		/**prevController is user main menu controller*/
 		private userMainMenuController prevController;
 		/**GroupName saves the group name that the user requested to enter**/
@@ -67,12 +69,20 @@ public class JoinGroupCon extends AbstractTransfer{
 				GroupsRequests request=new GroupsRequests(GroupName,user.getUserName(),"join");
 				Envelope en=new Envelope(request,"send request to system administrator");
 				sendToServer(en);
-				Component frame = null;
-				JOptionPane.showMessageDialog(frame, "your request was send to the system administrator!");
+				myboxapp.clien.setCurrObj(getJGC());
 				}
 			}
 		}
+
+		public joinGroupGui getJoinGroupGui() {
+			return this.JoinGroupGui;
+		}
+
+		public JoinGroupCon getJGC() {
+			return JGC;
+		}
 		
+	
 		
 
 }

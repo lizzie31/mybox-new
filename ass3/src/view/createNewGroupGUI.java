@@ -4,6 +4,7 @@ import java.awt.CheckboxMenuItem;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.Rectangle;
 
 import javax.swing.JFrame;
@@ -40,6 +41,7 @@ import javax.swing.JList;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.border.EmptyBorder;
 import javax.swing.AbstractListModel;
+import javax.swing.ImageIcon;
 
 public class createNewGroupGUI extends JFrame{
 
@@ -48,6 +50,7 @@ public class createNewGroupGUI extends JFrame{
 	 * @param groupname is the new group name.
 	 */
 	private JTextField groupname;
+	private JLabel label;
 	private JButton btnAdd;
 	private JButton btnCancel;
 	private JPanel panel;
@@ -86,6 +89,7 @@ public class createNewGroupGUI extends JFrame{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(500,500);
 		this.setContentPane(getCreatePanel());
+	
 		
 		JLabel lblGroupName = new JLabel("group name:");
 		lblGroupName.setBounds(25, 43, 104, 16);
@@ -109,6 +113,11 @@ public class createNewGroupGUI extends JFrame{
 		lblwarningMessage.setBounds(32, 300, 434, 50);
 		panel.add(lblwarningMessage);
 		lblwarningMessage.setVisible(false);
+		
+		label = new JLabel("");
+		label.setIcon(new ImageIcon(deleteGroupGUI.class.getResource("/view/2085-springlike-green-nature-butterfly-abstract-background.jpg")));
+		label.setBounds(0, 0, 484, 462);
+		panel.add(label);
 	}
 		
 	private JPanel getCreatePanel(){

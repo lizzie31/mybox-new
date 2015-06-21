@@ -28,13 +28,12 @@ public class file extends SystemItem{
 		this.FileOwner=fileOwner;
 		this.AbandonedFlag=flag;
 	}
-	public file(String name,String Dir, int perm, String fileOwner)
+	
+	  public file(String name)
 	{
-		this.Description=Description;
+	
 		fileName=name;
-		Direction=Dir;
-		this.Permission=perm;
-		this.FileOwner=fileOwner;
+		
 	}
 	
 	public file(ArrayList<interestGroups> groupsRead, ArrayList<interestGroups> groupsUpdate) {

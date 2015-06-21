@@ -8,6 +8,8 @@ import java.awt.event.ActionListener;
 import java.security.PrivateKey;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import client.myboxapp;
 
 
@@ -77,10 +79,17 @@ public class createNewGroupController<JCheckBox> extends AbstractTransfer {
 	}
 	
 	private void buttonaddPressed() {
-		//newgroup= new interestGroups(group.getGroupname().getText(), groupusers);
+		if(groupusers.size()==0) group.setWarningMessageVisibleTrue("please choose group members!");
+		else if( group.getGroupname().getText().equals(""))
+		{
+			group.setWarningMessageVisibleTrue("please write a group name!");
+		}
+		else {
+		newgroup= new interestGroups(group.getGroupname().getText(), groupusers);
 		en=new Envelope(newgroup,"add new group to DB");
 		sendToServer(en);
 		myboxapp.clien.setCurrObj(this);
+		}
 		
 	     
 	
@@ -97,7 +106,7 @@ public class createNewGroupController<JCheckBox> extends AbstractTransfer {
 	
 	private void buttoncancelPressed() {
 		group.close();
-		adm.getAdminCon().setVisible(true);
+		adm.getusermainmenu2().setVisible(true);
 	
 	}
 
