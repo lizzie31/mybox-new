@@ -71,11 +71,9 @@ public class NewFileLocationCon {
 		 if(str==null)
 			 CurrGui.setWarningMessageVisibleTrue("please select the location!!");
 		else{
-<<<<<<< HEAD
+
 			CurrGui.close();
-=======
 		  CurrGui.close();
->>>>>>> branch 'master' of https://github.com/lizzie31/mybox-new.git
 		  prevController.setParent(parent);
 		  prevController.getCreatefile().setVisible(true);
 		}

@@ -120,11 +120,13 @@ public class permissionController extends AbstractTransfer {
 	/**button listener of send*/
 	public class ButtonOk implements ActionListener
 	{
+		private file advancedFile;
+
 		public void actionPerformed(ActionEvent e) {
-<<<<<<< HEAD
+
 			Envelope en = new Envelope(f,"");
-=======
-			Envelope en;
+
+			//Envelope en;
 			if(permission==0)
 				CurrGui.setWarningMessageVisibleTrue("please select a permission!");
 			else
@@ -140,12 +142,8 @@ public class permissionController extends AbstractTransfer {
 						en=new Envelope(f,"change permission 3");
 				}
 				f.setFilePermission(permission);	
-				sendToServer(en);
-				Component frame = null;
-				JOptionPane.showMessageDialog(frame, "updated successfuly!");
-				CurrGui.dispose();
-				prevCon.getCurrGui().setVisible(true);
->>>>>>> branch 'master' of https://github.com/lizzie31/mybox-new.git
+				//sendToServer(en);
+				
 			
 			if(advancedFile!=null)
 			{
@@ -182,10 +180,10 @@ public class permissionController extends AbstractTransfer {
 				CurrGui.setWarningMessageVisibleTrue("please select a permission!");
 			}
 			
-			Component frame = null;
-			JOptionPane.showMessageDialog(frame, "Permissions updated successfully!");
-			CurrGui.dispose();
-			prevCon.getCurrGui().setVisible(true);
+			//Component frame1 = null;
+			//JOptionPane.showMessageDialog(frame1, "Permissions updated successfully!");
+			//CurrGui.dispose();
+			//prevCon.getCurrGui().setVisible(true);
 			//f.setFilePermission(permission);	
 			sendToServer(en);
 			myboxapp.clien.setCurrObj(this);
@@ -201,6 +199,7 @@ public class permissionController extends AbstractTransfer {
 	public void handleDBResultFile2(Object message) {
 		if(message.equals("updated successfully"))
 		{
+		
 			Component frame = null;
 			JOptionPane.showMessageDialog(frame, "updated successfully2");
 			CurrGui.dispose();
@@ -217,3 +216,20 @@ public class permissionController extends AbstractTransfer {
 	}
 
 }
+
+
+	public void handleDBResultFile2(String string) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public file getAdvancedFile() {
+		return advancedFile;
+	}
+
+	public void setAdvancedFile(file advancedFile) {
+		this.advancedFile = advancedFile;
+	}
+}
+
+
