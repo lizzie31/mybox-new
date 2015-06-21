@@ -328,7 +328,6 @@ public class EchoServer extends AbstractServer
    		}
    }
 
-//Dana's changes!
    if(en.getTask().equals("add file to user"))
    {
      file file=(file)en.getObject();
