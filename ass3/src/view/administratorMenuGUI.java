@@ -91,7 +91,7 @@ public class administratorMenuGUI extends JFrame {
 		{MainMenu=new JPanel();
         MainMenu.setBackground(new Color(102, 205, 170));
 		MainMenu.setLayout(null);
-		//setJtree();
+		setJtree();
 		tree.setBounds(42, 133, 205, 218);
 		MainMenu.add(tree);
 				
