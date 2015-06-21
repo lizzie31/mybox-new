@@ -129,8 +129,8 @@ public synchronized void handleMessageFromServer(Object message)
     	
 	    if(E.getTask().equals("all requests"))    
 	    	((administratorMenuController)(currController)).handleDBResult2((ArrayList<GroupsRequests>)E.getObject()); 
-	    if(E.getTask().equals("change permission"))    
-	    	((setCharactersController)(currController)).handleDBResult((file)(E.getObject()));
+	  //  if(E.getTask().equals("change permission"))    
+	    	//((setCharactersController)(currController)).handleDBResult((file)(E.getObject()));
 	 
 	    
 
@@ -185,7 +185,10 @@ public synchronized void handleMessageFromServer(Object message)
 	    	((createNewFileController)(currController)).handleDBResultFile("file saved successfully");
 		if(str.equals("file already exist"))
 	    	((createNewFileController)(currController)).handleDBResultFile("file already exist");
-		
+		if(str.equals("updated successfully"))
+	    	((fileMenuCon)(currController)).handleDBResultFile2("updated successfully");
+		if(str.equals("updated successfully2"))
+	    	((permissionController)(currController)).handleDBResultFile2("updated successfully");
 	}//if
 	/*if(message instanceof ArrayList<?>)
 	{

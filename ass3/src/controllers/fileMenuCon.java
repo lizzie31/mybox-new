@@ -1,5 +1,6 @@
 package controllers;
 
+import java.awt.Component;
 import java.awt.Desktop;
 import java.awt.DisplayMode;
 import java.awt.event.ActionEvent;
@@ -10,6 +11,8 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
 
 import client.myboxapp;
 import view.UpdateGui;
@@ -33,6 +36,10 @@ public class fileMenuCon extends AbstractTransfer{
 	/**prevCon is the user main menu controller*/
 	private userMainMenuController prevCon;
 	private file ChoosenFile=null;
+	public void setChoosenFile(file choosenFile) {
+		ChoosenFile = choosenFile;
+	}
+
 	/**menu is user main menu window**/
 	private userMainMenuGUI menu;
 	/**thisCon is the file menu controller*/
@@ -191,6 +198,7 @@ public class fileMenuCon extends AbstractTransfer{
 						{
 							flag=1;
 							CurrGui.close();
+							prevCon.getusermainmenu().setVisible(true);
 						}
 					
 				}
@@ -244,6 +252,24 @@ public class fileMenuCon extends AbstractTransfer{
 			}
 			
 		}
+     	public void handleDBResultFile2(Object message) {
+    		if(message.equals("updated successfully"))
+    		{
+    			Component frame = null;
+    			JOptionPane.showMessageDialog(frame, "updated successfully");
+    			CurrGui.setVisible(true);
+    			//CurrGui.dispose();
+    			//prevCon.getCurrGui().setVisible(true);
+    		}
+    		
+    		else 
+    		{
+    			JOptionPane.showMessageDialog(CurrGui, "error");
+    			CurrGui.dispose();
+    		//	prevCon.getCurrGui().setVisible(true);
+    		}
+    		
+    	}
 
 		public fileMenuCon getThisCon() {
 			return this.thisCon;

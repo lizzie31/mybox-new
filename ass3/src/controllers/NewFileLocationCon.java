@@ -14,6 +14,7 @@ import view.userMainMenuGUI;
 import Model.Envelope;
 import Model.User;
 import Model.directories;
+import Model.file;
 import client.myboxapp;
 import controllers.createNewFolderController.TreeSelection;
 
@@ -66,9 +67,11 @@ public class NewFileLocationCon {
 		}
 	}
 	private void buttonOKPressed() {
+		prevController.setLocFlag(true);
 		 if(str==null)
 			 CurrGui.setWarningMessageVisibleTrue("please select the location!!");
 		else{
+			CurrGui.close();
 		  prevController.setParent(parent);
 		  prevController.getCreatefile().setVisible(true);
 		}

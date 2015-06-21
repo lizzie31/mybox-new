@@ -22,7 +22,9 @@ public class permissionGui extends JFrame {
 	/**@param wor is the warningGui*/
 	private warningGui wor=null;
 	private JLabel lblwarningMessage = null;
+	private JButton btnChooseAdvancedGroups = null;
 	
+
 	public permissionGui() {
 		initialize();
 		this.setVisible(true);
@@ -62,6 +64,12 @@ public class permissionGui extends JFrame {
 			panel=new JPanel();
 			panel.setLayout(null);
 			this.setTitle("set permission");
+			
+			btnChooseAdvancedGroups = new JButton("Choose advanced groups");
+			btnChooseAdvancedGroups.setEnabled(false);
+			btnChooseAdvancedGroups.setBounds(298, 120, 176, 23);
+			panel.add(btnChooseAdvancedGroups);
+			
 		}
 		return panel;
 	}
@@ -75,6 +83,9 @@ public class permissionGui extends JFrame {
 	}
 	public void addOk(ActionListener l) {
 		btnOk.addActionListener(l);
+	}
+	public void addChooseAdvancedGroups(ActionListener l) {
+		btnChooseAdvancedGroups.addActionListener(l);
 	}
 	/**close() closes the current window*/
 	public void close() {
@@ -112,5 +123,14 @@ public class permissionGui extends JFrame {
 		lblwarningMessage.setVisible(false);
 		
 	}
+ 	
+ 	public JButton getBtnChooseAdvancedGroups() {
+		return btnChooseAdvancedGroups;
+	}
+
+	public void setBtnChooseAdvancedGroups(JButton btnChooseAdvancedGroups) {
+		this.btnChooseAdvancedGroups = btnChooseAdvancedGroups;
+	}
+	
  
 }

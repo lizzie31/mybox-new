@@ -155,7 +155,7 @@ public class createNewFileGUI extends JFrame{
 			
 			btnOpen = new JButton("Load your file");
 			btnOpen.setFont(new Font("Tahoma", Font.BOLD, 12));
-			btnOpen.setBounds(169, 265, 132, 32);
+			btnOpen.setBounds(169, 209, 132, 32);
 			//btnOpen.addActionListener(new buttonOpenOrSavePressed());
 			createpanel.add(btnOpen);
 		    
@@ -179,9 +179,9 @@ public class createNewFileGUI extends JFrame{
 			btnChooseAdvancedGroups.setBounds(298, 162, 176, 23);
 			createpanel.add(btnChooseAdvancedGroups);
 			
-			btnChooseLocation = new JButton("choose location");
+			btnChooseLocation = new JButton("Choose location");
 			btnChooseLocation.setFont(new Font("Tahoma", Font.BOLD, 12));
-			btnChooseLocation.setBounds(169, 222, 132, 32);
+			btnChooseLocation.setBounds(169, 263, 132, 32);
 			createpanel.add(btnChooseLocation);
 			
 			JLabel label = new JLabel("");

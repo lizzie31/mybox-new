@@ -58,7 +58,7 @@ public class EchoServer extends AbstractServer
     String fileDir = null;
     ConnectionToClient ct;
     boolean updateFlag = false;
- 
+    file f = null;
   final public static int DEFAULT_PORT = 5555; //The default port to listen on.
   
   //Constructors ****************************************************
@@ -384,22 +384,56 @@ public class EchoServer extends AbstractServer
     if(en.getTask().contains("change permission"))
     {
     		Envelope e;
-    	String permission;
-    	file f=(file)(en.getObject());
-    	if(en.getTask().contains("1"))
-    		permission="1";
-    	else
+    		String permission;
+        	file f=(file)(en.getObject());
+    		Statement stmt1 = this.getConn().createStatement();
+    	
+    	/*if(f.getFilepermission()==3)
     	{
-    		if(en.getTask().contains("2"))
-        		permission="2";
-    		else
-    			permission="3";
+    		String re = "DELETE FROM test.file_read_groups WHERE file_name='" + f.getFileName() + "' ;";
+    		stmt1.executeUpdate(re);
+    	}*/
+    	
+    	//if(f.getFilepermission()==2)
+    	//{
+    		String re = "DELETE FROM test.file_read_groups WHERE file_name='" + f.getFileName() + "' ;";
+    		stmt1.executeUpdate(re);
+    		String re2 = "DELETE FROM test.file_update_groups WHERE file_name='" + f.getFileName() + "' ;";
+    		stmt1.executeUpdate(re2);
+    		/*String re3 = "DELETE FROM test.userdirectories WHERE Itemname='" + f.getFileName() + "' ;";
+    		stmt1.executeUpdate(re3);*/
+    	//}
+    	
+    	if(en.getTask().contains("1"))
+    	{
+    		((file)(en.getObject())).setFilePermission(1);
+    		permission="1";
+    		en.setMess(en.getTask());
+    		en.setTask("Save file in server");
     	}
     		
-    	String re = "UPDATE test.files SET permission= "+permission+" WHERE files.filename= '"+(((file)(en.getObject())).getFileName()+"'");
+    
+    		if(en.getTask().contains("2"))
+    		{
+    			((file)(en.getObject())).setFilePermission(2);
+        		permission="2";
+        		en.setMess(en.getTask());
+        		en.setTask("Save file in server");
+    		}
+    		else
+    		{
+    			((file)(en.getObject())).setFilePermission(3);
+    			permission="3";
+    			((file)(en.getObject())).setFilePermission(3);
+    			en.setMess(en.getTask());
+    			en.setTask("Save file in server");
+    		}
+    		
+ 
+    		
+    	re = "UPDATE test.files SET permission= "+permission+" WHERE files.filename= '"+(((file)(en.getObject())).getFileName()+"'");
     	stmt.executeUpdate(re);  
-    	 e=new Envelope(f,"change permission");
-		 client.sendToClient(e);
+    	
     }
     if(en.getTask().equals("change description"))
     {
@@ -420,34 +454,70 @@ public class EchoServer extends AbstractServer
        	   }
        	else 
        		{
-
-    		byte[] filecontent=f.getFileContent();
+       		ArrayList<interestGroups> allGroups = new ArrayList<>();
+       		interestGroups group= null;
+    		
     		String name = f.getFileName();
-    		File file=new File(f.getDirection());
-    		BufferedWriter writer=new BufferedWriter(new FileWriter(file));
-    		FileOutputStream fos= new FileOutputStream(file.getAbsolutePath());
-    		fos.write(filecontent);
-    		fos.flush();
-    		fos.close();
-    		String re = "INSERT INTO test.files VALUES('"+f.getFileName()+"','"+f.getDirection()+"','"+f.getFilepermission()+"','"+f.getFileOwner()+"','hello');";
-       		stmt1.executeUpdate(re);
-       		int readCount = f.getGroupsForRead().size();
-       		int updateCount = f.getGroupsForUpdate().size();
-       		for(int i = 0; i < readCount; i++)
+    		if(!en.getMess().equals("change permission"))
+    	    {
+    			byte[] filecontent=f.getFileContent();
+    			File file=new File(f.getDirection());
+    			BufferedWriter writer=new BufferedWriter(new FileWriter(file));
+    			FileOutputStream fos= new FileOutputStream(file.getAbsolutePath());
+    			fos.write(filecontent);
+    			fos.flush();
+    			fos.close();
+    			String re = "INSERT INTO test.files VALUES('"+f.getFileName()+"','"+f.getDirection()+"','"+f.getFilepermission()+"','"+f.getFileOwner()+"','hello');";
+               	stmt1.executeUpdate(re);
+               	re = "INSERT INTO test.userdirectories VALUES('"+f.getFileOwner()+"','"+f.getParent().getDirectoryName()+"','"+f.getFileName()+"')";
+        	    stmt.executeUpdate(re);
+    	    }
+	
+       		if(f.getFilepermission() == 3)
        		{
-       			String read = "INSERT INTO test.file_read_groups VALUES('"+f.getFileName()+"','"+f.getGroupsForRead().get(i).getGroupName()+"');";
-       			stmt.executeUpdate(read);
+       			String groups = "SELECT * FROM test.interestgroups";
+       			rs = stmt1.executeQuery(groups);
+       			while(rs.next()==true)
+       			{
+       				group = new interestGroups(rs.getString(1));	
+       				allGroups.add(group);
+       			}
+       			
+       			f.setGroupsForRead(allGroups);
        		}
        		
-       		for(int i = 0; i < updateCount; i++)
+       		int readCount = f.getGroupsForRead().size();
+       		int updateCount = f.getGroupsForUpdate().size();
+       		if (readCount > 0)
        		{
-       			String update = "INSERT INTO test.file_update_groups VALUES('"+f.getFileName()+"','"+f.getGroupsForUpdate().get(i).getGroupName()+"');";
-       			stmt.executeUpdate(update);
+       			for(int i = 0; i < readCount; i++)
+       			{
+       				String read = "INSERT INTO test.file_read_groups VALUES('"+f.getFileName()+"','"+f.getGroupsForRead().get(i).getGroupName()+"');";
+       				stmt.executeUpdate(read);
+       			}
        		}
-       	    re=("INSERT INTO test.userdirectories VALUES('"+f.getFileOwner()+"','"+f.getParent().getDirectoryName()+"','"+f.getFileName()+"')");
-    	    stmt.executeUpdate(re); 		
-       		client.sendToClient("file saved successfully");
-       		} 	
+       		if (updateCount > 0)
+       		{
+       			for(int i = 0; i < updateCount; i++)
+           		{
+           			String update = "INSERT INTO test.file_update_groups VALUES('"+f.getFileName()+"','"+f.getGroupsForUpdate().get(i).getGroupName()+"');";
+           			stmt.executeUpdate(update);
+           		}       			
+       		}
+       		
+       		 	
+    	    if(en.getMess().contains("change permission"))
+    	    {
+    	    	//en.setTask("updated successfully");
+    	    	client.sendToClient("updated successfully");
+    	    }
+    	    else
+    	    {
+    	    	//re = "INSERT INTO test.userdirectories VALUES('"+f.getFileOwner()+"','"+f.getParent().getDirectoryName()+"','"+f.getFileName()+"')";
+        	    //stmt.executeUpdate(re);
+    	    	client.sendToClient("file saved successfully");
+    	    }
+       	} 	
     }
    
     

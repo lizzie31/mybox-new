@@ -12,13 +12,12 @@ import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-
-import controllers.JoinGroupCon.SelectedGroupListener;
 import client.myboxapp;
 import Model.Envelope;
 import Model.User;
 import Model.directories;
 import Model.file;
+import Model.interestGroups;
 import view.*;
 
 public class createNewFileController extends AbstractTransfer{
@@ -39,13 +38,14 @@ public class createNewFileController extends AbstractTransfer{
 	private File f1 = null;
 	private file advancedFile = null;
 	private boolean flag = false;
+	private boolean locFlag = false;
 	private String ss;
 	private JFileChooser fileChooser;
 	//private User user;
 	protected User userDetails;
 	private int selectedComboBox;
 	private directories parent=null;
-	
+	//private ArrayList<interestGroups> allGroups = new ArrayList<>();
 	/**Constructor*/
 	public createNewFileController (createNewFileGUI g , userMainMenuController lastCon,User us){
 		
@@ -142,10 +142,15 @@ public class createNewFileController extends AbstractTransfer{
 		}
 		else if(createfile.getDescriptionField().getText().equals(""))
 			JOptionPane.showMessageDialog(createfile, "Please write the description for this file!", "Empty field",0,null);
+		
+		else if(createfile.getDescriptionField().getText().length() > 40)
+			JOptionPane.showMessageDialog(createfile, "The description must be less then 40 characters!", "Not available field",0,null);
 		else if(!isFlag())
 			JOptionPane.showMessageDialog(createfile, "Choose the file to upload", "Error!",0,null);
+		else if(!isLocFlag())
+			JOptionPane.showMessageDialog(createfile, "Choose the file location to save!", "Error!",0,null);
 	
-		else if(isFlag())
+		else if(isFlag() && isLocFlag())
 		{
 			
 			File oldFile= new File(ss);
@@ -159,6 +164,12 @@ public class createNewFileController extends AbstractTransfer{
 				e.printStackTrace();
 			}
 			
+			//int i = (int) createfile.getComboBox().getSelectedItem();
+			if (selectedComboBox == 0)
+			{
+				setSelectedComboBox(3);
+			}
+			
 			String[] type = ss.split("\\.",2);
 			String name=createfile.getFileNameField().getText();
 			String temp ="D:/mybox/"+ name+ "." + type[1];
@@ -168,6 +179,16 @@ public class createNewFileController extends AbstractTransfer{
 				upFile.setGroupsForRead(advancedFile.getGroupsForRead());
 				upFile.setGroupsForUpdate(advancedFile.getGroupsForUpdate());
 			}
+			
+			if(advancedFile == null && selectedComboBox == 2)
+				upFile.setGroupsForRead(userDetails.getInterestGroupInDB());
+			
+			if(advancedFile == null && selectedComboBox == 3)
+			{
+				
+				upFile.setGroupsForRead(userDetails.getInterestGroupInDB());
+			}
+			
 			upFile.setFileContent(bArr);
 			upFile.setParent(parent);
 			
@@ -187,18 +208,25 @@ public class createNewFileController extends AbstractTransfer{
 			if (i == 0)
 			{
 				createfile.getBtnChooseAdvancedGroups().setEnabled(false);
+				createfile.getComboBox().setSelectedItem(3);
 				setSelectedComboBox(3);
 			}
-			if(i==2)
-			{
-				createfile.getBtnChooseAdvancedGroups().setEnabled(true);
-				setSelectedComboBox(i);
-			}
 			
-			else
+			if(i == 1)
 			{
 				createfile.getBtnChooseAdvancedGroups().setEnabled(false);
-				setSelectedComboBox(i);
+				setSelectedComboBox(1);
+			}
+			if(i == 2)
+			{
+				createfile.getBtnChooseAdvancedGroups().setEnabled(true);
+				setSelectedComboBox(2);
+			}
+			
+			if(i == 3)
+			{
+				createfile.getBtnChooseAdvancedGroups().setEnabled(false);
+				setSelectedComboBox(3);
 			}
 		
 			
@@ -213,6 +241,7 @@ public class createNewFileController extends AbstractTransfer{
 			myboxapp.clien.setCurrObj(this);
 		setFlag(false);
 		}
+		
 		if(message.equals("file already exist"))
 		{
 			JOptionPane.showMessageDialog(createfile, "Change file name, and try again!", "Failed!",0,null);
@@ -264,7 +293,14 @@ public class createNewFileController extends AbstractTransfer{
 		}
 		
 	}
-	
+
+	public boolean isLocFlag() {
+		return locFlag;
+	}
+
+	public void setLocFlag(boolean locFlag) {
+		this.locFlag = locFlag;
+	}
 	
 	
 	
