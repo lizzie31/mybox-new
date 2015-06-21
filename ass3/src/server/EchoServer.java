@@ -297,6 +297,8 @@ public class EchoServer extends AbstractServer
     	}
     	IG.setFilesForRead(readfiles);
     	IG.setFilesForUpdate(updatefiles);
+       	e=new Envelope(IG,"show interest group");
+    	client.sendToClient(e);
 
 
     }
