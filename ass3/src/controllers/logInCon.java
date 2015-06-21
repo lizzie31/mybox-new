@@ -6,9 +6,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.concurrent.Executors;
+
 import Model.Envelope;
 import Model.User;
 import Model.file;
+import Model.interestGroups;
 import Model.logInMod;
 import view.administratorMenuGUI;
 import view.forgget_password;
@@ -246,11 +248,12 @@ public class logInCon extends AbstractTransfer
 				loginG.setWarningMessageVisibleTrue("This user name is already Login to system");
 		 else if(user.getUserName().equals("nofar")){
 			   UpdateDB(); //update the status to 1 that we know the user is login the system 
+			   
 		        myboxapp.clien.setCurrUser(user);	 
 		        loginG.dispose();
-		        Menu2= new administratorMenuGUI(user);
-		        Menu= new userMainMenuGUI(user);
-		        new administratorMenuController(Menu,this,user,Menu2);
+		        sendToServer("all interest groups to admin");
+		    	myboxapp.clien.setCurrObj(this );
+		        
 		 }
 		 else{
 		        UpdateDB(); //update the status to 1 that we know the user is login the system 
@@ -260,6 +263,13 @@ public class logInCon extends AbstractTransfer
 		        new userMainMenuController(Menu,this,user);
 		 }
 		 
+		
+	}
+	public void handleDBResult2(Object message) {
+		ArrayList<interestGroups> IG =(ArrayList<interestGroups>)message;
+		  Menu2= new administratorMenuGUI(user,IG);
+		  Menu= new userMainMenuGUI(user);
+	        new administratorMenuController(Menu,this,user,Menu2);
 		
 	}
 

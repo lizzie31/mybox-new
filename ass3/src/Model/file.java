@@ -18,6 +18,12 @@ public class file extends SystemItem{
     private directories parent;
     private String CurrAddingUser=null;
 
+    public file(String name)
+	{
+	
+		fileName=name;
+		
+	}
 	public file(String name,String Dir, int perm, String fileOwner,String Description)
 	{
 		this.Description=Description;

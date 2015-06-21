@@ -32,6 +32,9 @@ public class deleteGroupController extends AbstractTransfer {
 	private interestGroups groupToDel;
 	private deleteGroupController thiscon;
 	
+
+	/**constractor
+=======
 	/**constructor
 	 * 
 	 * @param group
@@ -88,7 +91,7 @@ public class deleteGroupController extends AbstractTransfer {
 	
 	private void buttoncancelPressed() {
 		group.close();
-		adm.getAdminCon().setVisible(true);
+		adm.getusermainmenu2().setVisible(true);
 	
 	}
 

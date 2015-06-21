@@ -57,8 +57,9 @@ public class createNewFolderController extends AbstractTransfer{
 		((administratorMenuController) prevController).getusermainmenu2().setVisible(true);
 		else prevController.getusermainmenu().setVisible(true);
 	}
-	
+
 	/**ButtonOkListener implements action listener and handles the ok button pressing*/
+
 	private class ButtonOKListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
 			buttonOKPressed();
