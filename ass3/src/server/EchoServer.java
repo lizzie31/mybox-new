@@ -22,6 +22,7 @@ import controllers.forgetPassCon;
 import controllers.logInCon;
 import Model.Envelope;
 import Model.GroupsRequests;
+import Model.SystemItem;
 import Model.User;
 import Model.directories;
 import Model.file;
@@ -45,11 +46,10 @@ public class EchoServer extends AbstractServer
 {
     private Connection conn;
     private ServerController controller;
-     
-
-
+ 
     ResultSet rs;
     ResultSet rs1;
+    ResultSet rs2;
     int flag = 0;
     int insertFlag = 0;
     int whereFlag = 0;
@@ -58,7 +58,7 @@ public class EchoServer extends AbstractServer
     String fileDir = null;
     ConnectionToClient ct;
     boolean updateFlag = false;
- 
+    
   final public static int DEFAULT_PORT = 5555; //The default port to listen on.
   
   //Constructors ****************************************************
@@ -98,14 +98,12 @@ public class EchoServer extends AbstractServer
 	 if((en.getTask()).equals("login"))  //search Login
 	  {
 		  logInMod showfiles=(logInMod)en.getObject();
-		  file f;
 		  String username;
 		  String pass;
 		  String mail;
 		  int status;
-		  ArrayList<directories> userDirectories=new ArrayList<>();
-		  ArrayList<file> files;
-		  directories directory;
+		  ArrayList<SystemItem> userItems=new ArrayList<>();
+		  directories Items=new directories(""+showfiles.getUserName()+"'s files");
 		  String re = "SELECT * FROM users WHERE users.username= '"+(showfiles.getUserName()+"' AND users.password='"+showfiles.getPassword()+"'");
 		  rs = stmt.executeQuery(re);
 
@@ -116,28 +114,22 @@ public class EchoServer extends AbstractServer
 			    pass=rs.getString(2);
 			    mail=rs.getString(3);
 			    status=rs.getInt(4);
-			    ArrayList<String> dirname=new ArrayList<>();
+			    ArrayList<String> Itemname=new ArrayList<>();
 			    re = "SELECT DISTINCT directory FROM test.user_and_dir WHERE user_and_dir.username='"+(showfiles.getUserName()+"'");
 				rs1 = stmt.executeQuery(re);
 				while(rs1.next())
 				 {
-					dirname.add(rs1.getString(1));
+					Itemname.add(rs1.getString(1));
 				 }
 				
-				for(int i=0;i<dirname.size();i++)
+				for(int i=0;i<Itemname.size();i++)
 				{
-					re=("SELECT f.filename,f.direction,f.permission,f.fileowner FROM userdirectories as u,files as f WHERE f.filename=u.filename AND u.directory= '"+dirname.get(i)+"' AND u.username='"+username+"'");
-					rs1=stmt.executeQuery(re);
-					files=new ArrayList<>();
-					while(rs1.next()==true)
-					 {
-						 f=new file(rs1.getString(1),rs1.getString(2),rs1.getInt(3),rs1.getString(4));
-						 files.add(f);
-					 }
-					 
-					 directory=new directories(files,dirname.get(i));
-					 userDirectories.add(directory);
+					directories d=null;
+					d=setthetree(Itemname.get(i),username,stmt);
+					userItems.add(d);
+
 				}
+				Items.setfiles(userItems);
 				interestGroups s= null;
 		    	ArrayList<interestGroups> interestGroup=new ArrayList<>();
 		    	re="SELECT * FROM test.userinterestgroups WHERE userinterestgroups.username= '"+username +"'";
@@ -148,7 +140,7 @@ public class EchoServer extends AbstractServer
 		    	  interestGroup.add(s);
 		    	}
 				
-	       	 user = new User(username,pass,mail,status,userDirectories,interestGroup);
+	       	 user = new User(username,pass,mail,status,Items,interestGroup);
 	    	 en=new Envelope(user,"log in handle");
 	    	 client.sendToClient(en);
 		  }
@@ -156,7 +148,43 @@ public class EchoServer extends AbstractServer
 		  else 
 			 client.sendToClient("Not found User");
 	  }
-	
+	 if(en.getTask().equals("refresh data"))
+	 {
+		  User userrefresh=(User)en.getObject();
+		  ArrayList<String> Itemname=new ArrayList<>();
+		  ArrayList<SystemItem> userItems=new ArrayList<>();
+		  directories Items=new directories(""+userrefresh.getUserName()+"'s files");
+		  String re = "SELECT DISTINCT directory FROM test.user_and_dir WHERE user_and_dir.username='"+(userrefresh.getUserName()+"'");
+			rs1 = stmt.executeQuery(re);
+			while(rs1.next())
+			 {
+				Itemname.add(rs1.getString(1));
+			 }
+			
+			for(int i=0;i<Itemname.size();i++)
+			{
+				directories d=null;
+				d=setthetree(Itemname.get(i),userrefresh.getUserName(),stmt);
+				userItems.add(d);
+				
+
+			}
+			Items.setfiles(userItems);
+			interestGroups s= null;
+	    	ArrayList<interestGroups> interestGroup=new ArrayList<>();
+	    	re="SELECT * FROM test.userinterestgroups WHERE userinterestgroups.username= '"+userrefresh.getUserName() +"'";
+	    	rs = stmt.executeQuery(re);
+	    	while(rs.next()==true)
+	    	{
+	    	  s=new interestGroups(rs.getString(2));
+	    	  interestGroup.add(s);
+	    	}
+	    	userrefresh.setuserItems(Items);
+	    	userrefresh.setInterestGroupInDB(interestGroup);
+	    	Envelope e=new Envelope(userrefresh,"refresh data");
+	    	client.sendToClient(e);
+			
+	 }
 	 if(en.getTask().equals("forgotPass"))
 	  {
 		  forgetPassCon forgot=(forgetPassCon)en.getObject();
@@ -260,11 +288,11 @@ public class EchoServer extends AbstractServer
     		f=new file(rs.getString(1),rs.getString(2),rs.getInt(3),rs.getString(4));
     		readfiles.add(f);
     	}
-    	re="SELECT f.filename,f.direction,f.permission,f.fileowner From file_update_groups as fu,files as f WHERE f.filename=fu.file_name AND fu.interest_group='"+IG.getGroupName()+"'";
+    	re="SELECT f.filename,f.direction,f.permission,f.fileowner,f.description From file_update_groups as fu,files as f WHERE f.filename=fu.file_name AND fu.interest_group='"+IG.getGroupName()+"'";
     	rs1=stmt.executeQuery(re);
     	while(rs1.next())
     	{
-    		f=new file(rs1.getString(1),rs1.getString(2),rs1.getInt(3),rs1.getString(4));
+    		f=new file(rs1.getString(1),rs1.getString(2),rs1.getInt(3),rs1.getString(4),rs.getString(5));
     		updatefiles.add(f);
     	}
     	IG.setFilesForRead(readfiles);
@@ -365,19 +393,46 @@ public class EchoServer extends AbstractServer
    		client.sendToClient("the group was added sucssesfuly");
    		}
    }
+
+//Dana's changes!
+   if(en.getTask().equals("add file to user"))
+   {
+     file file=(file)en.getObject();
+     String re="SELECT * FROM test.userdirectories WHERE username='"+file.getCurrAddingUser()+"' AND directory='"+file.getParent().getDirectoryName()+"' AND Itemname='"+file.getFileName()+"'";
+     rs=stmt.executeQuery(re);
+     if(rs.next())	
+     {
+    	 client.sendToClient("this file exists in your files");
+     }
+     else{
+     re=("INSERT INTO test.userdirectories VALUES('"+file.getCurrAddingUser()+"','"+file.getParent().getDirectoryName()+"','"+file.getFileName()+"')");
+	 stmt.executeUpdate(re);
+	 client.sendToClient("file added succesfully");
+     }
+   }
+
    if(en.getTask().equals("add directory"))
    {
-     User user1=(User)en.getObject();
-     directories dir=user1.getuserDirectories().get(user1.getuserDirectories().size()-1);
-     String re=("INSERT INTO test.user_and_dir VALUES('"+user1.getUsreName()+"','"+dir.getDirectoryName()+"');");
+     directories dir=(directories)en.getObject();
+     if(dir.getParent().getRootFlag()==true)
+     {
+     String re=("INSERT INTO test.user_and_dir VALUES('"+dir.getUsername()+"','"+dir.getDirectoryName()+"');");
      stmt.executeUpdate(re);
+     }
+     else
+     {
+    	 String re=("INSERT INTO test.userdirectories VALUES('"+dir.getUsername()+"','"+dir.getParent().getDirectoryName()+"','"+dir.getDirectoryName()+"')");
+    	 stmt.executeUpdate(re);
+     }
      
    }
-    if(en.getTask().equals("search files"))
+    if(en.getTask().contains("search files"))
     {
- 
+    	boolean isadmin=false;
+    	if(en.getTask().equals("search files 2"))
+    		isadmin=true;
     	Envelope e;
-    	file f;
+    	file f; 
     	 String textField=(String)en.getObject();
     	 ArrayList<file> FinalFiles=null;
     	String re="SELECT * FROM test.files";
@@ -385,26 +440,111 @@ public class EchoServer extends AbstractServer
     	 FinalFiles=new ArrayList<>();
     	 while(rs.next()==true)
     	 {
-    		f=new file(rs.getString(1),rs.getString(2),rs.getInt(3),rs.getString(4));
-    		if(f.getFileName().contains(textField))
-    		//if(f.getFileName().indexOf(textField)!=-1)	
+    		f=new file(rs.getString(1),rs.getString(2),rs.getInt(3),rs.getString(4),rs.getString(5));
+    		if(f.getFileName().contains(textField))	
     			FinalFiles.add(f);
-    	
     	 }
-    	 if(FinalFiles.size()==0)
+    	 if(FinalFiles.size()==0 && isadmin==false)
     	 {
     		 e=new Envelope(null,"search file");
  		     client.sendToClient(e); 
     	 }
- 		  else
- 		  {
-    	 e=new Envelope(FinalFiles,"search file");
- 		 client.sendToClient(e);
-    	  }
+    	 if(FinalFiles.size()==0 && isadmin==true)
+    	 {
+    		 e=new Envelope(null,"search file 2");
+ 		     client.sendToClient(e); 
+    	 }
+    	 if(FinalFiles.size()!=0 && isadmin==true)
+ 		 {
+    		 e=new Envelope(FinalFiles,"search file 2");
+    		 client.sendToClient(e);
+    	 }
+    	 if(FinalFiles.size()!=0 && isadmin==false)
+ 		 {
+    		 e=new Envelope(FinalFiles,"search file");
+    		 client.sendToClient(e);
+    	 }
     }
-       
+    if(en.getTask().contains("change permission"))
+    {
+    		Envelope e;
+    		String permission;
+        	file f=(file)(en.getObject());
+    		Statement stmt1 = this.getConn().createStatement();
+    	
+    	/*if(f.getFilepermission()==3)
+    	{
+    		String re = "DELETE FROM test.file_read_groups WHERE file_name='" + f.getFileName() + "' ;";
+    		stmt1.executeUpdate(re);
+    	}*/
+    	
+    	//if(f.getFilepermission()==2)
+    	//{
+    		String re = "DELETE FROM test.file_read_groups WHERE file_name='" + f.getFileName() + "' ;";
+    		stmt1.executeUpdate(re);
+    		String re2 = "DELETE FROM test.file_update_groups WHERE file_name='" + f.getFileName() + "' ;";
+    		stmt1.executeUpdate(re2);
+    		/*String re3 = "DELETE FROM test.userdirectories WHERE Itemname='" + f.getFileName() + "' ;";
+    		stmt1.executeUpdate(re3);*/
+    	//}
+    	
+    	if(en.getTask().contains("1"))
+    	{
+    		((file)(en.getObject())).setFilePermission(1);
+    		permission="1";
+    		en.setMess(en.getTask());
+    		en.setTask("Save file in server");
+    	}
+    		
     
-    
+    		if(en.getTask().contains("2"))
+    		{
+    			((file)(en.getObject())).setFilePermission(2);
+        		permission="2";
+        		en.setMess(en.getTask());
+        		en.setTask("Save file in server");
+    		}
+    		else
+    		{
+    			((file)(en.getObject())).setFilePermission(3);
+    			permission="3";
+    			((file)(en.getObject())).setFilePermission(3);
+    			en.setMess(en.getTask());
+    			en.setTask("Save file in server");
+    		}
+    		
+ 
+    		
+    	re = "UPDATE test.files SET permission= "+permission+" WHERE files.filename= '"+(((file)(en.getObject())).getFileName()+"'");
+    	stmt.executeUpdate(re);  
+    	
+    }
+    if(en.getTask().equals("change description"))
+    {
+    	file file=(file)en.getObject();
+    	File f=new File(file.getDirection());
+    	byte[] content = Files.readAllBytes(f.toPath());
+    	byte[] newfilecontent=content;
+    	f.delete();
+    	String[] type = file.getDirection().split("\\.",2);
+		String name=file.getnewfilename();
+		String temp ="D:/mybox/"+ name+ "." + type[1];
+    	file.setDirection(temp);
+		f=new File(file.getDirection());
+		BufferedWriter writer=new BufferedWriter(new FileWriter(f));
+		FileOutputStream fos = new FileOutputStream(f.getAbsolutePath());
+		fos.write(newfilecontent);
+		fos.flush();
+		fos.close();
+	 	String re = "UPDATE test.files SET description= '"+(((file)(en.getObject())).getDescription()+"' WHERE files.filename= '"+(((file)(en.getObject())).getFileName()+"'"));
+    	stmt.executeUpdate(re);
+    	String re2 = "UPDATE test.files SET filename= '"+(((file)(en.getObject())).getnewfilename()+"' WHERE files.filename= '"+(((file)(en.getObject())).getFileName()+"'"));
+    	stmt.executeUpdate(re2);
+    	re="UPDATE test.files SET direction= '"+file.getDirection()+"' WHERE files.filename= '"+file.getnewfilename()+"'";
+    	stmt.executeUpdate(re);
+    	re="UPDATE test.userdirectories SET Itemname='"+file.getnewfilename()+"'WHERE userdirectories.Itemname='"+file.getFileName()+"'";
+    	stmt.executeUpdate(re);
+    }
     if(en.getTask().equals("Save file in server"))
     {
     	Statement stmt1 = this.getConn().createStatement();
@@ -416,19 +556,70 @@ public class EchoServer extends AbstractServer
        	   }
        	else 
        		{
-
-    		byte[] filecontent=f.getFileContent();
+       		ArrayList<interestGroups> allGroups = new ArrayList<>();
+       		interestGroups group= null;
+    		
     		String name = f.getFileName();
-    		File file=new File(f.getDirection());
-    		BufferedWriter writer=new BufferedWriter(new FileWriter(file));
-    		FileOutputStream fos= new FileOutputStream(file.getAbsolutePath());
-    		fos.write(filecontent);
-    		fos.flush();
-    		fos.close();
-    		String re = "INSERT INTO test.files VALUES('"+f.getFileName()+"','"+f.getDirection()+"','"+f.getFilepermission()+"','"+f.getFileOwner()+"');";
-       		stmt1.executeUpdate(re);
-       		client.sendToClient("file saved successfully");
-       		} 	
+    		if(!en.getMess().equals("change permission"))
+    	    {
+    			byte[] filecontent=f.getFileContent();
+    			File file=new File(f.getDirection());
+    			BufferedWriter writer=new BufferedWriter(new FileWriter(file));
+    			FileOutputStream fos= new FileOutputStream(file.getAbsolutePath());
+    			fos.write(filecontent);
+    			fos.flush();
+    			fos.close();
+    			String re = "INSERT INTO test.files VALUES('"+f.getFileName()+"','"+f.getDirection()+"','"+f.getFilepermission()+"','"+f.getFileOwner()+"','hello');";
+               	stmt1.executeUpdate(re);
+               	re = "INSERT INTO test.userdirectories VALUES('"+f.getFileOwner()+"','"+f.getParent().getDirectoryName()+"','"+f.getFileName()+"')";
+        	    stmt.executeUpdate(re);
+    	    }
+	
+       		if(f.getFilepermission() == 3)
+       		{
+       			String groups = "SELECT * FROM test.interestgroups";
+       			rs = stmt1.executeQuery(groups);
+       			while(rs.next()==true)
+       			{
+       				group = new interestGroups(rs.getString(1));	
+       				allGroups.add(group);
+       			}
+       			
+       			f.setGroupsForRead(allGroups);
+       		}
+       		
+       		int readCount = f.getGroupsForRead().size();
+       		int updateCount = f.getGroupsForUpdate().size();
+       		if (readCount > 0)
+       		{
+       			for(int i = 0; i < readCount; i++)
+       			{
+       				String read = "INSERT INTO test.file_read_groups VALUES('"+f.getFileName()+"','"+f.getGroupsForRead().get(i).getGroupName()+"');";
+       				stmt.executeUpdate(read);
+       			}
+       		}
+       		if (updateCount > 0)
+       		{
+       			for(int i = 0; i < updateCount; i++)
+           		{
+           			String update = "INSERT INTO test.file_update_groups VALUES('"+f.getFileName()+"','"+f.getGroupsForUpdate().get(i).getGroupName()+"');";
+           			stmt.executeUpdate(update);
+           		}       			
+       		}
+       		
+       		 	
+    	    if(en.getMess().contains("change permission"))
+    	    {
+    	    	//en.setTask("updated successfully");
+    	    	client.sendToClient("updated successfully");
+    	    }
+    	    else
+    	    {
+    	    	//re = "INSERT INTO test.userdirectories VALUES('"+f.getFileOwner()+"','"+f.getParent().getDirectoryName()+"','"+f.getFileName()+"')";
+        	    //stmt.executeUpdate(re);
+    	    	client.sendToClient("file saved successfully");
+    	    }
+       	} 	
     }
    
     
@@ -562,8 +753,92 @@ public class EchoServer extends AbstractServer
 	
 }
 
-  
-
+ private directories setthetree(String ItemName, String username,Statement stmt) throws SQLException
+ {
+	    String Itemname=ItemName;
+	    String UserName=username; 
+	    file f;
+	    directories d=null;
+		ArrayList<file> files=new ArrayList<>();
+		ArrayList<directories> dir=new ArrayList<>();
+		ArrayList<SystemItem> items = new ArrayList<>();
+		String re=("SELECT f.filename,f.direction,f.permission,f.fileowner,f.description FROM userdirectories as u,files as f WHERE f.filename=u.Itemname AND u.directory= '"+Itemname+"' AND u.username='"+UserName+"'");
+		rs=stmt.executeQuery(re);
+		while(rs.next()==true)
+		 {
+			 f=new file(rs.getString(1),rs.getString(2),rs.getInt(3),rs.getString(4),rs.getString(5));
+			 file f2=setGroupsPermission(f);
+			 files.add(f2);
+		 }
+		re=("SELECT u.Itemname FROM userdirectories as u,files as f WHERE f.filename=u.Itemname AND u.directory= '"+Itemname+"' AND u.username='"+UserName+"'");
+		String re2=("select Itemname from userdirectories AS u Where u.directory= '"+Itemname+"' AND u.username='"+username+"' AND Itemname NOT IN ("+re+")" );
+		rs1=stmt.executeQuery(re2);
+		while(rs1.next())
+		{
+			String str=rs1.getString(1);
+			directories dr=setthetree(str,UserName,stmt);
+			dir.add(dr);
+					
+		}
+		if(files.size()!=0)	
+		{
+			SystemItem si;
+			for(int i=0;i<files.size();i++)
+			{
+				si=(SystemItem)files.get(i);
+				items.add(si);
+			}
+				
+		}
+		
+		if(dir.size()!=0)
+		{
+			SystemItem si;
+			for(int i=0;i<dir.size();i++)
+			{
+				si=(SystemItem)dir.get(i);
+				items.add(si);
+			}
+				
+		}
+			
+		
+		if(files.size()==0&&dir.size()==0)
+			d=new directories(Itemname);
+		else d=new directories(items,Itemname);
+		
+			return d;
+			
+			
+ }
+ 
+ 
+ public file setGroupsPermission(file f) throws SQLException
+ {
+	 Statement stmt1 = conn.createStatement();
+	 ArrayList<interestGroups> groupsnamesupdate=new ArrayList<>();
+	 ArrayList<interestGroups> groupsnamesread=new ArrayList<>();
+	 String re="SELECT * from file_update_groups WHERE file_name='"+f.getFileName()+"'";
+	 rs1=stmt1.executeQuery(re);
+	 while(rs1.next())
+	 {
+		interestGroups groupupdate=new interestGroups(rs1.getString(2));
+		groupsnamesupdate.add(groupupdate);
+	 }
+	 f.setGroupsForUpdate(groupsnamesupdate);
+	 re="SELECT * from file_read_groups WHERE file_name='"+f.getFileName()+"'";
+	 rs2=stmt1.executeQuery(re);
+	 while(rs2.next())
+	 {
+		interestGroups groupread=new interestGroups(rs2.getString(2));
+		groupsnamesread.add(groupread);
+	 }
+	 f.setGroupsForRead(groupsnamesread);
+	 
+	 
+	return f;
+	 
+ }
   
   public static ArrayList<String> Select(Connection con1, String str, String table,String where,ConnectionToClient client)
     {

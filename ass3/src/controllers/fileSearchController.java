@@ -2,12 +2,17 @@
 package controllers;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
 import client.myboxapp;
 import Model.Envelope;
 import Model.User;
 import Model.file;
+import Model.Envelope;
 import view.*;
 
 public class fileSearchController extends AbstractTransfer {
@@ -19,13 +24,23 @@ public class fileSearchController extends AbstractTransfer {
 	private file fileDetails;
 	private String str;
 	private Envelope en;
+	private ArrayList<file> searchresults;
+	private String SelectedFile=null;
+	private file file=null;
+	private User user=null;
 	
-	/**constructor*/
-	public fileSearchController (fileSearchGui g , userMainMenuController lastCon){
+	/**constructor
+	 * @param filesarr */
+	public fileSearchController (fileSearchGui g , userMainMenuController lastCon,User u, ArrayList<file> filesarr){
 		
 		this.searchG=g;
 		prevController=lastCon;
-		searchG.addcancel(new ButtoncancelListener());	
+		this.searchresults=filesarr;
+		this.user=u;
+		searchG.addcancel(new ButtoncancelListener());
+		searchG.addBtnDescription(new btnDescriptionListener());
+		searchG.addBtnAddToMyFiles(new btnAddToMyFilesListenet());
+		searchG.addListActionListener(new listSelecTionListen());
 	}
 	/**button listener of cancel*/
 	private class ButtoncancelListener implements ActionListener {
@@ -36,10 +51,63 @@ public class fileSearchController extends AbstractTransfer {
 	}
 	/**Handling button cancel action performed*/
 	private void buttoncancelPressed() {
-		searchG.setVisible(false);
 		if (prevController instanceof administratorMenuController)
 			((administratorMenuController) prevController).getusermainmenu2().setVisible(true);
-			else prevController.getusermainmenu().setVisible(true);
+		else
+		{
+		Envelope en=new Envelope(user,"refresh data");
+		sendToServer(en);
+		myboxapp.clien.setCurrObj(this);
+		}
+	}
+	
+	private class btnDescriptionListener implements ActionListener {
+		public void actionPerformed(ActionEvent arg0) {
+			btnDescriptionPressed();
+		}
+		
+	}
+	private void btnDescriptionPressed() {
+		if(SelectedFile==null)
+		{
+			
+		}
+		else
+		{
+		new DescriptionGui(file,this);
+		
+		}
+		
+	}
+	
+	
+	private class btnAddToMyFilesListenet implements ActionListener {
+		public void actionPerformed(ActionEvent arg0) {
+			btnAddToMyFilesPressed();
+		}
+		
+	}
+	
+	private void btnAddToMyFilesPressed() {
+		
+		AddToClientFilesGui ATC=new AddToClientFilesGui(user);
+		new AddToClientFilesCon(ATC,this,user,file,2);
+	
+	}
+	
+	private class listSelecTionListen implements ListSelectionListener
+	{
+		public void valueChanged(ListSelectionEvent arg0) {
+			SelectedFile=(String) (searchG.getList_1().getSelectedValue());
+			for(int i=0;i<searchresults.size();i++)
+			{
+				if(SelectedFile.equals(searchresults.get(i).getFileName()))
+				{
+					file=searchresults.get(i);
+				}
+			}
+			
+	   }
 	}
 	/***********getters and setters************/
 	public file getFileDetails() {
@@ -51,5 +119,21 @@ public class fileSearchController extends AbstractTransfer {
 		this.fileDetails = fileDetails;
 	}
 
+	public fileSearchGui getSearchG() {
+		return searchG;
+	}
+
+	public void setSearchG(fileSearchGui searchG) {
+		this.searchG = searchG;
+	}
+	
+	
+	public void RefreshUserData(User userrefresh) {
+		user=userrefresh;
+		searchG.close();
+		userMainMenuGUI menu=new userMainMenuGUI(user);
+		new userMainMenuController(menu,user);
+		
+	}
 
 }

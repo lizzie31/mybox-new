@@ -221,6 +221,10 @@ public class InterestGroupGui extends AbstractGui{
 		btnOpen.addActionListener(l);
 	}
 	
+	public void addtomefiles(ActionListener l) {
+		btnAddToDB.addActionListener(l);
+	}
+	
 	public void addupdate(ActionListener l) {
 		btnSetContant.addActionListener(l);
 	}

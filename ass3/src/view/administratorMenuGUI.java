@@ -32,6 +32,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import Model.User;
+import Model.directories;
 import Model.file;
 import Model.interestGroups;
 import controllers.*;
@@ -64,8 +65,13 @@ public class administratorMenuGUI extends JFrame {
 	private String[] values;
 	private JButton deleteGroupButton=null;
 	private DefaultMutableTreeNode node=null;
+
 	private JComboBox comboBox;
 	private JLabel warningmessege;
+
+	private JTree tree=null;
+	private JButton btnSearch;
+
 	
 	public administratorMenuGUI(User user,ArrayList<interestGroups> allinterestgroups ) {
 	
@@ -91,8 +97,11 @@ public class administratorMenuGUI extends JFrame {
 	private JPanel getMainMenu(){
 		if(MainMenu==null)
 		{MainMenu=new JPanel();
-MainMenu.setBackground(new Color(102, 205, 170));
+        MainMenu.setBackground(new Color(102, 205, 170));
 		MainMenu.setLayout(null);
+		//setJtree();
+		tree.setBounds(42, 133, 205, 218);
+		MainMenu.add(tree);
 				
 				warningIcon= new JLabel("");
 				warningIcon.setIcon(new ImageIcon(userMainMenuGUI.class.getResource("/view/warning.gif")));
@@ -121,6 +130,11 @@ MainMenu.setBackground(new Color(102, 205, 170));
 				MainMenu.add(lblNewLabel);
 				MainMenu.add(comboBox);
 				MainMenu.add(warningIcon);
+				
+				btnSearch = new JButton("search");
+				btnSearch.setFont(new Font("Tahoma", Font.BOLD, 13));
+				btnSearch.setBounds(346, 60, 97, 25);
+				MainMenu.add(btnSearch);
 				
 				searchField = new JTextField();
 				searchField.setBounds(236, 62, 146, 20);
@@ -151,25 +165,7 @@ MainMenu.setBackground(new Color(102, 205, 170));
 				btnCreateNewFile.setBackground(UIManager.getColor("SplitPane.background"));
 				MainMenu.add(btnCreateNewFile);
 
-		JTree tree = new JTree();
-		tree.setModel(new DefaultTreeModel(
-			new DefaultMutableTreeNode(""+user.getUserName()+"files") {
-				{
-					for(int i=0;i<user.getuserDirectories().size();i++)
-					{
-						node=new DefaultMutableTreeNode(""+user.getuserDirectories().get(i).getDirectoryName());
-						for(int j=0;j<user.getuserDirectories().get(i).getfiles().size();j++)
-						{
-							node.add(new DefaultMutableTreeNode(""+user.getuserDirectories().get(i).getfiles().get(j).getFileName()));
-				
-						}
-					add(node);
-					}
-				}
-			}
-		));
-		tree.setBounds(27, 124, 252, 192);
-		MainMenu.add(tree);
+			
 		
 		JLabel lblHelloSystemAdministrtor = new JLabel("hello system administrtor!!");
 		lblHelloSystemAdministrtor.setFont(new Font("Arial Black", Font.PLAIN, 14));
@@ -213,6 +209,49 @@ MainMenu.setBackground(new Color(102, 205, 170));
 		editButton.addActionListener(l);
 	}
 	
+	/**setJtree() sets the files and folders of the user*/
+	public void setJtree()
+	{
+		DefaultMutableTreeNode root=adddirectorynode("from user",0,user.getuserItems());
+		tree = new JTree(root);
+		tree.setBackground(new Color(173, 216, 230));
+        tree.setFont(new Font("Arial Black", Font.PLAIN, 14));
+	  
+		  
+			
+
+	}
+
+	
+ public DefaultMutableTreeNode adddirectorynode(String str,int i,directories di)
+ {
+	 int num=i;
+	 directories dir=null;
+	 DefaultMutableTreeNode node1=null;
+     dir=di;
+	 node1=new DefaultMutableTreeNode(""+(dir.getDirectoryName()));
+	 if(dir.getfiles()!=null)
+	 {
+	 int arraysize=dir.getfiles().size();
+     for(int j=0;j<arraysize;j++)
+		{
+    	  if(dir.getfiles().get(j) instanceof directories)
+    	  {
+    		  node1.add(adddirectorynode("from dir",j,(directories)dir.getfiles().get(j)));
+    	  }
+    	  else
+	      node1.add(new DefaultMutableTreeNode(((file)(dir.getfiles().get(j))).getFileName()));
+		}
+     
+	    }
+	 return (node1); 
+	 
+	 
+}
+	
+   public void addsearchfiles(ActionListener l) {
+		btnSearch.addActionListener(l);
+	}
 	public void addDeletegroup(ActionListener l) {
 		deleteGroupButton.addActionListener(l);
 	}
@@ -232,6 +271,11 @@ MainMenu.setBackground(new Color(102, 205, 170));
 	
 	public void addlogout(ActionListener l) {
 		btnLogOut.addActionListener(l);
+	}
+	
+	public String getTextField()
+	{
+		return searchField.getText();
 	}
 	/**addSelectGroup() combobox action listennet*/
 	public void addSelectGroup(ActionListener e)
@@ -253,6 +297,7 @@ MainMenu.setBackground(new Color(102, 205, 170));
 		warningmessege.setVisible(true);	
 		
 	}
+
 	public JComboBox getComboBox() {
 		return comboBox;
 	}
@@ -260,6 +305,13 @@ MainMenu.setBackground(new Color(102, 205, 170));
 		return user;
 	}
 	
-	}
+
+	
+	public void undisplayWarningMessage() {
+		warningIcon.setVisible(false);
+		warningmessege.setVisible(false);
+    }
+}
+
 
 

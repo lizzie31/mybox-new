@@ -1,6 +1,8 @@
 package view;
 
+import java.awt.Color;
 import java.awt.EventQueue;
+
 
 
 
@@ -12,12 +14,15 @@ import javax.swing.JPanel;
 
 
 
+
 import java.awt.BorderLayout;
 
 
 
 
+
 import javax.swing.JLabel;
+
 
 
 
@@ -28,8 +33,10 @@ import java.awt.event.ActionListener;
 
 
 
+
 import javax.swing.JButton;
 import javax.swing.AbstractListModel;
+
 
 
 
@@ -38,6 +45,7 @@ import Model.User;
 
 import java.awt.event.ActionEvent;
 import java.awt.SystemColor;
+
 import javax.swing.ImageIcon;
 
 public class fileMenuGui extends JFrame {
@@ -55,6 +63,10 @@ public class fileMenuGui extends JFrame {
 	private JButton btnCancel_1=null;
 	private JButton btnRead=null;
 	private JButton btnSetContent=null;
+	private JButton btnpermission;
+	private JButton btnSetChrarcters;
+	private JLabel warningIcon=null;
+	private JLabel lblwarningMessage=null;
 
 
 
@@ -67,14 +79,6 @@ public class fileMenuGui extends JFrame {
 		
 
 	}
-
-
-
-	/**
-
-	 * Initialize the contents of the frame.
-
-	 */
 
 	private void initialize() {
 		this.setBounds(400,200,300,200);
@@ -89,15 +93,17 @@ public class fileMenuGui extends JFrame {
 			panel=new JPanel();
 			panel.setBackground(SystemColor.inactiveCaption);
 			panel.setLayout(null);
+			this.setTitle("file menu");
 
 			btnRead = new JButton("open");
 			btnRead.setBounds(10, 56, 137, 23);
 			panel.add(btnRead);
 
-			
-			JButton btnUpdate = new JButton("set charecters");
-			btnUpdate.setBounds(10, 108, 137, 23);
-			panel.add(btnUpdate);
+		    panel.add(getLblwarningMessage());
+		    panel.add(getwarningIcon()); 
+			btnSetChrarcters = new JButton("set charecters");
+			btnSetChrarcters.setBounds(10, 108, 137, 23);
+			panel.add(btnSetChrarcters);
 
 			btndelete = new JButton("delete");
 			btndelete.setBounds(169, 56, 137, 23);
@@ -108,9 +114,9 @@ public class fileMenuGui extends JFrame {
 			lblWhatIsThe.setBounds(28, 11, 411, 34);
 			panel.add(lblWhatIsThe);
 
-			JButton btnNewButton_1 = new JButton("set permission");
-			btnNewButton_1.setBounds(169, 108, 137, 23);
-			panel.add(btnNewButton_1);
+			btnpermission = new JButton("set permission");
+			btnpermission.setBounds(169, 108, 137, 23);
+			panel.add(btnpermission);
 
 			btnSetContent = new JButton("set content");
 			btnSetContent.setBounds(316, 56, 137, 23);
@@ -130,11 +136,14 @@ public class fileMenuGui extends JFrame {
 		return panel;
 
 	}
-	/**close() closes the current window*/
-	public void close() {
-		this.setVisible(false);
-		dispose();
 
+
+	public void addsetCharacters(ActionListener l) {
+		btnSetChrarcters.addActionListener(l);
+	}
+
+	public void addpermission(ActionListener l) {
+		btnpermission.addActionListener(l);
 	}
 
 	public void addcancel(ActionListener l) {
@@ -168,6 +177,48 @@ public class fileMenuGui extends JFrame {
 	public void setBtnSetContent(JButton btnSetContent) {
 		this.btnSetContent = btnSetContent;
 	}
+	
+	public JLabel getwarningIcon()
+	{
+		    warningIcon= new JLabel("");
+		    warningIcon.setIcon(new ImageIcon(userMainMenuGUI.class.getResource("/view/warning.gif")));
+	        warningIcon.setBounds(10,187, 30, 25);
+		    warningIcon.setVisible(false);
+		    
+		    return warningIcon;
+	}
+	
+	/**getLblwarningMessage() returns the warning message*/
+	public JLabel getLblwarningMessage() {
+		if(lblwarningMessage == null){
+			lblwarningMessage = new JLabel("");
+			lblwarningMessage.setVisible(false);
+		}
+		return lblwarningMessage;
+	}
+	/**setWarningMessageVisibleTrue(String st) sets the warning message st visible*/
+	public void setWarningMessageVisibleTrue(String st) {
+		lblwarningMessage.setText(st);
+		lblwarningMessage.setForeground(Color.RED);
+		lblwarningMessage.setFont(new Font("Arial Black", Font.PLAIN, 14));
+		lblwarningMessage.setSize(450, 25);
+		lblwarningMessage.setLocation(45, 187);
+		warningIcon.setVisible(true);
+		lblwarningMessage.setVisible(true);	
+		
+	}
+	/**undisplayWarningMessage() sets the warning message not visible*/
+		public void undisplayWarningMessage() {
+			warningIcon.setVisible(false);
+		lblwarningMessage.setVisible(false);
+		
+	}
+		
+		/**close() closes the current window*/
+		public void close() {
+			this.setVisible(false);
+			dispose();
+		}
 
 	
 

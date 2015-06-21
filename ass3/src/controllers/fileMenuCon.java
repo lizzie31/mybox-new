@@ -1,5 +1,6 @@
 package controllers;
 
+import java.awt.Component;
 import java.awt.Desktop;
 import java.awt.DisplayMode;
 import java.awt.event.ActionEvent;
@@ -11,11 +12,15 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import client.myboxapp;
 import view.UpdateGui;
 import view.createNewGroupGUI;
 import view.deleteFile;
 import view.fileMenuGui;
+import view.permissionGui;
+import view.setCharacters;
 import view.userMainMenuGUI;
 import Model.Envelope;
 import Model.User;
@@ -31,6 +36,10 @@ public class fileMenuCon extends AbstractTransfer{
 	/**prevCon is the user main menu controller*/
 	private userMainMenuController prevCon;
 	private file ChoosenFile=null;
+	public void setChoosenFile(file choosenFile) {
+		ChoosenFile = choosenFile;
+	}
+
 	/**menu is user main menu window**/
 	private userMainMenuGUI menu;
 	/**thisCon is the file menu controller*/
@@ -38,7 +47,13 @@ public class fileMenuCon extends AbstractTransfer{
 	/**allFiles is an arrayList of all the files in the DB*/
 	private ArrayList<file> allFiles=null;
 	
-	/**constructor*/
+	/**constructor
+	 * 
+	 * @param menu
+	 * @param lastCon
+	 * @param user
+	 * @param file
+	 */
 	public fileMenuCon(fileMenuGui menu,userMainMenuController  lastCon,User user, file file) {
 		this.user=user;
 		this.CurrGui=menu;
@@ -48,35 +63,158 @@ public class fileMenuCon extends AbstractTransfer{
 		CurrGui.addread(new readListener());
 		CurrGui.addupdate(new btnUpdateListener());
 		CurrGui.adddelete(new btnDeleteListener());
+		CurrGui.addpermission(new btnPermissionListener());
+		CurrGui.addsetCharacters(new btnSetCharctersListener());
 	}
+		/********action listeners*******/
+	/**btnSetCharctersListener implements action listener and handles the setcharacters button pressing*/
+	class btnSetCharctersListener implements ActionListener{
+
+		public void actionPerformed(ActionEvent e) {
+			buttoncharactersPressed();
+		}
+	}
+	private void buttoncharactersPressed() {
+		if(ChoosenFile.getFileOwner().equals(user.getUserName()))//if the user is the file owner
+		{	setCharacters p= new setCharacters();
+			new setCharactersController(p,getThisCon(),ChoosenFile,user);
+		}
+		else{
+		if(ChoosenFile.getFilepermission()==3)
+			CurrGui.setWarningMessageVisibleTrue("sorry,you don't have permission to update this file.");
+		if(ChoosenFile.getFilepermission()==2)
+		{
+			int flag=0;
+			for(int i=0;i<ChoosenFile.getGroupsForUpdate().size();i++)
+			{
+				for(int j=0;j<user.getInterestGroupInDB().size();j++)
+					if(ChoosenFile.getGroupsForUpdate().get(i).getGroupName().equals(user.getInterestGroupInDB().get(j).getGroupName()))
+					{
+						flag=1;
+						CurrGui.close();
+						setCharacters p= new setCharacters();
+						new setCharactersController(p,getThisCon(),ChoosenFile,user);
+					}
+				
+			}
+			 if(flag==0) CurrGui.setWarningMessageVisibleTrue("sorry,you don't have permission to update this file.");
+		}
+		if(ChoosenFile.getFilepermission()==1)
+		{
+			if(ChoosenFile.getFileOwner().equals(user.getUserName()))
+			{
+				UpdateGui UG=new UpdateGui(user,ChoosenFile);
+			    new UpdateCon(user,ChoosenFile,UG,getThisCon());
+			}
+			else CurrGui.setWarningMessageVisibleTrue("sorry,you don't have permission to update this file.");
+		}
+		}
+	}
+/**btnPermissionListener implements action listener and handles setPermission button pressed*/
+	class btnPermissionListener implements ActionListener{
+
+		public void actionPerformed(ActionEvent e) {
+		if(ChoosenFile.getFileOwner().equals(user.getUserName()))
+		{
+			CurrGui.dispose();
+			permissionGui p= new permissionGui();
+			new permissionController(p,getThisCon(),user,ChoosenFile);
+		}
+		else	
+			CurrGui.setWarningMessageVisibleTrue("you don't have permission!");
 	
+		}
+	}
+		/**btnDeleteListener implements action listener and handles delete file button pressed*/
 	class btnDeleteListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
-			CurrGui.dispose();
-			deleteFile d= new deleteFile();
-			new deleteFileController(d,getThisCon(),getChoosenFile());
-		
+				CurrGui.dispose();
+				deleteFile d= new deleteFile();
+				new deleteFileController(d,getThisCon(),getChoosenFile(), user);	
 		}
 	}
 	class ButtoncancelListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
-			CurrGui.dispose();
-			prevCon.getusermainmenu().setVisible(true);
+			//CurrGui.dispose();
+			//prevCon.getusermainmenu().setVisible(true);
+			Envelope en=new Envelope(user,"refresh data");
+			sendToServer(en);
+			myboxapp.clien.setCurrObj(getThisCon());
+			
 		}
 	}
-	
+	/**btnUpdateListener implements action listener and handles setContant button pressed*/
 	class btnUpdateListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
-			UpdateGui UG=new UpdateGui(user,ChoosenFile);
-			new UpdateCon(user,ChoosenFile,UG,getThisCon());
+			buttonUpdatePressed();
+		}
+
+		private void buttonUpdatePressed() {
+			if(ChoosenFile.getFileOwner().equals(user.getUserName()))
+			{
+				UpdateGui UG=new UpdateGui(user,ChoosenFile);
+			    new UpdateCon(user,ChoosenFile,UG,getThisCon());
+			}
+			else{
+			if(ChoosenFile.getFilepermission()==3)
+				CurrGui.setWarningMessageVisibleTrue("sorry,you don't have permission to update this file.");
+			if(ChoosenFile.getFilepermission()==2)
+			{
+				int flag=0;
+				for(int i=0;i<ChoosenFile.getGroupsForUpdate().size();i++)
+				{
+					for(int j=0;j<user.getInterestGroupInDB().size();j++)
+						if(ChoosenFile.getGroupsForUpdate().get(i).getGroupName().equals(user.getInterestGroupInDB().get(j).getGroupName()))
+						{
+							flag=1;
+							CurrGui.close();
+							UpdateGui UG=new UpdateGui(user,ChoosenFile);
+							new UpdateCon(user,ChoosenFile,UG,getThisCon());
+						}
+					
+				}
+				 if(flag==0) CurrGui.setWarningMessageVisibleTrue("sorry,you don't have permission to update this file.");
+			}
+			if(ChoosenFile.getFilepermission()==1)
+			{
+				if(ChoosenFile.getFileOwner().equals(user.getUserName()))
+				{
+					UpdateGui UG=new UpdateGui(user,ChoosenFile);
+				    new UpdateCon(user,ChoosenFile,UG,getThisCon());
+				}
+				else CurrGui.setWarningMessageVisibleTrue("sorry,you don't have permission to update this file.");
+			}
+			}
 		}
 	}
-	
+	/**readListener implements action listener and handles read file button pressed*/	
 	class readListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
+			int flag=0;
+			if(ChoosenFile.getFileOwner().equals(user.getUserName()))
+				flag=1;
+			if(ChoosenFile.getFilepermission()==2)
+			{
+				for(int i=0;i<ChoosenFile.getGroupsForRead().size();i++)
+				{
+					for(int j=0;j<user.getInterestGroupInDB().size();j++)
+						if(ChoosenFile.getGroupsForRead().get(i).getGroupName().equals(user.getInterestGroupInDB().get(j).getGroupName()))
+						{
+							flag=1;
+							CurrGui.close();
+							prevCon.getusermainmenu().setVisible(true);
+						}
+					
+				}
+			}
+			if(ChoosenFile.getFilepermission()==3)
+				flag=1;
+			if(flag==1)
+			{
+			
 			boolean check = new File(ChoosenFile.getDirection()).exists();
 			if(check)
 			{
@@ -95,10 +233,13 @@ public class fileMenuCon extends AbstractTransfer{
 			    myboxapp.clien.setCurrObj(getThisCon());
 			}
 			}
+			else CurrGui.setWarningMessageVisibleTrue("sorry,you don't have permission to read this file.");
+		}
+	
 	}
 			
 			
-	
+/**handles db result*/	
      	public void handleDBResultFile(byte[] bs1) throws IOException
 	 
 		{
@@ -118,7 +259,25 @@ public class fileMenuCon extends AbstractTransfer{
 			}
 			
 		}
-
+     	public void handleDBResultFile2(Object message) {
+    		if(message.equals("updated successfully"))
+    		{
+    			Component frame = null;
+    			JOptionPane.showMessageDialog(frame, "updated successfully");
+    			CurrGui.setVisible(true);
+    			//CurrGui.dispose();
+    			//prevCon.getCurrGui().setVisible(true);
+    		}
+    		
+    		else 
+    		{
+    			JOptionPane.showMessageDialog(CurrGui, "error");
+    			CurrGui.dispose();
+    		//	prevCon.getCurrGui().setVisible(true);
+    		}
+    		
+    	}
+     		/********************getters and setters*****************/
 		public fileMenuCon getThisCon() {
 			return this.thisCon;
 		}
@@ -134,7 +293,13 @@ public class fileMenuCon extends AbstractTransfer{
 		public void setCurrGui(fileMenuGui currGui) {
 			CurrGui = currGui;
 		}
-		
+		public void RefreshUserData(User userrefresh) {
+			user=userrefresh;
+			CurrGui.close();
+			userMainMenuGUI menu=new userMainMenuGUI(user);
+			new userMainMenuController(menu,user);
+			
+		}
 		
 }
 			

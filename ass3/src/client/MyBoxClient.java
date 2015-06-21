@@ -95,6 +95,31 @@ public synchronized void handleMessageFromServer(Object message)
 				e.printStackTrace();
 			}
 	    }
+	    
+	    if(E.getTask().equals("refresh data"))
+	    {
+	    	User userrefresh=(User)E.getObject();
+	    	if(currController instanceof createNewFolderController)
+	    	{
+	    		((createNewFolderController)(currController)).RefreshUserData(userrefresh);
+	    	}
+	    	if(currController instanceof fileSearchController)
+	    	{
+	    		((fileSearchController)(currController)).RefreshUserData(userrefresh);
+	    	}
+	    	if(currController instanceof createNewFileController)
+	    	{
+	    		((createNewFileController)(currController)).RefreshUserData(userrefresh);
+	    	}  	
+	    	if(currController instanceof fileMenuCon)
+	    	{
+	    		((fileMenuCon)(currController)).RefreshUserData(userrefresh);
+	    	}
+	    	if(currController instanceof GroupsListController)
+	    	{
+	    		((GroupsListController)(currController)).RefreshUserData(userrefresh);
+	    	}
+	    }
 	    if(E.getTask().endsWith("search file"))    
 	    {
 	    	if(E.getObject()==null)
@@ -102,21 +127,31 @@ public synchronized void handleMessageFromServer(Object message)
 	    	else
 	    	((userMainMenuController)(currController)).handleDBResultFile((ArrayList<file>)E.getObject());
 	    }
+	    if(E.getTask().endsWith("search file 2"))    
+	    {
+	    	if(E.getObject()==null)
+	    		((administratorMenuController)(currController)).handleDBResultFile(null);
+	    	else
+	    	((administratorMenuController)(currController)).handleDBResultFile((ArrayList<file>)E.getObject());
+	    }
 	    if(E.getTask().equals("all users"))    
 	    	((administratorMenuController)(currController)).handleDBResult2((ArrayList<User>)E.getObject()); 
 	    if(E.getTask().equals("all groups"))    
 
 	    	((administratorMenuController)(currController)).handleDBResult2((ArrayList<interestGroups>)E.getObject()); 
+
 	
+
 	    if(E.getTask().equals("all requests"))    
 	    	((administratorMenuController)(currController)).handleDBResult2((ArrayList<GroupsRequests>)E.getObject()); 
+
 	    if(E.getTask().equals("all groups to admin"))    
 	    	((logInCon)(currController)).handleDBResult2((ArrayList<interestGroups>)E.getObject());
 	    if(E.getTask().equals("files in group"))    
 	    	((administratorMenuController)(currController)).handleDBResult2((interestGroups)E.getObject());
 	    if(E.getTask().equals("all files"))    
 	    	((administratorMenuController)(currController)).getfiles((ArrayList<file>)E.getObject());
-	        
+
 	}
 	if(message instanceof String ) //user name and password not found
 	{
@@ -146,8 +181,16 @@ public synchronized void handleMessageFromServer(Object message)
 
 		if(str.equals("updated"))
 		{
-			 ((UpdateCon)(currController)).getCurrGui().showsuceedmessege();
+			 ((UpdateCon)(currController)).showsuceedmessege();
 		}
+	    if(str.equals("this file exists in your files"))
+	    {
+	    	((AddToClientFilesCon)(currController)).getCurrGui().setWarningMessageVisibleTrue("this file already exists in this folder");
+	    }
+	    if(str.equals("file added succesfully"))
+	    {
+	    	((AddToClientFilesCon)(currController)).HandleDBresult();
+	    }
 		
 
 		if(str.equals("the user was added secssfuly to this group"))
@@ -170,6 +213,7 @@ public synchronized void handleMessageFromServer(Object message)
 		if(str.equals("no requests"))
 		{
 			((administratorMenuController)currController).getusermainmenu2().setWarningMessageVisibleTrue("you dont have requests");
+
 		}
 		if(str.equals("the file delete secsefuly"))
 		{
@@ -179,12 +223,17 @@ public synchronized void handleMessageFromServer(Object message)
 		{
 			((EditGroupCon)currController).getEgroup().showsuceedmessege("the file added to this group :)");
 		}
-	
+		
+		
+
 		if(str.equals("file saved successfully"))
 	    	((createNewFileController)(currController)).handleDBResultFile("file saved successfully");
 		if(str.equals("file already exist"))
 	    	((createNewFileController)(currController)).handleDBResultFile("file already exist");
-		
+		if(str.equals("updated successfully"))
+			((fileMenuCon)(currController)).handleDBResultFile2("updated successfully");
+		//if(str.equals("updated successfully2"))
+	    //	((permissionController)(currController)).handleDBResultFile("updated successfully");
 	}//if
 	/*if(message instanceof ArrayList<?>)
 	{

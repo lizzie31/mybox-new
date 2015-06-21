@@ -27,8 +27,10 @@ import javax.swing.tree.TreePath;
 import client.myboxapp;
 import Model.Envelope;
 import Model.User;
+import Model.directories;
 import Model.file;
 import Model.interestGroups;
+import Model.logInMod;
 
 public class userMainMenuController extends AbstractTransfer{
 
@@ -50,7 +52,9 @@ public class userMainMenuController extends AbstractTransfer{
 	/**filesarr is an array list of files*/
 	private ArrayList<file> filesarr;
 
-/**constructor*/
+/**constructor
+ * 
+ */
 	public userMainMenuController(userMainMenuGUI menu, logInCon lastCon,User user) {
 		this.CurrGui= menu;
 		prevController=lastCon;
@@ -65,6 +69,20 @@ public class userMainMenuController extends AbstractTransfer{
 		CurrGui.addleavegruop(new ButtonleaveListene());
 	}
 	
+	public userMainMenuController(userMainMenuGUI menu, User user) {
+		this.CurrGui= menu;
+		userDetails=user;
+		CurrGui.addcreatenewfile(new ButtoncreatenewfileListener());
+		CurrGui.addcreatenewfolder(new ButtoncreatenewfolderListener());
+		CurrGui.addjoingruop(new ButtonAddAGroupListener());
+		CurrGui.addshowgruops(new ButtonshowgrouprListener());
+		CurrGui.addLogOut(new LogOutListener());
+		CurrGui.addtreeSelectionListener(new TreeSelection());
+		CurrGui.addsearchfiles(new addsearchfilesListener());
+		CurrGui.addleavegruop(new ButtonleaveListene());
+	
+}
+
 	/*********************action listeners*******************/
 	/**button listener of leave*/
 	public class ButtonleaveListene implements ActionListener {
@@ -110,26 +128,60 @@ public class userMainMenuController extends AbstractTransfer{
 	public class TreeSelection implements TreeSelectionListener{
 		public void valueChanged(TreeSelectionEvent e) {
 			file file=null;
+			directories dir=null;
 				    /**Returns the last path element of the selection.
 				    This method is useful only when the selection model allows a single selection.*/
-				    DefaultMutableTreeNode node = (DefaultMutableTreeNode) CurrGui.gettree().getLastSelectedPathComponent();
+				   DefaultMutableTreeNode node = (DefaultMutableTreeNode) CurrGui.gettree().getLastSelectedPathComponent();
 				    Object nodeInfo = node.getUserObject();
 				    String str = (String) nodeInfo;;
-			    for(int i=0;i<userDetails.getuserDirectories().size();i++)
+			    for(int i=0;i<userDetails.getuserItems().getfiles().size();i++)
 				{
-				   for(int j=0;j<userDetails.getuserDirectories().get(i).getfiles().size();j++)
-					if(userDetails.getuserDirectories().get(i).getfiles().get(j).getFileName().equals(str))
-					{
-						file=userDetails.getuserDirectories().get(i).getfiles().get(j);
+			      if(userDetails.getuserItems().getfiles().get(i) instanceof directories)
+			       {
+			    	  dir=((directories)(userDetails.getuserItems().getfiles().get(i)));
+			    	  findInTree(dir,str);
+			       }
+			      else
+			       {
+					   if(((file)(userDetails.getuserItems().getfiles().get(i))).getFileName().equals(str))
+				    	{
+						file=(file)dir.getfiles().get(i);
 				        CurrGui.close();			
 				        fileMenu=new fileMenuGui(userDetails,str);
 				        fileCon=new fileMenuCon(fileMenu,getCon(),userDetails,file);
-					}
-				}
+					    }
+				    }
+		}
+	}
 			 
-		   }
+		   
+
+		private void findInTree(directories dir,String Str)
+		{
+		 String filename=Str;	
+		// if(dir.getfiles().isEmpty()==false)
+		// {
+		 for(int i=0;i<dir.getfiles().size();i++)
+			{
+			 if(dir.getfiles().get(i) instanceof directories)
+		    	{
+				  findInTree((directories)dir.getfiles().get(i),filename);
+		    	}
+			 else if(((file)(dir.getfiles().get(i))).getFileName().equals(filename))
+			 {
+				    file file=(file)dir.getfiles().get(i);
+			        CurrGui.close();			
+			        fileMenu=new fileMenuGui(userDetails,filename);
+			        fileCon=new fileMenuCon(fileMenu,getCon(),userDetails,file);
+			 }
+			}
+			    	
+	//	}
+		}
+
 		   
 		}
+		
 		
 	/**button listener of search file*/
 	protected class addsearchfilesListener implements ActionListener {
@@ -156,8 +208,11 @@ public class userMainMenuController extends AbstractTransfer{
 				UpdateDB(); //update the user to status 0 = logout
 				CurrGui.undisplayWarningMessage();
 				CurrGui.dispose();
-				prevController.getLoginG().ClearText();
-				prevController.getLoginG().setVisible(true);
+				logInGui login=new logInGui();
+				logInMod loginm=new logInMod();
+				new logInCon(login,loginm);
+				//prevController.getLoginG().ClearText();
+				//prevController.getLoginG().setVisible(true);
 			}
 	 } 	
 		/**button listener of create new file*/
@@ -171,15 +226,11 @@ public class userMainMenuController extends AbstractTransfer{
 		CurrGui.undisplayWarningMessage();
 		CurrGui.close();
 		userMainMenuController lastCon = this;
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					createNewFileGUI CNFG=new createNewFileGUI ();
-					new createNewFileController(CNFG,lastCon);
-					CNFG.setVisible(true);
-				} catch (Exception e){e.printStackTrace();}
-			}
-		});
+		createNewFileGUI CNFG=new createNewFileGUI ();
+		new createNewFileController(CNFG,lastCon,userDetails);
+		CNFG.setVisible(true);
+	
+		
 	}
 	/**button listener of create new folder*/
 	private class ButtoncreatenewfolderListener implements ActionListener {
@@ -192,7 +243,7 @@ public class userMainMenuController extends AbstractTransfer{
 	private void buttoncreatenewfolderPressed() {
 		CurrGui.undisplayWarningMessage();
 		CurrGui.close();
-		createNewFolderGUI CNFOG=new createNewFolderGUI ();
+		createNewFolderGUI CNFOG=new createNewFolderGUI (userDetails);
 		new createNewFolderController(CNFOG,this,userDetails);
 	    CNFOG.setVisible(true);
 	}
@@ -215,7 +266,7 @@ public class userMainMenuController extends AbstractTransfer{
 			CurrGui.undisplayWarningMessage();
 			CurrGui.close();
 			fileSearchGui SG=new fileSearchGui (filesarr);
-			new fileSearchController(SG,this);
+			new fileSearchController(SG,this,userDetails,filesarr);
 			SG.setVisible(true);
 		}
 	}
@@ -249,4 +300,5 @@ public logInCon getPrevController() {
 	}
 
 }
+
 

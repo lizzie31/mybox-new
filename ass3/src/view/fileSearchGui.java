@@ -24,8 +24,10 @@ import Model.file;
 import java.awt.event.ActionEvent;
 import java.awt.SystemColor;
 import java.awt.Color;
+
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EtchedBorder;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.SwingConstants;
 import javax.swing.ListSelectionModel;
 import javax.swing.ImageIcon;
@@ -46,6 +48,8 @@ public class fileSearchGui extends JFrame {
 	/**@param list_1 is a list of all the files*/
 	private JList list_1;
 	private JLabel label;
+	private JButton btnDescription;
+	private JButton btnAddToMyFiles;
 	
 /** file search gui constructor*/
 /**@param f- all the files with the selected string*/
@@ -82,6 +86,11 @@ public class fileSearchGui extends JFrame {
 			panel.setBackground(new Color(135, 206, 235));
 			panel.setLayout(null);
 			
+			btnAddToMyFiles= new JButton("add to my files");
+			btnAddToMyFiles.setFont(new Font("Tahoma", Font.BOLD, 11));
+			btnAddToMyFiles.setBounds(236, 95, 135, 34);
+			panel.add(btnAddToMyFiles);
+			
 			JLabel lblYourInterestGroup = new JLabel("search results:");
 			lblYourInterestGroup.setHorizontalAlignment(SwingConstants.CENTER);
 			lblYourInterestGroup.setFont(new Font("Arial Black", Font.PLAIN, 14));
@@ -109,6 +118,11 @@ public class fileSearchGui extends JFrame {
 			list_1.setBounds(27, 45, 186, 273);
 			panel.add(list_1);
 			
+			btnDescription = new JButton("show description");
+			btnDescription.setFont(new Font("Tahoma", Font.BOLD, 11));
+			btnDescription.setBounds(236, 45, 135, 34);
+			panel.add(btnDescription);
+			
 			label = new JLabel("");
 			label.setIcon(new ImageIcon(fileSearchGui.class.getResource("/view/searchgui.jpg")));
 			label.setBounds(0, 0, 484, 405);
@@ -120,6 +134,28 @@ public class fileSearchGui extends JFrame {
 	public void addcancel(ActionListener l) {
 		btnCancel.addActionListener(l);
 	}
+	
+	public void addBtnDescription(ActionListener l){
+		btnDescription.addActionListener(l);
+	}
+	
+	public void addBtnAddToMyFiles(ActionListener l){
+		btnAddToMyFiles.addActionListener(l);
+	}
+	
+	public void addListActionListener(ListSelectionListener e)
+	{
+		list_1.addListSelectionListener(e);
+	}
+	
+	public JList getList_1() {
+		return list_1;
+	}
+
+	public void setList_1(JList list_1) {
+		this.list_1 = list_1;
+	}
+
 	/**close() closes the current window*/
 	public void close() {
 		this.setVisible(false);

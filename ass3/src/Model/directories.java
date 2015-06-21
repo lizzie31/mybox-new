@@ -3,38 +3,42 @@ package Model;
 import java.util.ArrayList;
 
 /** this Class saves the files in users Directories, any directory has its own */
-public class directories extends AbstractModel{
+public class directories extends SystemItem{
 	
 	/**files in user directories*/
-	private ArrayList<file> filesInDirectory;
+	private ArrayList<SystemItem> ItemsInDirectory=null;
 	/**directory name*/
 	private String DirectoryName;
-	
+	private directories parent=null;
+	private boolean rootFlag=false;
+	private String username;
+
 	/**@param filesInDirectory*/
 	/**@pram name*/
-	public directories(ArrayList<file> filesInDir,String name)
+	public directories(ArrayList<SystemItem> files,String name)
 	{
-		this.filesInDirectory=filesInDir;
+	  this.ItemsInDirectory=files;
 		this.DirectoryName=name;
 	}
 	
-	
+
 	public directories(String name)
 	{
 		this.DirectoryName=name;
+		this.ItemsInDirectory=new ArrayList<>();
 	}
 	
 	/****************************************getters and setters*******************************************************/
 	
-	public ArrayList<file> getfiles()
+	public ArrayList<SystemItem> getfiles()
 	{
-		return this.filesInDirectory;
+		return this.ItemsInDirectory;
 	}
 	
 
-	public void setfiles(ArrayList<file> files)
+	public void setfiles(ArrayList<SystemItem> files)
 	{
-		this.filesInDirectory=files;
+		this.ItemsInDirectory=files;
 	}
 	
 	public String getDirectoryName()
@@ -46,6 +50,43 @@ public class directories extends AbstractModel{
 	{
 		this.DirectoryName=name;
 	}
+
+
+	
+	public directories getParent() {
+		return parent;
+	}
+
+
+
+	public void setParent(directories parent) {
+		this.parent = parent;
+	}
+
+
+
+	public boolean getRootFlag() {
+		return rootFlag;
+	}
+
+
+
+	public void setRootFlag(boolean rootFlag) {
+		this.rootFlag = rootFlag;
+	}
+
+
+
+	public String getUsername() {
+		return username;
+	}
+
+
+
+	public void setUsername(String string) {
+		this.username = string;
+	}
+	
 	
 
 }

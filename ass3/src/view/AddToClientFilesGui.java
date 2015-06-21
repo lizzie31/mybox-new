@@ -1,34 +1,23 @@
 package view;
 
 import java.awt.Color;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JTree;
-
-import java.awt.BorderLayout;
-
-import javax.swing.JTextField;
-import javax.swing.JLabel;
-
 import java.awt.Font;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.JTree;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import Model.User;
 import Model.directories;
-import Model.file;
 
-public class createNewFolderGUI extends JFrame {
-
-	
-	/**@param folderNameField is the folder name text filed*/
-	private JTextField folderNameField;
+public class AddToClientFilesGui extends JFrame{
 	private JPanel panel;
 	private JButton btnCancel=null;
 	private JLabel label=null;
@@ -43,9 +32,10 @@ public class createNewFolderGUI extends JFrame {
 
 
 
-	public createNewFolderGUI(User us) {
+	public AddToClientFilesGui(User us) {
 		this.user=us;
 		initialize();
+	    this.setVisible(true);
 		
 	}
 
@@ -59,24 +49,15 @@ public class createNewFolderGUI extends JFrame {
 		this.setContentPane(getCreatePanel());
 		
 		btnOk = new JButton("ok");
-		btnOk.setBounds(168, 325, 89, 23);
+		btnOk.setBounds(165, 292, 89, 23);
 		panel.add(btnOk);
 		
         panel.add(getLblwarningMessage());
-        panel.add(getwarningIcon()); 	
-		folderNameField = new JTextField("");
-		folderNameField.setBounds(171, 21, 86, 20);
-		panel.add(folderNameField);
-		folderNameField.setColumns(10);
+        panel.add(getwarningIcon());
 		
 		btnCancel = new JButton("cancel");
-		btnCancel.setBounds(68, 325, 89, 23);
+		btnCancel.setBounds(68, 292, 89, 23);
 		panel.add(btnCancel);
-		
-		lblNewLabel = new JLabel("folder name");
-		lblNewLabel.setFont(new Font("Arial Black", Font.PLAIN, 14));
-		lblNewLabel.setBounds(68, 22, 102, 14);
-		panel.add(lblNewLabel);
 		setJtree();
 		panel.add(tree);
 		
@@ -94,10 +75,10 @@ public class createNewFolderGUI extends JFrame {
 			panel=new JPanel();
 			panel.setLayout(null);
 			
-			JLabel lblPleaseSelectThe = new JLabel("please select the folder location:");
-			lblPleaseSelectThe.setFont(new Font("Arial Black", Font.PLAIN, 13));
-			lblPleaseSelectThe.setBounds(43, 52, 243, 14);
-			panel.add(lblPleaseSelectThe);
+			JLabel lblSelectTheFile = new JLabel("select the file location:");
+			lblSelectTheFile.setFont(new Font("Arial Black", Font.PLAIN, 13));
+			lblSelectTheFile.setBounds(68, 11, 173, 25);
+			panel.add(lblSelectTheFile);
 		}
 		return panel;
 	}
@@ -120,7 +101,7 @@ public class createNewFolderGUI extends JFrame {
 	{
 		root=adddirectorynode("from user",0,user.getuserItems());
 		tree = new JTree(root);
-		tree.setBounds(68, 80, 186, 234);
+		tree.setBounds(68, 47, 186, 234);
 		tree.setBackground(new Color(173, 216, 230));
         tree.setFont(new Font("Arial Black", Font.PLAIN, 14));
 	  
@@ -160,16 +141,12 @@ public class createNewFolderGUI extends JFrame {
 		return root;
 	}
 	
-	public String getTextField()
-	{
-		return folderNameField.getText();
-	}
 	
 	public JLabel getwarningIcon()
 	{
 		    warningIcon= new JLabel("");
 		    warningIcon.setIcon(new ImageIcon(userMainMenuGUI.class.getResource("/view/warning.gif")));
-	        warningIcon.setBounds(17, 367, 30, 25);
+	        warningIcon.setBounds(17, 338, 30, 25);
 		    warningIcon.setVisible(false);
 		    
 		    return warningIcon;
@@ -189,7 +166,7 @@ public class createNewFolderGUI extends JFrame {
 		lblwarningMessage.setForeground(Color.RED);
 		lblwarningMessage.setFont(new Font("Arial Black", Font.PLAIN, 14));
 		lblwarningMessage.setSize(327, 25);
-		lblwarningMessage.setLocation(57, 367);
+		lblwarningMessage.setLocation(57, 338);
 		warningIcon.setVisible(true);
 		lblwarningMessage.setVisible(true);	
 		
@@ -205,4 +182,5 @@ public class createNewFolderGUI extends JFrame {
 		this.setVisible(false);
 		dispose();
 	}
+
 }

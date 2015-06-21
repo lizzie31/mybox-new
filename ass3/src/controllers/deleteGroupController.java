@@ -1,3 +1,9 @@
+
+
+
+
+
+
 package controllers;
 import view.*;
 
@@ -26,7 +32,10 @@ public class deleteGroupController extends AbstractTransfer {
 	private interestGroups groupToDel;
 	private deleteGroupController thiscon;
 	
+
 	/**constractor
+=======
+	/**constructor
 	 * 
 	 * @param group
 	 * @param lastCon

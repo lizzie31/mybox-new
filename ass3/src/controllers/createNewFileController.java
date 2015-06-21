@@ -12,12 +12,12 @@ import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-
-import controllers.JoinGroupCon.SelectedGroupListener;
 import client.myboxapp;
 import Model.Envelope;
 import Model.User;
+import Model.directories;
 import Model.file;
+import Model.interestGroups;
 import view.*;
 
 public class createNewFileController extends AbstractTransfer{
@@ -36,12 +36,15 @@ public class createNewFileController extends AbstractTransfer{
 	/**f is a file*/
 	private file f = null;
 	private File f1 = null;
+	private file advancedFile = null;
 	private boolean flag = false;
+	private boolean locFlag = false;
 	private String ss;
 	private JFileChooser fileChooser;
 	//private User user;
 	protected User userDetails;
 	private int selectedComboBox;
+
 	
 	/**Constructor
 	 * 
@@ -49,14 +52,22 @@ public class createNewFileController extends AbstractTransfer{
 	 * @param lastCon
 	 */
 	public createNewFileController (createNewFileGUI g , userMainMenuController lastCon){
+
+	private directories parent=null;
+	//private ArrayList<interestGroups> allGroups = new ArrayList<>();
+	/**Constructor*/
+	public createNewFileController (createNewFileGUI g , userMainMenuController lastCon,User us){
+
 		
 		this.createfile=g;
+		this.userDetails=us;
 		prevController=lastCon;
 		createfile.addcancel(new ButtoncancelListener());
 		createfile.addOpen(new ButtonOpenListener());
 		createfile.addFinish(new ButtonFinishListener());
 		createfile.selectPermission(new SelectedPermissionListener());
 		createfile.addChooseAdvancedGroups(new addChooseAdvancedGroupsListener());
+		createfile.addChooseLocation(new ChooseLocationListener());
 		
 	}
 	/**ButtoncancelListener is a class that implements action listener and goes back to the user main menu window*/
@@ -66,15 +77,28 @@ public class createNewFileController extends AbstractTransfer{
 			addChooseAdvancedGroupsPressed();
 		}	
 	}
+	
+	
 	private void addChooseAdvancedGroupsPressed() {
 		//CurrGui.close();
-		userDetails = prevController.getUserDetails();
 		chooseAdvancedRegularGUI CA=new chooseAdvancedRegularGUI (userDetails);
 		new chooseAdvancedController(CA,this,userDetails);
 		CA.setVisible(true);
 	}
 	
 	
+	private class ChooseLocationListener implements ActionListener {
+		public void actionPerformed(ActionEvent arg0) {
+			btnChooseLocationPressed();
+		}	
+	}
+	
+	private void btnChooseLocationPressed()
+	{
+		createfile.close();
+		NewFileLocationGui filegui=new NewFileLocationGui(this,userDetails);
+		new NewFileLocationCon(filegui,this,userDetails);
+	}
 	
 	private class ButtoncancelListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
@@ -127,13 +151,20 @@ public class createNewFileController extends AbstractTransfer{
 		}
 		else if(createfile.getDescriptionField().getText().equals(""))
 			JOptionPane.showMessageDialog(createfile, "Please write the description for this file!", "Empty field",0,null);
+		
+		else if(createfile.getDescriptionField().getText().length() > 40)
+			JOptionPane.showMessageDialog(createfile, "The description must be less then 40 characters!", "Not available field",0,null);
 		else if(!isFlag())
 			JOptionPane.showMessageDialog(createfile, "Choose the file to upload", "Error!",0,null);
+		else if(!isLocFlag())
+			JOptionPane.showMessageDialog(createfile, "Choose the file location to save!", "Error!",0,null);
 	
-		else if(isFlag())
+		else if(isFlag() && isLocFlag())
 		{
 			
 			File oldFile= new File(ss);
+			
+				
 			byte[] bArr=null;;
 			try {
 				bArr = Files.readAllBytes(oldFile.toPath());
@@ -142,11 +173,33 @@ public class createNewFileController extends AbstractTransfer{
 				e.printStackTrace();
 			}
 			
+			//int i = (int) createfile.getComboBox().getSelectedItem();
+			if (selectedComboBox == 0)
+			{
+				setSelectedComboBox(3);
+			}
+			
 			String[] type = ss.split("\\.",2);
 			String name=createfile.getFileNameField().getText();
 			String temp ="D:/mybox/"+ name+ "." + type[1];
-			file upFile = new file(name,temp, selectedComboBox,myboxapp.clien.getCurrUser().getUserName());
+			file upFile = new file(name,temp, selectedComboBox,myboxapp.clien.getCurrUser().getUserName(),null);
+			if(advancedFile!=null)
+			{
+				upFile.setGroupsForRead(advancedFile.getGroupsForRead());
+				upFile.setGroupsForUpdate(advancedFile.getGroupsForUpdate());
+			}
+			
+			if(advancedFile == null && selectedComboBox == 2)
+				upFile.setGroupsForRead(userDetails.getInterestGroupInDB());
+			
+			if(advancedFile == null && selectedComboBox == 3)
+			{
+				
+				upFile.setGroupsForRead(userDetails.getInterestGroupInDB());
+			}
+			
 			upFile.setFileContent(bArr);
+			upFile.setParent(parent);
 			
 			Envelope ev = new Envelope(upFile,"Save file in server");
 			sendToServer(ev);
@@ -164,18 +217,25 @@ public class createNewFileController extends AbstractTransfer{
 			if (i == 0)
 			{
 				createfile.getBtnChooseAdvancedGroups().setEnabled(false);
+				createfile.getComboBox().setSelectedItem(3);
 				setSelectedComboBox(3);
 			}
-			if(i==2)
-			{
-				createfile.getBtnChooseAdvancedGroups().setEnabled(true);
-				setSelectedComboBox(i);
-			}
 			
-			else
+			if(i == 1)
 			{
 				createfile.getBtnChooseAdvancedGroups().setEnabled(false);
-				setSelectedComboBox(i);
+				setSelectedComboBox(1);
+			}
+			if(i == 2)
+			{
+				createfile.getBtnChooseAdvancedGroups().setEnabled(true);
+				setSelectedComboBox(2);
+			}
+			
+			if(i == 3)
+			{
+				createfile.getBtnChooseAdvancedGroups().setEnabled(false);
+				setSelectedComboBox(3);
 			}
 		
 			
@@ -185,14 +245,12 @@ public class createNewFileController extends AbstractTransfer{
 	public void handleDBResultFile(Object message) {
 		if(message.equals("file saved successfully"))
 		{
-			
-			JOptionPane.showMessageDialog(createfile, "File added succsesfully!", "Congratulations!", 1);
-			createfile.close();
-			if (prevController instanceof administratorMenuController)
-			((administratorMenuController) prevController).getusermainmenu2().setVisible(true);
-			else prevController.getusermainmenu().setVisible(true);
+			Envelope en=new Envelope(userDetails,"refresh data");
+			sendToServer(en);
+			myboxapp.clien.setCurrObj(this);
 		setFlag(false);
 		}
+		
 		if(message.equals("file already exist"))
 		{
 			JOptionPane.showMessageDialog(createfile, "Change file name, and try again!", "Failed!",0,null);
@@ -214,6 +272,45 @@ public class createNewFileController extends AbstractTransfer{
 	public void setFlag(boolean flag) {
 		this.flag = flag;
 	}
+
+	public file getAdvancedFile() {
+		return advancedFile;
+	}
+
+	public void setAdvancedFile(file advancedFile) {
+		this.advancedFile = advancedFile;
+	}
+
+	public directories getParent() {
+		return parent;
+	}
+
+	public void setParent(directories parent) {
+		this.parent = parent;
+	}
+
+	public void RefreshUserData(User userrefresh) {
+		JOptionPane.showMessageDialog(createfile, "File added succsesfully!", "Congratulations!", 1);
+		userDetails=userrefresh;
+		createfile.close();
+		if (prevController instanceof administratorMenuController)
+		((administratorMenuController) prevController).getusermainmenu2().setVisible(true);
+		else 	
+		{
+		userMainMenuGUI menu=new userMainMenuGUI(userDetails);
+		new userMainMenuController(menu,userDetails);
+		}
+		
+	}
+
+	public boolean isLocFlag() {
+		return locFlag;
+	}
+
+	public void setLocFlag(boolean locFlag) {
+		this.locFlag = locFlag;
+	}
+	
 	
 	
 }

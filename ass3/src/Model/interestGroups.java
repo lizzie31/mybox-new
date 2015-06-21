@@ -17,13 +17,6 @@ import java.util.ArrayList;
 	 */
 	
 
-		public String getGroupName() {
-			return groupName;
-		}
-		public interestGroups(String groupName){
-			
-		this.groupName = groupName;
-	}
 
 		public interestGroups(String groupName, ArrayList<User> users) {
 		
@@ -59,6 +52,14 @@ import java.util.ArrayList;
 		public void setUsers(ArrayList<User> users) {
 			this.users = users;
 		}
+		
+		public String getGroupName() {
+			return groupName;
+		}
+		public interestGroups(String groupName){
+			
+		this.groupName = groupName;
+	}
 		
 		
 		
