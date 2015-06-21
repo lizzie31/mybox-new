@@ -401,56 +401,21 @@ public class EchoServer extends AbstractServer
     if(en.getTask().contains("change permission"))
     {
     		Envelope e;
-    		String permission;
-        	file f=(file)(en.getObject());
-    		Statement stmt1 = this.getConn().createStatement();
-    	
-    	/*if(f.getFilepermission()==3)
-    	{
-    		String re = "DELETE FROM test.file_read_groups WHERE file_name='" + f.getFileName() + "' ;";
-    		stmt1.executeUpdate(re);
-    	}*/
-    	
-    	//if(f.getFilepermission()==2)
-    	//{
-    		String re = "DELETE FROM test.file_read_groups WHERE file_name='" + f.getFileName() + "' ;";
-    		stmt1.executeUpdate(re);
-    		String re2 = "DELETE FROM test.file_update_groups WHERE file_name='" + f.getFileName() + "' ;";
-    		stmt1.executeUpdate(re2);
-    		/*String re3 = "DELETE FROM test.userdirectories WHERE Itemname='" + f.getFileName() + "' ;";
-    		stmt1.executeUpdate(re3);*/
-    	//}
-    	
+    	String permission;
+    	file f=(file)(en.getObject());
     	if(en.getTask().contains("1"))
-    	{
-    		((file)(en.getObject())).setFilePermission(1);
     		permission="1";
-    		en.setMess(en.getTask());
-    		en.setTask("Save file in server");
+    	else
+    	{
+    		if(en.getTask().contains("2"))
+        		permission="2";
+    		else
+    			permission="3";
     	}
     		
-    
-    		if(en.getTask().contains("2"))
-    		{
-    			((file)(en.getObject())).setFilePermission(2);
-        		permission="2";
-        		en.setMess(en.getTask());
-        		en.setTask("Save file in server");
-    		}
-    		else
-    		{
-    			((file)(en.getObject())).setFilePermission(3);
-    			permission="3";
-    			((file)(en.getObject())).setFilePermission(3);
-    			en.setMess(en.getTask());
-    			en.setTask("Save file in server");
-    		}
-    		
- 
-    		
-    	re = "UPDATE test.files SET permission= "+permission+" WHERE files.filename= '"+(((file)(en.getObject())).getFileName()+"'");
+    	String re = "UPDATE test.files SET permission= "+permission+" WHERE files.filename= '"+(((file)(en.getObject())).getFileName()+"'");
     	stmt.executeUpdate(re);  
-    	
+ 
     }
     if(en.getTask().equals("change description"))
     {
