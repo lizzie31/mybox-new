@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.EventQueue;
+import java.awt.Font;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -26,7 +27,11 @@ public class deleteFile extends JFrame{
 	private JLabel Comment;
 	private JLabel lblDeletePermenantly;
 	/**comboBox is a comboBox of all the file names*/
-	private JComboBox comboBox ;
+	/**@param comboBox is a comboBox of all the file names*/
+	private JComboBox<String> comboBox;
+	/**@param lblwarningMessage is a lable of a warning message*/
+	private JLabel lblwarningMessage=null;
+	
 	/**button ok*/
 	private JButton btnOk;
 	private JButton btnCancel;
@@ -57,6 +62,7 @@ public class deleteFile extends JFrame{
 		
 		comboBox = new JComboBox();
 		comboBox.setBounds(184, 58, 132, 22);
+		comboBox.addItem("");
 		comboBox.addItem("no");
 		comboBox.addItem("yes");
 		
@@ -77,6 +83,7 @@ public class deleteFile extends JFrame{
 		panel=new JPanel();
 		panel.setLayout(null);
 		this.setTitle("delete file");
+		panel.add(getLblwarningMessage());
 	}
 	return panel;
 	}
@@ -86,12 +93,38 @@ public class deleteFile extends JFrame{
 	public void addOk(ActionListener l) {
 		btnOk.addActionListener(l);
 	}
+	public void addSelectDelete(ActionListener e)
+	{
+		comboBox.addActionListener(e);
+	}
 	/**close() closes the current window*/
 	public void close() {
 		this.setVisible(false);
 		dispose();
 	}
 	public JComboBox getComboBox() {
-		return comboBox;
+		return this.comboBox;
+	}
+	/**getLblwarningMessage() returns the warning message*/
+	public JLabel getLblwarningMessage() {
+		if(lblwarningMessage == null){
+			lblwarningMessage = new JLabel("");
+			lblwarningMessage.setVisible(false);
+		}
+		return lblwarningMessage;
+	}
+	/**setWarningMessageVisibleTrue(String st) sets the warning message st visible*/
+	public void setWarningMessageVisibleTrue(String st) {
+		lblwarningMessage.setText(st);
+		lblwarningMessage.setForeground(Color.RED);
+		lblwarningMessage.setFont(new Font("Arial Black", Font.PLAIN, 13));
+		lblwarningMessage.setBounds(33, 129, 400, 32);
+		lblwarningMessage.setVisible(true);	
+		
+	}
+	/**undisplayWarningMessage() sets the warning message not visible*/
+ 	public void undisplayWarningMessage() {
+		lblwarningMessage.setVisible(false);
+		
 	}
 }

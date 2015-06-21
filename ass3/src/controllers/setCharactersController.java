@@ -22,11 +22,17 @@ public class setCharactersController extends AbstractTransfer{
 	private setCharacters CurrGui;
 	/**prevCon is the user main menu controller*/
 	private fileMenuCon prevCon;
+	/**ChoosenFile is the file the user pressed*/
 	private file ChoosenFile=null;
 	/**user is a specific user*/
 	private User user;
 
-	
+	/**constructor
+	 * @param CurrGui
+	 * @param pervCon
+	 * @param ChoosenFile
+	 * @param user
+	 * */
 	public setCharactersController(setCharacters CurrGui,fileMenuCon prevCon,file ChoosenFile,User user)
 	{
 		this.CurrGui=CurrGui;
@@ -36,13 +42,15 @@ public class setCharactersController extends AbstractTransfer{
 		CurrGui.addcancelListener(new ButtoncancelListener());
 		CurrGui.addOkListener(new ButtonOkListener());
 	}
+					/********action listeners*******/
+	/**ButtonOkListener implements action listener and handles the ok button pressing*/
 	class ButtonOkListener implements ActionListener{
-
 		public void actionPerformed(ActionEvent e) {
 			Envelope en;
-			String text=CurrGui.getContantFiled();
-			String newname=CurrGui.getNameFiled();
-			if(newname==null)
+			String text=CurrGui.getContantFiled();// text saves the contant filed the user entered
+			String newname=CurrGui.getNameFiled();// newname is the name filed the user entered
+		
+			if(newname.equals(" ")||newname.equals("")||newname.isEmpty())
 				CurrGui.setWarningMessageVisibleTrue("the file name is empty!");
 			else{
 				if(newname.contains("!")||newname.contains("@")||newname.contains("#")||newname.contains("$")||newname.contains("%"))
@@ -56,10 +64,10 @@ public class setCharactersController extends AbstractTransfer{
 						else
 						{
 			
-			
+			/*check if the description is longer than 30 words*/
 			String enter = " ";
 			int lastIndex = 0;
-			int count = 0;
+			int count = 0;//counts the number of spaces in the description
 
 			while(lastIndex != -1){
 			    lastIndex = text.indexOf(enter,lastIndex);
@@ -68,20 +76,25 @@ public class setCharactersController extends AbstractTransfer{
 			        lastIndex ++;
 			    }
 			}
-			if(count<=30)
+			if(count<=30)//update the file characters
 			{
 				en=new Envelope(ChoosenFile,"change description");
 				ChoosenFile.setDescription(text);
 				ChoosenFile.setnewfilename(newname);
 				sendToServer(en);		
+				Component frame = null;
+				JOptionPane.showMessageDialog(frame, "updated successfuly!");
+				CurrGui.dispose();
+				prevCon.getCurrGui().setVisible(true);
 		
 			}
-			else
+			else// the description is longer than 30 words. error message
 				CurrGui.setWarningMessageVisibleTrue("the description is too long - max 30 words!");
 			}
 		}
 		}
 	}
+	/**ButtoncancelListener implements action listener and handles cancel listener*/
 	class ButtoncancelListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
@@ -90,23 +103,5 @@ public class setCharactersController extends AbstractTransfer{
 		
 		}
 	}
-	/**handleDBResult2(Object message) handles data that comes from the data base*/
-	public void handleDBResult(Object message) {
-		Envelope en;
-		if(message instanceof file)
-		{
-			if(((file) message).getFileName().equals(ChoosenFile.getFileName()))
-			{
-			
-				Component frame = null;
-				JOptionPane.showMessageDialog(frame, "updated successfuly!");
-				CurrGui.dispose();
-				prevCon.getCurrGui().setVisible(true);
-				
-			}
-		}
-		
-		}
-	
 
 }

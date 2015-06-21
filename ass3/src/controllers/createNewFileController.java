@@ -88,7 +88,6 @@ public class createNewFileController extends AbstractTransfer{
 		createfile.close();
 		NewFileLocationGui filegui=new NewFileLocationGui(this,userDetails);
 		new NewFileLocationCon(filegui,this,userDetails);
-		filegui.setVisible(true);
 	}
 	
 	private class ButtoncancelListener implements ActionListener {

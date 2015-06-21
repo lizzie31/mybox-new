@@ -18,6 +18,7 @@ public class GroupsListController extends AbstractTransfer{
 	/**prev controller is user main menu controller*/
 	private userMainMenuController prevController;	
 	private User user;
+	private GroupsListController thisCon=this;
 	
 	/**constructor*/
 	public GroupsListController (groupListGUI g , userMainMenuController lastCon, User userDetails){
@@ -58,8 +59,10 @@ public class GroupsListController extends AbstractTransfer{
 		
 	}
 	private void buttongrouplistPressed() {
-		grouplist.close();
-		prevController.getusermainmenu().setVisible(true);
+		
+		Envelope en=new Envelope(user,"refresh data");
+		sendToServer(en);
+		myboxapp.clien.setCurrObj(getThisCon());
 	}
 	/***********getters and setters************/
 	private Object getCurrCon() {
@@ -77,5 +80,19 @@ public class GroupsListController extends AbstractTransfer{
 		new InterestGroupCon(IGG,user,IGR,this);
 		
 	}
+	public GroupsListController getThisCon() {
+		return thisCon;
+	}
+	public void setThisCon(GroupsListController thisCon) {
+		this.thisCon = thisCon;
+	}
+	public void RefreshUserData(User userrefresh) {
+		user=userrefresh;
+		grouplist.close();
+		userMainMenuGUI menu=new userMainMenuGUI(user);
+		new userMainMenuController(menu,user);
+	}
+	
+	
 
 }

@@ -157,8 +157,8 @@ public class userMainMenuController extends AbstractTransfer{
 		private void findInTree(directories dir,String Str)
 		{
 		 String filename=Str;	
-		 if(dir.getfiles().isEmpty()==false)
-		 {
+		// if(dir.getfiles().isEmpty()==false)
+		// {
 		 for(int i=0;i<dir.getfiles().size();i++)
 			{
 			 if(dir.getfiles().get(i) instanceof directories)
@@ -174,7 +174,7 @@ public class userMainMenuController extends AbstractTransfer{
 			 }
 			}
 			    	
-		}
+	//	}
 		}
 
 		   
@@ -264,7 +264,7 @@ public class userMainMenuController extends AbstractTransfer{
 			CurrGui.undisplayWarningMessage();
 			CurrGui.close();
 			fileSearchGui SG=new fileSearchGui (filesarr);
-			new fileSearchController(SG,this);
+			new fileSearchController(SG,this,userDetails,filesarr);
 			SG.setVisible(true);
 		}
 	}

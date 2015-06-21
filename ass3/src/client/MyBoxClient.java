@@ -95,6 +95,7 @@ public synchronized void handleMessageFromServer(Object message)
 				e.printStackTrace();
 			}
 	    }
+	    
 	    if(E.getTask().equals("refresh data"))
 	    {
 	    	User userrefresh=(User)E.getObject();
@@ -102,9 +103,21 @@ public synchronized void handleMessageFromServer(Object message)
 	    	{
 	    		((createNewFolderController)(currController)).RefreshUserData(userrefresh);
 	    	}
+	    	if(currController instanceof fileSearchController)
+	    	{
+	    		((fileSearchController)(currController)).RefreshUserData(userrefresh);
+	    	}
 	    	if(currController instanceof createNewFileController)
 	    	{
 	    		((createNewFileController)(currController)).RefreshUserData(userrefresh);
+	    	}  	
+	    	if(currController instanceof fileMenuCon)
+	    	{
+	    		((fileMenuCon)(currController)).RefreshUserData(userrefresh);
+	    	}
+	    	if(currController instanceof GroupsListController)
+	    	{
+	    		((GroupsListController)(currController)).RefreshUserData(userrefresh);
 	    	}
 	    }
 	    if(E.getTask().endsWith("search file"))    
@@ -129,11 +142,6 @@ public synchronized void handleMessageFromServer(Object message)
     	
 	    if(E.getTask().equals("all requests"))    
 	    	((administratorMenuController)(currController)).handleDBResult2((ArrayList<GroupsRequests>)E.getObject()); 
-	  //  if(E.getTask().equals("change permission"))    
-	    	//((setCharactersController)(currController)).handleDBResult((file)(E.getObject()));
-	 
-	    
-
 	        
 	}
 	if(message instanceof String ) //user name and password not found
@@ -164,8 +172,16 @@ public synchronized void handleMessageFromServer(Object message)
 
 		if(str.equals("updated"))
 		{
-			 ((UpdateCon)(currController)).getCurrGui().showsuceedmessege();
+			 ((UpdateCon)(currController)).showsuceedmessege();
 		}
+	    if(str.equals("this file exists in your files"))
+	    {
+	    	((AddToClientFilesCon)(currController)).getCurrGui().setWarningMessageVisibleTrue("this file already exists in this folder");
+	    }
+	    if(str.equals("file added succesfully"))
+	    {
+	    	((AddToClientFilesCon)(currController)).HandleDBresult();
+	    }
 		
 
 		if(str.equals("the user was added secssfuly to this group"))
@@ -179,7 +195,7 @@ public synchronized void handleMessageFromServer(Object message)
 		if(str.equals("no requests"))
 		{
 			((administratorMenuController)currController).getusermainmenu2().setWarningMessageVisibleTrue("you dont have requests");
-		}
+		}	
 		
 		if(str.equals("file saved successfully"))
 	    	((createNewFileController)(currController)).handleDBResultFile("file saved successfully");

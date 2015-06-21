@@ -66,6 +66,8 @@ public class fileMenuCon extends AbstractTransfer{
 		CurrGui.addpermission(new btnPermissionListener());
 		CurrGui.addsetCharacters(new btnSetCharctersListener());
 	}
+		/********action listeners*******/
+	/**btnSetCharctersListener implements action listener and handles the setcharacters button pressing*/
 	class btnSetCharctersListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
@@ -73,7 +75,7 @@ public class fileMenuCon extends AbstractTransfer{
 		}
 	}
 	private void buttoncharactersPressed() {
-		if(ChoosenFile.getFileOwner().equals(user.getUserName()))
+		if(ChoosenFile.getFileOwner().equals(user.getUserName()))//if the user is the file owner
 		{	setCharacters p= new setCharacters();
 			new setCharactersController(p,getThisCon(),ChoosenFile,user);
 		}
@@ -108,7 +110,7 @@ public class fileMenuCon extends AbstractTransfer{
 		}
 		}
 	}
-
+/**btnPermissionListener implements action listener and handles setPermission button pressed*/
 	class btnPermissionListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
@@ -123,6 +125,7 @@ public class fileMenuCon extends AbstractTransfer{
 	
 		}
 	}
+		/**btnDeleteListener implements action listener and handles delete file button pressed*/
 	class btnDeleteListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
@@ -134,11 +137,15 @@ public class fileMenuCon extends AbstractTransfer{
 	class ButtoncancelListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
-			CurrGui.dispose();
-			prevCon.getusermainmenu().setVisible(true);
+			//CurrGui.dispose();
+			//prevCon.getusermainmenu().setVisible(true);
+			Envelope en=new Envelope(user,"refresh data");
+			sendToServer(en);
+			myboxapp.clien.setCurrObj(getThisCon());
+			
 		}
 	}
-	
+	/**btnUpdateListener implements action listener and handles setContant button pressed*/
 	class btnUpdateListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
@@ -183,7 +190,7 @@ public class fileMenuCon extends AbstractTransfer{
 			}
 		}
 	}
-	
+	/**readListener implements action listener and handles read file button pressed*/	
 	class readListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			int flag=0;
@@ -232,7 +239,7 @@ public class fileMenuCon extends AbstractTransfer{
 	}
 			
 			
-	
+/**handles db result*/	
      	public void handleDBResultFile(byte[] bs1) throws IOException
 	 
 		{
@@ -270,7 +277,7 @@ public class fileMenuCon extends AbstractTransfer{
     		}
     		
     	}
-
+     		/********************getters and setters*****************/
 		public fileMenuCon getThisCon() {
 			return this.thisCon;
 		}
@@ -286,7 +293,13 @@ public class fileMenuCon extends AbstractTransfer{
 		public void setCurrGui(fileMenuGui currGui) {
 			CurrGui = currGui;
 		}
-		
+		public void RefreshUserData(User userrefresh) {
+			user=userrefresh;
+			CurrGui.close();
+			userMainMenuGUI menu=new userMainMenuGUI(user);
+			new userMainMenuController(menu,user);
+			
+		}
 		
 }
 			

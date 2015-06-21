@@ -1,13 +1,26 @@
 package controllers;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.JTree;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 
+import client.myboxapp;
+import controllers.NewFileLocationCon.TreeSelection;
+import view.AbstractGui;
+import view.AddToClientFilesGui;
 import view.NewFileLocationGui;
 import view.createNewFolderGUI;
 import view.userMainMenuGUI;
@@ -15,20 +28,21 @@ import Model.Envelope;
 import Model.User;
 import Model.directories;
 import Model.file;
-import client.myboxapp;
-import controllers.createNewFolderController.TreeSelection;
 
-public class NewFileLocationCon {
-
+public class AddToClientFilesCon extends AbstractTransfer{
 	
 	/**createfile is create new folder window*/
-	private NewFileLocationGui CurrGui=null;
+	private AddToClientFilesGui CurrGui=null;
 	/**prevController is user menu controller*/
-	private createNewFileController prevController=null;
+	private InterestGroupCon prevController=null;
+	private fileSearchController prevController2=null;
 	private User user=null;
 	private directories parent=null;
 	private String str=null;
-	private NewFileLocationCon CurrCon=this;
+	private AddToClientFilesCon CurrCon=this;
+	private file file=null;
+	private int flag;
+	
 	
 	/**Constructor
 	 * 
@@ -36,11 +50,26 @@ public class NewFileLocationCon {
 	 * @param lastCon
 	 * @param u
 	 */
-	public NewFileLocationCon(NewFileLocationGui g ,createNewFileController lastCon,User u){
+	public AddToClientFilesCon (AddToClientFilesGui  g ,InterestGroupCon lastCon,User u,file f,int flag){
 		
 		this.CurrGui=g;
 		this.user=u;
 		this.prevController=lastCon;
+		
+		this.file=f;
+		this.flag=flag;
+		CurrGui.addbtnCancel(new ButtonCancelListener());
+		CurrGui.addOk(new ButtonOKListener());
+		CurrGui.addtreeSelectionListener(new TreeSelection());
+	}
+	
+	public AddToClientFilesCon (AddToClientFilesGui  g ,fileSearchController lastCon,User u,file f,int flag){
+		
+		this.CurrGui=g;
+		this.user=u;
+		this.prevController2=lastCon;
+		this.file=f;
+		this.flag=flag;
 		CurrGui.addbtnCancel(new ButtonCancelListener());
 		CurrGui.addOk(new ButtonOKListener());
 		CurrGui.addtreeSelectionListener(new TreeSelection());
@@ -56,8 +85,10 @@ public class NewFileLocationCon {
 	}
 	private void buttoncancelPressed() {
 		CurrGui.close();
-		prevController.getCreatefile().setVisible(true);
-		
+		if(flag==1)
+		   prevController.getCurrGui().setVisible(true);
+		if(flag==2)
+		   prevController2.getSearchG().setVisible(true);	
 	}
 	
 	private class ButtonOKListener implements ActionListener {
@@ -67,20 +98,20 @@ public class NewFileLocationCon {
 		}
 	}
 	private void buttonOKPressed() {
-		prevController.setLocFlag(true);
-		 if(str==null)
-			 CurrGui.setWarningMessageVisibleTrue("please select the location!!");
+		if(str==null)
+			CurrGui.setWarningMessageVisibleTrue("please select the location!!");
 		else{
-<<<<<<< HEAD
-			CurrGui.close();
-=======
-		  CurrGui.close();
->>>>>>> branch 'master' of https://github.com/lizzie31/mybox-new.git
-		  prevController.setParent(parent);
-		  prevController.getCreatefile().setVisible(true);
+		CurrGui.undisplayWarningMessage();
+		file.setParent(parent);
+		parent.getfiles().add(file);
+		file.setCurrAddingUser(user.getUsreName());
+		Envelope en=new Envelope(file,"add file to user");
+		sendToServer(en);
+		myboxapp.clien.setCurrObj(getCurrCon());
 		}
-		
 	}
+		
+	
 		
 		/**button listener of the tree
 		 * @param file is a specific file*/
@@ -91,7 +122,7 @@ public class NewFileLocationCon {
 				DefaultMutableTreeNode node = (DefaultMutableTreeNode) CurrGui.gettree().getLastSelectedPathComponent();
 				Object nodeInfo = node.getUserObject();
 				str = (String) nodeInfo;;
-			    Object rootInfo = CurrGui.getRoot().getUserObject();
+			    Object rootInfo =CurrGui.getRoot().getUserObject();
 			    String rootname = (String) rootInfo;
 			    if(rootname.equals(str))
 				{
@@ -111,7 +142,8 @@ public class NewFileLocationCon {
 		if( dire.getDirectoryName().equals(Str))
 			return dire; 
 	        directories  temp;
-	        if (dire.getfiles().size()>0)
+	        if (dire.getfiles().isEmpty()==false)
+	        {
 	        for (int i = 0; i < dire.getfiles().size(); i++) {  
 	        	if(dire.getfiles().get(i) instanceof directories)
 	        	{
@@ -120,28 +152,44 @@ public class NewFileLocationCon {
 	                return temp;
 	        	}
 	        }
+	        }
 	        return null;
 	 }
 
 
-	public NewFileLocationCon getCurrCon() {
+	public AddToClientFilesCon getCurrCon() {
 		return CurrCon;
 	}
 
 
-	public void setCurrCon(NewFileLocationCon currCon) {
+	public void setCurrCon(AddToClientFilesCon currCon) {
 		CurrCon = currCon;
 	}
+
+
+	public AddToClientFilesGui getCurrGui() {
+		return CurrGui;
+	}
+
+
+	public void setCurrGui(AddToClientFilesGui currGui) {
+		CurrGui = currGui;
+	}
 	
-	
-	public void RefreshUserData(User u)
+	public void HandleDBresult()
 	{
-		this.user=u;
-		JOptionPane.showMessageDialog(null,"the folder added succesfully!");
-        CurrGui.close();
-		userMainMenuGUI menu=new userMainMenuGUI(user);
-		new userMainMenuController(menu,user); 
+		
+		JOptionPane.showMessageDialog(null,"the file added succesfully!");
+		CurrGui.close();
+		if(flag==1)
+		   prevController.getCurrGui().setVisible(true);
+		if(flag==2)
+			prevController2.getSearchG().setVisible(true);	
 	}
 	
-	}
+	
+	
+}
+
+
 

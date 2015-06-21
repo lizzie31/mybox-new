@@ -121,7 +121,31 @@ public class permissionController extends AbstractTransfer {
 	public class ButtonOk implements ActionListener
 	{
 		public void actionPerformed(ActionEvent e) {
+<<<<<<< HEAD
 			Envelope en = new Envelope(f,"");
+=======
+			Envelope en;
+			if(permission==0)
+				CurrGui.setWarningMessageVisibleTrue("please select a permission!");
+			else
+			{
+					
+				if(permission==1)
+					en=new Envelope(f,"change permission 1");
+				else
+				{
+					if(permission==2)
+						en=new Envelope(f,"change permission 2");
+					else
+						en=new Envelope(f,"change permission 3");
+				}
+				f.setFilePermission(permission);	
+				sendToServer(en);
+				Component frame = null;
+				JOptionPane.showMessageDialog(frame, "updated successfuly!");
+				CurrGui.dispose();
+				prevCon.getCurrGui().setVisible(true);
+>>>>>>> branch 'master' of https://github.com/lizzie31/mybox-new.git
 			
 			if(advancedFile!=null)
 			{

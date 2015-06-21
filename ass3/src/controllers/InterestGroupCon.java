@@ -13,6 +13,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import client.myboxapp;
+import view.AddToClientFilesGui;
 import view.InterestGroupGui;
 import view.UpdateGui;
 import Model.Envelope;
@@ -52,6 +53,7 @@ public class InterestGroupCon extends AbstractTransfer {
 		CurrGui.addListActionListener(new listSelecTionListen());
 		CurrGui.addOpen(new ButtonOpenListener());
 		CurrGui.addupdate(new ButtonupdateListener());
+		CurrGui.addtomefiles(new myfilelistener());
 	}
 	
 	
@@ -86,6 +88,27 @@ public class InterestGroupCon extends AbstractTransfer {
 			CurrGui.close();
 			prevCon.getGroupListGui().setVisible(true);
 		}
+	}
+	
+	private class myfilelistener implements ActionListener {
+		public void actionPerformed(ActionEvent arg0) {
+			addmyfilesPressed();
+			
+		}
+	}
+	
+	public void addmyfilesPressed()
+	{
+		for(int i=0;i<groupInformation.getFilesForRead().size();i++)
+		{
+			if(groupInformation.getFilesForRead().get(i).getFileName().equals(selectedfile))
+			{
+				setChoosenFile(groupInformation.getFilesForRead().get(i));
+			}
+		}
+	  CurrGui.close();
+	  AddToClientFilesGui ATM=new AddToClientFilesGui(user);
+	  new AddToClientFilesCon(ATM,this,user,choosenFile,1);
 	}
 	
 	
