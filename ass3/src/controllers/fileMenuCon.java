@@ -130,15 +130,15 @@ public class fileMenuCon extends AbstractTransfer{
 
 		public void actionPerformed(ActionEvent e) {
 				CurrGui.dispose();
-				deleteFile d= new deleteFile();
-				new deleteFileController(d,getThisCon(),getChoosenFile(), user);	
+					deleteFile d= new deleteFile(user,ChoosenFile);
+				new deleteFileController(d,getThisCon(),getChoosenFile(),user);		
 		}
 	}
+	
+		/**ButtoncancelListener implements action listener and handles cancel button pressed*/
 	class ButtoncancelListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
-			//CurrGui.dispose();
-			//prevCon.getusermainmenu().setVisible(true);
 			Envelope en=new Envelope(user,"refresh data");
 			sendToServer(en);
 			myboxapp.clien.setCurrObj(getThisCon());
@@ -204,8 +204,7 @@ public class fileMenuCon extends AbstractTransfer{
 						if(ChoosenFile.getGroupsForRead().get(i).getGroupName().equals(user.getInterestGroupInDB().get(j).getGroupName()))
 						{
 							flag=1;
-							CurrGui.close();
-							prevCon.getusermainmenu().setVisible(true);
+		
 						}
 					
 				}
@@ -265,15 +264,12 @@ public class fileMenuCon extends AbstractTransfer{
     			Component frame = null;
     			JOptionPane.showMessageDialog(frame, "updated successfully");
     			CurrGui.setVisible(true);
-    			//CurrGui.dispose();
-    			//prevCon.getCurrGui().setVisible(true);
     		}
     		
     		else 
     		{
     			JOptionPane.showMessageDialog(CurrGui, "error");
     			CurrGui.dispose();
-    		//	prevCon.getCurrGui().setVisible(true);
     		}
     		
     	}
