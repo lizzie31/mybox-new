@@ -139,10 +139,10 @@ public class createNewFileController extends AbstractTransfer{
 		{
 			JOptionPane.showMessageDialog(createfile, "Please type the file name!", "Empty field",0,null);
 		}
-		else if(createfile.getDescriptionField().getText().equals(""))
+		else if(createfile.getDescriptionField().equals(""))
 			JOptionPane.showMessageDialog(createfile, "Please write the description for this file!", "Empty field",0,null);
 		
-		else if(createfile.getDescriptionField().getText().length() > 40)
+		else if(createfile.getDescriptionField().length() > 40)
 			JOptionPane.showMessageDialog(createfile, "The description must be less then 40 characters!", "Not available field",0,null);
 		else if(!isFlag())
 			JOptionPane.showMessageDialog(createfile, "Choose the file to upload", "Error!",0,null);
@@ -172,7 +172,7 @@ public class createNewFileController extends AbstractTransfer{
 			String[] type = ss.split("\\.",2);
 			String name=createfile.getFileNameField().getText();
 			String temp ="D:/mybox/"+ name+ "." + type[1];
-			file upFile = new file(name,temp, selectedComboBox,myboxapp.clien.getCurrUser().getUserName(),null);
+			file upFile = new file(name,temp, selectedComboBox,myboxapp.clien.getCurrUser().getUserName(),createfile.getDescriptionField(),0);
 			if(advancedFile!=null)
 			{
 				upFile.setGroupsForRead(advancedFile.getGroupsForRead());

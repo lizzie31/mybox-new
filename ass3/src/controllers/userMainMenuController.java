@@ -143,11 +143,12 @@ public class userMainMenuController extends AbstractTransfer{
 			       {
 					   if(((file)(userDetails.getuserItems().getfiles().get(i))).getFileName().equals(str))
 				    	{
-						file=(file)dir.getfiles().get(i);
-				        CurrGui.close();			
-				        fileMenu=new fileMenuGui(userDetails,str);
-				        fileCon=new fileMenuCon(fileMenu,getCon(),userDetails,file);
-					    }
+						  file=(file)dir.getfiles().get(i);
+				           CurrGui.close();			
+				           fileMenu=new fileMenuGui(userDetails,str);
+				           fileCon=new fileMenuCon(fileMenu,getCon(),userDetails,file);
+					      
+				    	}
 				    }
 		}
 	}
@@ -167,14 +168,14 @@ public class userMainMenuController extends AbstractTransfer{
 		    	}
 			 else if(((file)(dir.getfiles().get(i))).getFileName().equals(filename))
 			 {
-				    file file=(file)dir.getfiles().get(i);
-			        CurrGui.close();			
-			        fileMenu=new fileMenuGui(userDetails,filename);
-			        fileCon=new fileMenuCon(fileMenu,getCon(),userDetails,file);
-			 }
+				 file file=(file)dir.getfiles().get(i);
+			      CurrGui.close();			
+			      fileMenu=new fileMenuGui(userDetails,filename);
+			      fileCon=new fileMenuCon(fileMenu,getCon(),userDetails,file);
+				 
 			}
 			    	
-	//	}
+		}
 		}
 
 		   

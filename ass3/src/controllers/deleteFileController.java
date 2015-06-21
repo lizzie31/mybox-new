@@ -25,6 +25,7 @@ public class deleteFileController extends AbstractTransfer{
 	/**1 is no 2 is yes 0 is didn't choose*/
 	private int decision=1;
 	private User user;
+	private String Choosenoption=null;
 	
 	public deleteFileController(deleteFile f, fileMenuCon lastCon,file f1,User u)
 	{
@@ -42,17 +43,8 @@ public class deleteFileController extends AbstractTransfer{
 	{
 		public void actionPerformed(ActionEvent e) {
 			
-			String temp=(String)currGui.getComboBox().getSelectedItem();
+			Choosenoption=(String)currGui.getComboBox().getSelectedItem();
 		
-			if(temp.equals("no"))
-				decision=1;
-			else
-			{
-				if(temp.equals("yes"))
-					decision=2;
-				else
-					decision=0;
-			}	
 		}
 	}
 	class ButtonCancelListener implements ActionListener{
@@ -73,12 +65,13 @@ public class deleteFileController extends AbstractTransfer{
 	private void buttonyesPressed() {
 		if(file1.getFileOwner().equals(user.getUserName()))
 		{
-			if(decision==0)
+			if(Choosenoption.equals(""))
 				currGui.setWarningMessageVisibleTrue("please choose yes or no");
-			if(decision==1)
+			if(Choosenoption.equals("no"))
 			{
 				file1.setuserNotOwnerDeleteFile(user.getUserName());
 				en=new Envelope(file1,"delete file owner");
+				file1.setAbandonedFlag(1);
 				sendToServer(en);
 				myboxapp.clien.setCurrObj(this);
 				Component frame = null;
@@ -86,7 +79,7 @@ public class deleteFileController extends AbstractTransfer{
 				currGui.dispose();
 				lastCon.getCurrGui().setVisible(true);
 			}
-			if(decision==2)
+			if(Choosenoption.equals("yes"))
 			{
 				file1.setuserNotOwnerDeleteFile(user.getUserName());
 				en=new Envelope(file1,"delete file permanantly");

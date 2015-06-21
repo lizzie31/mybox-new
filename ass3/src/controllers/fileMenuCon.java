@@ -75,6 +75,11 @@ public class fileMenuCon extends AbstractTransfer{
 		}
 	}
 	private void buttoncharactersPressed() {
+		 if(ChoosenFile.getFileName().contains("deleted"))
+		  {
+		  	CurrGui.setWarningMessageVisibleTrue("this file was deleted by its owner,please delete it from your files.");
+		  }
+		 {
 		if(ChoosenFile.getFileOwner().equals(user.getUserName()))//if the user is the file owner
 		{	setCharacters p= new setCharacters();
 			new setCharactersController(p,getThisCon(),ChoosenFile,user);
@@ -109,11 +114,18 @@ public class fileMenuCon extends AbstractTransfer{
 			else CurrGui.setWarningMessageVisibleTrue("sorry,you don't have permission to update this file.");
 		}
 		}
+		 }
 	}
 /**btnPermissionListener implements action listener and handles setPermission button pressed*/
 	class btnPermissionListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
+		 if(ChoosenFile.getFileName().contains("deleted"))
+		 {
+		 	CurrGui.setWarningMessageVisibleTrue("this file was deleted by its owner,please delete it from your files.");
+	     }	
+		 else{
+			
 		if(ChoosenFile.getFileOwner().equals(user.getUserName()))
 		{
 			CurrGui.dispose();
@@ -123,6 +135,7 @@ public class fileMenuCon extends AbstractTransfer{
 		else	
 			CurrGui.setWarningMessageVisibleTrue("you don't have permission!");
 	
+		}
 		}
 	}
 		/**btnDeleteListener implements action listener and handles delete file button pressed*/
@@ -153,6 +166,12 @@ public class fileMenuCon extends AbstractTransfer{
 		}
 
 		private void buttonUpdatePressed() {
+			
+			 if(ChoosenFile.getFileName().contains("deleted"))
+			  {
+			  	CurrGui.setWarningMessageVisibleTrue("this file was deleted by its owner,please delete it from your files.");
+			  }
+			 else{
 			if(ChoosenFile.getFileOwner().equals(user.getUserName()))
 			{
 				UpdateGui UG=new UpdateGui(user,ChoosenFile);
@@ -189,10 +208,16 @@ public class fileMenuCon extends AbstractTransfer{
 			}
 			}
 		}
+		}
 	}
 	/**readListener implements action listener and handles read file button pressed*/	
 	class readListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
+			 if(ChoosenFile.getFileName().contains("deleted"))
+			  {
+			  	CurrGui.setWarningMessageVisibleTrue("this file was deleted by its owner,please delete it from your files.");
+			  }
+			 else{
 			int flag=0;
 			if(ChoosenFile.getFileOwner().equals(user.getUserName()))
 				flag=1;
@@ -209,6 +234,7 @@ public class fileMenuCon extends AbstractTransfer{
 					
 				}
 			}
+			
 			if(ChoosenFile.getFilepermission()==3)
 				flag=1;
 			if(flag==1)
@@ -233,6 +259,7 @@ public class fileMenuCon extends AbstractTransfer{
 			}
 			}
 			else CurrGui.setWarningMessageVisibleTrue("sorry,you don't have permission to read this file.");
+		}
 		}
 	
 	}
