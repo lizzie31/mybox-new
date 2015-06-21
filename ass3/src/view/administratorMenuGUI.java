@@ -53,7 +53,6 @@ public class administratorMenuGUI extends JFrame {
 	private JButton btncratenewgroup=null;
 	private JButton btnLogOut=null;
 	private JLabel warningIcon=null;
-	private JLabel lblwarningMessage=null;
 	private User user;
 	private JButton btnrequests = null;
 	private ArrayList<interestGroups> allinterestgroups;
@@ -66,6 +65,7 @@ public class administratorMenuGUI extends JFrame {
 	private JButton deleteGroupButton=null;
 	private DefaultMutableTreeNode node=null;
 	private JComboBox comboBox;
+	private JLabel warningmessege;
 	
 	public administratorMenuGUI(User user,ArrayList<interestGroups> allinterestgroups ) {
 	
@@ -107,6 +107,13 @@ MainMenu.setBackground(new Color(102, 205, 170));
 					comboBox.addItem(allinterestgroups.get(i).getGroupName());
 				}
 				
+				warningmessege = new JLabel("3333333333333333333333333333");
+				warningmessege.setForeground(new Color(255, 0, 0));
+				warningmessege.setFont(new Font("Arial Black", Font.PLAIN, 14));
+				warningmessege.setBounds(81, 459, 281, 25);
+				warningmessege.setVisible(false);
+				MainMenu.add(warningmessege);
+				
 				JLabel lblNewLabel = new JLabel("Intersts Groups List:");
 				lblNewLabel.setForeground(new Color(0, 0, 205));
 				lblNewLabel.setFont(new Font("Arial Black", Font.PLAIN, 15));
@@ -119,8 +126,6 @@ MainMenu.setBackground(new Color(102, 205, 170));
 				searchField.setBounds(236, 62, 146, 20);
 				MainMenu.add(searchField);
 				searchField.setColumns(10);
-				
-				MainMenu.add(getLblwarningMessage());
 				
 				JLabel lblSearch = new JLabel("search");
 				lblSearch.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -238,29 +243,21 @@ MainMenu.setBackground(new Color(102, 205, 170));
 		this.setVisible(false);
 		dispose();
 	}
-	public JLabel getLblwarningMessage() {
-		if(lblwarningMessage == null){
-			lblwarningMessage = new JLabel("");
-			lblwarningMessage.setForeground(new Color(255, 0, 0));
-			lblwarningMessage.setFont(new Font("Arial Black", Font.PLAIN, 13));
-			lblwarningMessage.setSize(298, 25);
-			lblwarningMessage.setLocation(67, 464);
-			lblwarningMessage.setVisible(false);
-		}
-		return lblwarningMessage;
-	}
 	public void setWarningMessageVisibleTrue(String st) {
-		lblwarningMessage.setText(st);
-		lblwarningMessage.setForeground(Color.RED);
-		lblwarningMessage.setFont(new Font("Arial Black", Font.PLAIN, 11));
-		lblwarningMessage.setSize(303, 25);
-		lblwarningMessage.setLocation(52, 83);
+		warningmessege.setText(st);
+		warningmessege.setForeground(Color.RED);
+		warningmessege.setFont(new Font("Arial Black", Font.PLAIN, 14));
+		warningmessege.setSize(400, 40);
+		warningmessege.setBounds(81, 459, 281, 25);
 		warningIcon.setVisible(true);
-		lblwarningMessage.setVisible(true);	
+		warningmessege.setVisible(true);	
 		
 	}
 	public JComboBox getComboBox() {
 		return comboBox;
+	}
+	public User getUser() {
+		return user;
 	}
 	
 	}

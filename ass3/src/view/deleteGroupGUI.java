@@ -32,10 +32,9 @@ public class deleteGroupGUI extends JFrame{
 	private JPanel panel;
 	private JButton btndelete;
 	private ArrayList<interestGroups> allinterestgroups;
-	/**@param lblwarningMessage is a lable of a warning message*/
-	private JLabel lblwarningMessage=null;
 	private JLabel label;
 	private JLabel warningIcon=null;
+	private JLabel lblwarningM;
 	
 	public deleteGroupGUI(ArrayList<interestGroups> allinterestgroups ) {
 		this.allinterestgroups=allinterestgroups;
@@ -74,7 +73,8 @@ public class deleteGroupGUI extends JFrame{
 				warningIcon.setIcon(new ImageIcon(userMainMenuGUI.class.getResource("/view/warning.gif")));
 				warningIcon.setBounds(68, 299, 42, 25);
 				warningIcon.setVisible(false);
-				panel.add(getLblwarningMessage() );
+				
+				panel.add(getLblwarningM());
 				panel.add(warningIcon);
 				
 				btndelete = new JButton("Delete");
@@ -122,23 +122,24 @@ public class deleteGroupGUI extends JFrame{
 	public JComboBox getComboBox() {
 		return comboBox;
 	}
-	/**getLblwarningMessage() returns the warning message*/
-	public JLabel getLblwarningMessage() {
-		if(lblwarningMessage == null){
-			lblwarningMessage = new JLabel("123");
-			lblwarningMessage.setSize(252, -24);
-			lblwarningMessage.setLocation(110, 320);
-			lblwarningMessage.setVisible(false);
-		}
-		return lblwarningMessage;
+	
+	public JLabel getLblwarningM() {
+		
+		lblwarningM = new JLabel("please");
+		lblwarningM.setForeground(new Color(255, 0, 0));
+		lblwarningM.setFont(new Font("Arial Black", Font.PLAIN, 13));
+		lblwarningM.setBounds(130, 299, 296, 25);
+		lblwarningM.setVisible(false);
+		return lblwarningM;
 	}
+
 	/**setWarningMessageVisibleTrue(String st) sets the warning message st visible*/
 	public void setWarningMessageVisibleTrue(String st) {
-		lblwarningMessage.setText(st);
-		lblwarningMessage.setForeground(Color.RED);
-		lblwarningMessage.setFont(new Font("Arial Black", Font.PLAIN, 13));
-		lblwarningMessage.setBounds(110, 310, 252, -18);
-		lblwarningMessage.setVisible(true);	
+		lblwarningM.setText(st);
+		lblwarningM.setForeground(Color.RED);
+		lblwarningM.setFont(new Font("Arial Black", Font.PLAIN, 13));
+		lblwarningM.setBounds(68, 299, 42, 25);
+		lblwarningM.setVisible(true);	
 		warningIcon.setVisible(true);
 		
 	}

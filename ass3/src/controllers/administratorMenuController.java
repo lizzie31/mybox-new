@@ -68,10 +68,13 @@ public class administratorMenuController extends userMainMenuController {
 	}
 	private void buttoneditGroupprresed(){
 		
+		if(GroupName==null) currgui2.setWarningMessageVisibleTrue("please select a group");
+		else{
 		currgroup=new interestGroups(GroupName);
 		Envelope en=new Envelope(currgroup,"Show fils in group");
 		sendToServer(en);
 		myboxapp.clien.setCurrObj(this);
+		}
 	
 		
 	}
@@ -111,7 +114,7 @@ public class administratorMenuController extends userMainMenuController {
 private void buttonCreatefolder() {
 	
 		createNewFolderGUI R= new createNewFolderGUI();
-		//new createNewFolderController(R,this);
+		new createNewFolderController(R,this,currgui2.getUser());
 		R.setVisible(true);
 
 	}
@@ -186,7 +189,7 @@ public void handleDBResult2(Object message) {
 	{
 		allfiles=(ArrayList<file>) message;
 		EditGroupGUI EG=new EditGroupGUI(grouptoedit,allfiles);	
-		new EditGroupCon(EG,grouptoedit,this);
+		new EditGroupCon(EG,this,grouptoedit);
 	}
 	
 	
@@ -222,11 +225,6 @@ private void buttoncreatenewfilePressed() {
 		myboxapp.clien.setCurrObj(this);
 		}
 
-	/**getAdminCon() returns the administrator manu gui window*/
-	public administratorMenuGUI getAdminCon()
-	{
-		return this.currgui2;
-	}
 	/**getusermainmenu2() returns the administrator manu gui window*/
 	public administratorMenuGUI getusermainmenu2() {
 

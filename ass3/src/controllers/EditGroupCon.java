@@ -18,18 +18,21 @@ public class EditGroupCon extends AbstractTransfer {
 	private EditGroupGUI egroup;
 	private EditGroupCon thiscon;
 	private interestGroups grouptoedit;
-	private administratorMenuController lastcon;
+	private administratorMenuController adm;
 	private String filetodelete;
 	private file filetoadd;
 	private Envelope en;
 	private String permmision;
 	
-	public EditGroupCon(EditGroupGUI eG, interestGroups grouptoedit,administratorMenuController lastCon)
+	/**
+	 * @wbp.parser.entryPoint
+	 */
+	public EditGroupCon(EditGroupGUI eG, administratorMenuController lastCon , interestGroups grouptoedit)
 	{
 		this.egroup=eG;
 		this.grouptoedit=grouptoedit;
 		this.thiscon=this;
-		this.lastcon=lastcon;
+		this.adm=lastCon;
 		egroup.addAddfile(new ButtonaddfileListener());
 		egroup.addcancel(new ButtonCancelListener());
 		//egroup.addchangeP(l);
@@ -67,6 +70,7 @@ public class EditGroupCon extends AbstractTransfer {
 		}
 	}
 
+	/**ButtonCancelListener is a class that implements action listener and goes back to administrator menu window*/
 	private class ButtonCancelListener implements ActionListener {
 
 		@Override
@@ -78,25 +82,31 @@ public class EditGroupCon extends AbstractTransfer {
 	
 	private void buttoncancelPressed() {
 		egroup.close();
-		lastcon.getAdminCon().setVisible(true);
+		adm.getusermainmenu2().setVisible(true);
 	
 	}
 	private class ButtondeleteListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			
+			if(filetoadd==null) egroup.setWarningMessageVisibleTrue("please select a file!");
+			else{
 			en=new Envelope(filetodelete,"delete file from interest group");
 			sendToServer(en);
 			myboxapp.clien.setCurrObj(getThiscon() );
+			}
 		}
 	}
 	private class ButtonaddfileListener implements ActionListener {
-
+		
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-		
-			if(permmision.equals("read"))
+			if(filetoadd==null) egroup.setWarningMessageVisibleTrue("please select a file!");
+			
+			else if( permmision==null) egroup.setWarningMessageVisibleTrue("please select a permmision for the file!");
+			
+			else{
+		     if(permmision.equals("read"))
 			{
 				grouptoedit.getFilesForRead().add(filetoadd);
 				en=new Envelope(grouptoedit,"add file for read");
@@ -110,12 +120,20 @@ public class EditGroupCon extends AbstractTransfer {
 			sendToServer(en);
 			myboxapp.clien.setCurrObj(getThiscon() );
 		}
-	}
+		}
+		}
+		
 
+	/**
+	 * @wbp.parser.entryPoint
+	 */
 	public EditGroupCon getThiscon() {
 		return thiscon;
 	}
 
+	/**
+	 * @wbp.parser.entryPoint
+	 */
 	public EditGroupGUI getEgroup() {
 		return egroup;
 	}

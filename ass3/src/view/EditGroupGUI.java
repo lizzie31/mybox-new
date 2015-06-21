@@ -35,7 +35,6 @@ public class EditGroupGUI  extends JFrame {
    private JComboBox comboBox ;
    private ArrayList<file> groupfils;
    private JLabel warningIcon=null;
-   private JLabel lblwarningMessage=null;
    private interestGroups currgroup;
    private ArrayList<file> allfiles=null;
    private JLabel lblNewLabel_1;
@@ -44,6 +43,7 @@ public class EditGroupGUI  extends JFrame {
    private JCheckBox chckbxForRead;
    private JCheckBox chckbxupdate;
    private int flag=0;
+   private JLabel lblwarningMessage=null;
 	/**
 	 * Create the application.
 	 */
@@ -89,11 +89,10 @@ public class EditGroupGUI  extends JFrame {
 		warningIcon.setIcon(new ImageIcon(userMainMenuGUI.class.getResource("/view/warning.gif")));
 		warningIcon.setBounds(68, 299, 42, 25);
 		warningIcon.setVisible(false);
-		panel.add(getLblwarningMessage() );
 		panel.add(warningIcon);
+		panel.add(getLblwarningMessage() );
 		
-	
-		
+
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setFont(new Font("Arial Black", Font.PLAIN, 11));
 		lblNewLabel.setIcon(new ImageIcon(EditGroupGUI.class.getResource("/view/2085-springlike-green-nature-butterfly-abstract-background.jpg")));
@@ -120,6 +119,7 @@ public class EditGroupGUI  extends JFrame {
 			comboBox_1 = new JComboBox();
 			comboBox_1.setBounds(51, 207, 121, 20);
 			panel.add(comboBox_1);
+			comboBox_1.addItem(" ");
 			
 			btnaddfile = new JButton("add file");
 			btnaddfile.setFont(new Font("Arial Black", Font.PLAIN, 11));
@@ -133,6 +133,7 @@ public class EditGroupGUI  extends JFrame {
 			chckbxupdate = new JCheckBox("for update");
 			chckbxupdate.setBounds(112, 234, 97, 23);
 			panel.add(chckbxupdate);
+		
 			for (int i=0;i<currgroup.getFilesForRead().size();i++)
 			{
 				String s=currgroup.getFilesForRead().get(i).getFileName();
@@ -141,24 +142,19 @@ public class EditGroupGUI  extends JFrame {
 			for (int i=0;i<allfiles.size();i++)
 			{
 				for (int j=0;j<currgroup.getFilesForRead().size();j++)
-					if(((allfiles.get(i).getFileName()).equals(currgroup.getFilesForRead().get(j).getFileName()))) flag=1;
-				
+				{
+					if(((allfiles.get(i).getFileName()).equals(currgroup.getFilesForRead().get(j).getFileName()))) 
+						flag=1;
+				}
 				if(flag!=1)comboBox_1.addItem(allfiles.get(i).getFileName());
+				flag=0;
 			}
 
 		}
 		return panel;
 	}
 	
-	public String getPermmision(String s)
-	{
-		for (int i=0;i<currgroup.getFilesForUpdate().size();i++)
-		{
-			if(currgroup.getFilesForUpdate().get(i).getFileName().equals(s)) return " -Update";
-		}
-		return " -Read";
-	}
-	
+
 	public void addcancel(ActionListener l) {
 		btnCancle.addActionListener(l);
 	}
@@ -186,19 +182,6 @@ public class EditGroupGUI  extends JFrame {
 		chckbxForRead.addActionListener(l);
 		chckbxupdate.addActionListener(l);
 	}
-	/*public void addchecklistRead(ActionListener l) {
-		
-		chckbxForRead.addActionListener(l);
-	}
-	public void addchecklistupdate(ActionListener l) {
-		
-		chckbxupdate.addActionListener(l);
-	}*/
-	
-	
-	
-	
-	
 	/**getLblwarningMessage() returns the warning message*/
 	public JLabel getLblwarningMessage() {
 		if(lblwarningMessage == null){
@@ -214,11 +197,13 @@ public class EditGroupGUI  extends JFrame {
 		lblwarningMessage.setText(st);
 		lblwarningMessage.setForeground(Color.RED);
 		lblwarningMessage.setFont(new Font("Arial Black", Font.PLAIN, 13));
-		lblwarningMessage.setBounds(110, 310, 252, -18);
+		lblwarningMessage.setBounds(112, 299, 207, 19);
 		lblwarningMessage.setVisible(true);	
 		warningIcon.setVisible(true);
 		
 	}
+		
+
 	public void showsuceedmessege(String str)
  	{
  		Component frame=null;

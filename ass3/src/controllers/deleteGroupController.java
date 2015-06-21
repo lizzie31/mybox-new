@@ -82,7 +82,7 @@ public class deleteGroupController extends AbstractTransfer {
 	
 	private void buttoncancelPressed() {
 		group.close();
-		adm.getAdminCon().setVisible(true);
+		adm.getusermainmenu2().setVisible(true);
 	
 	}
 
