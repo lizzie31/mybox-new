@@ -275,6 +275,49 @@ public class EchoServer extends AbstractServer
     	client.sendToClient(e);
 
     }
+    
+    if(en.getTask().equals("send request to system administrator"))
+    {
+    	  GroupsRequests request=(GroupsRequests)en.getObject();
+    	  rs=stmt.executeQuery("SELECT * FROM test.requests WHERE groupname='"+request.getGroupName()+"'AND username='"+request.getUserName()+"'AND requesttype='"+request.getRequestType()+"'");
+    	  if(rs.next()==true) 
+    	      client.sendToClient("request allready exist");
+    	  else
+          {
+    	  String re="INSERT INTO test.requests VALUES('"+request.getGroupName()+"','"+request.getUserName()+"','"+request.getRequestType()+"');";
+    	  stmt.executeUpdate(re);
+    	  client.sendToClient("request was send");
+          }
+    }
+   if(en.getTask().equals("Show fils in group"))
+    {
+	   interestGroups i=(interestGroups) en.getObject();
+	   file f=null;
+    	ArrayList<file> filesREADgroup=new ArrayList();
+    	ArrayList<file> filesUPDATEgroup=new ArrayList();
+    	Envelope e=null;
+    	
+    	String re="SELECT * FROM test.file_read_groups WHERE interest_group='"+i.getGroupName()+"'";
+    	rs=stmt.executeQuery(re);
+    	while(rs.next())
+    	{
+    		f=new file(rs.getString(1));
+    		filesREADgroup.add(f);
+    	}
+    	re="SELECT * FROM test.file_update_groups WHERE interest_group='"+i.getGroupName()+"'";
+    	rs=stmt.executeQuery(re);
+    	while(rs.next())
+    	{
+    	f=new file(rs.getString(1));
+    	filesUPDATEgroup.add(f);
+    	}
+    	i.setFilesForRead(filesREADgroup);
+    	i.setFilesForUpdate(filesUPDATEgroup);
+    	e=new Envelope(i,"files in group");
+    	client.sendToClient(e);
+    	
+    }
+   
     if(en.getTask().equals("update file"))
     {
       file f=(file)en.getObject();
