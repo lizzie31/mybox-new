@@ -123,7 +123,7 @@ public class fileMenuCon extends AbstractTransfer{
 
 		public void actionPerformed(ActionEvent e) {
 				CurrGui.dispose();
-				deleteFile d= new deleteFile();
+				deleteFile d= new deleteFile(user,ChoosenFile);
 				new deleteFileController(d,getThisCon(),getChoosenFile(),user);	
 		}
 	}
