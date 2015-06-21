@@ -20,7 +20,7 @@ import Model.file;
 import Model.interestGroups;
 import controllers.*;
 
-
+//////////
 
 /**
  * This class overrides some of the methods defined in the abstract
