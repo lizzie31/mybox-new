@@ -42,7 +42,7 @@ public class createNewFolderController extends AbstractTransfer{
 		createfolder.addOk(new ButtonOKListener());
 		createfolder.addtreeSelectionListener(new TreeSelection());
 	}
-
+			/********action listeners*******/
 	/**ButtoncancelListener is a class that implements action listener and opens user main menu window*/
 	private class ButtonCancelListener implements ActionListener {
 
@@ -58,6 +58,7 @@ public class createNewFolderController extends AbstractTransfer{
 		else prevController.getusermainmenu().setVisible(true);
 	}
 	
+	/**ButtonOkListener implements action listener and handles the ok button pressing*/
 	private class ButtonOKListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
 			buttonOKPressed();
@@ -66,7 +67,7 @@ public class createNewFolderController extends AbstractTransfer{
 	}
 	private void buttonOKPressed() {
 		String foldername=createfolder.getTextField();
-		if(foldername.equals(""))
+		if(foldername.equals(""))//if the folder name is empty
 			createfolder.setWarningMessageVisibleTrue("please enter the directory name!!");
 		else if(str==null)
 			createfolder.setWarningMessageVisibleTrue("please select the location!!");
@@ -108,7 +109,7 @@ public class createNewFolderController extends AbstractTransfer{
 			}
 			}
 		
-		
+	
 	private directories findInTree(directories dire,String Str)
 	{
 		if( dire.getDirectoryName().equals(Str))
@@ -128,7 +129,7 @@ public class createNewFolderController extends AbstractTransfer{
 	        return null;
 	 }
 
-
+		/************getters and setters*************/
 	public createNewFolderController getCurrCon() {
 		return CurrCon;
 	}

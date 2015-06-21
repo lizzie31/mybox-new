@@ -89,7 +89,7 @@ public class permissionController extends AbstractTransfer {
 				CurrGui.setWarningMessageVisibleTrue("please select a permission!");
 			else
 			{
-					//GroupsRequests request=new GroupsRequests(GroupName,user.getUserName(),"join");
+					
 				if(permission==1)
 					en=new Envelope(f,"change permission 1");
 				else
