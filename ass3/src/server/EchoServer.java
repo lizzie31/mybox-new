@@ -232,6 +232,7 @@ public class EchoServer extends AbstractServer
     	      client.sendToClient("the file added to the group");
     	
     }
+
     if(en.getTask().equals("send request to system administrator"))
     {
     	  GroupsRequests request=(GroupsRequests)en.getObject();
@@ -394,7 +395,7 @@ public class EchoServer extends AbstractServer
    		}
    }
 
-//Dana's changes!
+
    if(en.getTask().equals("add file to user"))
    {
      file file=(file)en.getObject();
@@ -409,6 +410,17 @@ public class EchoServer extends AbstractServer
 	 stmt.executeUpdate(re);
 	 client.sendToClient("file added succesfully");
      }
+   }
+   if(en.getTask().contains("this file is for"))
+   {
+	  interestGroups grouptoedit=(interestGroups)en.getObject();
+	  String re;
+	  if(en.getTask().contains("UPDATE")) 
+	  {
+		  stmt.executeUpdate("DELETE FROM test.file_update_groups WHERE file_name='" + grouptoedit.getFiletoChangP() + "' ;");
+	  }
+	  else stmt.executeUpdate("INSERT INTO test.file_update_groups VALUES('"+ grouptoedit.getFiletoChangP()+ "','"+grouptoedit.getGroupName()+"')" );
+     
    }
 
    if(en.getTask().equals("add directory"))
