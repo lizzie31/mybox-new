@@ -59,7 +59,7 @@ public class userMainMenuController extends AbstractTransfer{
 		this.CurrGui= menu;
 		prevController=lastCon;
 		userDetails=user;
-		CurrGui.addcreatenewfile(new ButtoncreatenewfileListener());
+	
 		CurrGui.addcreatenewfolder(new ButtoncreatenewfolderListener());
 		CurrGui.addjoingruop(new ButtonAddAGroupListener());
 		CurrGui.addshowgruops(new ButtonshowgrouprListener());
@@ -67,6 +67,7 @@ public class userMainMenuController extends AbstractTransfer{
 		CurrGui.addtreeSelectionListener(new TreeSelection());
 		CurrGui.addsearchfiles(new addsearchfilesListener());
 		CurrGui.addleavegruop(new ButtonleaveListene());
+		CurrGui.addcreatenewfile(new ButtoncreatenewfileListener());
 	}
 	
 	public userMainMenuController(userMainMenuGUI menu, User user) {

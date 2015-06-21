@@ -268,7 +268,7 @@ public class logInCon extends AbstractTransfer
 	public void handleDBResult2(Object message) {
 		ArrayList<interestGroups> IG =(ArrayList<interestGroups>)message;
 		  Menu2= new administratorMenuGUI(user,IG);
-	        Menu= new userMainMenuGUI(user);
+		  Menu= new userMainMenuGUI(user);
 	        new administratorMenuController(Menu,this,user,Menu2);
 		
 	}

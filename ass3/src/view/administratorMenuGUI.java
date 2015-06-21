@@ -99,17 +99,17 @@ public class administratorMenuGUI extends JFrame {
 		{MainMenu=new JPanel();
         MainMenu.setBackground(new Color(102, 205, 170));
 		MainMenu.setLayout(null);
-		//setJtree();
+		setJtree();
 		tree.setBounds(42, 133, 205, 218);
 		MainMenu.add(tree);
 				
 				warningIcon= new JLabel("");
 				warningIcon.setIcon(new ImageIcon(userMainMenuGUI.class.getResource("/view/warning.gif")));
-				warningIcon.setBounds(27, 464, 30, 25);
+				warningIcon.setBounds(38, 447, 30, 25);
 				warningIcon.setVisible(false);
 				
 				comboBox = new JComboBox();
-				comboBox.setBounds(42, 356, 128, 20);
+				comboBox.setBounds(43, 391, 128, 20);
 				comboBox.addItem(" ");
 				for (int i=0;i<allinterestgroups.size();i++)
 				{
@@ -119,31 +119,31 @@ public class administratorMenuGUI extends JFrame {
 				warningmessege = new JLabel("3333333333333333333333333333");
 				warningmessege.setForeground(new Color(255, 0, 0));
 				warningmessege.setFont(new Font("Arial Black", Font.PLAIN, 14));
-				warningmessege.setBounds(81, 459, 281, 25);
+				warningmessege.setBounds(78, 447, 281, 25);
 				warningmessege.setVisible(false);
 				MainMenu.add(warningmessege);
 				
 				JLabel lblNewLabel = new JLabel("Intersts Groups List:");
 				lblNewLabel.setForeground(new Color(0, 0, 205));
 				lblNewLabel.setFont(new Font("Arial Black", Font.PLAIN, 15));
-				lblNewLabel.setBounds(10, 320, 182, 25);
+				lblNewLabel.setBounds(52, 355, 182, 25);
 				MainMenu.add(lblNewLabel);
 				MainMenu.add(comboBox);
 				MainMenu.add(warningIcon);
 				
 				btnSearch = new JButton("search");
 				btnSearch.setFont(new Font("Tahoma", Font.BOLD, 13));
-				btnSearch.setBounds(346, 60, 97, 25);
+				btnSearch.setBounds(388, 59, 97, 25);
 				MainMenu.add(btnSearch);
 				
 				searchField = new JTextField();
-				searchField.setBounds(236, 62, 146, 20);
+				searchField.setBounds(213, 62, 146, 20);
 				MainMenu.add(searchField);
 				searchField.setColumns(10);
 				
 				JLabel lblSearch = new JLabel("search");
 				lblSearch.setFont(new Font("Tahoma", Font.BOLD, 14));
-				lblSearch.setBounds(120, 62, 104, 17);
+				lblSearch.setBounds(99, 62, 104, 17);
 				MainMenu.add(lblSearch);
 				
 				btnCreateNewFolder = new JButton("create new folder");
@@ -187,7 +187,7 @@ public class administratorMenuGUI extends JFrame {
 		editButton = new JButton("edit group");
 		editButton.setFont(new Font("Tahoma", Font.BOLD, 11));
 		editButton.setBackground(UIManager.getColor("SplitPane.shadow"));
-		editButton.setBounds(190, 355, 138, 23);
+		editButton.setBounds(208, 390, 138, 23);
 		MainMenu.add(editButton);
 		
 		btnrequests = new JButton("requests");
@@ -205,9 +205,7 @@ public class administratorMenuGUI extends JFrame {
 		return MainMenu;
 		
 	}
-	public void addeditgroup(ActionListener l) {
-		editButton.addActionListener(l);
-	}
+	
 	
 	/**setJtree() sets the files and folders of the user*/
 	public void setJtree()
@@ -248,7 +246,9 @@ public class administratorMenuGUI extends JFrame {
 	 
 	 
 }
-	
+  public void addeditgroup(ActionListener l) {
+		editButton.addActionListener(l);
+	}	
    public void addsearchfiles(ActionListener l) {
 		btnSearch.addActionListener(l);
 	}
@@ -262,7 +262,7 @@ public class administratorMenuGUI extends JFrame {
 		btnrequests.addActionListener(l);
 	}
 	
-	public void addcreatenewfile(ActionListener l) {
+	public void addcreatenewfile2(ActionListener l) {
 		btnCreateNewFile.addActionListener(l);
 	}
 	public void addcreatenewfolder(ActionListener l) {

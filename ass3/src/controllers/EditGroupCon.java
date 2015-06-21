@@ -89,7 +89,7 @@ public class EditGroupCon extends AbstractTransfer {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			if(filetoadd==null) egroup.setWarningMessageVisibleTrue("please select a file!");
+			if(filetodelete==null) egroup.setWarningMessageVisibleTrue("please select a file!");
 			else{
 			en=new Envelope(filetodelete,"delete file from interest group");
 			sendToServer(en);
