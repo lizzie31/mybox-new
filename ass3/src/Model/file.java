@@ -17,28 +17,23 @@ public class file extends SystemItem{
 	private ArrayList<interestGroups> groupsForUpdate = new ArrayList<>();
     private directories parent;
     private String CurrAddingUser=null;
+    private int AbandonedFlag;
 
-    public file(String name)
+	public file(String name,String Dir, int perm, String fileOwner,String Description,int flag)
+	{
+		this.Description=Description;
+		fileName=name;
+		Direction=Dir;
+		this.Permission=perm;
+		this.FileOwner=fileOwner;
+		this.AbandonedFlag=flag;
+	}
+	
+	  public file(String name)
 	{
 	
 		fileName=name;
 		
-	}
-	public file(String name,String Dir, int perm, String fileOwner,String Description)
-	{
-		this.Description=Description;
-		fileName=name;
-		Direction=Dir;
-		this.Permission=perm;
-		this.FileOwner=fileOwner;
-	}
-	public file(String name,String Dir, int perm, String fileOwner)
-	{
-		this.Description=Description;
-		fileName=name;
-		Direction=Dir;
-		this.Permission=perm;
-		this.FileOwner=fileOwner;
 	}
 	
 	public file(ArrayList<interestGroups> groupsRead, ArrayList<interestGroups> groupsUpdate) {
@@ -150,6 +145,14 @@ public class file extends SystemItem{
 	public void setCurrAddingUser(String currAddingUser) {
 		CurrAddingUser = currAddingUser;
 	}
+	public int getAbandonedFlag() {
+		return AbandonedFlag;
+	}
+	public void setAbandonedFlag(int abandonedFlag) {
+		AbandonedFlag = abandonedFlag;
+	}
+	
+	
 	
 	
 	

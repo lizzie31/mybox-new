@@ -37,15 +37,15 @@ public class GroupsListController extends AbstractTransfer{
 	/**list listener is a class that implements list selection listener and handles a press on the list*/
 	public class listListener implements ListSelectionListener{
 		public void valueChanged(ListSelectionEvent arg0) {
-			Envelope  en=null;
 			  for(int i=0;i<user.getInterestGroupInDB().size();i++)
 			  {
 				  if(user.getInterestGroupInDB().get(i).getGroupName().equals(grouplist.GetList().getSelectedValue()))
-					  en=new Envelope(user.getInterestGroupInDB().get(i),"show interest group to user");
+				  {
+					  Envelope en=new Envelope(user.getInterestGroupInDB().get(i),"show interest group to user");
+				    sendToServer(en);
+				    myboxapp.clien.setCurrObj(getCurrCon());
+				  }
 			 }
-			  sendToServer(en);
-			  myboxapp.clien.setCurrObj(getCurrCon());
-			
 			
 		}
 

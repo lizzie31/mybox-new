@@ -23,8 +23,9 @@ public class deleteFileController extends AbstractTransfer{
 	private file file1;
 	private Envelope en=null;
 	/**1 is no 2 is yes 0 is didn't choose*/
-	private int decision;
+	private int decision=1;
 	private User user;
+	private String Choosenoption=null;
 	
 	public deleteFileController(deleteFile f, fileMenuCon lastCon,file f1,User u)
 	{
@@ -42,17 +43,8 @@ public class deleteFileController extends AbstractTransfer{
 	{
 		public void actionPerformed(ActionEvent e) {
 			
-			String temp=(String)currGui.getComboBox().getSelectedItem();
+			Choosenoption=(String)currGui.getComboBox().getSelectedItem();
 		
-			if(temp.equals("no"))
-				decision=1;
-			else
-			{
-				if(temp.equals("yes"))
-					decision=2;
-				else
-					decision=0;
-			}	
 		}
 	}
 	class ButtonCancelListener implements ActionListener{
@@ -65,43 +57,50 @@ public class deleteFileController extends AbstractTransfer{
 	class ButtonOkListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
-			buttonaddPressed() ;
+			buttonyesPressed() ;
 		}
 	}
 
 	
-	private void buttonaddPressed() {
-		if(decision==0)
-			currGui.setWarningMessageVisibleTrue("please choose yes or no");
-		else
+	private void buttonyesPressed() {
+		if(file1.getFileOwner().equals(user.getUserName()))
 		{
-			if(user.getUserName().equals(file1.getFileOwner()))
+			if(Choosenoption.equals(""))
+				currGui.setWarningMessageVisibleTrue("please choose yes or no");
+			if(Choosenoption.equals("no"))
 			{
-				if(decision==1)
-				{
-					///////////////////////////////////
-				}
-				if(decision==2)
-				{
-					/////////////////////////////////
-				}
+				file1.setuserNotOwnerDeleteFile(user.getUserName());
+				en=new Envelope(file1,"delete file owner");
+				file1.setAbandonedFlag(1);
+				sendToServer(en);
+				myboxapp.clien.setCurrObj(this);
+				Component frame = null;
+				JOptionPane.showMessageDialog(frame, "deleted successfuly!");
+				currGui.dispose();
+				lastCon.getCurrGui().setVisible(true);
 			}
-			else
+			if(Choosenoption.equals("yes"))
 			{
-				if(decision==1)
-				{
-					file1.setuserNotOwnerDeleteFile(user.getUserName());
-					en=new Envelope(file1,"delete file not owner");
-					sendToServer(en);
-					myboxapp.clien.setCurrObj(this);
-					Component frame = null;
-					JOptionPane.showMessageDialog(frame, "deleted successfuly!");
-					currGui.dispose();
-					lastCon.getCurrGui().setVisible(true);
-				}
-				if(decision==2)
-					currGui.setWarningMessageVisibleTrue("only the file owner can delete permanently");
+				file1.setuserNotOwnerDeleteFile(user.getUserName());
+				en=new Envelope(file1,"delete file permanantly");
+				sendToServer(en);
+				myboxapp.clien.setCurrObj(this);
+				Component frame = null;
+				JOptionPane.showMessageDialog(frame, "deleted successfuly!");
+				currGui.dispose();
+				lastCon.getCurrGui().setVisible(true);
 			}
+				
+		}
+	else{
+			file1.setuserNotOwnerDeleteFile(user.getUserName());
+			en=new Envelope(file1,"delete file not owner");
+			sendToServer(en);
+			myboxapp.clien.setCurrObj(this);
+			Component frame = null;
+			JOptionPane.showMessageDialog(frame, "deleted successfuly!");
+			currGui.dispose();
+			lastCon.getCurrGui().setVisible(true);
 		}
 
 	}

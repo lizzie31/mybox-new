@@ -303,7 +303,7 @@ public void setWarningMessageVisibleTrue(String st) {
 	lblwarningMessage.setText(st);
 	lblwarningMessage.setForeground(Color.RED);
 	lblwarningMessage.setFont(new Font("Arial Black", Font.PLAIN, 12));
-	lblwarningMessage.setSize(327, 25);
+	lblwarningMessage.setSize(400, 25);
 	lblwarningMessage.setLocation(74, 97);
 	warningIcon.setVisible(true);
 	lblwarningMessage.setVisible(true);	

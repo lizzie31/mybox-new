@@ -49,43 +49,10 @@ public class createNewFileGUI extends JFrame{
 	private JFrame frame;
 	private JButton btnChooseAdvancedGroups = null;
 	private JButton btnChooseLocation =null;
-	
-
-	public JButton getBtnChooseAdvancedGroups() {
-		return btnChooseAdvancedGroups;
-	}
-
-	public void setBtnChooseAdvancedGroups(JButton btnChooseAdvancedGroups) {
-		this.btnChooseAdvancedGroups = btnChooseAdvancedGroups;
-	}
-
 	/**@param fileNameField is the file name text field*/
 	private JTextField fileNameField;
 	/**@param descriptionField is the description text field*/
 	private JTextField descriptionField;
-	public JTextField getFileNameField() {
-		return fileNameField;
-	}
-
-	public void setFileNameField(JTextField fileNameField) {
-		this.fileNameField = fileNameField;
-	}
-
-	public JTextField getDescriptionField() {
-		return descriptionField;
-	}
-
-	public void setDescriptionField(JTextField descriptionField) {
-		this.descriptionField = descriptionField;
-	}
-
-	public JTextArea getTextArea() {
-		return textArea;
-	}
-
-	public void setTextArea(JTextArea textArea) {
-		this.textArea = textArea;
-	}
 
 	
 	public createNewFileGUI() {
@@ -240,5 +207,37 @@ public class createNewFileGUI extends JFrame{
 	public JComboBox getComboBox() {
 		return this.comboBox;
 		
+	}
+	
+	public JButton getBtnChooseAdvancedGroups() {
+		return btnChooseAdvancedGroups;
+	}
+
+	public void setBtnChooseAdvancedGroups(JButton btnChooseAdvancedGroups) {
+		this.btnChooseAdvancedGroups = btnChooseAdvancedGroups;
+	}
+	
+	public JTextField getFileNameField() {
+		return fileNameField;
+	}
+
+	public void setFileNameField(JTextField fileNameField) {
+		this.fileNameField = fileNameField;
+	}
+
+	public String getDescriptionField() {
+		return descriptionField.getText();
+	}
+
+	public void setDescriptionField(JTextField descriptionField) {
+		this.descriptionField = descriptionField;
+	}
+
+	public JTextArea getTextArea() {
+		return textArea;
+	}
+	
+	public void setTextArea(JTextArea textArea) {
+		this.textArea = textArea;
 	}
 }
