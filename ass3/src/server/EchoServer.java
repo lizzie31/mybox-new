@@ -58,7 +58,7 @@ public class EchoServer extends AbstractServer
     String fileDir = null;
     ConnectionToClient ct;
     boolean updateFlag = false;
-    file f = null;
+    
   final public static int DEFAULT_PORT = 5555; //The default port to listen on.
   
   //Constructors ****************************************************
