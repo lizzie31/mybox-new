@@ -96,7 +96,7 @@ public class EditGroupGUI  extends JFrame {
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setFont(new Font("Arial Black", Font.PLAIN, 11));
 		lblNewLabel.setIcon(new ImageIcon(EditGroupGUI.class.getResource("/view/2085-springlike-green-nature-butterfly-abstract-background.jpg")));
-		lblNewLabel.setBounds(-20, -61, 584, 473);
+		lblNewLabel.setBounds(-13, -83, 584, 473);
 		panel.add(lblNewLabel);
 	}
 	private JPanel getCreatePanel(){	
@@ -113,7 +113,7 @@ public class EditGroupGUI  extends JFrame {
 			
 			lblNewLabel_1 = new JLabel("files not in group");
 			lblNewLabel_1.setFont(new Font("Arial Black", Font.PLAIN, 13));
-			lblNewLabel_1.setBounds(51, 176, 130, 20);
+			lblNewLabel_1.setBounds(42, 176, 130, 20);
 			panel.add(lblNewLabel_1);
 			
 			comboBox_1 = new JComboBox();
@@ -202,8 +202,21 @@ public class EditGroupGUI  extends JFrame {
 		warningIcon.setVisible(true);
 		
 	}
-		
+	public void setWarningMessageVisibleTrue2(String st) {
+		lblwarningMessage.setText(st);
+		lblwarningMessage.setForeground(Color.BLUE);
+		lblwarningMessage.setFont(new Font("Arial Black", Font.PLAIN, 14));
+		lblwarningMessage.setBounds(40, 130, 180, 20);
+		lblwarningMessage.setVisible(true);	
 
+		
+	}
+		
+	/**undisplayWarningMessage() sets warning message not visible*/
+ 	public void undisplayWarningMessage() {
+		lblwarningMessage.setVisible(false);
+
+ 	}
 	public void showsuceedmessege(String str)
  	{
  		Component frame=null;

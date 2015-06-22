@@ -21,27 +21,22 @@ import Model.interestGroups;
 import view.*;
 
 public class createNewFileController extends AbstractTransfer{
+	
 	/**createfile is create new file window*/
 	private createNewFileGUI createfile=null;
-	public createNewFileGUI getCreatefile() {
-		return createfile;
-	}
-
-	public void setCreatefile(createNewFileGUI createfile) {
-		this.createfile = createfile;
-	}
+	
 
 	/**prevController is user main menu controller*/
 	private userMainMenuController prevController;
-	/**f is a file*/
-	private file f = null;
+	
+	/**f1 is a file*/
+	//private file f = null;
 	private File f1 = null;
 	private file advancedFile = null;
 	private boolean flag = false;
 	private boolean locFlag = false;
 	private String ss;
-	private JFileChooser fileChooser;
-	//private User user;
+	//private JFileChooser fileChooser;
 	protected User userDetails;
 	private int selectedComboBox;
 	private directories parent=null;
@@ -200,11 +195,8 @@ public class createNewFileController extends AbstractTransfer{
 			
 			Envelope ev = new Envelope(upFile,"Save file in server");
 			sendToServer(ev);
-			myboxapp.clien.setCurrObj(this);
-			
-			}
-		
-
+			myboxapp.clien.setCurrObj(this);			
+			}		
 	}
 	
 	public class SelectedPermissionListener implements ActionListener
@@ -299,7 +291,13 @@ public class createNewFileController extends AbstractTransfer{
 		}
 		
 	}
+	public createNewFileGUI getCreatefile() {
+		return createfile;
+	}
 
+	public void setCreatefile(createNewFileGUI createfile) {
+		this.createfile = createfile;
+	}
 	public boolean isLocFlag() {
 		return locFlag;
 	}

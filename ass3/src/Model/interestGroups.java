@@ -12,6 +12,7 @@ import java.util.ArrayList;
 		ArrayList<file> filesForUpdate=new ArrayList<>();
 		/** the users in the group*/
 		ArrayList<User> users=new ArrayList<>();
+		private String filetoChangP;
 	/**constructor
 	 * @param groupName
 	 */
@@ -60,6 +61,14 @@ import java.util.ArrayList;
 			
 		this.groupName = groupName;
 	}
+
+		public String getFiletoChangP() {
+			return filetoChangP;
+		}
+
+		public void setFiletoChangP(String filetoChangP) {
+			this.filetoChangP = filetoChangP;
+		}
 		
 		
 		

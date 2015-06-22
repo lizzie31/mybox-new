@@ -128,11 +128,13 @@ public class UpdateCon extends AbstractTransfer{
   	  if(flag==0)
 		{
 			CurrGui.dispose();
+			prevCon.UpdateOff();
 			prevCon.getCurrGui().setVisible(true);
 		}
 		else
 		{
 			CurrGui.dispose();
+			prevCon.UpdateOff();
 			prevCon1.getCurrGui().setVisible(true);
 		}
 		

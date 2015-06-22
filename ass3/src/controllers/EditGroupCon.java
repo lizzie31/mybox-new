@@ -3,6 +3,8 @@ package controllers;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JOptionPane;
+
 import client.myboxapp;
 import Model.Envelope;
 import Model.file;
@@ -19,10 +21,14 @@ public class EditGroupCon extends AbstractTransfer {
 	private EditGroupCon thiscon;
 	private interestGroups grouptoedit;
 	private administratorMenuController adm;
+	private EditGroupCon currcon=null;
 	private String filetodelete;
 	private file filetoadd;
 	private Envelope en;
 	private String permmision;
+	/** changepermission contain the current permmision of file in group-read/update*/
+	private String changepermission;
+	
 	
 	/**
 	 * @wbp.parser.entryPoint
@@ -35,13 +41,24 @@ public class EditGroupCon extends AbstractTransfer {
 		this.adm=lastCon;
 		egroup.addAddfile(new ButtonaddfileListener());
 		egroup.addcancel(new ButtonCancelListener());
-		//egroup.addchangeP(l);
+		egroup.addchangeP(new ButtonchangePListener() );
 		egroup.adddeletefile(new ButtondeleteListener());
 		egroup.addchecklist(new checkboxListener());
-		//egroup.addchecklinstupdate(l);
 		egroup.addSelecfile(new SelectedfiletoDELListener());
 		egroup.addSelecfile2(new SelectedfiletoADDListener());
 	
+	
+	}
+	private class ButtonchangePListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+		en=new Envelope(grouptoedit,changepermission);
+		sendToServer(en);
+		JOptionPane.showMessageDialog(null, "the permission has changed");
+			
+		}
+		
 	}
 	
 	 private class checkboxListener implements ActionListener{
@@ -58,6 +75,19 @@ public class EditGroupCon extends AbstractTransfer {
 	{
 		public void actionPerformed(ActionEvent e) {
 			filetodelete=(String)(egroup.getComboBox().getSelectedItem());
+			grouptoedit.setFiletoChangP(filetodelete);
+			egroup.undisplayWarningMessage();
+			int flag=0;
+			filetodelete=(String)(egroup.getComboBox().getSelectedItem());
+			for(int i=0;i<grouptoedit.getFilesForUpdate().size();i++){
+				if((grouptoedit.getFilesForUpdate().get(i).getFileName()).equals(filetodelete)) 
+				flag=1;
+			}
+			if(flag==1) changepermission="this file is for UPDATE";
+			else changepermission="this file is for READ";
+			egroup.setWarningMessageVisibleTrue2(changepermission);
+		
+			
 
 		}
 	}
@@ -136,6 +166,14 @@ public class EditGroupCon extends AbstractTransfer {
 	 */
 	public EditGroupGUI getEgroup() {
 		return egroup;
+	}
+
+	public String getChangepermission() {
+		return changepermission;
+	}
+
+	public EditGroupCon getCurrcon() {
+		return currcon;
 	}
 	
 	
