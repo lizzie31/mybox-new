@@ -162,14 +162,8 @@ public class fileMenuCon extends AbstractTransfer{
 
 		public void actionPerformed(ActionEvent e) {
 			
-			Envelope en=new Envelope(ChoosenFile,"check if someone updating");
-			sendToServer(en);
-			//myboxapp.clien.setCurrObj(getThisCon());
-			
-			if(!isUpdateFlag())
-				buttonUpdatePressed();	
-			else
-				CurrGui.setWarningMessageVisibleTrue("this file was updated by another user, please try later");
+			buttonUpdatePressed();
+
 		}
 
 		private void buttonUpdatePressed() {
@@ -186,7 +180,7 @@ public class fileMenuCon extends AbstractTransfer{
 			 {
 				 if(ChoosenFile.getFileOwner().equals(user.getUserName()))
 				 {
-					 UpdateOn(); //ApdatedFlag = 1 in files for other users
+					 CurrGui.close();
 					 UpdateGui UG=new UpdateGui(user,ChoosenFile);
 					 new UpdateCon(user,ChoosenFile,UG,getThisCon());
 				 }
@@ -201,7 +195,6 @@ public class fileMenuCon extends AbstractTransfer{
 							 for(int j=0;j<user.getInterestGroupInDB().size();j++)
 								 if(ChoosenFile.getGroupsForUpdate().get(i).getGroupName().equals(user.getInterestGroupInDB().get(j).getGroupName()))
 								 {
-									 UpdateOn(); //ApdatedFlag = 1 in files for other users
 									 flag=1;
 									 CurrGui.close();
 									 UpdateGui UG=new UpdateGui(user,ChoosenFile);
@@ -215,7 +208,7 @@ public class fileMenuCon extends AbstractTransfer{
 					 {
 						 if(ChoosenFile.getFileOwner().equals(user.getUserName()))
 						 {
-							 UpdateOn(); //ApdatedFlag = 1 in files for other users
+							 CurrGui.close();
 							 UpdateGui UG=new UpdateGui(user,ChoosenFile);
 							 new UpdateCon(user,ChoosenFile,UG,getThisCon());
 						 }
@@ -278,23 +271,7 @@ public class fileMenuCon extends AbstractTransfer{
 		}
 	
 	}
-			
-	/**UpdateDB is setting the status of a file as 1 - updated by another user*/
-	public void UpdateOn(){
-		Envelope en=new Envelope(ChoosenFile,"update status on");
-		 sendToServer(en);
-	}	
-	public void UpdateOff(){
-		Envelope en=new Envelope(ChoosenFile,"update status off");
-		 sendToServer(en);
-	}
-	public void isUpdatedByAnotherUser(String msg)
-	{
-		if(msg.equals("in update by user"))
-			setUpdateFlag(true);
-		else
-			setUpdateFlag(false);		
-	}
+
 /**handles db result*/	
      	public void handleDBResultFile(byte[] bs1) throws IOException
 	 

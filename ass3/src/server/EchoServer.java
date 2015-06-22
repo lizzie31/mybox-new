@@ -324,6 +324,22 @@ public class EchoServer extends AbstractServer
     	
     }
    
+   if(en.getTask().equals("check if someone updating"))
+ 	{
+     	Statement stmt1 = this.getConn().createStatement();
+     	ResultSet rs2;
+     	
+ 	   file fileUpdated=(file)en.getObject();
+ 	   String upd = "SELECT * FROM test.files as f WHERE f.filename= '"+fileUpdated.getFileName()+"'";
+ 	   rs = stmt1.executeQuery(upd);
+ 	   if(rs.next())
+ 	   {
+ 		   fileUpdated.setUpFlag(rs.getInt(7));
+ 		   en = new Envelope(fileUpdated,"updating flag result");
+ 		   client.sendToClient(en);
+ 	   }
+ 	}
+   
     if(en.getTask().equals("update file"))
     {
       file f=(file)en.getObject();
@@ -619,42 +635,6 @@ public class EchoServer extends AbstractServer
        		} 	
     }
     
-    if(en.getTask().equals("update status on"))
-	{
-	   file fileUpdated=(file)en.getObject();
-	   String upd = "UPDATE test.files SET UpdatedFlag = 1 WHERE files.filename = '"+fileUpdated.getFileName()+"'";
-	   stmt.executeUpdate(upd);
-       //controller.SetLog(fileUpdated,"login"); //update the login serverLogGui
-	}
-    if(en.getTask().equals("update status off"))
-	{
-    	file fileUpdated=(file)en.getObject();
-	   String upd = "UPDATE test.files SET UpdatedFlag = 0 WHERE files.filename = '"+fileUpdated.getFileName()+"'";
-	   stmt.executeUpdate(upd);
-	   //controller.SetLog(fileUpdated,"logout");  //update the logout serverLogGui
-    }
-    
-    if(en.getTask().equals("check if someone updating"))
-	{
-    	Statement stmt1 = this.getConn().createStatement();
-    	ResultSet rs2;
-    	
-	   file fileUpdated=(file)en.getObject();
-	   String upd = "SELECT * FROM test.files WHERE files.filename= '"+fileUpdated.getFileName()+"'AND UpdatedFlag=0";
-	   rs2 = stmt1.executeQuery(upd);
-	   if(rs2.next())
-	   {
-		   fileCon.setUpdateFlag(false);
-		  // client.sendToClient("not update by users");
-	   }
-	   else
-	   {
-
-		   fileCon.setUpdateFlag(true);
-		 //  client.sendToClient("in update by user");
-	   }
-       //controller.SetLog(fileUpdated,"login"); //update the login serverLogGui
-	}
 
     if(en.getTask().equals("answer request"))
     {

@@ -98,10 +98,9 @@ public class UpdateCon extends AbstractTransfer{
 	class btnUpdateListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
-			fileDetails.setFileContent(content);
-			Envelope en=new Envelope(fileDetails,"update file");
-		    sendToServer(en);
-		    myboxapp.clien.setCurrObj(getThisCon());
+			Envelope en=new Envelope(fileDetails,"check if someone updating");
+			sendToServer(en);
+			myboxapp.clien.setCurrObj(getThisCon());
 		    
         }
 
@@ -128,16 +127,35 @@ public class UpdateCon extends AbstractTransfer{
   	  if(flag==0)
 		{
 			CurrGui.dispose();
-			prevCon.UpdateOff();
 			prevCon.getCurrGui().setVisible(true);
 		}
 		else
 		{
 			CurrGui.dispose();
-			prevCon.UpdateOff();
 			prevCon1.getCurrGui().setVisible(true);
 		}
 		
+	}
+	
+	public void isUpdatedByAnotherUser(file file)
+	{
+		fileDetails=file;
+		if(fileDetails.getUpFlag()==1)
+		{
+			CurrGui.setWarningMessageVisibleTrue("someone else updating this file, please try again later.");
+		}
+		else
+		{
+			buttonUpdatePressed();
+		}
+	}
+	
+	
+	public void buttonUpdatePressed() {
+		fileDetails.setFileContent(content);
+		Envelope en=new Envelope(fileDetails,"update file");
+	    sendToServer(en);
+	    myboxapp.clien.setCurrObj(getThisCon());
 	}
 	
 	

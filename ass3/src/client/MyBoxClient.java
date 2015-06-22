@@ -95,6 +95,8 @@ public synchronized void handleMessageFromServer(Object message)
 				e.printStackTrace();
 			}
 	    }
+	    if(E.getTask().equals("updating flag result"))    
+	    	((UpdateCon)(currController)).isUpdatedByAnotherUser((file)E.getObject());
 	    if(E.getTask().equals("restore files"))
 	    {
 	    	ArrayList<file> filesToRestore=(ArrayList<file>)E.getObject();
@@ -253,162 +255,8 @@ public synchronized void handleMessageFromServer(Object message)
 		if(str.equals("updated successfully"))
 			((fileMenuCon)(currController)).handleDBResultFile2("updated successfully");
 		
-	/*	if(str.equals("in update by user"))
-			((fileMenuCon)(currController)).isUpdatedByAnotherUser("in update by user");
-		if(str.equals("not update by users"))
-			((fileMenuCon)(currController)).isUpdatedByAnotherUser("not update by users");*/
-		
-		
-		//if(str.equals("updated successfully2"))
-	    //	((permissionController)(currController)).handleDBResultFile("updated successfully");
-	}//if
-	/*if(message instanceof ArrayList<?>)
-	{
-		if(((ArrayList<?>) message).get(1) instanceof file)
-				{
-			((logInCon)(currController)).setTheFiles(message);
-				}
 	}
-	*/
-	
   }
-	
-	/*if(message instanceof String ){ //warning massage
-		
-	if(((String)message).equals("Not found User") ){
-		((LoginController)currController).getLoginG().setWarningMessageVisibleTrue();
-	}
-	if(((String)message).equals("area exist") ){
-		((AreaController)currController).getAreaView().setWarningMes("This area is already exist");
-	  }
-	
-	if(((String)message).equals("area added") ){
-		((AreaController)currController).getAreaView().setWarningMes("The area added successfully");
-	  }
-	
-	//set warning message if the category is already exist 
-	if(((String)message).equals("Category exist") ){
-		((CategoryController)currController).getAreaView().setWarningMes("This Category is already exist");
-	  }
-	//set  message if the category is added successfully
-	if(((String)message).equals("Category added") ){
-		((CategoryController)currController).getAreaView().setWarningMes("The category added successfully");
-	  }
-	if(((String)message).equals("no such a customer") ){
-		((CustomerHistoryController)currController).warmassege();
-	  }
-	if(((String)message).equals("OK") ){
-		((FinalAccOrRejController)currController).hendleDBadd();
-	}
-	
-	} //end instence of String
-	
-	if(message instanceof Envelope) { //get the ArrayList area to show the area on Combox
-		
-		if(((Envelope)message).getTask().equals("take all unactive campign")){
-			((StartCampignController)currController).handleFormDBfirst((String)((Envelope)message).getObject());
-		}
-		if(((Envelope)message).getTask().equals("Active the campign plzz")){
-			((StartCampignController)currController).handleFormDBsecond(((Envelope)message).getMess());
-		}
-
-		if(((Envelope)message).getTask().equals("Take Campain")){
-				((GetCustomerListConntroler)currController).handlemessformDBCampain((String)((Envelope)message).getObject());
-		}
-		if(((Envelope)message).getTask().equals("Take a Customer List")){
-			((GetCustomerListConntroler)currController).handlemessformDBCustomer((CustomerListModel)(((Envelope)message).getObject()));
-		}
-		if(((Envelope)message).getTask().equals("take all prem")){
-		  ((FinalAccOrRejController)currController).hendleDBcombo((String)((Envelope)message).getObject());
-		}
-		if(((Envelope)message).getTask().equals("get area") || ((Envelope)message).getTask().equals("Serch costumer")
-				|| ((Envelope)message).getTask().equals("Serch employee"))
-		{
-			if(((Envelope)message).getTask().equals("Serch employee")){
-				((HRcreateNewEmployeeController)currController).handleDBResult(message);
-			}
-			else
-				((CostumerRelEmpCont)currController).handleDBResult(message);
-		}
-		if(((Envelope)message).getTask().equals("get area for employee"))
-			((HRcreateNewEmployeeController)currController).handleDBResult(message);	
-		if(((Envelope)message).getTask().equals("serch campaign") || ((Envelope)message).getTask().equals("serch Sales report")){
-			((SalesReportController)currController).handleDBResult(message);
-		}
-		if(((Envelope)message).getTask().equals("Potential Customer")){
-			((InsertPostentialController)currController).handleDBResult(message);
-		}
-		if(((Envelope)message).getTask().equals("Customer report")){
-			((CustomerReportController)currController).handleDBResult(message);
-		}
-		if(((Envelope)message).getTask().equals("get Category for type")){
-			((MMaddTypeController)currController).handleDBResult(message);
-		}
-		if(((Envelope)message).getTask().equals("addType")){
-			//System.out.println("in client: handleMessageFromServer addtype");
-			((MMaddTypeController)currController).handleDBResult(message);
-		}
-		// human resources
-		if(((Envelope)message).getMess().equals("employee found")){
-			//System.out.println("in client: handleMessageFromServer emp found");
-			Employee emp;
-			emp = (Employee)(((Envelope)message).getObject());
-			//System.out.println(emp.getUsreName());
-			((HRupdateEmployeeDetalesController)currController).handleDBResult(emp);
-		}
-		if (((Envelope)message).getMess().equals("employee not found")){
-			//System.out.println("in client: handleMessageFromServer emp not found");
-			((HRupdateEmployeeDetalesController)currController).handleDBResult("employee not found");
-		}
-		if(((Envelope)message).getMess().equals("Update succeeded")){
-			((HRupdateEmployeeDetalesController)currController).handleDBResult("Update succeeded");
-		}
-		
-		//marketing add item
-		if(((Envelope)message).getMess().equals("item exist in DB"))
-			((NewItemController)currController).handleDBResult("item exist in DB");
-		//marketing add item
-		if(((Envelope)message).getMess().equals("item added successfully"))
-			((NewItemController)currController).handleDBResult("item added successfully");
-		
-		//marketing add Campaign Pattern
-		if(((Envelope)message).getTask().equals("get items"))
-			((CampaignPaternController)currController).handleDBResult(message);
-		//marketing add Campaign Pattern
-		if(((Envelope)message).getTask().equals("get areas"))
-			((CampaignPaternController)currController).handleDBResult(message);
-		//marketing add Campaign Pattern
-		if(((Envelope)message).getTask().equals("get all permissions"))
-			((CampaignPaternController)currController).handleDBResult(message);
-		//marketing add Campaign Pattern
-		if(((Envelope)message).getTask().equals("set CampaignPatern in DB"))
-			((CampaignPaternController)currController).handleDBResult(message);
-		//marketing add Campaign Pattern
-		if(((Envelope)message).getTask().equals("get all categoryz"))
-			((ItemToCatalogController)currController).handleDBResult(message);
-		
-		//marketing add Item To Catalog
-		if(((Envelope)message).getTask().equals("get all types in gategory"))
-			((ItemToCatalogController)currController).handleDBResult(message);
-		//marketing add Item To Catalog
-		if(((Envelope)message).getTask().equals("get items2"))
-			((ItemToCatalogController)currController).handleDBResult(message);
-		//marketing add Item To Catalog
-		if(((Envelope)message).getTask().equals("add Item to catalog"))
-			((ItemToCatalogController)currController).handleDBResult(message);
-	}
-	if (message instanceof CustomerHistoryModel)
-	{
-		((CustomerHistoryController)currController).handleDBResult((CustomerHistoryModel)message);
-	}
-	notify();   
-  }
-  
-  /**
-   * This method handles all data coming from the UI            
-   *
-   * @param message The message from the UI.    
-   */
   public void handleMessageFromClientUI(String message)
   {
     try
