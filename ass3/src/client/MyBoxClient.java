@@ -115,7 +115,7 @@ public synchronized void handleMessageFromServer(Object message)
 	    	{
 	    		((createNewFolderController)(currController)).RefreshUserData(userrefresh);
 	    	}
-	    	if(currController instanceof createNewFolderController)
+	    	if(currController instanceof RestoreFileCon)
 	    	{
 	    		((RestoreFileCon)(currController)).RefreshUserData(userrefresh);
 	    	}

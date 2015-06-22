@@ -731,7 +731,7 @@ public class EchoServer extends AbstractServer
     	  
       }
       Envelope e=new Envelope(filestorestore,"restore files");
-      client.sendToClient(en);
+      client.sendToClient(e);
    }
    
    if(en.getTask().equals( "restore file"))
@@ -739,6 +739,9 @@ public class EchoServer extends AbstractServer
 	   file file=(file)en.getObject();
 	   String re="INSERT INTO test.userdirectories VALUES('"+file.getFileOwner()+"' , '"+file.getParentName()+"' ,'"+file.getFileName()+"')";
 	   stmt.executeUpdate(re);
+	   re="UPDATE test.files SET files.AbandonedFlag='0' WHERE files.filename='"+file.getFileName()+"'";
+	   stmt.executeUpdate(re);
+	   
    }
    
   }

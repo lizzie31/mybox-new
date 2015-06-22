@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -111,6 +112,7 @@ public class RestoreFileCon extends AbstractTransfer{
 	/**refresh user data*/
 	public void RefreshUserData(User userrefresh) {
 		user=userrefresh;
+		JOptionPane.showMessageDialog(null, "the file restored succecfully!");
 		CurrGui.close();
 		userMainMenuGUI menu=new userMainMenuGUI(user);
 		new userMainMenuController(menu,user);

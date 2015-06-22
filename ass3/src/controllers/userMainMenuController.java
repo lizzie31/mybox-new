@@ -318,6 +318,7 @@ public logInCon getPrevController() {
 
 public void HandleRestoreFilesResult(ArrayList<file> filesToRestore) {
 	
+	CurrGui.close();
 	RestoreFilesGui RF=new RestoreFilesGui(filesToRestore);
 	new RestoreFileCon(RF,this,userDetails,filesToRestore);
 	
