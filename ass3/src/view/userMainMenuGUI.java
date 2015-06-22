@@ -267,8 +267,8 @@ public class userMainMenuGUI extends JFrame {
 	public JLabel getlabel()
 	{
 		label = new JLabel("");
-		label.setIcon(new ImageIcon(userMainMenuGUI.class.getResource("/view/Multicolor Grass Books.jpg")));
-		label.setBounds(0, 0, 584, 422);
+		label.setIcon(new ImageIcon(userMainMenuGUI.class.getResource("/view/Grass Books.jpg")));
+		label.setBounds(0, 0, 584, 510);
 		return this.label;
 	
 	}
