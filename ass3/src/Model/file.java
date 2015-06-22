@@ -8,6 +8,7 @@ public class file extends SystemItem{
 	private int Permission;
 	private String FileOwner;
 	private String Description;
+	private int status; //if user updating the file, status = 1
 	/**renaming file*/
 	private String newfilename;
 	/**if some one wants to delete a file from personal db*/
@@ -27,18 +28,20 @@ public class file extends SystemItem{
 		this.Permission=perm;
 		this.FileOwner=fileOwner;
 		this.AbandonedFlag=flag;
+		this.setStatus(0);
 	}
 	
 	  public file(String name)
 	{
 	
 		fileName=name;
-		
+		this.setStatus(0);
 	}
 	
 	public file(ArrayList<interestGroups> groupsRead, ArrayList<interestGroups> groupsUpdate) {
 		this.groupsForRead = groupsRead;
 		this.groupsForUpdate = groupsUpdate;
+		this.setStatus(0);
 	}
 	/********************************************getters and setters**********************************************************/
 	public String getFileName()
@@ -151,12 +154,14 @@ public class file extends SystemItem{
 	public void setAbandonedFlag(int abandonedFlag) {
 		AbandonedFlag = abandonedFlag;
 	}
-	
-	
-	
-	
-	
-	
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}	
 	
 }
 

@@ -39,7 +39,13 @@ public class fileMenuCon extends AbstractTransfer{
 	public void setChoosenFile(file choosenFile) {
 		ChoosenFile = choosenFile;
 	}
-
+	private boolean updateFlag;
+	public boolean isUpdateFlag() {
+		return updateFlag;
+	}
+	public void setUpdateFlag(boolean updateFlag) {
+		this.updateFlag = updateFlag;
+	}
 	/**menu is user main menu window**/
 	private userMainMenuGUI menu;
 	/**thisCon is the file menu controller*/
@@ -162,7 +168,15 @@ public class fileMenuCon extends AbstractTransfer{
 	class btnUpdateListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
-			buttonUpdatePressed();
+			
+			Envelope en=new Envelope(ChoosenFile,"check if someone updating");
+			sendToServer(en);
+			//myboxapp.clien.setCurrObj(getThisCon());
+			
+			if(!isUpdateFlag())
+				buttonUpdatePressed();	
+			else
+				CurrGui.setWarningMessageVisibleTrue("this file was updated by another user, please try later");
 		}
 
 		private void buttonUpdatePressed() {
@@ -171,43 +185,51 @@ public class fileMenuCon extends AbstractTransfer{
 			  {
 			  	CurrGui.setWarningMessageVisibleTrue("this file was deleted by its owner,please delete it from your files.");
 			  }
-			 else{
-			if(ChoosenFile.getFileOwner().equals(user.getUserName()))
-			{
-				UpdateGui UG=new UpdateGui(user,ChoosenFile);
-			    new UpdateCon(user,ChoosenFile,UG,getThisCon());
-			}
-			else{
-			if(ChoosenFile.getFilepermission()==3)
-				CurrGui.setWarningMessageVisibleTrue("sorry,you don't have permission to update this file.");
-			if(ChoosenFile.getFilepermission()==2)
-			{
-				int flag=0;
-				for(int i=0;i<ChoosenFile.getGroupsForUpdate().size();i++)
-				{
-					for(int j=0;j<user.getInterestGroupInDB().size();j++)
-						if(ChoosenFile.getGroupsForUpdate().get(i).getGroupName().equals(user.getInterestGroupInDB().get(j).getGroupName()))
-						{
-							flag=1;
-							CurrGui.close();
-							UpdateGui UG=new UpdateGui(user,ChoosenFile);
-							new UpdateCon(user,ChoosenFile,UG,getThisCon());
-						}
+			 if(isUpdateFlag())
+			 {
+				 CurrGui.setWarningMessageVisibleTrue("this file was updated by another user, please try later");
+			 }
+			 else if (!isUpdateFlag())
+			 {
+				 if(ChoosenFile.getFileOwner().equals(user.getUserName()))
+				 {
+					 UpdateOn(); //ApdatedFlag = 1 in files for other users
+					 UpdateGui UG=new UpdateGui(user,ChoosenFile);
+					 new UpdateCon(user,ChoosenFile,UG,getThisCon());
+				 }
+				 else{
+					 if(ChoosenFile.getFilepermission()==3)
+						 CurrGui.setWarningMessageVisibleTrue("sorry,you don't have permission to update this file.");
+					 if(ChoosenFile.getFilepermission()==2)
+					 {
+						 int flag=0;
+						 for(int i=0;i<ChoosenFile.getGroupsForUpdate().size();i++)
+						 {
+							 for(int j=0;j<user.getInterestGroupInDB().size();j++)
+								 if(ChoosenFile.getGroupsForUpdate().get(i).getGroupName().equals(user.getInterestGroupInDB().get(j).getGroupName()))
+								 {
+									 UpdateOn(); //ApdatedFlag = 1 in files for other users
+									 flag=1;
+									 CurrGui.close();
+									 UpdateGui UG=new UpdateGui(user,ChoosenFile);
+									 new UpdateCon(user,ChoosenFile,UG,getThisCon());
+								 }
 					
-				}
-				 if(flag==0) CurrGui.setWarningMessageVisibleTrue("sorry,you don't have permission to update this file.");
-			}
-			if(ChoosenFile.getFilepermission()==1)
-			{
-				if(ChoosenFile.getFileOwner().equals(user.getUserName()))
-				{
-					UpdateGui UG=new UpdateGui(user,ChoosenFile);
-				    new UpdateCon(user,ChoosenFile,UG,getThisCon());
-				}
-				else CurrGui.setWarningMessageVisibleTrue("sorry,you don't have permission to update this file.");
-			}
-			}
-		}
+						 }
+						 if(flag==0) CurrGui.setWarningMessageVisibleTrue("sorry,you don't have permission to update this file.");
+					 }
+					 if(ChoosenFile.getFilepermission()==1)
+					 {
+						 if(ChoosenFile.getFileOwner().equals(user.getUserName()))
+						 {
+							 UpdateOn(); //ApdatedFlag = 1 in files for other users
+							 UpdateGui UG=new UpdateGui(user,ChoosenFile);
+							 new UpdateCon(user,ChoosenFile,UG,getThisCon());
+						 }
+						 else CurrGui.setWarningMessageVisibleTrue("sorry,you don't have permission to update this file.");
+					 }
+				 }
+			 }
 		}
 	}
 	/**readListener implements action listener and handles read file button pressed*/	
@@ -264,7 +286,24 @@ public class fileMenuCon extends AbstractTransfer{
 	
 	}
 			
-			
+	/**UpdateDB is setting the status of a file as 1 - updated by another user*/
+	public void UpdateOn(){
+		Envelope en=new Envelope(ChoosenFile,"update status on");
+		 sendToServer(en);
+		 ChoosenFile.setStatus(1);
+	}	
+	public void UpdateOff(){
+		Envelope en=new Envelope(ChoosenFile,"update status off");
+		 sendToServer(en);
+		 ChoosenFile.setStatus(0);
+	}
+	public void isUpdatedByAnotherUser(String msg)
+	{
+		if(msg.equals("in update by user"))
+			setUpdateFlag(true);
+		else
+			setUpdateFlag(false);		
+	}
 /**handles db result*/	
      	public void handleDBResultFile(byte[] bs1) throws IOException
 	 

@@ -225,13 +225,24 @@ public synchronized void handleMessageFromServer(Object message)
 		}
 		
 		
-
+		//permission updated successfully
 		if(str.equals("file saved successfully"))
 	    	((createNewFileController)(currController)).handleDBResultFile("file saved successfully");
 		if(str.equals("file already exist"))
 	    	((createNewFileController)(currController)).handleDBResultFile("file already exist");
+		
+		if(str.equals("permission updated successfully"))
+			((permissionController)(currController)).handleDBResultFile("permission updated successfully");
+		
 		if(str.equals("updated successfully"))
 			((fileMenuCon)(currController)).handleDBResultFile2("updated successfully");
+		
+	/*	if(str.equals("in update by user"))
+			((fileMenuCon)(currController)).isUpdatedByAnotherUser("in update by user");
+		if(str.equals("not update by users"))
+			((fileMenuCon)(currController)).isUpdatedByAnotherUser("not update by users");*/
+		
+		
 		//if(str.equals("updated successfully2"))
 	    //	((permissionController)(currController)).handleDBResultFile("updated successfully");
 	}//if
