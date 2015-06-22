@@ -55,7 +55,10 @@ public class fileSearchController extends AbstractTransfer {
 	/**Handling button cancel action performed*/
 	private void buttoncancelPressed() {
 		if (prevController instanceof administratorMenuController)
+		{
 			((administratorMenuController) prevController).getusermainmenu2().setVisible(true);
+			searchG.close();
+		}
 		else
 		{
 		Envelope en=new Envelope(user,"refresh data");
