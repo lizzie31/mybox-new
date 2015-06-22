@@ -256,14 +256,14 @@ public class EchoServer extends AbstractServer
     	rs=stmt.executeQuery(re);
     	while(rs.next())
     	{
-    		f=new file(rs.getString(1),rs.getString(2),rs.getInt(3),rs.getString(4),rs.getString(5),rs.getInt(6));
+    		f=new file(rs.getString(1),rs.getString(2),rs.getInt(3),rs.getString(4),rs.getString(5),rs.getInt(6),rs.getInt(7),rs.getString(8));
     		readfiles.add(f);
     	}
     	re="SELECT f.filename,f.direction,f.permission,f.fileowner,f.description,f.AbandonedFlag From file_update_groups as fu,files as f WHERE f.filename=fu.file_name AND fu.interest_group='"+IG.getGroupName()+"'";
     	rs1=stmt.executeQuery(re);
     	while(rs1.next())
     	{
-    		f=new file(rs1.getString(1),rs1.getString(2),rs1.getInt(3),rs1.getString(4),rs1.getString(5),rs1.getInt(6));
+    		f=new file(rs1.getString(1),rs1.getString(2),rs1.getInt(3),rs1.getString(4),rs1.getString(5),rs1.getInt(6),rs1.getInt(7),rs1.getString(8));
     		updatefiles.add(f);
     	}
     	IG.setFilesForRead(readfiles);
@@ -466,7 +466,7 @@ public class EchoServer extends AbstractServer
     	 FinalFiles=new ArrayList<>();
     	 while(rs.next()==true)
     	 {
-    		f=new file(rs.getString(1),rs.getString(2),rs.getInt(3),rs.getString(4),rs.getString(5),rs.getInt(6));
+    		f=new file(rs.getString(1),rs.getString(2),rs.getInt(3),rs.getString(4),rs.getString(5),rs.getInt(6),rs.getInt(7),rs.getString(8));
     		if(f.getFileName().contains(textField))	
     			FinalFiles.add(f);
     	 }
@@ -583,7 +583,7 @@ public class EchoServer extends AbstractServer
     		fos.write(filecontent);
     		fos.flush();
     		fos.close();
-    		String re = "INSERT INTO test.files VALUES ('"+f.getFileName()+"','"+f.getDirection()+"','"+f.getFilepermission()+"','"+f.getFileOwner()+"','"+f.getDescription()+"',0,0);";
+    		String re = "INSERT INTO test.files VALUES ('"+f.getFileName()+"','"+f.getDirection()+"','"+f.getFilepermission()+"','"+f.getFileOwner()+"','"+f.getDescription()+"','"+f.getAbandonedFlag()+"','0' , "+f.getParent().getDirectoryName()+"')";
        		stmt1.executeUpdate(re);
        		
        		
@@ -722,13 +722,12 @@ public class EchoServer extends AbstractServer
    {
       User curruser=(User)en.getObject();
       ArrayList<file> filestorestore=new ArrayList<>();
-      String re="SELECT f.filename,f.direction,f.permission,f.fileowner,f.description,f.AbandonedFlag FROM test.files as f, test.userdirectories as UD WHERE UD.username='"+curruser.getUserName()+"' AND UD.Itemname=f.filename";
+      String re="SELECT * FROM test.files as f  WHERE f.fileOwner='"+curruser.getUserName()+"' AND f.AbandonedFlag='1'";
       rs=stmt.executeQuery(re);
       while(rs.next())
       {
-    	  file file=new file(rs.getString(1),rs.getString(2),rs.getInt(3),rs.getString(4),rs.getString(5),rs.getInt(6));
-    	  if(file.getAbandonedFlag()==1)
-    		  filestorestore.add(file);
+    	  file file=new file(rs.getString(1),rs.getString(2),rs.getInt(3),rs.getString(4),rs.getString(5),rs.getInt(6),rs.getInt(7),rs.getString(8));
+    	  filestorestore.add(file);
     	  
       }
       Envelope e=new Envelope(filestorestore,"restore files");
@@ -738,7 +737,7 @@ public class EchoServer extends AbstractServer
    if(en.getTask().equals( "restore file"))
    {
 	   file file=(file)en.getObject();
-	   String re="INSERT INTO test.userdirectories VALUES('"+file.getFileOwner()+"' , '"+file.getParent()+"' ,'"+file.getFileName()+"')";
+	   String re="INSERT INTO test.userdirectories VALUES('"+file.getFileOwner()+"' , '"+file.getParentName()+"' ,'"+file.getFileName()+"')";
 	   stmt.executeUpdate(re);
    }
    
@@ -859,11 +858,11 @@ public class EchoServer extends AbstractServer
 		ArrayList<file> files=new ArrayList<>();
 		ArrayList<directories> dir=new ArrayList<>();
 		ArrayList<SystemItem> items = new ArrayList<>();
-		String re=("SELECT f.filename,f.direction,f.permission,f.fileowner,f.description,f.AbandonedFlag FROM userdirectories as u,files as f WHERE f.filename=u.Itemname AND u.directory= '"+Itemname+"' AND u.username='"+UserName+"'");
+		String re=("SELECT f.filename,f.direction,f.permission,f.fileowner,f.description,f.AbandonedFlag,f.UpdatedFlag,f.Parent FROM userdirectories as u,files as f WHERE f.filename=u.Itemname AND u.directory= '"+Itemname+"' AND u.username='"+UserName+"'");
 		rs=stmt.executeQuery(re);
 		while(rs.next()==true)
 		 {
-			 f=new file(rs.getString(1),rs.getString(2),rs.getInt(3),rs.getString(4),rs.getString(5),rs.getInt(6));
+			 f=new file(rs.getString(1),rs.getString(2),rs.getInt(3),rs.getString(4),rs.getString(5),rs.getInt(6),rs.getInt(7),rs.getString(8));
 			 file f2=setGroupsPermission(f);
 			 files.add(f2);
 		 }

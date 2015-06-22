@@ -174,7 +174,7 @@ public class createNewFileController extends AbstractTransfer{
 			String[] type = ss.split("\\.",2);
 			String name=createfile.getFileNameField().getText();
 			String temp ="D:/mybox/"+ name+ "." + type[1];
-			file upFile = new file(name,temp, selectedComboBox,myboxapp.clien.getCurrUser().getUserName(),createfile.getDescriptionField(),0);
+			file upFile = new file(name,temp, selectedComboBox,myboxapp.clien.getCurrUser().getUserName(),createfile.getDescriptionField(),0,0,parent.getDirectoryName());
 			if(advancedFile!=null)
 			{
 				upFile.setGroupsForRead(advancedFile.getGroupsForRead());

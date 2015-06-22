@@ -19,29 +19,30 @@ public class file extends SystemItem{
     private directories parent;
     private String CurrAddingUser=null;
     private int AbandonedFlag;
+    private int UpFlag;
+    private String ParentName;
 
-	public file(String name,String Dir, int perm, String fileOwner,String Description,int flag)
-	{
-		this.Description=Description;
-		fileName=name;
-		Direction=Dir;
-		this.Permission=perm;
-		this.FileOwner=fileOwner;
-		this.AbandonedFlag=flag;
-		this.setStatus(0);
-	}
 	
-	  public file(String name)
+	  public file(String name, String dir, int perm, String fileOwner, String Description, int abandflag, int upflag, String parentname)
 	{
-	
-		fileName=name;
-		this.setStatus(0);
+			this.Description=Description;
+			this.fileName=name;
+			this.Direction=dir;
+			this.Permission=perm;
+			this.FileOwner=fileOwner;
+			this.AbandonedFlag=abandflag;
+			this.UpFlag=upflag;
+			this.ParentName=parentname;
 	}
+	  
+	  public file(String Name)
+	  {
+		  this.fileName=Name;
+	  }
 	
 	public file(ArrayList<interestGroups> groupsRead, ArrayList<interestGroups> groupsUpdate) {
 		this.groupsForRead = groupsRead;
 		this.groupsForUpdate = groupsUpdate;
-		this.setStatus(0);
 	}
 	/********************************************getters and setters**********************************************************/
 	public String getFileName()
@@ -155,13 +156,22 @@ public class file extends SystemItem{
 		AbandonedFlag = abandonedFlag;
 	}
 
-	public int getStatus() {
-		return status;
+	public int getUpFlag() {
+		return UpFlag;
 	}
 
-	public void setStatus(int status) {
-		this.status = status;
-	}	
+	public void setUpFlag(int upFlag) {
+		UpFlag = upFlag;
+	}
+
+	public String getParentName() {
+		return ParentName;
+	}
+
+	public void setParentName(String parentName) {
+		ParentName = parentName;
+	}
+
 	
 }
 

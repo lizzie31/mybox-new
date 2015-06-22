@@ -290,12 +290,10 @@ public class fileMenuCon extends AbstractTransfer{
 	public void UpdateOn(){
 		Envelope en=new Envelope(ChoosenFile,"update status on");
 		 sendToServer(en);
-		 ChoosenFile.setStatus(1);
 	}	
 	public void UpdateOff(){
 		Envelope en=new Envelope(ChoosenFile,"update status off");
 		 sendToServer(en);
-		 ChoosenFile.setStatus(0);
 	}
 	public void isUpdatedByAnotherUser(String msg)
 	{

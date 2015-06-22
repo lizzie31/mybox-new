@@ -82,7 +82,7 @@ public synchronized void handleMessageFromServer(Object message)
 	    if(E.getTask().equals("log in handle"))
 		   ((logInCon)(currController)).handleDBResult((User)E.getObject());
 	    if(E.getTask().equals("show interest group"))
-	    	((GroupsListCon)(currController)).handleDBresult((interestGroups)E.getObject());
+	    	((GroupListController)(currController)).handleDBresult((interestGroups)E.getObject());
 	    if(E.getTask().equals("show all interest groups"))
 	    	((userMainMenuController)(currController)).handleDBAllGroupsResult((ArrayList<interestGroups>)E.getObject());
 	    if(E.getTask().equals("open file"))
@@ -115,6 +115,10 @@ public synchronized void handleMessageFromServer(Object message)
 	    	{
 	    		((createNewFolderController)(currController)).RefreshUserData(userrefresh);
 	    	}
+	    	if(currController instanceof createNewFolderController)
+	    	{
+	    		((RestoreFileCon)(currController)).RefreshUserData(userrefresh);
+	    	}
 	    	if(currController instanceof fileSearchController)
 	    	{
 	    		((fileSearchController)(currController)).RefreshUserData(userrefresh);
@@ -127,9 +131,9 @@ public synchronized void handleMessageFromServer(Object message)
 	    	{
 	    		((fileMenuCon)(currController)).RefreshUserData(userrefresh);
 	    	}
-	    	if(currController instanceof GroupsListCon)
+	    	if(currController instanceof GroupListController)
 	    	{
-	    		((GroupsListCon)(currController)).RefreshUserData(userrefresh);
+	    		((GroupListController)(currController)).RefreshUserData(userrefresh);
 	    	}
 	    }
 	    if(E.getTask().endsWith("search file"))    

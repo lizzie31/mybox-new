@@ -17,7 +17,6 @@ import Model.User;
 import Model.file;
 import Model.interestGroups;
 import client.myboxapp;
-import controllers.GroupsListCon.listListener;
 
 public class RestoreFileCon extends AbstractTransfer{
 	/**grouplist is group list gui window*/

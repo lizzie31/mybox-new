@@ -82,6 +82,7 @@ public class userMainMenuController extends AbstractTransfer{
 		CurrGui.addtreeSelectionListener(new TreeSelection());
 		CurrGui.addsearchfiles(new addsearchfilesListener());
 		CurrGui.addleavegruop(new ButtonleaveListene());
+		CurrGui.addbtnRestoreFiles(new ButtonrestorefileListener());
 	
 }
 
@@ -114,7 +115,7 @@ public class userMainMenuController extends AbstractTransfer{
 		CurrGui.close();
 		this.setUserDetails(userDetails);
 		groupListGUI SG=new groupListGUI (userDetails);
-		new GroupsListCon(SG,this,userDetails);
+		new GroupListController(SG,this,userDetails);
 		SG.setVisible(true);	
 	}
 	/**button listener of add group*/
@@ -251,11 +252,11 @@ public class userMainMenuController extends AbstractTransfer{
 	private class ButtonrestorefileListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent arg0) {
-			ButtonButtonrestorefilefPressed();
+			ButtonrestorefilefPressed();
 		}
 	}
 	
-	public void ButtonButtonrestorefilefPressed()
+	public void ButtonrestorefilefPressed()
 	{
 		Envelope en=new Envelope(userDetails,"files to restore");
 		sendToServer(en);
@@ -316,6 +317,9 @@ public logInCon getPrevController() {
 	}
 
 public void HandleRestoreFilesResult(ArrayList<file> filesToRestore) {
+	
+	RestoreFilesGui RF=new RestoreFilesGui(filesToRestore);
+	new RestoreFileCon(RF,this,userDetails,filesToRestore);
 	
 }
 
