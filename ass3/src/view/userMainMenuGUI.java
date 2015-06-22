@@ -102,7 +102,7 @@ public class userMainMenuGUI extends JFrame {
 	private void initialize() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBackground(Color.CYAN);
-		setBounds(400, 200, 300, 300);
+		setBounds(400, 150, 300, 300);
 		this.setSize(600,559);
 		this.setTitle("main menu");;
 		this.setContentPane(getMainMenu());
@@ -114,9 +114,9 @@ public class userMainMenuGUI extends JFrame {
 		MainMenu=new JPanel();
         MainMenu.setBackground(new Color(135, 206, 235));
 		MainMenu.setLayout(null);
+	   
 		MainMenu.add(getLblwarningMessage());
 	    MainMenu.add(getwarningIcon());   
-	    MainMenu.add(getbtnSearch());  
         
         JLabel lblNewLabel = new JLabel("New label");
         lblNewLabel.setIcon(new ImageIcon(userMainMenuGUI.class.getResource("/view/maatafa.jpg")));
@@ -133,11 +133,7 @@ public class userMainMenuGUI extends JFrame {
 										
    
 		
-		MainMenu.add(messageslist());
-		search = new JTextField();
-		search.setBounds(176, 67, 165, 25);
-		search.setColumns(10);
-		MainMenu.add(search);	
+		MainMenu.add(messageslist());	
 		
 		JLabel lblSearch = new JLabel("Type the file name:");
 		lblSearch.setForeground(new Color(0, 0, 0));
@@ -145,7 +141,7 @@ public class userMainMenuGUI extends JFrame {
 		lblSearch.setBounds(24, 65, 142, 24);
 		MainMenu.add(lblSearch);
 		
-
+        MainMenu.add(getbtnSearch());
         MainMenu.add(getbtnCreateNewFile());										
 		MainMenu.add(getLogOutbtn());
 		MainMenu.add(getRestoreFilesbtn());
@@ -268,7 +264,7 @@ public class userMainMenuGUI extends JFrame {
 	{
 		label = new JLabel("");
 		label.setIcon(new ImageIcon(userMainMenuGUI.class.getResource("/view/Grass Books.jpg")));
-		label.setBounds(0, 0, 584, 510);
+		label.setBounds(0, 0, 584, 521);
 		return this.label;
 	
 	}
@@ -316,11 +312,13 @@ public class userMainMenuGUI extends JFrame {
 	
 	public JButton getbtnSearch()
 	{
-	    btnSearch = new JButton("Search");
-        btnSearch.setFont(new Font("Tahoma", Font.BOLD, 11));
-        btnSearch.setBackground(SystemColor.menu);
-        
-        return btnSearch;   
+		btnSearch = new JButton("Search");
+		btnSearch.setSize(138, 28);
+		btnSearch.setLocation(370, 67);
+		btnSearch.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnSearch.setBackground(SystemColor.menu);
+		
+		return btnSearch;
      }
 
 	public JButton getLogOutbtn()
@@ -328,7 +326,7 @@ public class userMainMenuGUI extends JFrame {
 		 btnLogOut = new JButton("Log Out");
 		    btnLogOut.setFont(new Font("Tahoma", Font.BOLD, 11));
 		    btnLogOut.setBackground(UIManager.getColor("SplitPane.background"));
-			btnLogOut.setBounds(459, 364, 96, 25);
+			btnLogOut.setBounds(443, 469, 96, 25);
 			return btnLogOut;
 	}
 	public JButton getbtnCreateNewFile()
@@ -345,7 +343,9 @@ public class userMainMenuGUI extends JFrame {
     
 	}
 
-/** getTextField() returns the textFeild the user entered*/	
+/** getTextField() returns the textFeild the user entered*/
+	
+	
 	public String getTextField()
 	{
 		return search.getText();
@@ -356,6 +356,8 @@ public class userMainMenuGUI extends JFrame {
 	}
 	
 	
+
+
 /**setJtree() sets the files and folders of the user*/
 	public void setJtree()
 	{

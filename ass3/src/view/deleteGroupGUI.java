@@ -129,7 +129,7 @@ public class deleteGroupGUI extends JFrame{
 		lblwarningM = new JLabel("please");
 		lblwarningM.setForeground(new Color(255, 0, 0));
 		lblwarningM.setFont(new Font("Arial Black", Font.PLAIN, 13));
-		lblwarningM.setBounds(130, 299, 296, 25);
+		
 		lblwarningM.setVisible(false);
 		return lblwarningM;
 	}
@@ -139,7 +139,7 @@ public class deleteGroupGUI extends JFrame{
 		lblwarningM.setText(st);
 		lblwarningM.setForeground(Color.RED);
 		lblwarningM.setFont(new Font("Arial Black", Font.PLAIN, 13));
-		lblwarningM.setBounds(68, 299, 42, 25);
+		lblwarningM.setBounds(130, 299, 296, 25);
 		lblwarningM.setVisible(true);	
 		warningIcon.setVisible(true);
 		

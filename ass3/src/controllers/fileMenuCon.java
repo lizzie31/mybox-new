@@ -247,24 +247,9 @@ public class fileMenuCon extends AbstractTransfer{
 				flag=1;
 			if(flag==1)
 			{
-			
-			boolean check = new File(ChoosenFile.getDirection()).exists();
-			if(check)
-			{
-				Desktop desktop=null;
-				desktop=Desktop.getDesktop();
-				try {
-					desktop.open(new File(ChoosenFile.getDirection()));
-				} catch (IOException e1) {
-	                e1.printStackTrace();
-				}
-			}
-			else
-			{
 			    Envelope en=new Envelope(ChoosenFile.getDirection(),"open file");
 			    sendToServer(en);
 			    myboxapp.clien.setCurrObj(getThisCon());
-			}
 			}
 			else CurrGui.setWarningMessageVisibleTrue("sorry,you don't have permission to read this file.");
 		}

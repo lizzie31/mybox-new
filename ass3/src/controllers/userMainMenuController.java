@@ -195,13 +195,13 @@ public class userMainMenuController extends AbstractTransfer{
 		}	
 	}
 	protected void buttonsearchfilesPressed() {	
-		String str = CurrGui.getTextField();
+		String str =CurrGui.getTextField();
 		if(str.equals(""))
 			CurrGui.setWarningMessageVisibleTrue("Please type the filename to search!");	
 		else
 		{
 			CurrGui.undisplayWarningMessage();
-			Envelope en =new Envelope (CurrGui.getTextField(),"search files");
+			Envelope en =new Envelope (str,"search files");
 			sendToServer(en);
 			myboxapp.clien.setCurrObj(this);
 		}
