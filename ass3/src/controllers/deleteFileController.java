@@ -27,6 +27,7 @@ public class deleteFileController extends AbstractTransfer{
 	private User user;
 	private String Choosenoption=null;
 	
+	/**constructor**/
 	public deleteFileController(deleteFile f, fileMenuCon lastCon,file f1,User u)
 	{
 		this.user=u;
@@ -38,6 +39,7 @@ public class deleteFileController extends AbstractTransfer{
 		currGui.addSelectDelete(new SelectedDeleteListener());
 			
 	}
+	/************action listener****************/
 	/**button listener of selecting a delete option*/
 	public class SelectedDeleteListener implements ActionListener
 	{
@@ -104,13 +106,5 @@ public class deleteFileController extends AbstractTransfer{
 		}
 
 	}
-	/*public void handleDBResult(Object message) {
-		 if((file)message instanceof file)
-		 {
-			 Component frame = null;
-				JOptionPane.showMessageDialog(frame, "deleted successfuly!");
-				currGui.dispose();
-				lastCon.getCurrGui().setVisible(true);
-		 }
-	}*/
+
 }

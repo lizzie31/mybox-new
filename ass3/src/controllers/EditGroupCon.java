@@ -18,11 +18,17 @@ public class EditGroupCon extends AbstractTransfer {
 	
 	/**group is delete group window*/
 	private EditGroupGUI egroup;
+	/**thiscon is edit group controller**/
 	private EditGroupCon thiscon;
+	/**grouptoedit is interest group to edit*/
 	private interestGroups grouptoedit;
+	/**adm is system administrator menu controller*/
 	private administratorMenuController adm;
+	/**currcon is edit group controller*/
 	private EditGroupCon currcon=null;
+	/**filetodelete is the file name we want to delete or update permission*/
 	private String filetodelete;
+	/**filetoadd is the file name we want to add*/
 	private file filetoadd;
 	private Envelope en;
 	private String permmision;
@@ -31,7 +37,8 @@ public class EditGroupCon extends AbstractTransfer {
 	
 	
 	/**
-	 * @wbp.parser.entryPoint
+	 * Constructor
+	 * 
 	 */
 	public EditGroupCon(EditGroupGUI eG, administratorMenuController lastCon , interestGroups grouptoedit)
 	{
@@ -49,6 +56,7 @@ public class EditGroupCon extends AbstractTransfer {
 	
 	
 	}
+	/*******************action listeners*******************/
 	private class ButtonchangePListener implements ActionListener {
 
 		@Override
@@ -153,17 +161,11 @@ public class EditGroupCon extends AbstractTransfer {
 		}
 		}
 		
-
-	/**
-	 * @wbp.parser.entryPoint
-	 */
+/*******************getters and setters**************************/
 	public EditGroupCon getThiscon() {
 		return thiscon;
 	}
 
-	/**
-	 * @wbp.parser.entryPoint
-	 */
 	public EditGroupGUI getEgroup() {
 		return egroup;
 	}

@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.SystemColor;
@@ -32,6 +33,8 @@ public class UpdateGui extends JFrame{
 	private JButton btnChooser=null;
 	private  JFileChooser fileChooser = new JFileChooser();
 	private JButton btnUpdate=null;
+	private JLabel warningIcon=null;
+	private JLabel lblwarningMessage=null;
 
 
 
@@ -87,6 +90,9 @@ public class UpdateGui extends JFrame{
 			label.setIcon(new ImageIcon(UpdateGui.class.getResource("/view/Multicolor Grass Books.jpg")));
 			label.setBounds(0, 0, 484, 261);
 			panel.add(label);
+			
+		    panel.add(getLblwarningMessage());
+		    panel.add(getwarningIcon());
 
 		}
 
@@ -126,6 +132,41 @@ public class UpdateGui extends JFrame{
 		this.fileChooser = fileChooser;
 	}
 
+	public JLabel getwarningIcon()
+	{
+		    warningIcon= new JLabel("");
+		    warningIcon.setIcon(new ImageIcon(userMainMenuGUI.class.getResource("/view/warning.gif")));
+	        warningIcon.setBounds(10,187, 30, 25);
+		    warningIcon.setVisible(false);
+		    
+		    return warningIcon;
+	}
+	
+	/**getLblwarningMessage() returns the warning message*/
+	public JLabel getLblwarningMessage() {
+		if(lblwarningMessage == null){
+			lblwarningMessage = new JLabel("");
+			lblwarningMessage.setVisible(false);
+		}
+		return lblwarningMessage;
+	}
+	/**setWarningMessageVisibleTrue(String st) sets the warning message st visible*/
+	public void setWarningMessageVisibleTrue(String st) {
+		lblwarningMessage.setText(st);
+		lblwarningMessage.setForeground(Color.RED);
+		lblwarningMessage.setFont(new Font("Arial Black", Font.PLAIN, 14));
+		lblwarningMessage.setSize(450, 25);
+		lblwarningMessage.setLocation(45, 187);
+		warningIcon.setVisible(true);
+		lblwarningMessage.setVisible(true);	
+		
+	}
+	/**undisplayWarningMessage() sets the warning message not visible*/
+		public void undisplayWarningMessage() {
+			warningIcon.setVisible(false);
+		lblwarningMessage.setVisible(false);
+		
+	}
 
 
 }

@@ -28,16 +28,23 @@ public class administratorMenuController extends userMainMenuController {
 	 usersarr is array list of all the users */
 	
 	private administratorMenuGUI currgui2;
+	/***currgroup is the current interest group*/
 	private interestGroups currgroup;
+	/**usersarr is array list of all the users*/
 	private ArrayList<User> usersarr;
+	/**allinterestgroups is array list of interest groups*/
 	private ArrayList<interestGroups> allinterestgroups;
+	/**allrequests is array list of group requests*/
 	private ArrayList<GroupsRequests> allrequests;
-
+	/**allfiles is array list of all the files**/
 	private ArrayList<file> allfiles;
 	private Envelope en=null;
 	private interestGroups grouptoedit=null;
 	/**the group that the admin choose to edit*/
 	private String GroupName=null;
+	/**fileArr is array list of files*/
+	private ArrayList<file> fileArr;
+	private User u;
 	/***constractor***
 	 * 
 	 * @param menu
@@ -45,12 +52,6 @@ public class administratorMenuController extends userMainMenuController {
 	 * @param user
 	 * @param menu2
 	 */
-
-	private ArrayList<file> fileArr;
-	private User u;
-	/***constructor
-	 * @wbp.parser.entryPoint***/
-
 	public administratorMenuController (userMainMenuGUI menu,logInCon lastCon,User user,administratorMenuGUI menu2){
 		
 	super(menu,lastCon,user);
@@ -61,14 +62,15 @@ public class administratorMenuController extends userMainMenuController {
 	currgui2.addcreatenewfile2(new ButtoncreatenewfileListener());
 	currgui2.addDeletegroup(new ButtondeleteGroupListener());
 	currgui2.addlogout(new LogOutListener());
-	
+
+
 	currgui2.addcreatenewfolder(new ButtoncreatenewfolderListener());
 	currgui2.addrequests(new ButtonrequestsListener());
 	currgui2.addSelectGroup(new SelectedGroupListener());
 	currgui2.addeditgroup(new ButtoneditGroupListener());
 	currgui2.addsearchfiles(new addsearchfilesListener());
 	}
-	
+	/********************action listeners********************/
 	private class ButtoneditGroupListener implements ActionListener {
 
 
@@ -143,10 +145,7 @@ public class administratorMenuController extends userMainMenuController {
 		}
 		
 	}
-private void buttonCreatefolder() {
-	
-
-	
+	private void buttonCreatefolder() {
 
 		createNewFolderGUI R= new createNewFolderGUI(u);
 		new createNewFolderController(R,this,u);
@@ -273,11 +272,6 @@ private void buttoncreatenewfilePressed() {
 		sendToServer("ShowAllrequets");
 		myboxapp.clien.setCurrObj(this);
 		}
-
-
-	/**getusermainmenu2() returns the administrator manu gui window*/
-
-	
 
 	/**getusermainmenu2() returns the administrator menu gui window*/
 

@@ -30,7 +30,7 @@ public class InterestGroupCon extends AbstractTransfer {
 	/**interest group gui CurrGui*/
 	private InterestGroupGui CurrGui;
 	/**prev controller*/
-	private GroupsListController prevCon;
+	private GroupListController prevCon;
 	/**the selected file name*/
 	private String selectedfile;
 	private InterestGroupCon thisCon=this;
@@ -43,7 +43,7 @@ public class InterestGroupCon extends AbstractTransfer {
 	 * @param prev 
 	 */
 	
-	public InterestGroupCon(InterestGroupGui CurrG,User user,interestGroups groupdetails, GroupsListController prev)
+	public InterestGroupCon(InterestGroupGui CurrG,User user,interestGroups groupdetails, GroupListController prev)
 	{
 		this.user=user;
 		this.groupInformation=groupdetails;

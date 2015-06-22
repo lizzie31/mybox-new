@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JButton;
+import java.awt.Font;
 
 public class permissionGui extends JFrame {
 
@@ -23,7 +24,7 @@ public class permissionGui extends JFrame {
 	private warningGui wor=null;
 	private JLabel lblwarningMessage = null;
 	private JButton btnChooseAdvancedGroups = null;
-	
+	private int selectedComboBox = 0;
 
 	public permissionGui() {
 		initialize();
@@ -49,12 +50,14 @@ public class permissionGui extends JFrame {
 		panel.add(lblSetNewPermission);
 	
 		
-		btnCancel = new JButton("cancel");
-		btnCancel.setBounds(300, 167, 97, 25);
+		btnCancel = new JButton("Cancel");
+		btnCancel.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnCancel.setBounds(292, 212, 97, 25);
 		panel.add(btnCancel);
 		
-		btnOk = new JButton("ok");
-		btnOk.setBounds(42, 167, 97, 25);
+		btnOk = new JButton("OK");
+		btnOk.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnOk.setBounds(83, 212, 97, 25);
 		panel.add(btnOk);
 		panel.add(getLblwarningMessage());
 	}
@@ -63,21 +66,22 @@ public class permissionGui extends JFrame {
 		{
 			panel=new JPanel();
 			panel.setLayout(null);
-			this.setTitle("set permission");
+			this.setTitle("Set permission");
 			
 			btnChooseAdvancedGroups = new JButton("Choose advanced groups");
+			btnChooseAdvancedGroups.setFont(new Font("Tahoma", Font.BOLD, 11));
 			btnChooseAdvancedGroups.setEnabled(false);
-			btnChooseAdvancedGroups.setBounds(298, 120, 176, 23);
+			btnChooseAdvancedGroups.setBounds(239, 108, 176, 23);
 			panel.add(btnChooseAdvancedGroups);
 			
 		}
 		return panel;
 	}
 	
-	public void addSelectPermission(ActionListener e)
-	{
+	public void selectPermission(ActionListener e){
 		comboBox.addActionListener(e);
 	}
+	
 	public void addcancel(ActionListener l) {
 		btnCancel.addActionListener(l);
 	}
@@ -91,9 +95,6 @@ public class permissionGui extends JFrame {
 	public void close() {
 		this.setVisible(false);
 		dispose();
-	}
-	public JComboBox getComboBox() {
-		return comboBox;
 	}
 	
 	/**getLblwarningMessage() returns a label with a warning message that user name of password is in correct*/
@@ -132,5 +133,9 @@ public class permissionGui extends JFrame {
 		this.btnChooseAdvancedGroups = btnChooseAdvancedGroups;
 	}
 	
+	public JComboBox getComboBox() {
+		return this.comboBox;
+		
+	}
  
 }

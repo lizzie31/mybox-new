@@ -24,7 +24,9 @@ public class fileSearchController extends AbstractTransfer {
 	private file fileDetails;
 	private String str;
 	private Envelope en;
+	/***searchresults is array list of files*/
 	private ArrayList<file> searchresults;
+	/**SelectedFile is the name of the file the user selected**/
 	private String SelectedFile=null;
 	private file file=null;
 	private User user=null;
@@ -42,6 +44,7 @@ public class fileSearchController extends AbstractTransfer {
 		searchG.addBtnAddToMyFiles(new btnAddToMyFilesListenet());
 		searchG.addListActionListener(new listSelecTionListen());
 	}
+	/*********************action listiners************************/
 	/**button listener of cancel*/
 	private class ButtoncancelListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
@@ -68,16 +71,7 @@ public class fileSearchController extends AbstractTransfer {
 		
 	}
 	private void btnDescriptionPressed() {
-		if(SelectedFile==null)
-		{
-			
-		}
-		else
-		{
-		new DescriptionGui(file,this);
-		
-		}
-		
+		new DescriptionGui(file,this);	
 	}
 	
 	
@@ -127,7 +121,7 @@ public class fileSearchController extends AbstractTransfer {
 		this.searchG = searchG;
 	}
 	
-	
+	/*********************refresh data***************************/
 	public void RefreshUserData(User userrefresh) {
 		user=userrefresh;
 		searchG.close();

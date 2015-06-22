@@ -35,10 +35,12 @@ public class AddToClientFilesCon extends AbstractTransfer{
 	private AddToClientFilesGui CurrGui=null;
 	/**prevController is user menu controller*/
 	private InterestGroupCon prevController=null;
+	/**prevController2 is file search controller*/
 	private fileSearchController prevController2=null;
 	private User user=null;
 	private directories parent=null;
 	private String str=null;
+	/***CurrCon is add to client files controller*/
 	private AddToClientFilesCon CurrCon=this;
 	private file file=null;
 	private int flag;
@@ -90,7 +92,7 @@ public class AddToClientFilesCon extends AbstractTransfer{
 		if(flag==2)
 		   prevController2.getSearchG().setVisible(true);	
 	}
-	
+	/**ButtonOKListener is a class that implements action listener and opens user main menu window*/
 	private class ButtonOKListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
 			buttonOKPressed();
@@ -156,7 +158,7 @@ public class AddToClientFilesCon extends AbstractTransfer{
 	        return null;
 	 }
 
-
+	/***************getters and setters***************/
 	public AddToClientFilesCon getCurrCon() {
 		return CurrCon;
 	}
@@ -175,7 +177,7 @@ public class AddToClientFilesCon extends AbstractTransfer{
 	public void setCurrGui(AddToClientFilesGui currGui) {
 		CurrGui = currGui;
 	}
-	
+	/***********HandleDBresult********/
 	public void HandleDBresult()
 	{
 		

@@ -1,9 +1,4 @@
 
-
-
-
-
-
 package controllers;
 import view.*;
 
@@ -19,8 +14,6 @@ import Model.GroupsRequests;
 import Model.interestGroups;
 import controllers.JoinGroupCon.SelectedGroupListener;
 
-
-
 public class deleteGroupController extends AbstractTransfer {
 	/**group is delete group window*/
 	private deleteGroupGUI group;
@@ -31,10 +24,7 @@ public class deleteGroupController extends AbstractTransfer {
 	/**the group that the admin choose to delete*/
 	private interestGroups groupToDel;
 	private deleteGroupController thiscon;
-	
 
-	/**constractor
-=======
 	/**constructor
 	 * 
 	 * @param group
@@ -50,7 +40,7 @@ public class deleteGroupController extends AbstractTransfer {
 		group.adddelete(new ButtonDeleteListener() );
 	
 	}
-
+	/********************action listeners********************/
 	public class SelectedGroupListener implements ActionListener
 	{
 		public void actionPerformed(ActionEvent e) {
@@ -94,7 +84,7 @@ public class deleteGroupController extends AbstractTransfer {
 		adm.getusermainmenu2().setVisible(true);
 	
 	}
-
+	/****************getters and setters*******************/
 	public deleteGroupGUI getGroup() {
 		return this.group;
 	}

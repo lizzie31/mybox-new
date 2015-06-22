@@ -8,6 +8,7 @@ public class file extends SystemItem{
 	private int Permission;
 	private String FileOwner;
 	private String Description;
+	private int status; //if user updating the file, status = 1
 	/**renaming file*/
 	private String newfilename;
 	/**if some one wants to delete a file from personal db*/
@@ -18,23 +19,26 @@ public class file extends SystemItem{
     private directories parent;
     private String CurrAddingUser=null;
     private int AbandonedFlag;
+    private int UpFlag;
+    private String ParentName;
 
-	public file(String name,String Dir, int perm, String fileOwner,String Description,int flag)
-	{
-		this.Description=Description;
-		fileName=name;
-		Direction=Dir;
-		this.Permission=perm;
-		this.FileOwner=fileOwner;
-		this.AbandonedFlag=flag;
-	}
 	
-	  public file(String name)
+	  public file(String name, String dir, int perm, String fileOwner, String Description, int abandflag, int upflag, String parentname)
 	{
-	
-		fileName=name;
-		
+			this.Description=Description;
+			this.fileName=name;
+			this.Direction=dir;
+			this.Permission=perm;
+			this.FileOwner=fileOwner;
+			this.AbandonedFlag=abandflag;
+			this.UpFlag=upflag;
+			this.ParentName=parentname;
 	}
+	  
+	  public file(String Name)
+	  {
+		  this.fileName=Name;
+	  }
 	
 	public file(ArrayList<interestGroups> groupsRead, ArrayList<interestGroups> groupsUpdate) {
 		this.groupsForRead = groupsRead;
@@ -151,12 +155,23 @@ public class file extends SystemItem{
 	public void setAbandonedFlag(int abandonedFlag) {
 		AbandonedFlag = abandonedFlag;
 	}
-	
-	
-	
-	
-	
-	
+
+	public int getUpFlag() {
+		return UpFlag;
+	}
+
+	public void setUpFlag(int upFlag) {
+		UpFlag = upFlag;
+	}
+
+	public String getParentName() {
+		return ParentName;
+	}
+
+	public void setParentName(String parentName) {
+		ParentName = parentName;
+	}
+
 	
 }
 

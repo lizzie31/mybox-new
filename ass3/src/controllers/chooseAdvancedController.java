@@ -20,6 +20,7 @@ public class chooseAdvancedController<JCheckBox> extends AbstractTransfer {
 	private interestGroups newgroup;
 	private chooseAdvancedRegularGUI chooseAdvanced;
 	private createNewFileController createFileCon;
+	private permissionController perController;
 	/**
 	 * all the users in DB.
 	 */
@@ -30,14 +31,14 @@ public class chooseAdvancedController<JCheckBox> extends AbstractTransfer {
 	/**
 	 * the users that the admin choose.
 	 */
-	private ArrayList<interestGroups> groupusers=new ArrayList<>();
+	//private ArrayList<interestGroups> groupusers=new ArrayList<>();
 	private ArrayList<interestGroups> groupsRead=new ArrayList<>();
 	private ArrayList<interestGroups> groupsUpdate=new ArrayList<>();
 	/**
 	 * contain the details about the new group to send the server.
 	 */
 	Envelope en;
-	private permissionController perController;
+	
 	
 	/**constructor*/
 	
@@ -54,25 +55,18 @@ public class chooseAdvancedController<JCheckBox> extends AbstractTransfer {
 	     chooseAdvanced.addchecklistUpdate(new checkboxUpdateListener());
 	}
 
-
-
-
-	public chooseAdvancedController(chooseAdvancedRegularGUI cA,
-			permissionController permissionCon, User user) {
+	public chooseAdvancedController(chooseAdvancedRegularGUI cA, permissionController permissionCon, User userDetails) {
 		this.chooseAdvanced=cA;
 		this.perController=permissionCon;
-		this.groupsR=user.getInterestGroupInDB();
-		this.groupsU=user.getInterestGroupInDB();
+		this.groupsR=userDetails.getInterestGroupInDB();
+		this.groupsU=userDetails.getInterestGroupInDB();
 		setChangePermission(true);
 		chooseAdvanced.addcancel(new ButtonCancelListener());
 		chooseAdvanced.addAdd(new ButtonaddlListener());
-	     chooseAdvanced.addchecklist(new checkboxListener());
-	     chooseAdvanced.addchecklistUpdate(new checkboxUpdateListener());
+	    chooseAdvanced.addchecklist(new checkboxListener());
+	    chooseAdvanced.addchecklistUpdate(new checkboxUpdateListener());
 	}
-
-
-
-
+/*********************action listeners*************************/
 	private class checkboxListener implements ActionListener
     {
     	public void actionPerformed(ActionEvent e) {
@@ -140,8 +134,6 @@ public class chooseAdvancedController<JCheckBox> extends AbstractTransfer {
     	  
 	/**ButtoncancelListener is a class that implements action listener and adds a new group*/
 	private class ButtonaddlListener implements ActionListener {
-
-		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			buttonaddPressed();
 		}
@@ -159,53 +151,38 @@ public class chooseAdvancedController<JCheckBox> extends AbstractTransfer {
 			chooseAdvanced.close();
 			createFileCon.setAdvancedFile(new file(groupsRead,groupsUpdate));
 			createFileCon.getCreatefile().setVisible(true);
-		}
-		/*newgroup= new interestGroups(group.getGroupname().getText(), groupusers);
-		en=new Envelope(newgroup,"add new group to DB");
-		sendToServer(en);
-		myboxapp.clien.setCurrObj(this);*/
-	
+		}	
 	
 	}
 	/**ButtonCancelListener is a class that implements action listener and goes back to administrator menu window*/
 	private class ButtonCancelListener implements ActionListener {
-
-		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			buttoncancelPressed();
 		}
-		
 	}
 	
 	private void buttoncancelPressed() {
-		chooseAdvanced.close();
-		
+		chooseAdvanced.close();		
 		if(isChangePermission())
 			perController.getPermissionGUI().setVisible(true);
 
 		else
 			createFileCon.getCreatefile().setVisible(true);
-	
 	}
-
-	public chooseAdvancedRegularGUI getGroup() {
+	
+	/**************getters and setters*****************/
+	public chooseAdvancedRegularGUI getChooseAdvanced() {
 		return chooseAdvanced;
 	}
-
-
+	public void setChooseAdvanced(chooseAdvancedRegularGUI chooseAdvanced) {
+		this.chooseAdvanced = chooseAdvanced;
+	}
 
 
 	public boolean isChangePermission() {
 		return changePermission;
 	}
-
-
-
-
 	public void setChangePermission(boolean changePermission) {
 		this.changePermission = changePermission;
 	}
-	
-	
-
 }
