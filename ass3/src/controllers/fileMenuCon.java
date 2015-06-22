@@ -35,23 +35,16 @@ public class fileMenuCon extends AbstractTransfer{
 	private fileMenuGui CurrGui;
 	/**prevCon is the user main menu controller*/
 	private userMainMenuController prevCon;
+	/**ChossenFile is a file that the user chose**/
 	private file ChoosenFile=null;
-	public void setChoosenFile(file choosenFile) {
-		ChoosenFile = choosenFile;
-	}
 	private boolean updateFlag;
-	public boolean isUpdateFlag() {
-		return updateFlag;
-	}
-	public void setUpdateFlag(boolean updateFlag) {
-		this.updateFlag = updateFlag;
-	}
 	/**menu is user main menu window**/
 	private userMainMenuGUI menu;
 	/**thisCon is the file menu controller*/
 	private fileMenuCon thisCon=this;
 	/**allFiles is an arrayList of all the files in the DB*/
 	private ArrayList<file> allFiles=null;
+
 	
 	/**constructor
 	 * 
@@ -337,7 +330,18 @@ public class fileMenuCon extends AbstractTransfer{
     		}
     		
     	}
-     		/********************getters and setters*****************/
+
+     	/********************getters and setters*******************/
+    	public void setChoosenFile(file choosenFile) {
+    		ChoosenFile = choosenFile;
+    	}
+    	
+    	public boolean isUpdateFlag() {
+    		return updateFlag;
+    	}
+    	public void setUpdateFlag(boolean updateFlag) {
+    		this.updateFlag = updateFlag;
+    	}
 		public fileMenuCon getThisCon() {
 			return this.thisCon;
 		}
@@ -353,6 +357,7 @@ public class fileMenuCon extends AbstractTransfer{
 		public void setCurrGui(fileMenuGui currGui) {
 			CurrGui = currGui;
 		}
+		/*******refresh data**********/
 		public void RefreshUserData(User userrefresh) {
 			user=userrefresh;
 			CurrGui.close();

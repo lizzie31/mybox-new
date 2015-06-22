@@ -25,6 +25,7 @@ public class createNewFolderController extends AbstractTransfer{
 	private User user=null;
 	private directories parent=null;
 	private String str=null;
+	/**CurrCon is create new folder controller*/
 	private createNewFolderController CurrCon=this;
 	
 	/**Constructor

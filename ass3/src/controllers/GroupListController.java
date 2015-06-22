@@ -29,7 +29,7 @@ public class GroupListController extends AbstractTransfer{
 	    grouplist.addcancel(new ButtoncancelListener());
 	    grouplist.addListActionListener(new listListener());
 	}
-
+	/**************action listeners*******************/
 	/**list listener is a class that implements list selection listener and handles a press on the list*/
 	public class listListener implements ListSelectionListener{
 		public void valueChanged(ListSelectionEvent arg0) {
@@ -54,6 +54,13 @@ public class GroupListController extends AbstractTransfer{
 		}
 		
 	}
+	/**handleDBresult closes the current window and opens interest group gui window*/
+	public void handleDBresult(interestGroups IGR) {
+		grouplist.close();
+		InterestGroupGui IGG=new InterestGroupGui(IGR);
+		new InterestGroupCon(IGG,user,IGR,this);
+		
+	}
 	private void buttongrouplistPressed() {
 		
 		Envelope en=new Envelope(user,"refresh data");
@@ -69,13 +76,7 @@ public class GroupListController extends AbstractTransfer{
 	public groupListGUI getGroupListGui() {
 		return grouplist;
 	}
-	/**handleDBresult closes the current window and opens interest group gui window*/
-	public void handleDBresult(interestGroups IGR) {
-		grouplist.close();
-		InterestGroupGui IGG=new InterestGroupGui(IGR);
-		new InterestGroupCon(IGG,user,IGR,this);
-		
-	}
+
 	public GroupListController getThisCon() {
 		return thisCon;
 	}

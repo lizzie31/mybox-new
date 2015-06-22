@@ -32,6 +32,7 @@ public class forgetPassCon extends AbstractTransfer{
 		      forPassGui.addOkActionListener(new OkListener());
 		      forPassGui.addCancelActionListener(new CancelListener());
 			}
+	/*******************action listeners************************/
 	/**button listener of ok */
 	class OkListener implements ActionListener {
 

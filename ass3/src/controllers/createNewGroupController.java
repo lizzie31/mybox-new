@@ -46,9 +46,7 @@ public class createNewGroupController<JCheckBox> extends AbstractTransfer {
 
 	}
 	
-
-	
-	
+	/******************action listeners********************/
     private class checkboxListener implements ActionListener
     {
     	public void actionPerformed(ActionEvent e) {
@@ -109,7 +107,7 @@ public class createNewGroupController<JCheckBox> extends AbstractTransfer {
 		adm.getusermainmenu2().setVisible(true);
 	
 	}
-
+	/****************getters and setters*****************/
 	public createNewGroupGUI getGroup() {
 		return group;
 	}

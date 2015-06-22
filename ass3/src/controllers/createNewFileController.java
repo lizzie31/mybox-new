@@ -62,7 +62,7 @@ public class createNewFileController extends AbstractTransfer{
 		createfile.addChooseLocation(new ChooseLocationListener());
 		
 	}
-	/**ButtoncancelListener is a class that implements action listener and goes back to the user main menu window*/
+	/****************action listeners*********************/
 	
 	private class addChooseAdvancedGroupsListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
@@ -165,7 +165,6 @@ public class createNewFileController extends AbstractTransfer{
 				e.printStackTrace();
 			}
 			
-			//int i = (int) createfile.getComboBox().getSelectedItem();
 			if (selectedComboBox == 0)
 			{
 				setSelectedComboBox(3);
@@ -230,7 +229,7 @@ public class createNewFileController extends AbstractTransfer{
 			
 		}
 	}
-	
+	/**************handleDBResult*************/
 	public void handleDBResultFile(Object message) {
 		if(message.equals("file saved successfully"))
 		{
@@ -245,7 +244,7 @@ public class createNewFileController extends AbstractTransfer{
 			JOptionPane.showMessageDialog(createfile, "Change file name, and try again!", "Failed!",0,null);
 		}
 	}
-
+	/*******************getters and setters****************/
 	public int getSelectedComboBox() {
 		return selectedComboBox;
 	}
@@ -277,7 +276,7 @@ public class createNewFileController extends AbstractTransfer{
 	public void setParent(directories parent) {
 		this.parent = parent;
 	}
-
+	/***************refresh data******************/
 	public void RefreshUserData(User userrefresh) {
 		JOptionPane.showMessageDialog(createfile, "File added succsesfully!", "Congratulations!", 1);
 		userDetails=userrefresh;

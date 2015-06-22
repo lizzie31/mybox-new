@@ -66,7 +66,7 @@ public class chooseAdvancedController<JCheckBox> extends AbstractTransfer {
 	    chooseAdvanced.addchecklist(new checkboxListener());
 	    chooseAdvanced.addchecklistUpdate(new checkboxUpdateListener());
 	}
-
+/*********************action listeners*************************/
 	private class checkboxListener implements ActionListener
     {
     	public void actionPerformed(ActionEvent e) {
@@ -151,12 +151,7 @@ public class chooseAdvancedController<JCheckBox> extends AbstractTransfer {
 			chooseAdvanced.close();
 			createFileCon.setAdvancedFile(new file(groupsRead,groupsUpdate));
 			createFileCon.getCreatefile().setVisible(true);
-		}
-		/*newgroup= new interestGroups(group.getGroupname().getText(), groupusers);
-		en=new Envelope(newgroup,"add new group to DB");
-		sendToServer(en);
-		myboxapp.clien.setCurrObj(this);*/
-	
+		}	
 	
 	}
 	/**ButtonCancelListener is a class that implements action listener and goes back to administrator menu window*/
@@ -174,7 +169,8 @@ public class chooseAdvancedController<JCheckBox> extends AbstractTransfer {
 		else
 			createFileCon.getCreatefile().setVisible(true);
 	}
-
+	
+	/**************getters and setters*****************/
 	public chooseAdvancedRegularGUI getChooseAdvanced() {
 		return chooseAdvanced;
 	}
