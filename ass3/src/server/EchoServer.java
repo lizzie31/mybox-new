@@ -252,14 +252,14 @@ public class EchoServer extends AbstractServer
     	Envelope e=null;
     	ArrayList<file> readfiles=new ArrayList<>();
     	ArrayList<file> updatefiles=new ArrayList<>();
-    	String re="SELECT f.filename,f.direction,f.permission,f.fileowner,f.description,f.AbandonedFlag From file_read_groups as fr,files as f WHERE f.filename=fr.file_name AND fr.interest_group='"+IG.getGroupName()+"'";
+    	String re="SELECT f.filename,f.direction,f.permission,f.fileowner,f.description,f.AbandonedFlag,f.UpdatedFlag,f.Parent From file_read_groups as fr,files as f WHERE f.filename=fr.file_name AND fr.interest_group='"+IG.getGroupName()+"'";
     	rs=stmt.executeQuery(re);
     	while(rs.next())
     	{
     		f=new file(rs.getString(1),rs.getString(2),rs.getInt(3),rs.getString(4),rs.getString(5),rs.getInt(6),rs.getInt(7),rs.getString(8));
     		readfiles.add(f);
     	}
-    	re="SELECT f.filename,f.direction,f.permission,f.fileowner,f.description,f.AbandonedFlag From file_update_groups as fu,files as f WHERE f.filename=fu.file_name AND fu.interest_group='"+IG.getGroupName()+"'";
+    	re="SELECT f.filename,f.direction,f.permission,f.fileowner,f.description,f.AbandonedFlag,f.UpdatedFlag,f.Parent From file_update_groups as fu,files as f WHERE f.filename=fu.file_name AND fu.interest_group='"+IG.getGroupName()+"'";
     	rs1=stmt.executeQuery(re);
     	while(rs1.next())
     	{
@@ -560,6 +560,7 @@ public class EchoServer extends AbstractServer
     	stmt.executeUpdate(re);
     	re="UPDATE test.userdirectories SET Itemname='"+file.getnewfilename()+"'WHERE userdirectories.Itemname='"+file.getFileName()+"'";
     	stmt.executeUpdate(re);
+    //	re="SELECT * FROM test.file_read_groups as FRG WHERE  FRG.file_name='0"+file.getFileName()+
     }
     
     if(en.getTask().equals("Save file in server"))
