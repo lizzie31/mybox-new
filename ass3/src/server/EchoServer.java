@@ -240,6 +240,8 @@ public class EchoServer extends AbstractServer
     	
     }
     
+    
+    
     if(en.getTask().equals("show interest group to user"))
     {
     	interestGroups IG=(interestGroups)en.getObject();
@@ -672,6 +674,31 @@ public class EchoServer extends AbstractServer
 	   f.delete();
 	   
    }
+   
+   if(en.getTask().equals("files to restore"))
+   {
+      User curruser=(User)en.getObject();
+      ArrayList<file> filestorestore=new ArrayList<>();
+      String re="SELECT f.filename,f.direction,f.permission,f.fileowner,f.description,f.AbandonedFlag FROM test.files as f, test.userdirectories as UD WHERE UD.username='"+curruser.getUserName()+"' AND UD.Itemname=f.filename";
+      rs=stmt.executeQuery(re);
+      while(rs.next())
+      {
+    	  file file=new file(rs.getString(1),rs.getString(2),rs.getInt(3),rs.getString(4),rs.getString(5),rs.getInt(6));
+    	  if(file.getAbandonedFlag()==1)
+    		  filestorestore.add(file);
+    	  
+      }
+      Envelope e=new Envelope(filestorestore,"restore files");
+      client.sendToClient(en);
+   }
+   
+   if(en.getTask().equals( "restore file"))
+   {
+	   file file=(file)en.getObject();
+	   String re="INSERT INTO test.userdirectories VALUES('"+file.getFileOwner()+"' , '"+file.getParent()+"' ,'"+file.getFileName()+"')";
+	   stmt.executeUpdate(re);
+   }
+   
   }
    if(msg instanceof String)
    {

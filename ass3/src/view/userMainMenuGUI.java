@@ -66,6 +66,7 @@ public class userMainMenuGUI extends JFrame {
 	private JLabel warningIcon=null;
 	private JLabel lblwarningMessage=null;
 	private JButton btnleaveButton=null;
+	private JButton btnRestoreFiles=null;
 	/**tree is files JTree*/
 	private JTree tree=null;
 	/**nodes in JTree*/
@@ -103,6 +104,11 @@ public class userMainMenuGUI extends JFrame {
 		MainMenu=new JPanel();
         MainMenu.setBackground(new Color(135, 206, 235));
 		MainMenu.setLayout(null);
+        
+        btnRestoreFiles = new JButton("restore files");
+        btnRestoreFiles.setFont(new Font("Tahoma", Font.BOLD, 11));
+        btnRestoreFiles.setBounds(277, 328, 138, 28);
+        MainMenu.add(btnRestoreFiles);
         MainMenu.add(getLblwarningMessage());
         MainMenu.add(getwarningIcon());   
         MainMenu.add(getbtnSearch());  
@@ -117,19 +123,19 @@ public class userMainMenuGUI extends JFrame {
 	    btnShowgroups = new JButton("Show groups");
 		btnShowgroups.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnShowgroups.setBackground(UIManager.getColor("SplitPane.background"));
-		btnShowgroups.setBounds(277, 133, 138, 33);
+		btnShowgroups.setBounds(277, 133, 138, 28);
 		MainMenu.add(btnShowgroups);		
 								
         btnCreateNewFolder = new JButton("Create new folder");
 	    btnCreateNewFolder.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnCreateNewFolder.setBackground(UIManager.getColor("SplitPane.background"));
-		btnCreateNewFolder.setBounds(277, 177, 138, 33);
+		btnCreateNewFolder.setBounds(277, 172, 138, 28);
 		MainMenu.add(btnCreateNewFolder);
 		
 		btnJionGroup = new JButton("Join new group");
 		btnJionGroup.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnJionGroup.setBackground(UIManager.getColor("SplitPane.background"));
-		btnJionGroup.setBounds(277, 265, 138, 33);
+		btnJionGroup.setBounds(277, 250, 138, 28);
 		MainMenu.add(btnJionGroup);
 				
 		search = new JTextField();
@@ -149,13 +155,13 @@ public class userMainMenuGUI extends JFrame {
 		
 		btnleaveButton = new JButton("Leave group");
 		btnleaveButton.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnleaveButton.setBounds(277, 309, 138, 33);
+		btnleaveButton.setBounds(277, 289, 138, 28);
 		MainMenu.add(btnleaveButton);
 		
 		JLabel lblWelcomBack = new JLabel("Wellcom back "+user.getUserName()+"!!");
 		lblWelcomBack.setForeground(new Color(0, 0, 0));
 		lblWelcomBack.setFont(new Font("Arial Black", Font.PLAIN, 16));
-		lblWelcomBack.setBounds(178, 22, 250, 33);
+		lblWelcomBack.setBounds(164, 22, 250, 33);
 		MainMenu.add(lblWelcomBack);
 		
 		btnSearch = new JButton("Search");
@@ -184,7 +190,10 @@ public class userMainMenuGUI extends JFrame {
 	public void addcreatenewfolder(ActionListener l) {
 		btnCreateNewFolder.addActionListener(l);
 	}
-
+	
+	public void addbtnRestoreFiles (ActionListener l) {
+		btnRestoreFiles.addActionListener(l);
+	}
 	public void addjoingruop(ActionListener l) {
 		btnJionGroup.addActionListener(l);
 	}
@@ -231,7 +240,7 @@ public class userMainMenuGUI extends JFrame {
 	{
        btnCreateNewFile = new JButton("Create new file");
        btnCreateNewFile.setFont(new Font("Tahoma", Font.BOLD, 11));
-       btnCreateNewFile.setBounds(277, 221, 138, 33);    
+       btnCreateNewFile.setBounds(277, 211, 138, 28);    
        btnCreateNewFile.setBackground(UIManager.getColor("SplitPane.background"));
     
        return btnCreateNewFile;

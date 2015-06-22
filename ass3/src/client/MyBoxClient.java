@@ -82,7 +82,7 @@ public synchronized void handleMessageFromServer(Object message)
 	    if(E.getTask().equals("log in handle"))
 		   ((logInCon)(currController)).handleDBResult((User)E.getObject());
 	    if(E.getTask().equals("show interest group"))
-	    	((GroupsListController)(currController)).handleDBresult((interestGroups)E.getObject());
+	    	((GroupsListCon)(currController)).handleDBresult((interestGroups)E.getObject());
 	    if(E.getTask().equals("show all interest groups"))
 	    	((userMainMenuController)(currController)).handleDBAllGroupsResult((ArrayList<interestGroups>)E.getObject());
 	    if(E.getTask().equals("open file"))
@@ -94,6 +94,18 @@ public synchronized void handleMessageFromServer(Object message)
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+	    }
+	    if(E.getTask().equals("restore files"))
+	    {
+	    	ArrayList<file> filesToRestore=(ArrayList<file>)E.getObject();
+	    	if(filesToRestore.isEmpty())
+	    	{
+	    		((userMainMenuController)(currController)).getusermainmenu().setWarningMessageVisibleTrue("there is no files to restore.");
+	    	}
+	    	else
+	    	{
+	    		((userMainMenuController)(currController)).HandleRestoreFilesResult(filesToRestore);
+	    	}
 	    }
 	    
 	    if(E.getTask().equals("refresh data"))
@@ -115,9 +127,9 @@ public synchronized void handleMessageFromServer(Object message)
 	    	{
 	    		((fileMenuCon)(currController)).RefreshUserData(userrefresh);
 	    	}
-	    	if(currController instanceof GroupsListController)
+	    	if(currController instanceof GroupsListCon)
 	    	{
-	    		((GroupsListController)(currController)).RefreshUserData(userrefresh);
+	    		((GroupsListCon)(currController)).RefreshUserData(userrefresh);
 	    	}
 	    }
 	    if(E.getTask().endsWith("search file"))    

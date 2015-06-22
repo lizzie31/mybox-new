@@ -68,6 +68,7 @@ public class userMainMenuController extends AbstractTransfer{
 		CurrGui.addsearchfiles(new addsearchfilesListener());
 		CurrGui.addleavegruop(new ButtonleaveListene());
 		CurrGui.addcreatenewfile(new ButtoncreatenewfileListener());
+		CurrGui.addbtnRestoreFiles(new ButtonrestorefileListener());
 	}
 	
 	public userMainMenuController(userMainMenuGUI menu, User user) {
@@ -84,7 +85,8 @@ public class userMainMenuController extends AbstractTransfer{
 	
 }
 
-	/*********************action listeners*******************/
+
+	/*************************************************action listeners**********************************************************/
 	/**button listener of leave*/
 	public class ButtonleaveListene implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
@@ -112,7 +114,7 @@ public class userMainMenuController extends AbstractTransfer{
 		CurrGui.close();
 		this.setUserDetails(userDetails);
 		groupListGUI SG=new groupListGUI (userDetails);
-		new GroupsListController(SG,this,userDetails);
+		new GroupsListCon(SG,this,userDetails);
 		SG.setVisible(true);	
 	}
 	/**button listener of add group*/
@@ -157,12 +159,10 @@ public class userMainMenuController extends AbstractTransfer{
 	}
 			 
 		   
-
+//this function finds the preesed file in the tree
 		private void findInTree(directories dir,String Str)
 		{
 		 String filename=Str;	
-		// if(dir.getfiles().isEmpty()==false)
-		// {
 		 for(int i=0;i<dir.getfiles().size();i++)
 			{
 			 if(dir.getfiles().get(i) instanceof directories)
@@ -213,8 +213,6 @@ public class userMainMenuController extends AbstractTransfer{
 				logInGui login=new logInGui();
 				logInMod loginm=new logInMod();
 				new logInCon(login,loginm);
-				//prevController.getLoginG().ClearText();
-				//prevController.getLoginG().setVisible(true);
 			}
 	 } 	
 		/**button listener of create new file*/
@@ -249,6 +247,22 @@ public class userMainMenuController extends AbstractTransfer{
 		new createNewFolderController(CNFOG,this,userDetails);
 	    CNFOG.setVisible(true);
 	}
+	
+	private class ButtonrestorefileListener implements ActionListener {
+
+		public void actionPerformed(ActionEvent arg0) {
+			ButtonButtonrestorefilefPressed();
+		}
+	}
+	
+	public void ButtonButtonrestorefilefPressed()
+	{
+		Envelope en=new Envelope(userDetails,"files to restore");
+		sendToServer(en);
+		myboxapp.clien.setCurrObj(this);
+	}
+	
+	
 	
 	/**UpdateDB is setting the status of a user as 0 - logged out*/
 	public void UpdateDB(){
@@ -300,6 +314,10 @@ public userMainMenuController getCon(){
 public logInCon getPrevController() {
 		return prevController;
 	}
+
+public void HandleRestoreFilesResult(ArrayList<file> filesToRestore) {
+	
+}
 
 }
 
