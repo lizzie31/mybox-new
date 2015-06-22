@@ -171,6 +171,10 @@ public class leavegroupGUI extends JFrame {
 		dispose();
 	}
 
-
+	public void secssid_massege()
+	{
+		Component frame = null;
+		JOptionPane.showMessageDialog(frame, "your request was send to the system administrator!");
+	}
 }
 

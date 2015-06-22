@@ -139,8 +139,17 @@ public class EchoServer extends AbstractServer
 		    	  s=new interestGroups(rs.getString(2));
 		    	  interestGroup.add(s);
 		    	}
+		    	ArrayList<String> allmessage=new ArrayList<>();
+		    	String messege;
+		    	re="SELECT * FROM test.meaagegtousers WHERE meaagegtousers.username= '"+username +"'";
+		    	rs = stmt.executeQuery(re);
+		    	while(rs.next()==true)
+		    	{
+		    	messege=rs.getString(2);
+		    	  allmessage.add(messege);
+		    	}
 				
-	       	 user = new User(username,pass,mail,status,Items,interestGroup);
+	       	 user = new User(username,pass,mail,status,Items,interestGroup,allmessage);
 	    	 en=new Envelope(user,"log in handle");
 	    	 client.sendToClient(en);
 		  }
@@ -214,12 +223,7 @@ public class EchoServer extends AbstractServer
 	   stmt.executeUpdate(upd);
 	   controller.SetLog(userloged,"logout");  //update the logout serverLogGui
     }
-    if(en.getTask().equals("send request to system administrator"))
-    {
-    	  GroupsRequests request=(GroupsRequests)en.getObject();
-    	  String re="INSERT INTO test.requests VALUES('"+request.getGroupName()+"','"+request.getUserName()+"','"+request.getRequestType()+"');";
-    	  stmt.executeUpdate(re);
-    }
+
     
         if(en.getTask().equals("add file for read"))
     {
@@ -556,7 +560,7 @@ public class EchoServer extends AbstractServer
     			fos.write(filecontent);
     			fos.flush();
     			fos.close();
-    			String re = "INSERT INTO test.files VALUES('"+f.getFileName()+"','"+f.getDirection()+"','"+f.getFilepermission()+"','"+f.getFileOwner()+"','"+f.getDescription()+"' , '"+f.getAbandonedFlag()+"');";
+    			String re = "INSERT INTO test.files VALUES('"+f.getFileName()+"','"+f.getDirection()+"','"+f.getFilepermission()+"','"+f.getFileOwner()+"','"+f.getDescription()+"' , '"+f.getAbandonedFlag()+"','0')";
                	stmt1.executeUpdate(re);
                	re = "INSERT INTO test.userdirectories VALUES('"+f.getFileOwner()+"','"+f.getParent().getDirectoryName()+"','"+f.getFileName()+"')";
         	    stmt.executeUpdate(re);
@@ -620,18 +624,34 @@ public class EchoServer extends AbstractServer
     	{
     		String re=("INSERT INTO test.userinterestgroups VALUES('"+r.getUserName()+"','"+r.getGroupName()+"');");
    	    	stmt.executeUpdate(re);	
-   	    	//DELETE FROM `test`.`requests` WHERE `groupname`='animals';
+   	    	stmt.executeUpdate("INSERT INTO test.meaagegtousers VALUES('"+r.getUserName()+"','the admin aprrove your request to join " +r.getGroupName()+"');");
    	    	stmt.executeUpdate("DELETE FROM test.requests WHERE groupname='"+r.getGroupName()+"'AND username='"+r.getUserName()+"'");	
+   	  
    	        client.sendToClient("the user was added secssfuly to this group" );
+   	     
     	}
     	else{
+    		stmt.executeUpdate("INSERT INTO test.meaagegtousers VALUES('"+r.getUserName()+"','the admin aprrove your request to leave " +r.getGroupName()+"');");
     		stmt.executeUpdate("DELETE FROM test.userinterestgroups WHERE groupname='"+r.getGroupName()+"'AND username='"+r.getUserName()+"'");
     		stmt.executeUpdate("DELETE FROM test.requests WHERE groupname='"+r.getGroupName()+"'AND username='"+r.getUserName()+"'");
-    		 client.sendToClient("the user was deleted secssfuly from this group" );
+    		client.sendToClient("the user was deleted secssfuly from this group" );
     	}
-    		
- 		
+
     	  }
+    if(en.getTask().equals("DenyRequest"))
+    {
+    	GroupsRequests r=(GroupsRequests)en.getObject();
+    	if(r.getRequestType().equals("join"))
+    	{	
+    	stmt.executeUpdate("INSERT INTO test.meaagegtousers VALUES('"+r.getUserName()+"','the admin reject your request to join " +r.getGroupName()+"');");
+    	stmt.executeUpdate("DELETE FROM test.requests WHERE groupname='"+r.getGroupName()+"'AND username='"+r.getUserName()+"'");
+    	}
+    	else
+    	{
+    	stmt.executeUpdate("INSERT INTO test.meaagegtousers VALUES('"+r.getUserName()+"','the admin reject your request to leave " +r.getGroupName()+"');");
+    	stmt.executeUpdate("DELETE FROM test.requests WHERE groupname='"+r.getGroupName()+"'AND username='"+r.getUserName()+"'");
+    	}
+    }
     
     if(en.getTask().equals("delete file not owner"))
     {

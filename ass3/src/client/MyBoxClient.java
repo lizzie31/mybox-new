@@ -207,7 +207,9 @@ public synchronized void handleMessageFromServer(Object message)
 		}
 		if(str.equals("request was send"))
 		{
+			if(currController instanceof JoinGroupCon )
 			((JoinGroupCon)currController).getJoinGroupGui().secssid_massege();
+			else ((leavegroupcontroller)currController).getLeaveGroupGui().secssid_massege();
 		}
 		
 		if(str.equals("no requests"))

@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
+import client.myboxapp;
 import Model.Envelope;
 import Model.GroupsRequests;
 import Model.User;
@@ -17,6 +18,7 @@ public class leavegroupcontroller extends AbstractTransfer{
 		private userMainMenuController prevController;
 		/**GroupName is the name of the group the user requested to leave*/
 		private String GroupName=null;
+		private leavegroupcontroller thiscon=this;
 		private User user;
 		
 		/**constructor
@@ -73,11 +75,21 @@ public class leavegroupcontroller extends AbstractTransfer{
 				GroupsRequests request=new GroupsRequests(GroupName,user.getUserName(),"leave");
 				Envelope en=new Envelope(request,"send request to system administrator");
 				sendToServer(en);
-				Component frame = null;
-				JOptionPane.showMessageDialog(frame, "your request was send to the system administrator!");
+				myboxapp.clien.setCurrObj(getThiscon());
 				}
 			}
 		}
+
+		public leavegroupcontroller getThiscon() {
+			return thiscon;
+		}
+		public void setThiscon(leavegroupcontroller thiscon) {
+			this.thiscon = thiscon;
+		}
+		public leavegroupGUI getLeaveGroupGui() {
+			return leaveGroupGui;
+		}
+		
 		
 		
 

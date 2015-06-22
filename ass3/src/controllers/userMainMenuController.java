@@ -93,6 +93,8 @@ public class userMainMenuController extends AbstractTransfer{
 	}
 	
 	protected void buttonleavePressed() {	
+	
+		
 		CurrGui.close();
 		this.setUserDetails(userDetails);
 		leavegroupGUI LG=new leavegroupGUI(userDetails);
@@ -252,9 +254,11 @@ public class userMainMenuController extends AbstractTransfer{
 	
 	/**UpdateDB is setting the status of a user as 0 - logged out*/
 	public void UpdateDB(){
+		
 		en=new Envelope(userDetails,"log out status");
 		 sendToServer(en);
 		 userDetails.setStatus(0);
+		 
 	}
 	/**handleDBResultFile handles results from the DB*/
 	public void handleDBResultFile(Object message) {

@@ -157,7 +157,7 @@ public class joinGroupGui extends JFrame {
 		lblwarningMessage.setText(st);
 		lblwarningMessage.setForeground(Color.RED);
 		lblwarningMessage.setFont(new Font("Arial Black", Font.PLAIN, 13));
-		lblwarningMessage.setBounds(43, 129, 276, 32);
+		lblwarningMessage.setBounds(20, 126, 545, 45);
 		lblwarningMessage.setVisible(true);	
 		
 	}

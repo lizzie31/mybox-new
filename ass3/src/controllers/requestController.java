@@ -34,9 +34,30 @@ public class requestController extends AbstractTransfer {
 		requestgui.addcancelRequest(new ButtoncancelListener());
 		requestgui.addapproveRequest(new ButtonaprroveListener());
 		requestgui.addListActionListener(new listSelecTionListen());
+		requestgui.adddenyRequest(new ButtonadenyListen());
 	}
 	/*********************action listeners*******************/
 	/**button listener of approve request*/
+	
+	private class ButtonadenyListen implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			buttonDenyPressed();
+		}
+		
+	}
+	private void buttonDenyPressed() {
+		for(int i=0;i<allrequests.size();i++)
+		{
+		if(selectedrequest.contains(allrequests.get(i).getGroupName()) && selectedrequest.contains(allrequests.get(i).getRequestType()) && selectedrequest.contains(allrequests.get(i).getUserName()))
+				request1=allrequests.get(i);
+		}
+		Envelope en=new Envelope(request1,"DenyRequest");
+		sendToServer(en);
+		requestgui.close();
+		
+	}
 	private class ButtonaprroveListener implements ActionListener {
 
 		@Override

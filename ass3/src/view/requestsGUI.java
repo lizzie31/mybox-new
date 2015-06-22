@@ -27,6 +27,7 @@ import javax.swing.JList;
 import javax.swing.AbstractListModel;
 import javax.swing.border.EtchedBorder;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.ImageIcon;
 
 public class requestsGUI extends JFrame {
 
@@ -37,6 +38,7 @@ public class requestsGUI extends JFrame {
 	private JList list;
 	private String[] values = null;
 	private JButton btnAprrove;
+	private JButton btnDeny ;
 
 	public requestsGUI(ArrayList<GroupsRequests> allrequests) {
 		this.allrequests=allrequests;
@@ -49,20 +51,6 @@ public class requestsGUI extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(500,500);
 		this.setContentPane(getCreatePanel());
-		
-		JLabel lblNewLabel = new JLabel("Requests List");
-		lblNewLabel.setForeground(Color.BLUE);
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
-		lblNewLabel.setBounds(60, 23, 137, 26);
-		panel.add(lblNewLabel);
-		
-		btnAprrove = new JButton("aprrove");
-		btnAprrove.setBounds(46, 325, 89, 23);
-		panel.add(btnAprrove);
-		
-		JButton btnDeny = new JButton("deny");
-		btnDeny.setBounds(210, 325, 89, 23);
-		panel.add(btnDeny);
 	}
 	private JPanel getCreatePanel(){
 		
@@ -72,11 +60,30 @@ public class requestsGUI extends JFrame {
 			panel=new JPanel();
 			panel.setLayout(null);
 			
+			btnAprrove = new JButton("aprrove");
+			btnAprrove.setBounds(46, 325, 89, 23);
+			panel.add(btnAprrove);
+			
+			JLabel lblNewLabel = new JLabel("Requests List");
+			lblNewLabel.setForeground(new Color(0, 100, 0));
+			lblNewLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
+			lblNewLabel.setBounds(60, 23, 137, 26);
+			panel.add(lblNewLabel);
+			
+			btnDeny = new JButton("deny");
+			btnDeny.setBounds(210, 325, 89, 23);
+			panel.add(btnDeny);
+			
 			btnCancel = new JButton("cancel");
 			btnCancel.setBounds(358, 324, 97, 25);
 			panel.add(btnCancel);
 			panel.add(getList1());
-		panel.add(list);
+		
+		
+		JLabel label = new JLabel("");
+		label.setIcon(new ImageIcon(requestsGUI.class.getResource("/view/green-backgrounds-9.jpg")));
+		label.setBounds(0, 0, 484, 462);
+		panel.add(label);
 			
 		}
 		return panel;
@@ -94,7 +101,7 @@ public class requestsGUI extends JFrame {
 		list.setFont(new Font("Arial Black", Font.PLAIN, 12));
 		list.setForeground(new Color(0, 0, 0));
 		list.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		list.setBackground(new Color(0, 191, 255));
+		list.setBackground(new Color(152, 251, 152));
 		list.setModel(new AbstractListModel() {
 			public int getSize() 
 			{return values.length; }
@@ -114,6 +121,10 @@ public class requestsGUI extends JFrame {
 	{
 		list.addListSelectionListener(e);
 	}
+	public void adddenyRequest(ActionListener l) {
+		btnDeny.addActionListener(l);
+	}
+	
  	/**showsuceedmessege() shows a message that the group was added sucssesfuly to the DB*/
  	public void showsuceedmessege(String st)
  	{
@@ -130,6 +141,4 @@ public class requestsGUI extends JFrame {
 	public JList getList() {
 		return list;
 	}
-	
-	
 }

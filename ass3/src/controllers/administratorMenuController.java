@@ -56,12 +56,12 @@ public class administratorMenuController extends userMainMenuController {
 	super(menu,lastCon,user);
 	this.u=user;
     this.currgui2=menu2;
-	currgui2.addrequests(new ButtonrequestsListener());
+	
 	currgui2.addcreatenewgroup(new ButtonCreateGroupListener());
 	currgui2.addcreatenewfile2(new ButtoncreatenewfileListener());
 	currgui2.addDeletegroup(new ButtondeleteGroupListener());
 	currgui2.addlogout(new LogOutListener());
-	currgui2.addDeletegroup(new ButtondeleteGroupListener());
+	
 	currgui2.addcreatenewfolder(new ButtoncreatenewfolderListener());
 	currgui2.addrequests(new ButtonrequestsListener());
 	currgui2.addSelectGroup(new SelectedGroupListener());

@@ -21,6 +21,7 @@ public class User extends AbstractModel {
 	/** user directories*/
 	private directories userItems;
 	private String email = null;
+	private ArrayList<String> allmessages;
 
 /**
  * Constructor
@@ -33,7 +34,7 @@ public class User extends AbstractModel {
  * @param dir
  * 
  */
-	public User(String usreName, String upassword,String email,int status,directories Item, ArrayList<interestGroups> interestGroup)
+	public User(String usreName, String upassword,String email,int status,directories Item, ArrayList<interestGroups> interestGroup,ArrayList<String> Allmessage)
 	{
 		this.userName = usreName;
     	this.upassword =upassword;
@@ -41,6 +42,7 @@ public class User extends AbstractModel {
 		this.email = email;
 		this.userItems=Item;
 		this.interestGroupInDB=interestGroup;
+		this.allmessages=Allmessage;
 	}
 	
 	public User(String usreName, String upassword,String email,int status)
@@ -132,6 +134,15 @@ public directories getuserItems() {
 		public void setStatus(int status) {
 			this.status = status;
 		}
+
+	public ArrayList<String> getAllmessages() {
+		return allmessages;
+	}
+
+	public void setAllmessages(ArrayList<String> allmessages) {
+		this.allmessages = allmessages;
+	}
+		
 
 
 		
