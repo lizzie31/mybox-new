@@ -105,7 +105,6 @@ public class userMainMenuGUI extends JFrame {
         MainMenu.setBackground(new Color(135, 206, 235));
 		MainMenu.setLayout(null);
          
-        MainMenu.add(btnRestoreFiles);
         MainMenu.add(getLblwarningMessage());
         MainMenu.add(getwarningIcon());   
         MainMenu.add(getbtnSearch());  
@@ -119,12 +118,10 @@ public class userMainMenuGUI extends JFrame {
 		MainMenu.add(getSearchLable());
 		MainMenu.add(getbtnleaveButton());
 		MainMenu.add(getlblWelcomBack());
-		MainMenu.add(getlabel());
 		setJtree();
 		tree.setBounds(42, 133, 205, 218);
 		MainMenu.add(tree);
-		
-
+		MainMenu.add(getlabel());
 		
 		}
 		return MainMenu;	
@@ -209,6 +206,7 @@ public class userMainMenuGUI extends JFrame {
 		label.setIcon(new ImageIcon(userMainMenuGUI.class.getResource("/view/Multicolor Grass Books.jpg")));
 		label.setBounds(0, 0, 584, 422);
 		return this.label;
+	
 	}
 	public JButton getbtnleaveButton()
 	{
