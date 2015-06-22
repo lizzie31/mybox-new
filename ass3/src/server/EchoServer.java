@@ -501,15 +501,13 @@ public class EchoServer extends AbstractServer
     		newPermission = 1;
     	if(en.getTask().contains("2"))
     		newPermission = 2;
-    	else//(en.getTask().contains("3"))
+    	else
     		newPermission = 3;
     	String str = "UPDATE test.files SET permission= " + newPermission + " WHERE files.filename= '"+(((file)(en.getObject())).getFileName()+"'");
     	stmt1.executeUpdate(str);
     	if(oldPermission == 2)
     	{
-    		//if(((file)(en.getObject())).getGroupsForRead().size() > 0)
     			stmt1.executeUpdate("DELETE FROM test.file_read_groups WHERE file_name='" + ((file)(en.getObject())).getFileName() + "' ;");
-    		//if(((file)(en.getObject())).getGroupsForUpdate().size() > 0)
     			stmt1.executeUpdate("DELETE FROM test.file_update_groups WHERE file_name='" + ((file)(en.getObject())).getFileName() + "' ;");  		
     	}
     	else if(oldPermission == 3)
@@ -560,7 +558,20 @@ public class EchoServer extends AbstractServer
     	stmt.executeUpdate(re);
     	re="UPDATE test.userdirectories SET Itemname='"+file.getnewfilename()+"'WHERE userdirectories.Itemname='"+file.getFileName()+"'";
     	stmt.executeUpdate(re);
-    //	re="SELECT * FROM test.file_read_groups as FRG WHERE  FRG.file_name='0"+file.getFileName()+
+    	re="SELECT * FROM test.file_read_groups as FRG WHERE  FRG.file_name='"+file.getFileName()+"'";
+    	rs=stmt.executeQuery(re);
+    	re="UPDATE test.file_read_groups SET file_name='"+file.getnewfilename()+"' WHERE file_name='"+file.getFileName()+"'";
+    	while(rs.next())
+    	{
+    		stmt.executeUpdate(re);
+    	}
+    	re="SELECT * FROM test.file_update_groups as FRG WHERE  FRG.file_name='"+file.getFileName()+"'";
+    	rs=stmt.executeQuery(re);
+    	re="UPDATE test.file_update_groups SET file_name='"+file.getnewfilename()+"' WHERE file_name='"+file.getFileName()+"'";
+    	while(rs.next())
+    	{
+    		stmt.executeUpdate(re);
+    	}
     }
     
     if(en.getTask().equals("Save file in server"))
