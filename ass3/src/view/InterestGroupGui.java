@@ -93,7 +93,7 @@ public class InterestGroupGui extends AbstractGui{
 		lblWelcomToThe.setBackground(new Color(30, 144, 255));
 		lblWelcomToThe.setForeground(new Color(0, 0, 0));
 		lblWelcomToThe.setFont(new Font("Arial Black", Font.PLAIN, 14));
-		lblWelcomToThe.setBounds(92, 0, 242, 50);
+		lblWelcomToThe.setBounds(92, 0, 350, 50);
 		
 		return lblWelcomToThe;
 	}

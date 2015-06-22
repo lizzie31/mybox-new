@@ -102,7 +102,7 @@ public class userMainMenuGUI extends JFrame {
 	private void initialize() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBackground(Color.CYAN);
-		setBounds(400, 150, 300, 300);
+		setBounds(400, 100, 300, 300);
 		this.setSize(600,559);
 		this.setTitle("main menu");;
 		this.setContentPane(getMainMenu());

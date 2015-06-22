@@ -43,7 +43,7 @@ public class AddToClientFilesGui extends JFrame{
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		this.setBounds(100, 100, 345, 300);
+		this.setBounds(400, 100, 345, 300);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(400,442);
 		this.setContentPane(getCreatePanel());

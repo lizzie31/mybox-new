@@ -163,7 +163,7 @@ public class logInGui extends JFrame{
 			lblwarningMessage = new JLabel("The username or password is wrong!");
 			lblwarningMessage.setHorizontalAlignment(SwingConstants.CENTER);
 			lblwarningMessage.setForeground(new Color(255, 0, 0));
-			lblwarningMessage.setBounds(10, 165, 200, 30);
+			lblwarningMessage.setBounds(10, 165,350, 30);
 			lblwarningMessage.setVisible(false);
 		}
 		return lblwarningMessage;
@@ -176,7 +176,7 @@ public class logInGui extends JFrame{
 	public void setWarningMessageVisibleTrue(String st) {
 		lblwarningMessage.setText(st);
 		lblwarningMessage.setForeground(Color.RED);
-		lblwarningMessage.setBounds(10, 165, 245, 30);
+		lblwarningMessage.setBounds(10, 165, 350, 30);
 		lblwarningMessage.setVisible(true);	
 		
 	}
