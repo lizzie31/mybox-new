@@ -595,7 +595,7 @@ public class EchoServer extends AbstractServer
     		fos.write(filecontent);
     		fos.flush();
     		fos.close();
-    		String re = "INSERT INTO test.files VALUES ('"+f.getFileName()+"','"+f.getDirection()+"','"+f.getFilepermission()+"','"+f.getFileOwner()+"','"+f.getDescription()+"','"+f.getAbandonedFlag()+"','0' , "+f.getParent().getDirectoryName()+"')";
+    		String re = "INSERT INTO test.files VALUES ('"+f.getFileName()+"','"+f.getDirection()+"','"+f.getFilepermission()+"','"+f.getFileOwner()+"','"+f.getDescription()+"','"+f.getAbandonedFlag()+"','0' , '"+f.getParent().getDirectoryName()+"')";
        		stmt1.executeUpdate(re);
        		
        		
